@@ -18,7 +18,7 @@ I made the following modification on orignal code:
  *  Because this boilerplate uses Angular CLI, I had to make some modification in ```MonacoEditorWrapperComponent``` constructor, to determine the proper application path
  *  The wrapper uses the Monaco editor that is in the node_modules, musn't copy the assets directory
 
- # Main parts
+# Main parts
 
  *  ```/src/electron-load.js```
  *  this script is loaded by angular.json
@@ -26,7 +26,8 @@ I made the following modification on orignal code:
 
 
 # Run, Build, etc
-copy-pasted from 
+copy-pasted from original boilerplate:
+
 |Command|Description|
 |--|--|
 |`npm run ng:serve:web`| Execute the app in the browser |
