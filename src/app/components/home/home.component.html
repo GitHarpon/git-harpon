@@ -1,0 +1,8 @@
+<div class="container">
+  <app-monaco-editor-wrapper
+  theme="vs" language="json"
+  style="height: 95%; width: 95%"
+  editorStyle="border:0;"
+  [editorOptions]="{ formatOnPaste: true, formatOnType: true, scrollBeyondLastLine: false }"
+  [(ngModel)]="model" #editor ></app-monaco-editor-wrapper>
+</div>
