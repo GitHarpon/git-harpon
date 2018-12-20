@@ -14,7 +14,7 @@ The following projects have been used:
 # Details
 
 I made the following modification on orignal code:
- *  Teradata's original wrapper are able to used in non-electron environment. This code is removed, because I focus to Electron
+ *  Teradata's original wrapper are able to used in non-electron environment. This code is removed, because I focused to Electron
  *  Because this boilerplate uses Angular CLI, I had to make some modification in ```MonacoEditorWrapperComponent``` constructor, to determine the proper application path
  *  The wrapper uses the Monaco editor that is in the node_modules, musn't copy the assets directory
 
