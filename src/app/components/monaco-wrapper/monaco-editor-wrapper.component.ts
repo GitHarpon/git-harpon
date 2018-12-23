@@ -326,6 +326,9 @@ export class MonacoEditorWrapperComponent implements OnInit, ControlValueAccesso
                 ipcRenderer.on('setEditorOptions', function(event, data){
                     editor.updateOptions(data);
                     ipcRenderer.sendToHost("onEditorConfigurationChanged", '');
+                    if (data.theme) {
+                        monaco.editor.setTheme(data.theme);
+                    }
                 });
 
                 // set the language of the editor from what was sent from the mainview
