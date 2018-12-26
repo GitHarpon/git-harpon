@@ -147,8 +147,10 @@ export class MonacoEditorWrapperComponent implements OnInit, ControlValueAccesso
     set language(language: string) {
         this._language = language;
         if (this._componentInitialized) {
+            console.log('coucou');
             this._webview.send('setLanguage', language);
         }
+        console.log('test');
     }
     get language(): string {
         return this._language;
@@ -326,6 +328,17 @@ export class MonacoEditorWrapperComponent implements OnInit, ControlValueAccesso
                 ipcRenderer.on('setEditorOptions', function(event, data){
                     editor.updateOptions(data);
                     ipcRenderer.sendToHost("onEditorConfigurationChanged", '');
+                    if (data.theme) {
+                        monaco.editor.setTheme(data.theme);
+                    }
+                    if (data.tabSize) {
+                        editor.getModel().updateOptions({
+                            tabSize: data.tabSize
+                        });
+                    }
+                    if (data.language) {
+                        monaco.editor.setModelLanguage(editor.getModel(), data.language);
+                    }
                 });
 
                 // set the language of the editor from what was sent from the mainview

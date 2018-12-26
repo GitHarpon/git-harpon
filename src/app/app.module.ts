@@ -21,6 +21,10 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MonacoEditorWrapperComponent } from './components/monaco-wrapper/monaco-editor-wrapper.component';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+import { EditorPreferencesService } from './providers/editor-preferences.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -46,9 +50,11 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: (HttpLoaderFactory),
         deps: [HttpClient]
       }
-    })
+    }),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
-  providers: [ElectronService],
+  providers: [ElectronService, EditorPreferencesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
