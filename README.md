@@ -38,3 +38,5 @@ copy-pasted from original boilerplate:
 |`npm run electron:windows`| On a Windows OS, builds your application and creates an app consumable in windows 32/64 bit systems |
 |`npm run electron:mac`|  On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Mac |
 
+# Contributors
+ * [Clément](https://github.com/Nemtecl)
