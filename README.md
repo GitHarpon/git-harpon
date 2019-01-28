@@ -1,4 +1,4 @@
-->![Git Harpon logo](./logo-githarpon.png)<-
+<div style="text-align:center"><img src="./logo-githarpon.png"  alt="Logo Git Harpon"/></div>
 
 # Introduction
 
