@@ -1,7 +1,7 @@
-import { AngularElectronPage } from './app.po';
+import { GitHarponPage } from './app.po';
 import { browser, element, by } from 'protractor';
 
-describe('angular-electron App', () => {
+describe('git-harpon App', () => {
   let page: AngularElectronPage;
 
   beforeEach(() => {

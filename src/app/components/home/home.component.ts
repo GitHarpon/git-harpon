@@ -22,7 +22,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   constructor(private electronService: ElectronService,
-    private editorPreferencesService: EditorPreferencesService) {
+    private editorPreferencesService: EditorPreferencesService,
+    private toastr: ToastrService) {
     this.preferencesSubscription = this.editorPreferencesService.preferencesSubject.subscribe(
       (preferences: any) => {
         this.preferences = {

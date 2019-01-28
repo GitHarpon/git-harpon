@@ -1,42 +1,104 @@
-[![Angular Logo](./logo-angular.jpg)](https://angular.io/) [![Electron Logo](./logo-electron.jpg)](https://electron.atom.io/) 
-#[Monaco Editor](https://github.com/Microsoft/monaco-editor)
+->![Git Harpon logo](./logo-githarpon.png)<-
 
 # Introduction
 
-This is an integration example to use Monaco editor in Electron app that uses Angular framework.
+Cette application est une preuve de concept pour notre projet Git Harpon.
 
-The following projects have been used:
+Elle permet d'ouvrir un terminal depuis n'importe quel système d'exploitation. De plus, l'application est disponible en anglais et en français.
 
- *  Maxime GRIS's ultralight Angular + Electron boilerplate: https://github.com/maximegris/angular-electron
- *  Teradata's fantastic Angular wrapper around Monaco editor: https://github.com/Teradata/covalent-code-editor
- *  And of course Monaco editor: https://microsoft.github.io/monaco-editor/
+Pour cela, nous avons utilisé :
 
-# Details
+- Angular v7.0.3
+- Electron v3.0.8
+- Electron Builder v20.28.1
+- Bootstrap 4
+- le [kit de démarrage](https://github.com/maximegris/angular-electron) de maximegris
 
-I made the following modification on orignal code:
- *  Teradata's original wrapper are able to used in non-electron environment. This code is removed, because I focused to Electron
- *  Because this boilerplate uses Angular CLI, I had to make some modification in ```MonacoEditorWrapperComponent``` constructor, to determine the proper application path
- *  The wrapper uses the Monaco editor that is in the node_modules, musn't copy the assets directory
+# Prérequis
 
-# Main parts
+Pour assurer le fonctionnement de cette application depuis n'importe quel OS, il est nécessaire d'avoir installé Node.js.
 
- *  ```/src/electron-load.js```
- *  this script is loaded by angular.json
- *  ```/src/component/monaco-wrapper```
+Nous utiliserons aussi yarn.
+
+### Installation de Node.js
+**Windows et macOS**
+
+Il suffit de se rendre sur le site de [Node.js](https://nodejs.org/en/download/).
+
+**Linux**
+
+```sudo apt install nodejs```
+
+```sudo apt install npm```
+
+ ⚠️ Ne faites jamais de ```sudo npm``` sous Linux et macOS ⚠️
 
 
-# Run, Build, etc
-copy-pasted from original boilerplate:
 
-|Command|Description|
+### Installation de yarn
+
+**Windows**
+
+Lancer simplement la commande ```npm install -g yarn```
+
+**Linux et macOS**
+
+Il existe un problème de permissions sur Linux et macOS. Pour résoudre ce dernier, il existe deux solutions :
+
+- Changer les permissions du répertoire /usr/local/
+- Changer le préfixe de npm
+
+La procédure à suivre est disponible [ici](https://www.youtube.com/watch?v=bxvybxYFq2o).
+
+Une fois cela fait, lancer 
+```npm install -g yarn```
+
+## Getting Started
+
+Cloner le répertoire
+
+```git clone https://gitlab.com/Nemtecl/open-terminal.git```
+
+Installer les dépendances 
+
+```yarn install```
+
+
+## Commandes disponibles
+
+
+Comme expliqué plus haut, nous avons utilisé le kit de démarrage. Le fichier package.json contenait des commandes très utiles, que nous avons donc utilisées.
+
+|Commande|Description|
 |--|--|
-|`npm run ng:serve:web`| Execute the app in the browser |
-|`npm run build`| Build the app. Your built files are in the /dist folder. |
-|`npm run build:prod`| Build the app with Angular aot. Your built files are in the /dist folder. |
-|`npm run electron:local`| Builds your application and start electron
-|`npm run electron:linux`| Builds your application and creates an app consumable on linux system |
-|`npm run electron:windows`| On a Windows OS, builds your application and creates an app consumable in windows 32/64 bit systems |
-|`npm run electron:mac`|  On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Mac |
+|`yarn start`| Exécution de l'application en mode développement avec hot reload. |
+|`yarn ng:serve:web`| Exécution de l'application dans un navigateur. |
+|`yarn build`| Build l'application. Les fichiers de build se trouvent dans le dossier /dist. |
+|`yarn build:prod`| Build l'application avec Angular aot. Les fichiers de build se trouvent dans le dossier /dist. |
+|`yarn electron:linux`| Sous Linux, build l'application et crée un `.AppImage`. |
+|`yarn electron:windows`| Sous Windows, build l'application et crée un `.exe`, exécutable pour les systèmes en 32 et 64 bits. |
+|`yarn electron:mac`|  Sous macOS, build l'application et crée un `.dmg` contenant le `.app`. |
 
-# Contributors
- * [Clément](https://github.com/Nemtecl)
+⚠️ Il faut supprimer le dossier release avant d'en regénérer un autre ⚠️
+
+## Ajouter un package
+
+```yarn add [package]```
+
+## Supprimer un package
+
+```yarn remove [package]```
+
+## Ajouter un module natif à Node.js
+
+L'application étant lancée avec Electron, il est possible d'ajouter des modules natifs à Node.js.
+Pour cela, il suffit de les ajouter au service ElectronService. Plusieurs modules sont déjà disponibles (Child Process, File System, OS, etc.).
+
+
+# Contributeurs
+ * [Cyrielle Angoula Meka]()
+ * [Julien Besnier](https://github.com/BesnierJulien)
+ * [Martin Blondel](https://github.com/Philiippe)
+ * [Clément Droun](https://github.com/Nemtecl)
+ * [Antoine Guillory](https://github.com/antoineguillory)
+ * [Julien Lamy](https://github.com/JulienLamy76)
