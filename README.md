@@ -1,4 +1,6 @@
-<div style="text-align:center"><img src="./logo-githarpon.png"  alt="Logo Git Harpon"/></div>
+<p align="center">
+  <img width="255" height="255" src="./logo-githarpon.png">
+</p>
 
 # Introduction
 
