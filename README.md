@@ -4,14 +4,12 @@
 
 # Introduction
 
-Cette application est une preuve de concept pour notre projet Git Harpon.
-
-Elle permet d'ouvrir un terminal depuis n'importe quel système d'exploitation. De plus, l'application est disponible en anglais et en français.
+Cette application a été réalisée par des étudiants de Master 1 Génie de l'Informatique Logicielle. Il s'agit d'une réponse à un appel d'offre de Guillaume Leroy et Hugo Mochet. L'application doit correspondre à [GitKraken](https://www.gitkraken.com/), une interface graphique de git, mais de façon libre et open-source (licence MIT).
 
 Pour cela, nous avons utilisé :
 
-- Angular v7.0.3
-- Electron v3.0.8
+- Angular v7.1.4
+- Electron v2.0.7
 - Electron Builder v20.28.1
 - Bootstrap 4
 - le [kit de démarrage](https://github.com/maximegris/angular-electron) de maximegris
@@ -101,6 +99,6 @@ Pour cela, il suffit de les ajouter au service ElectronService. Plusieurs module
  * [Cyrielle Angoula Meka]()
  * [Julien Besnier](https://github.com/BesnierJulien)
  * [Martin Blondel](https://github.com/Philiippe)
- * [Clément Droun](https://github.com/Nemtecl)
+ * [Clément Drouin](https://github.com/Nemtecl)
  * [Antoine Guillory](https://github.com/antoineguillory)
  * [Julien Lamy](https://github.com/JulienLamy76)
