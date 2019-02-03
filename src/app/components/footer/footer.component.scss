@@ -1,0 +1,26 @@
+@import '../../../variables.scss';
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-top: 1px solid $dark;
+    background: $light-grey;
+    color: $white;
+    height: 3%;
+
+    &__version {
+        display: flex-end;
+    }
+
+    &__toolbox {
+        text-align: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+}
