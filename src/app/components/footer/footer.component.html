@@ -1,8 +1,15 @@
-<footer class="footer">
-    <div class="footer__toolbox" *ngIf="!production">
-      PAS PROD
+<div class="footer">
+    <div class="footer__content col-md-4 offset-md-8">
+      <div *ngIf="!production" class="footer__content__toolbox">
+        <a routerLink="/toolbox" routerLinkActive="active">
+          <i class="fa fa-toolbox"></i>
+        </a>
+      </div>
+      <div class="footer__content__github" (click)="openGithub()">
+          <i class="fab fa-github"></i>
+      </div>
+      <div class="footer__content__version">
+        {{ version }}
+      </div>
     </div>
-    <div class="footer__version">
-      <p>{{ version }}</p>
-    </div>
-</footer>
+</div>

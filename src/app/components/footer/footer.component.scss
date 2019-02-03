@@ -3,24 +3,41 @@
 .footer {
     position: fixed;
     bottom: 0;
-    left: 0;
-    right: 0;
     width: 100%;
     border-top: 1px solid $dark;
     background: $light-grey;
     color: $white;
-    height: 40px;
-    line-height: 40px;
     text-align:center;
-    padding: $gap-lg;
+    padding: $gap-sm;
 
-    &__version {
-        float: right;
-        font-weight: bold;
-        background-color: #3E4453; 
-    }
+    &__content {
+        text-align: right;
+        &__version {
+            font-weight: bold;
+            background-color: #3E4453;
+            display: inline-block;
+            padding: 0 $gap-sm;
+        }
 
-    &__toolbox {
-        display: inline-block;
+        &__toolbox {
+            display: inline-block;
+            margin-right: $gap-md;
+            & > a {
+                color: $white; 
+                text-decoration: none;
+                &:hover, &:visited, &:active, &:focus {
+                    text-decoration: none;
+                    color: $white; 
+                }
+            }            
+        }
+
+        &__github {
+            display: inline-block;
+            margin-right: $gap-md;
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
 }

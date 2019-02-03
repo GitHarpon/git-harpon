@@ -31,3 +31,9 @@ $gap-sm: 4px;
 $gap-md: 8px; 
 $gap-lg: 12px; 
 $gap-xl: 16px; 
+
+// Mixins
+
+@mixin box-shadow() {  
+    box-shadow: 1px 3px 8px 0px #C6D1DB;
+}

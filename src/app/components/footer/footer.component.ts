@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppConfig } from '../../../environments/environment';
+import { ElectronService } from '../../providers/electron.service';
 
 
 @Component({
@@ -11,11 +12,14 @@ export class FooterComponent implements OnInit {
   version: String;
   production: Boolean;
 
-  constructor() { }
+  constructor(private electronService: ElectronService) { }
 
   ngOnInit() {
     this.version = AppConfig.version;
     this.production = AppConfig.production;
   }
 
+  openGithub() {
+    this.electronService.shell.openExternal('https://github.com/GitHarpon/git-harpon');
+  }
 }
