@@ -9,18 +9,18 @@
     border-top: 1px solid $dark;
     background: $light-grey;
     color: $white;
-    height: 3%;
+    height: 40px;
+    line-height: 40px;
+    text-align:center;
+    padding: $gap-lg;
 
     &__version {
-        display: flex-end;
+        float: right;
+        font-weight: bold;
+        background-color: #3E4453; 
     }
 
     &__toolbox {
-        text-align: center;
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        bottom: 0;
+        display: inline-block;
     }
 }

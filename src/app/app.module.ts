@@ -25,6 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { EditorPreferencesService } from './providers/editor-preferences.service';
 import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
+import { ToolboxComponent } from './components/toolbox/toolbox.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -36,7 +38,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     WebviewDirective,
     MonacoEditorWrapperComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent,
+    ToolboxComponent
   ],
   imports: [
     BrowserModule,

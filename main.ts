@@ -16,7 +16,8 @@ function createWindow() {
     x: 0,
     y: 0,
     width: size.width,
-    height: size.height
+    height: size.height,
+    icon: path.join(__dirname, 'src/favicon.256x256.png')
   });
 
   if (serve) {
