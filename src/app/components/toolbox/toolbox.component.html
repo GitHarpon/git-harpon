@@ -88,20 +88,35 @@
             <h2>Boutons</h2>
         </div>
         <div class="col-md-12 mt-2 row">
-            <div class="col-md-6 mt-1">
-                <app-button value="Bouton 1" type="primary" (click)="buttonClicked()" ></app-button>
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton primaire" type="primary" (click)="buttonClicked()" ></app-button>
             </div>
-            <div class="col-md-6 mt-1">
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton désactivé" type="primary" [disabled]="true" (click)="buttonClicked()"></app-button>
+            </div>
+
+            <div class="col-md-4 mt-1">
                 <app-button value="Bouton allongé" type="primary" [large]="true" (click)="buttonClicked()"></app-button>
             </div>
-            <div class="col-md-6 mt-1">
-                <app-button value="Bouton 1" type="success"  (click)="buttonClicked()"></app-button>
+
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton succès" type="success"  (click)="buttonClicked()"></app-button>
             </div>
-            <div class="col-md-6 mt-1">
+            <div class="col-md-4 mt-1">
                 <app-button value="Bouton désactivé" type="success" [disabled]="true" (click)="buttonClicked()"></app-button>
             </div>
-            <div class="col-md-6 mt-1">
-                <app-button value="Bouton 1" type="danger" (click)="buttonClicked()"></app-button>
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton allongé" type="success" [large]="true" (click)="buttonClicked()"></app-button>
+            </div>
+
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton danger" type="danger" (click)="buttonClicked()"></app-button>
+            </div>
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton désactivé" type="danger" [disabled]="true" (click)="buttonClicked()"></app-button>
+            </div>
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton allongé" type="danger" [large]="true" (click)="buttonClicked()"></app-button>
             </div>
         </div>
     </div>

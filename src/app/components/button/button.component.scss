@@ -1,43 +1,68 @@
 @import '../../../variables.scss';
 
-input.button {
+.gh-button {
     border-style: solid;
     border-radius: 2px;
     color: $white;
 
     &.primary {
-        @include bg-color($light-blue);
-        border-color: $dark-blue;
+        @include bg-color($dark-blue);
+        border-color: $light-blue;
         cursor: pointer;
 
         &:hover {
-            @include bg-color($dark-blue);
+            @include bg-color($light-blue);
+        }
+
+        &.disabled {
+            @include bg-color($disabled-blue);
+            color: $muted-white;
+
+            &:hover {
+                cursor: not-allowed;
+                color: $white;
+            }
         }
     }
 
     &.success {
-        @include bg-color($light-green);
-        border-color: $dark-green;
+        @include bg-color($dark-green);
+        border-color: $light-green;
         cursor: pointer;
 
         &:hover {
-            @include bg-color($dark-green);
+            @include bg-color($light-green);
         }
 
         &.disabled {
             @include bg-color($disabled-green);
-            color: gray;
-            cursor: not-allowed
+            color: $muted-white;
+            
+            
+            &:hover {
+                cursor: not-allowed;
+                color: $white;
+            }
         }
     }
 
     &.danger {
-        @include bg-color($light-red);
-        border-color: $dark-red;
+        @include bg-color($dark-red);
+        border-color: $light-red;
         cursor: pointer;
 
         &:hover {
-            @include bg-color($dark-red);
+            @include bg-color($light-red);
+        }
+
+        &.disabled {
+            @include bg-color($disabled-red);
+            color: $muted-white;
+            
+            &:hover {
+                cursor: not-allowed;
+                color: $white;
+            }
         }
     }
 }
