@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ElectronService } from '../../providers/electron.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-toolbox',
@@ -11,7 +12,7 @@ export class ToolboxComponent implements OnInit {
   fsList: Array<String>;
   faList: Array<any>;
 
-  constructor(private electronService: ElectronService) { }
+  constructor(private electronService: ElectronService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.colorList = [
@@ -75,7 +76,15 @@ export class ToolboxComponent implements OnInit {
     this.electronService.shell.openExternal('https://fontawesome.com/icons?d=gallery');
   }
 
-  buttonClicked() {
-    console.log('Clic sur le bouton !');
+  primary() {
+    this.toastr.info('Bouton primaire', 'Information');
+  }
+
+  success() {
+    this.toastr.success('Bouton succès', 'Succès');
+  }
+
+  danger() {
+    this.toastr.error('Bouton danger', 'Danger');
   }
 }
