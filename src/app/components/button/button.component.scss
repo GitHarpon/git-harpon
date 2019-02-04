@@ -1,0 +1,47 @@
+@import '../../../variables.scss';
+
+input.button {
+    border-style: solid;
+    border-radius: 2px;
+    color: $white;
+
+    &.primary {
+        @include bg-color($light-blue);
+        border-color: $dark-blue;
+        cursor: pointer;
+
+        &:hover {
+            @include bg-color($dark-blue);
+        }
+    }
+
+    &.success {
+        @include bg-color($light-green);
+        border-color: $dark-green;
+        cursor: pointer;
+
+        &:hover {
+            @include bg-color($dark-green);
+        }
+
+        &.disabled {
+            @include bg-color($disabled-green);
+            color: gray;
+            cursor: not-allowed
+        }
+    }
+
+    &.danger {
+        @include bg-color($light-red);
+        border-color: $dark-red;
+        cursor: pointer;
+
+        &:hover {
+            @include bg-color($dark-red);
+        }
+    }
+}
+
+.large {
+    @include w100-h100();
+}

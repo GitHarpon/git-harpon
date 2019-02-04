@@ -75,4 +75,7 @@ export class ToolboxComponent implements OnInit {
     this.electronService.shell.openExternal('https://fontawesome.com/icons?d=gallery');
   }
 
+  buttonClicked() {
+    console.log('Clic sur le bouton !');
+  }
 }

@@ -1,0 +1,2 @@
+<input class="button" [type]="submit ? 'submit' : 'button'" [disabled]="disabled" [value]="value" (test)="execClick($event)" 
+  [ngClass]="[type, (disabled ? 'disabled' : ''), (large ? 'large' : '')]" />
