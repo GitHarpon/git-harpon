@@ -1,5 +1,6 @@
 {
   "productName": "git-harpon",
+  "artifactName": "${productName}-${version}.${ext}",
   "directories": {
     "output": "release/"
   },

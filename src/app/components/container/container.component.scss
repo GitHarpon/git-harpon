@@ -1,0 +1,41 @@
+@import '../../../variables.scss';
+
+:host{
+    background: $white;
+    color: #000;
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+.gh-container {
+    @include w100-h100();
+    padding-bottom: 40px;
+    overflow: auto;
+
+    &.white {
+        background-color: $white;
+    }
+
+    &.dark-grey {
+        background-color: $dark-grey;
+    }
+
+    &.light-grey {
+        background-color: $light-grey;
+    }
+
+    &.blue-grey {
+        background-color: $blue-grey;
+    }
+
+    &.dark {
+        background-color: $dark;
+    }
+
+    &.dark-border {
+        border: 1px solid $dark;
+    }
+}

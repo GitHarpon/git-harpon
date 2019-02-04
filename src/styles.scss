@@ -1,9 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
-html, body {
-  margin: 0;
-  padding: 0;
+@import '~ngx-toastr/toastr.css';
+@import 'variables.scss';
 
-  height: 100%;
+html {
+  min-height: 100%;
 }
 
-@import '~ngx-toastr/toastr.css';
+body {
+  min-height: 100%;
+  display: flex;
+  position: relative;
+}
+
+body {
+  color: $f-color;
+  font-family: $ff-default;
+  margin: 0;
+  background: $dark;
+  h1 {
+      font-size: $fs-xlarge;
+      font-weight: bold;
+      color: $white;
+  }
+  h2 {
+      font-size: $fs-large;
+      font-weight: bold;
+      color: $white;
+  }
+  h3 {
+      font-size: $fs-large;
+      color: $white;
+  }
+  h4 {
+      font-size: $fs-medium;
+      font-weight: bold;
+      color: $white;
+  }
+  h5 {
+      font-size: $fs-medium;
+      color: $white;
+  }
+  h6 {
+      font-size: $fs-small;
+      color: $white;
+  }
+  p {
+    font-size: $fs-large;
+  }
+}
+
+.color-white {
+    color: $white;
+}

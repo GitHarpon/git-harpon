@@ -1,0 +1,64 @@
+// Couleurs
+
+$dark-blue: #353D5A;
+$light-blue: #4C5DAA;
+$dark-green: #477F4B;
+$light-green:#314739;
+$disabled-green: #2C3835;
+$dark-red:#54383E;
+$light-red: #963D3E;
+$dark-grey: #2C2E34;
+$light-grey: #373841;
+$blue-grey: #373841;
+$white: #fff;
+$muted-white: #C9CACC;
+$dark: #222328;
+
+// Font family
+$ff-default: 'Open Sans', sans-serif;
+$f-color: $white;
+
+// Font size
+$fs-xsmall: 10px;
+$fs-small: 12px;
+$fs-medium: 14px;
+$fs-large: 15px;
+$fs-xlarge: 18px;
+
+// Gaps
+$gap-xs: 2px;
+$gap-sm: 4px; 
+$gap-md: 8px; 
+$gap-lg: 12px; 
+$gap-xl: 16px; 
+
+// Mixins
+@mixin box-shadow() {  
+    box-shadow: 1px 3px 8px 0px #C6D1DB;
+}
+
+@mixin w100-h100() {
+    width: 100%;
+    height: 100%;
+}
+
+@mixin wX-hX($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+@mixin wX($width) {
+    width: $width;
+}
+
+@mixin hX($height) {
+    height: $height;
+}
+
+@mixin bg-color($bg-color) {
+    background-color: $bg-color;
+}
+
+@mixin fs($fs) {
+    font-size: $fs;
+}
