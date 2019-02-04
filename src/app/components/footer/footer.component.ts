@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AppConfig } from '../../../environments/environment';
 import { ElectronService } from '../../providers/electron.service';
 
@@ -9,10 +9,12 @@ import { ElectronService } from '../../providers/electron.service';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
+  @Input() devRedirect: any;
   version: String;
   production: Boolean;
 
-  constructor(private electronService: ElectronService) { }
+  constructor(private electronService: ElectronService) {
+  }
 
   ngOnInit() {
     this.version = AppConfig.version;

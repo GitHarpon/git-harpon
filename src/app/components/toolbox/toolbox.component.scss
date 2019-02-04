@@ -1,1 +1,74 @@
 @import '../../../variables.scss';
+
+.big-heading {
+    @include wX(100%);
+    color: $white;
+    font-size: 36px;
+}
+
+.color-item {
+    @include hX(50px);
+    border: 1px solid $muted-white;
+}
+
+.bb-white {
+    border-bottom: 1px solid white;
+}
+
+// Background colors
+.dark-blue {
+    @include bg-color($dark-blue);
+}
+.light-blue {
+    @include bg-color($light-blue);
+}
+.dark-green {
+    @include bg-color($dark-green);
+}
+.light-green {
+    @include bg-color($light-green);
+}
+.disabled-green {
+    @include bg-color($disabled-green);
+}
+.dark-red {
+    @include bg-color($dark-red);
+}
+.light-red {
+    @include bg-color($light-red);
+}
+.dark-grey {
+    @include bg-color($dark-grey);
+}
+.light-grey {
+    @include bg-color($light-grey);
+}
+.blue-grey {
+    @include bg-color($blue-grey);
+}
+.white {
+    @include bg-color($white);
+}
+.muted-white {
+    @include bg-color($muted-white);
+}
+.dark {
+    @include bg-color($dark);
+}
+
+// Font sizes
+.fs-xsmall {
+    @include fs($fs-xsmall);
+}
+.fs-small {
+    @include fs($fs-small);
+}
+.fs-medium {
+    @include fs($fs-medium);
+}
+.fs-large {
+    @include fs($fs-large);
+}
+.fs-xlarge {
+    @include fs($fs-xlarge);
+}

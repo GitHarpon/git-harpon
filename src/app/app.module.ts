@@ -27,7 +27,7 @@ import { EditorPreferencesService } from './providers/editor-preferences.service
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { ToolboxComponent } from './components/toolbox/toolbox.component';
-import { ToolboxContainerComponent } from './components/toolbox-container/toolbox-container.component';
+import { ContainerComponent } from './components/container/container.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -42,7 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FooterComponent,
     HomeComponent,
     ToolboxComponent,
-    ToolboxContainerComponent
+    ContainerComponent
   ],
   imports: [
     BrowserModule,

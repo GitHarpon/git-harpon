@@ -1,6 +1,69 @@
-<div class="toolbox">
-  <app-toolbox-container >
-    ,cds,cùsdfd
-    fdsfsdfds
-  </app-toolbox-container>
-</div>
+<app-container classes="dark" border="true">
+    <div class="text-center">
+        <span class="big-heading">Toolbox</span>
+    </div>
+    <div class="container">
+        <div class="col-md-12 bb-white">
+            <h2>Couleurs</h2>
+        </div>
+        <div class="col-md-12 mt-2 row">
+            <div class="col-md-2 mt-1" *ngFor="let color of colorList">
+                <div class="col-md-4 offset-md-4 color-item" [ngClass]="[color]">
+                </div>
+                <div class="text-center color-white">
+                    ${{ color }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="col-md-12 bb-white">
+            <h2>Font size</h2>
+        </div>
+        <div class="col-md-12 mt-2 row">
+            <div class="col-md-2 mt-1" *ngFor="let fs of fsList">
+                <div class="text-center color-white" [ngClass]="[fs]">
+                    ${{ fs }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="col-md-12 bb-white">
+            <h2>Header</h2>
+        </div>
+        <div class="col-md-12 mt-2 row">
+            <div class="col-md-2 mt-1">
+                <div class="text-center color-white">
+                    <h1>Balise h1</h1>
+                </div>
+            </div>
+            <div class="col-md-2 mt-1">
+                <div class="text-center color-white">
+                    <h2>Balise h2</h2>
+                </div>
+            </div>
+            <div class="col-md-2 mt-1">
+                <div class="text-center color-white">
+                    <h3>Balise h3</h3>
+                </div>
+            </div>
+            <div class="col-md-2 mt-1">
+                <div class="text-center color-white">
+                    <h4>Balise h4</h4>
+                </div>
+            </div>
+            <div class="col-md-2 mt-1">
+                <div class="text-center color-white">
+                    <h5>Balise h5</h5>
+                </div>
+            </div>
+            <div class="col-md-2 mt-1">
+                <div class="text-center color-white">
+                    <h6>Balise h6</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>
+</app-container>

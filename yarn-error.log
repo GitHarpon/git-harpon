@@ -1,20 +1,30 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\clemd\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @fortawesome/free-solid-svg-icons \
+  C:\Program Files\nodejs\node.exe C:\Users\Martin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
 
 PATH: 
-  C:\Java\jdk\bin;C:\Java\jre\bin;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Users\clemd\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\PuTTY\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\dotnet\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs\;C:\Users\clemd\AppData\Local\Microsoft\WindowsApps;C:\Users\clemd\AppData\Local\atom\bin;C:\Program Files\Microsoft VS Code\bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;C:\Users\clemd\.dotnet\tools;C:\Users\clemd\AppData\Local\Programs\MiKTeX 2.9\miktex\bin\x64\;C:\Users\clemd\AppData\Roaming\npm;C:\Users\clemd\AppData\Local\hyper\app-2.1.1\resources\bin
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files (x86)\PuTTY\;C:\Users\Martin\AppData\Local\Microsoft\WindowsApps;;C:\Users\Martin\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Martin\AppData\Roaming\npm
 
 Yarn version: 
-  1.12.3
+  1.13.0
 
 Node version: 
-  10.14.1
+  10.15.0
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: EBUSY: resource busy or locked, lstat 'C:\hiberfil.sys'
+  Error: https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.3.3.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (C:\Users\Martin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:130024:19)
+      at Object.onceWrapper (events.js:273:13)
+      at ClientRequest.emit (events.js:182:13)
+      at TLSSocket.emitRequestTimeout (_http_client.js:662:40)
+      at Object.onceWrapper (events.js:273:13)
+      at TLSSocket.emit (events.js:182:13)
+      at TLSSocket.Socket._onTimeout (net.js:453:8)
+      at ontimeout (timers.js:436:11)
+      at tryOnTimeout (timers.js:300:5)
+      at listOnTimeout (timers.js:263:5)
 
 npm manifest: 
   {
