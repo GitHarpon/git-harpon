@@ -65,5 +65,23 @@
             </div>
         </div>
     </div>
+    <div class="container mt-5">
+        <div class="col-md-12 bb-white">
+            <h2>Couleurs</h2>
+        </div>
+        <div class="col-md-12 mt-2 row">
+            <div class="col-md-2 mt-3" *ngFor="let fa of faList">
+                <div class="col-md-4 offset-md-4 color-white">
+                    <i [ngClass]="[(fa.isFab ? 'fab' : 'fa'), fa.icon]"></i>
+                </div>
+                <div class="text-center color-white">
+                    {{ fa.icon }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 text-center mt-3">
+            <a class="link-white" (click)="openFontAwesome()">Font Awesome 5 Free</a>
+        </div>
+    </div>
     <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>
 </app-container>

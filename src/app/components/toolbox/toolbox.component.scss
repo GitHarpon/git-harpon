@@ -12,7 +12,17 @@
 }
 
 .bb-white {
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid $white;
+}
+
+a.link-white {
+
+    color: $white;
+    text-decoration: underline;
+    &:hover, &:focus, &:active, &:visited {
+        color: $white;
+        cursor: pointer;
+    }
 }
 
 // Background colors
