@@ -12,7 +12,9 @@
 
 .gh-container {
     @include w100-h100();
-    
+    padding-bottom: 40px;
+    overflow: auto;
+
     &.white {
         background-color: $white;
     }
