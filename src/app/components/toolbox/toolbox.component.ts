@@ -44,7 +44,7 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-github', isFab: true },
       { icon: 'fa-toolbox', isFab: false },
       { icon: 'fa-home', isFab: false },
-      { icon: 'fa-bitbucket', isFab: false },
+      { icon: 'fa-bitbucket', isFab: true },
       { icon: 'fa-check', isFab: false },
       { icon: 'fa-code', isFab: false },
       { icon: 'fa-edit', isFab: false },
