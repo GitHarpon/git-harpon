@@ -1,6 +1,7 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import * as os from 'os';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -42,6 +43,11 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null;
   });
+  
+  // Pour avoir le devtools Augury, à changer selon l'os, le pc etc...
+  BrowserWindow.addDevToolsExtension(
+    path.join(os.homedir(), '.config/google-chrome/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0')
+  );
 
 }
 
