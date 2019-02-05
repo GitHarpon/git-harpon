@@ -30,6 +30,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ToolboxComponent } from './components/toolbox/toolbox.component';
 import { ContainerComponent } from './components/container/container.component';
 import { ButtonComponent } from './components/button/button.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -45,7 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     ToolboxComponent,
     ContainerComponent,
-    ButtonComponent
+    ButtonComponent,
+    DropdownComponent
   ],
   imports: [
     NgbModule,

@@ -12,6 +12,8 @@ export class ToolboxComponent implements OnInit {
   fsList: Array<String>;
   faList: Array<any>;
 
+  dataDropdownExample: Array<any>;
+
   constructor(private electronService: ElectronService, private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -72,7 +74,15 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-upload', isFab: false },
       { icon: 'fa-download', isFab: false }
     ];
+
+    this.dataDropdownExample = [
+      {key: 'Orange', value: 'Orange'},
+      {key: 'Banane', value: 'Banane'},
+      {key: 'Cerise', value: 'Cerise'},
+      {key: 'Pêche', value: 'Pêche'}
+    ];
   }
+
 
   openFontAwesome() {
     this.electronService.shell.openExternal('https://fontawesome.com/icons?d=gallery');

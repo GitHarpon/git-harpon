@@ -1,0 +1,5 @@
+<select class="gh-dropdown" [disabled]="disabled" [value]="value" 
+[ngClass]="[type, (disabled ? 'disabled' : ''), (large ? 'large' : '')]" (change)="triggerChange($event)">
+  <option *ngIf="!required"></option>
+  <option *ngFor="let option of options" value="[option]">{{option.key}}</option>
+</select>

@@ -119,6 +119,14 @@
                 <app-button value="Bouton allongé" type="danger" [large]="true" (buttonClicked)="danger()"></app-button>
             </div>
         </div>
+        <div class="col-md-12 mt-2 row">
+            <div class="col-md-12 bb-white">
+                    <h2>Dropdowns</h2>
+            </div>
+            <div class="col-md-4 mt-1">
+                    <app-dropdown [options]="dataDropdownExample"></app-dropdown>
+            </div>
+        </div>
     </div>
     <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>
 </app-container>
