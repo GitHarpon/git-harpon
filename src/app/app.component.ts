@@ -12,7 +12,8 @@ export class AppComponent {
   constructor(public electronService: ElectronService,
     private translate: TranslateService) {
 
-    translate.setDefaultLang('en');
+    this.translate.addLangs(['fr', 'en']);
+    this.translate.setDefaultLang(this.translate.getLangs()[0]);
     console.log('AppConfig', AppConfig);
 
     if (electronService.isElectron()) {

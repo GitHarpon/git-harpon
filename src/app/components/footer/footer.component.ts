@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AppConfig } from '../../../environments/environment';
 import { ElectronService } from '../../providers/electron.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -13,7 +14,8 @@ export class FooterComponent implements OnInit {
   version: String;
   production: Boolean;
 
-  constructor(private electronService: ElectronService) {
+  constructor(private electronService: ElectronService,
+    private translateService: TranslateService) {
   }
 
   ngOnInit() {
@@ -23,5 +25,9 @@ export class FooterComponent implements OnInit {
 
   openGithub() {
     this.electronService.shell.openExternal('https://github.com/GitHarpon/git-harpon');
+  }
+
+  getHomeTranslation() {
+    return this.translateService.instant('HOME');
   }
 }
