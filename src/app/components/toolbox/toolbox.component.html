@@ -89,34 +89,34 @@
         </div>
         <div class="col-md-12 mt-2 row">
             <div class="col-md-4 mt-1">
-                <app-button value="Bouton primaire" type="primary" (buttonClicked)="primary()" ></app-button>
+                <app-button value="BUTTON.PRIMARY" type="primary" (buttonClicked)="primary()" ></app-button>
             </div>
             <div class="col-md-4 mt-1">
-                <app-button value="Bouton désactivé" type="primary" [disabled]="true" (buttonClicked)="primary()"></app-button>
-            </div>
-
-            <div class="col-md-4 mt-1">
-                <app-button value="Bouton allongé" type="primary" [large]="true" (buttonClicked)="primary()"></app-button>
+                <app-button value="BUTTON.DISABLED" type="primary" [disabled]="true" (buttonClicked)="primary()"></app-button>
             </div>
 
             <div class="col-md-4 mt-1">
-                <app-button value="Bouton succès" type="success"  (buttonClicked)="success()"></app-button>
-            </div>
-            <div class="col-md-4 mt-1">
-                <app-button value="Bouton désactivé" type="success" [disabled]="true" (buttonClicked)="success()"></app-button>
-            </div>
-            <div class="col-md-4 mt-1">
-                <app-button value="Bouton allongé" type="success" [large]="true" (buttonClicked)="success()"></app-button>
+                <app-button value="BUTTON.LARGE" type="primary" [large]="true" (buttonClicked)="primary()"></app-button>
             </div>
 
             <div class="col-md-4 mt-1">
-                <app-button value="Bouton danger" type="danger" (buttonClicked)="danger()"></app-button>
+                <app-button value="BUTTON.SUCCESS" type="success"  (buttonClicked)="success()"></app-button>
             </div>
             <div class="col-md-4 mt-1">
-                <app-button value="Bouton désactivé" type="danger" [disabled]="true" (buttonClicked)="danger()"></app-button>
+                <app-button value="BUTTON.DISABLED" type="success" [disabled]="true" (buttonClicked)="success()"></app-button>
             </div>
             <div class="col-md-4 mt-1">
-                <app-button value="Bouton allongé" type="danger" [large]="true" (buttonClicked)="danger()"></app-button>
+                <app-button value="BUTTON.LARGE" type="success" [large]="true" (buttonClicked)="success()"></app-button>
+            </div>
+
+            <div class="col-md-4 mt-1">
+                <app-button value="BUTTON.DANGER" type="danger" (buttonClicked)="danger()"></app-button>
+            </div>
+            <div class="col-md-4 mt-1">
+                <app-button value="BUTTON.DISABLED" type="danger" [disabled]="true" (buttonClicked)="danger()"></app-button>
+            </div>
+            <div class="col-md-4 mt-1">
+                <app-button value="BUTTON.LARGE" type="danger" [large]="true" (buttonClicked)="danger()"></app-button>
             </div>
         </div>
     </div>
@@ -153,8 +153,8 @@
                 </div>
             </div>
             <div class="col-md-4 text-right">
-                <app-button value="Test input" type="primary" (buttonClicked)="testInput()" ></app-button>
-                <app-button class="ml-2 " value="Change input" type="primary" (buttonClicked)="changeInputValue()" ></app-button>
+                <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInput()" ></app-button>
+                <app-button class="ml-2 " value="UPDATE_VALUE" type="primary" (buttonClicked)="changeInputValue()" ></app-button>
             </div>
         </div>
     </div>

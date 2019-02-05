@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ElectronService } from '../../providers/electron.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-toolbox',
@@ -14,7 +15,8 @@ export class ToolboxComponent implements OnInit {
   inputValue: String;
   inputEmptyValue: String;
 
-  constructor(private electronService: ElectronService, private toastr: ToastrService) { }
+  constructor(private electronService: ElectronService,
+    private toastr: ToastrService, private translateService: TranslateService) { }
 
   ngOnInit() {
     this.inputValue = 'Test';
@@ -85,15 +87,18 @@ export class ToolboxComponent implements OnInit {
   }
 
   primary() {
-    this.toastr.info('Bouton primaire', 'Information');
+    this.toastr.info(this.translateService.instant('BUTTON.PRIMARY'),
+      this.translateService.instant('INFORMATION'));
   }
 
   success() {
-    this.toastr.success('Bouton succès', 'Succès');
+    this.toastr.success(this.translateService.instant('BUTTON.SUCCESS'),
+      this.translateService.instant('SUCCESS'));
   }
 
   danger() {
-    this.toastr.error('Bouton danger', 'Danger');
+    this.toastr.error(this.translateService.instant('BUTTON.DANGER'),
+      this.translateService.instant('DANGER'));
   }
 
   testInput() {

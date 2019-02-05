@@ -10,5 +10,17 @@
     "READONLY": "Read-only",
     "REGULAR": "Regular",
     "WITH_EMPTY_VALUE": "With empty value",
-    "WITH_LABEL": "With label"
+    "WITH_LABEL": "With label",
+    "BUTTON": {
+        "PRIMARY": "Primary button",
+        "SUCCESS": "Success button",
+        "DANGER": "Danger button",
+        "DISABLED": "Disabled button",
+        "LARGE": "Large button"
+    },
+    "INFORMATION": "Information",
+    "SUCCESS": "Success",
+    "DANGER": "Danger",
+    "UPDATE_VALUE": "Update value",
+    "DISPLAY_VALUE": "Display value"
 }
