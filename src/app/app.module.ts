@@ -9,6 +9,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -47,9 +48,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     ToolboxComponent,
     ContainerComponent,
     ButtonComponent,
-    InputComponent
+    InputComponent,
   ],
   imports: [
+    NgScrollbarModule,
     NgbModule,
     BrowserModule,
     CommonModule,

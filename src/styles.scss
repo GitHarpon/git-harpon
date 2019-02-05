@@ -57,3 +57,11 @@ body {
     padding: $gap-md $gap-md 0 $gap-md;
     padding-right: 0;
 }
+
+.gh-scrollbar {
+--scrollbar-color: rgba(55, 56, 65, 0.3) !important;
+--scrollbar-thumb-color: #373841 !important;
+--scrollbar-thumb-hover-color: #373841 !important;
+--scrollbar-border-radius: 4px !important;
+--scrollbar-size: 7px !important;
+}
