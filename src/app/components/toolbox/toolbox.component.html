@@ -129,7 +129,7 @@
                 <div class="col-md-8 row">
                     <!-- Avec label -->
                     <div class="col-md-2 gh-label-input text-right">
-                        <label>{{ 'WITH_LABEL' | translate }}</label>
+                        <label>{{ 'REGULAR' | translate }}</label>
                     </div>
                     <div class="col-md-10">
                         <app-input [(value)]="inputValue"></app-input>
@@ -137,20 +137,29 @@
                 </div>
                 <div class="col-md-8 row">
                     <!-- Placeholder + empty value -->
-                    <div class="col-md-12 mt-1">
-                        <app-input label="WITH_EMPTY_VALUE" [(value)]="inputEmptyValue" placeholder="PLACEHOLDER"></app-input>
+                    <div class="col-md-2 gh-label-input text-right">
+                        <label>{{ 'PLACEHOLDER' | translate }}</label>
+                    </div>
+                    <div class="col-md-10 mt-1">
+                        <app-input [(value)]="inputEmptyValue" placeholder="PLACEHOLDER"></app-input>
                     </div>
                 </div>
                 <div class="col-md-8 row">
                     <!-- Read only -->
-                    <div class="col-md-12 mt-1">
-                        <app-input [(value)]="inputValue" label="READONLY" [readonly]="true"></app-input>
+                    <div class="col-md-2 gh-label-input text-right">
+                            <label>{{ 'READONLY' | translate }}</label>
+                        </div>
+                    <div class="col-md-10 mt-1">
+                        <app-input [(value)]="inputValue" [readonly]="true"></app-input>
                     </div>
                 </div>
                 <div class="col-md-8 row">
                     <!-- Disabled -->
-                    <div class="col-md-12 mt-1">
-                        <app-input [(value)]="inputValue" label="DISABLED" [disabled]="true"></app-input>
+                    <div class="col-md-2 gh-label-input text-right">
+                        <label>{{ 'DISABLED' | translate }}</label>
+                    </div>
+                    <div class="col-md-10 mt-1">
+                        <app-input [(value)]="inputValue" [disabled]="true"></app-input>
                     </div>
                 </div>
                 <div class="col-md-4 text-right">
