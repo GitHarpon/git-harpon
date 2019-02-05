@@ -51,3 +51,9 @@ body {
 .color-white {
     color: $white;
 }
+
+.gh-label-input {
+    color: $white;
+    padding: $gap-md $gap-md 0 $gap-md;
+    padding-right: 0;
+}

@@ -4,5 +4,11 @@
     "COLORS": "Couleurs",
     "TAGS": "Balises",
     "TAG": "Balise",
-    "FONT_SIZES": "Tailles de texte"
+    "FONT_SIZES": "Tailles de texte",
+    "PLACEHOLDER": "Texte indicatif",
+    "DISABLED": "Désactivé",
+    "READONLY": "Lecture seule",
+    "REGULAR": "Normal",
+    "WITH_EMPTY_VALUE": "Avec une valeur vide",
+    "WITH_LABEL": "Avec label"
 }

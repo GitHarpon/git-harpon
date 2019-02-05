@@ -32,6 +32,9 @@ a.link-white {
 .light-blue {
     @include bg-color($light-blue);
 }
+.light-blue-hover {
+    @include bg-color($light-blue-hover);
+}
 .disabled-blue {
     @include bg-color($disabled-blue);
 }

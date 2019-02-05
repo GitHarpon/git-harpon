@@ -11,13 +11,19 @@ export class ToolboxComponent implements OnInit {
   colorList: Array<String>;
   fsList: Array<String>;
   faList: Array<any>;
+  inputValue: String;
+  inputEmptyValue: String;
 
   constructor(private electronService: ElectronService, private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.inputValue = 'Test';
+    this.inputEmptyValue = '';
+
     this.colorList = [
       'dark-blue',
       'light-blue',
+      'light-blue-hover',
       'disabled-blue',
       'dark-green',
       'light-green',
@@ -88,5 +94,13 @@ export class ToolboxComponent implements OnInit {
 
   danger() {
     this.toastr.error('Bouton danger', 'Danger');
+  }
+
+  testInput() {
+    this.toastr.info(this.inputValue.toString());
+  }
+
+  changeInputValue() {
+    this.inputValue += 'daa';
   }
 }
