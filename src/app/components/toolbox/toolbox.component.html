@@ -120,5 +120,43 @@
             </div>
         </div>
     </div>
+    <div class="container mt-5">
+        <div class="col-md-12 bb-white">
+            <h2>Input</h2>
+        </div>
+        <div class="col-md-12 mt-2 row">
+            <div class="col-md-8 row">
+                <!-- Avec label -->
+                <div class="col-md-2 gh-label-input text-right">
+                    <label>{{ 'WITH_LABEL' | translate }}</label>
+                </div>
+                <div class="col-md-10">
+                    <app-input [(value)]="inputValue"></app-input>
+                </div>
+            </div>
+            <div class="col-md-8 row">
+                <!-- Placeholder + empty value -->
+                <div class="col-md-12 mt-1">
+                    <app-input label="WITH_EMPTY_VALUE" [(value)]="inputEmptyValue" placeholder="PLACEHOLDER"></app-input>
+                </div>
+            </div>
+            <div class="col-md-8 row">
+                <!-- Read only -->
+                <div class="col-md-12 mt-1">
+                    <app-input [(value)]="inputValue" label="READONLY" [readonly]="true"></app-input>
+                </div>
+            </div>
+            <div class="col-md-8 row">
+                <!-- Disabled -->
+                <div class="col-md-12 mt-1">
+                    <app-input [(value)]="inputValue" label="DISABLED" [disabled]="true"></app-input>
+                </div>
+            </div>
+            <div class="col-md-4 text-right">
+                <app-button value="Test input" type="primary" (buttonClicked)="testInput()" ></app-button>
+                <app-button class="ml-2 " value="Change input" type="primary" (buttonClicked)="changeInputValue()" ></app-button>
+            </div>
+        </div>
+    </div>
     <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>
 </app-container>

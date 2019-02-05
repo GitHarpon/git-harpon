@@ -1,0 +1,28 @@
+@import '../../../variables.scss';
+
+.gh-input {
+    outline: none;
+    background-color: $dark;
+    color: $white;
+    border : 1px solid $dark-grey;
+    border-radius: 3px;
+    font-size: $fs-medium;
+    padding: $gap-md;
+    line-height: 1;
+    @include wX(100%);
+
+    &:focus {
+        border-color: $light-blue-hover;
+        box-shadow: 0 0 0 1px $light-blue-hover;
+        outline: 0;
+    }
+
+    &.disabled {
+        color: $muted-white;
+
+        &:hover {
+            cursor: not-allowed;
+            color: $white;
+        }
+    }
+}
