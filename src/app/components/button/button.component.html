@@ -1,2 +1,2 @@
-<input class="gh-button" [type]="submit ? 'submit' : 'button'" [disabled]="disabled" [value]="value" (test)="execClick($event)" 
+<input class="gh-button" [type]="submit ? 'submit' : 'button'" [disabled]="disabled" [value]="value" (click)="execClick($event)" 
   [ngClass]="[type, (disabled ? 'disabled' : ''), (large ? 'large' : '')]" />

@@ -12,16 +12,15 @@ export class ButtonComponent implements OnInit {
   @Input() submit: Boolean = false;
   @Input() large: Boolean = false;
   @Input() type: String = 'primary';
-  @Output() emitter: EventEmitter<Event>;
+  @Output() buttonClicked: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
   }
 
   ngOnInit() {
-    this.emitter = new EventEmitter<Event>();
   }
 
   execClick(evt) {
-    this.emitter.emit(evt);
+    this.buttonClicked.emit(evt);
   }
 }
