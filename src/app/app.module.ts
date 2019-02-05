@@ -30,6 +30,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ToolboxComponent } from './components/toolbox/toolbox.component';
 import { ContainerComponent } from './components/container/container.component';
 import { ButtonComponent } from './components/button/button.component';
+import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { InputComponent } from './components/input/input.component';
 
 // AoT requires an exported function for factories
@@ -47,6 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ToolboxComponent,
     ContainerComponent,
     ButtonComponent,
+    IconButtonComponent,
     InputComponent
   ],
   imports: [

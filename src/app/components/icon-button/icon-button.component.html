@@ -1,0 +1,6 @@
+<div>
+  <button class="gh-icon-button" [type]="submit ? 'submit' : 'button'" [disabled]="disabled" [value]="value ? getValueTranslation() : ''" (click)="execClick($event)" 
+    [ngClass]="[type, (disabled ? 'disabled' : ''), (large ? 'large' : '')]">    
+    <i class="fa fa-camera-retro"></i>
+  </button>
+</div>

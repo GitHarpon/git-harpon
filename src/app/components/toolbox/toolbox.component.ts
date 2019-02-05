@@ -101,6 +101,16 @@ export class ToolboxComponent implements OnInit {
       this.translateService.instant('DANGER'));
   }
 
+  menubar() {
+    this.toastr.info(this.translateService.instant('ICONBUTTON.MENUBAR'),
+      this.translateService.instant('MENUBAR'));
+  }
+
+  classic() {
+    this.toastr.info(this.translateService.instant('ICONBUTTON.CLASSIC'),
+      this.translateService.instant('CLASSIC'));
+  }
+
   testInput() {
     this.toastr.info(this.inputValue.toString());
   }

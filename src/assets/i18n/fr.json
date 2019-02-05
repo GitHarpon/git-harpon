@@ -18,6 +18,10 @@
         "DISABLED": "Bouton désactivé",
         "LARGE": "Bouton allongé"
     },
+    "ICONBUTTON": {
+        "MENUBAR": "Bouton icône barre des menus",
+        "CLASSIC": "Bouton icône classique"
+    },
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
     "DANGER": "Danger",
