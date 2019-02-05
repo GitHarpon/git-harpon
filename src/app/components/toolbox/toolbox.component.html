@@ -83,5 +83,42 @@
             <a class="link-white" (click)="openFontAwesome()">Font Awesome 5 Free</a>
         </div>
     </div>
+    <div class="container mt-5">
+        <div class="col-md-12 bb-white">
+            <h2>Boutons</h2>
+        </div>
+        <div class="col-md-12 mt-2 row">
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton primaire" type="primary" (buttonClicked)="primary()" ></app-button>
+            </div>
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton désactivé" type="primary" [disabled]="true" (buttonClicked)="primary()"></app-button>
+            </div>
+
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton allongé" type="primary" [large]="true" (buttonClicked)="primary()"></app-button>
+            </div>
+
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton succès" type="success"  (buttonClicked)="success()"></app-button>
+            </div>
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton désactivé" type="success" [disabled]="true" (buttonClicked)="success()"></app-button>
+            </div>
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton allongé" type="success" [large]="true" (buttonClicked)="success()"></app-button>
+            </div>
+
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton danger" type="danger" (buttonClicked)="danger()"></app-button>
+            </div>
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton désactivé" type="danger" [disabled]="true" (buttonClicked)="danger()"></app-button>
+            </div>
+            <div class="col-md-4 mt-1">
+                <app-button value="Bouton allongé" type="danger" [large]="true" (buttonClicked)="danger()"></app-button>
+            </div>
+        </div>
+    </div>
     <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>
 </app-container>
