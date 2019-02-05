@@ -4,6 +4,7 @@
     border-style: solid;
     border-radius: 2px;
     color: $white;
+    outline: none;
 
     &.primary {
         @include bg-color($dark-blue);
@@ -16,6 +17,7 @@
 
         &.disabled {
             @include bg-color($disabled-blue);
+            border-color: $dark-blue;
             color: $muted-white;
 
             &:hover {
@@ -36,6 +38,7 @@
 
         &.disabled {
             @include bg-color($disabled-green);
+            border-color: $dark-green;
             color: $muted-white;
             
             
@@ -57,6 +60,7 @@
 
         &.disabled {
             @include bg-color($disabled-red);
+            border-color: $dark-red;
             color: $muted-white;
             
             &:hover {
