@@ -51,9 +51,9 @@ function createWindow() {
   } else if (process.platform === 'linux') {
     auguryPath = '.config/google-chrome/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0';
   } else if (process.platform === 'win32') {
-    auguryPath = '%LOCALAPPDATA%/Google/Chrome/User Data/Default/Extensions'
+    auguryPath = 'AppData/Local/Google/Chrome/User Data/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0';
   }
-  if (fs.existsSync(auguryPath)) {
+  if (fs.existsSync(path.join(os.homedir(), auguryPath))) {
     // Pour avoir le devtools Augury, à changer selon l'os, le pc etc...
     BrowserWindow.addDevToolsExtension(
       path.join(os.homedir(), auguryPath)
