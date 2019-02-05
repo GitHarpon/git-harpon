@@ -44,9 +44,17 @@ function createWindow() {
     win = null;
   });
   
+  var auguryPath = '';
+  if (process.platform === 'darwin') {
+    auguryPath = '/Library/Application\ Support/Google/Chrome/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0/';
+  } else if (process.platform === 'linux') {
+    auguryPath = '.config/google-chrome/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0';
+  } else if (process.platform === 'win32') {
+    // TODO
+  }
   // Pour avoir le devtools Augury, à changer selon l'os, le pc etc...
   BrowserWindow.addDevToolsExtension(
-    path.join(os.homedir(), '.config/google-chrome/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0')
+    path.join(os.homedir(), auguryPath)
   );
 
 }
