@@ -2,6 +2,7 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import * as os from 'os';
+import * as fs from 'fs';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -50,13 +51,14 @@ function createWindow() {
   } else if (process.platform === 'linux') {
     auguryPath = '.config/google-chrome/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0';
   } else if (process.platform === 'win32') {
-    // TODO
+    auguryPath = '%LOCALAPPDATA%/Google/Chrome/User Data/Default/Extensions'
   }
-  // Pour avoir le devtools Augury, à changer selon l'os, le pc etc...
-  BrowserWindow.addDevToolsExtension(
-    path.join(os.homedir(), auguryPath)
-  );
-
+  if (fs.existsSync(auguryPath)) {
+    // Pour avoir le devtools Augury, à changer selon l'os, le pc etc...
+    BrowserWindow.addDevToolsExtension(
+      path.join(os.homedir(), auguryPath)
+    );
+  }
 }
 
 try {
