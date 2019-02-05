@@ -32,6 +32,9 @@ a.link-white {
 .light-blue {
     @include bg-color($light-blue);
 }
+.disabled-blue {
+    @include bg-color($disabled-blue);
+}
 .dark-green {
     @include bg-color($dark-green);
 }
@@ -46,6 +49,9 @@ a.link-white {
 }
 .light-red {
     @include bg-color($light-red);
+}
+.disabled-red {
+    @include bg-color($disabled-red);
 }
 .dark-grey {
     @include bg-color($dark-grey);

@@ -18,11 +18,13 @@ export class ToolboxComponent implements OnInit {
     this.colorList = [
       'dark-blue',
       'light-blue',
+      'disabled-blue',
       'dark-green',
       'light-green',
       'disabled-green',
       'dark-red',
       'light-red',
+      'disabled-red',
       'dark-grey',
       'light-grey',
       'blue-grey',
