@@ -121,8 +121,4 @@ export class ToolboxComponent implements OnInit {
   testInputNumber() {
     this.toastr.info(this.inputValueNumber.toString());
   }
-
-  changeInputValueNumber() {
-    this.inputValueNumber = this.inputValueNumber.valueOf() + 2;
-  }
 }

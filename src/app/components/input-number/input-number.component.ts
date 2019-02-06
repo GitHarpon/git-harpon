@@ -25,6 +25,12 @@ export class InputNumberComponent implements OnInit {
   }
 
   set value(val) {
+    if (val > this.max) {
+      val = undefined;
+    }
+    if (val < this.min) {
+      val = undefined;
+    }
     this.currentValue = val;
     this.valueChange.emit(this.currentValue);
   }
