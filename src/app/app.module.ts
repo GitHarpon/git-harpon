@@ -32,6 +32,7 @@ import { ToolboxComponent } from './components/toolbox/toolbox.component';
 import { ContainerComponent } from './components/container/container.component';
 import { ButtonComponent } from './components/button/button.component';
 import { InputComponent } from './components/input/input.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -49,6 +50,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ContainerComponent,
     ButtonComponent,
     InputComponent,
+    ModalComponent,
   ],
   imports: [
     NgScrollbarModule,

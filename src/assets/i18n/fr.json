@@ -22,5 +22,6 @@
     "SUCCESS": "Succès",
     "DANGER": "Danger",
     "UPDATE_VALUE": "Changer la valeur",
-    "DISPLAY_VALUE": "Afficher la valeur"
+    "DISPLAY_VALUE": "Afficher la valeur",
+    "MODAL_WINDOW": "Fenêtre modale"
 }
