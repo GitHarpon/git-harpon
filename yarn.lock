@@ -5672,6 +5672,13 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
   integrity sha512-MFh0d/Wa7vkKO3Y3LlacqAEeHK0mckVqzDieUKTT+KGxi+zIpeVsFxymkIiRpbpDziHc290Xr9A1O4Om7otoRA==
 
+ngx-contextmenu@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/ngx-contextmenu/-/ngx-contextmenu-5.1.1.tgz#c21c1b702df0d0327ddf297d1ff8d2abee32ee9f"
+  integrity sha512-PORVcTo9txGonSaQx8y1ZyG526Na0LY/I4NSPIquMhwziqal/WGijHtOPSJ/AjGxLooMcWsh8DyGNEzOijWrOw==
+  dependencies:
+    tslib "^1.9.0"
+
 ngx-scrollbar@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/ngx-scrollbar/-/ngx-scrollbar-4.1.1.tgz#cc96f6801c21717997fe59a989b7f63e1bb4697c"
