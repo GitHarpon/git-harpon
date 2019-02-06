@@ -68,7 +68,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    ContextMenuModule.forRoot()
+    ContextMenuModule.forRoot({
+      useBootstrap4: true
+    })
   ],
   providers: [ElectronService, EditorPreferencesService],
   bootstrap: [AppComponent]
