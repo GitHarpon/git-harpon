@@ -29,6 +29,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { ToolboxComponent } from './components/toolbox/toolbox.component';
 import { ContainerComponent } from './components/container/container.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     ToolboxComponent,
     ContainerComponent,
+    CheckboxComponent,
   ],
   imports: [
     NgbModule,

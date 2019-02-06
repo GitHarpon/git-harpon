@@ -4,5 +4,9 @@
     "COLORS": "Colors",
     "TAGS": "Tags",
     "TAG": "Tag",
-    "FONT_SIZES": "Font sizes"
+    "FONT_SIZES": "Font sizes",
+    "CHECKBOX": "CheckBox",
+    "UN_CHECKBOX": "Unchecked checkbox",
+    "D_CHECKBOX": "Disabled checkBox",
+    "CHECKED_BOX": "Checked box"
 }

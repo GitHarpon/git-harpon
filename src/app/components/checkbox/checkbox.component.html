@@ -1,0 +1,21 @@
+<!-- <input class="gh-checkbox" type="checkbox" [(ngModel)]="gh-checkbox"
+(change)="triggerValue($event)" [checked]="value" [disabled]="disabled ? true : false">
+<label [for]="id">
+  <i *ngIf="value"></i>
+  <i *ngIf="!value"></i>
+</label> -->
+
+<div class="col-md-4 offset-md-4">
+  <div class="checkbox form-check-inline light-blue">
+      <input class="gh-checkbox" type="checkbox" [(ngModel)]="checkBox"
+      [value]="value ? getValueTranslation() : ''"
+      (change)="triggerValue($event)" [disabled]="disabled ? true : false">
+  </div>
+</div>
+<div class="text-center color-white" for="check1">
+    <!-- {{ 'CHECKBOX' | translate }} -->
+    <i *ngIf="result && disabled == false">{{ checkBox | translate }}</i>
+    <i *ngIf="!result && disabled == false">{{ checkbox | translate }}</i>
+    <i *ngIf="result && disabled == false;else {{ checkbox | translate }}"></i>
+</div>
+
