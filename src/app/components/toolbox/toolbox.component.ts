@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ElectronService } from '../../providers/electron.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
@@ -9,11 +9,13 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./toolbox.component.scss']
 })
 export class ToolboxComponent implements OnInit {
+  @ViewChild('toolboxCM') toolboxCM: ElementRef;
   colorList: Array<String>;
   fsList: Array<String>;
   faList: Array<any>;
   inputValue: String;
   inputEmptyValue: String;
+  contextMenuObject: Array<Object>;
 
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
@@ -79,6 +81,15 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-spinner', isFab: false },
       { icon: 'fa-upload', isFab: false },
       { icon: 'fa-download', isFab: false }
+    ];
+
+    this.contextMenuObject = [
+      { firstname: 'Cyrielle', lastname: 'Angoula Meka', age: 23, sexe: 'F' },
+      { firstname: 'Julien', lastname: 'Besnier', age: 23, sexe: 'M' },
+      { firstname: 'Martin', lastname: 'Blondel', age: 21, sexe: 'M' },
+      { firstname: 'Clément', lastname: 'Drouin', age: 21, sexe: 'M' },
+      { firstname: 'Antoine', lastname: 'Guillory', age: 21, sexe: 'M' },
+      { firstname: 'Julien', lastname: 'Lamy', age: 21, sexe: 'M' }
     ];
   }
 

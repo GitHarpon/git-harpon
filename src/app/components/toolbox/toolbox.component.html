@@ -168,6 +168,30 @@
                 </div>
             </div>
         </div>
+        <div class="container mt-5">
+            <div class="col-md-12 bb-white">
+                <h2>{{ 'CONTEXT_MENU' | translate }}</h2>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <ul class="text-white">
+                    <li *ngFor="let user of contextMenuObject" 
+                        [contextMenu]="toolboxCM" 
+                        [contextMenuSubject]="user">{{ 'CLICK.RIGHT' | translate }}: {{ user.sexe === 'F' ? 'Mme.' : 'M.' }} {{ user.lastname }}</li>
+                </ul>
+            </div>
+            <context-menu #toolboxCM>
+                <ng-template contextMenuItem>
+                    Say hi!
+                </ng-template>
+                <ng-template contextMenuItem divider="true"></ng-template>
+                <ng-template contextMenuItem let-item>
+                    Bye, {{item?.firstname}}
+                </ng-template>
+                <ng-template contextMenuItem passive="true">
+                    Input something: <input type="text">
+                </ng-template>
+            </context-menu>
+        </div>
     </ng-scrollbar>
 </app-container>
 <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>
