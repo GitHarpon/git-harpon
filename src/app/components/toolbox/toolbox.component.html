@@ -168,6 +168,35 @@
                 </div>
             </div>
         </div>
+
+        <div class="container mt-5">
+            <div class="col-md-12 bb-white">
+                <h2>Input-Number</h2>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-8 row">
+                    <!-- Avec label -->
+                    <div class="col-md-2 gh-label-input text-right">
+                        <label>{{ 'REGULAR' | translate }}</label>
+                    </div>
+                    <div class="col-md-10">
+                        <app-input-number [(value)]="inputValueNumber"></app-input-number>
+                    </div>
+                </div>
+                <div class="col-md-8 row">
+                    <!-- Read only -->
+                    <div class="col-md-2 gh-label-input text-right">
+                        <label>MIN-MAX</label>
+                    </div>
+                    <div class="col-md-10 mt-1">
+                        <app-input-number [(value)]="inputMinMaxValueNumber" [min]="min" [max]="max"></app-input-number>
+                    </div>
+                </div>
+                <div class="col-md-4 text-right">
+                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInputNumber()"></app-button>
+                </div>
+            </div>
+        </div>
     </ng-scrollbar>
 </app-container>
 <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>
