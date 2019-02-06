@@ -1,5 +1,6 @@
 <app-container classes="dark" border="true">
     <ng-scrollbar class="gh-scrollbar">
+            <!-- <app-loader [loading]="true"> -->
         <div class="text-center">
             <span class="big-heading">Toolbox</span>
         </div>
@@ -119,6 +120,7 @@
                 <div class="col-md-4 mt-1">
                     <app-button value="BUTTON.LARGE" type="danger" [large]="true" (buttonClicked)="danger()"></app-button>
                 </div>
+
             </div>
         </div>
         <div class="container mt-5">
@@ -147,8 +149,8 @@
                 <div class="col-md-8 row">
                     <!-- Read only -->
                     <div class="col-md-2 gh-label-input text-right">
-                            <label>{{ 'READONLY' | translate }}</label>
-                        </div>
+                        <label>{{ 'READONLY' | translate }}</label>
+                    </div>
                     <div class="col-md-10 mt-1">
                         <app-input [(value)]="inputValue" [readonly]="true"></app-input>
                     </div>
@@ -168,6 +170,7 @@
                 </div>
             </div>
         </div>
+    <!-- </app-loader> -->
     </ng-scrollbar>
 </app-container>
 <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>

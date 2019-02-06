@@ -22,5 +22,6 @@
     "SUCCESS": "Success",
     "DANGER": "Danger",
     "UPDATE_VALUE": "Update value",
-    "DISPLAY_VALUE": "Display value"
+    "DISPLAY_VALUE": "Display value",
+    "LOADER": "Loading..."
 }
