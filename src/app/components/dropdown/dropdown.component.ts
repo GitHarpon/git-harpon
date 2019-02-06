@@ -8,10 +8,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class DropdownComponent implements OnInit {
 
   @Input() disabled: Boolean = false;
+  @Input() required: Boolean = false;
   @Input() options: Array<any>;
   @Input() value: String;
-  @Input() large: Boolean = false;
   @Output() dropdownChanged: EventEmitter<any> = new EventEmitter<any>();
+  // ng model pour two way binding
+  // regarder disabled fonctionnement
 
   constructor() { }
 
@@ -19,7 +21,6 @@ export class DropdownComponent implements OnInit {
   }
 
   triggerChange(value) {
-    console.log(value);
     this.dropdownChanged.emit(value);
   }
 
