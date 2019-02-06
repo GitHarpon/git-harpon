@@ -184,12 +184,15 @@
                     <ul class="text-white">
                         <li *ngFor="let subject of contextMenuSecondObject" 
                             [contextMenu]="subjectCM" 
-                            [contextMenuSubject]="subject">{{ subject?.name }}</li>
+                            [contextMenuSubject]="subject">{{ 'CLICK.RIGHT' | translate }}: {{ subject?.name }}</li>
                     </ul>
                 </div>
             </div>
             <!-- Context menu pour les utilisateurs -->
             <context-menu #userCM>
+                <ng-template contextMenuItem let-item>
+                    Bonjour {{ item?.firstname }}
+                </ng-template>
                 <ng-template contextMenuItem [subMenu]="saySubMenu">
                     Informations personnels
                 </ng-template>
@@ -211,13 +214,15 @@
                 <ng-template contextMenuItem (execute)="showMessage($event.item.firstname + ' dit bonjour !')">
                     Clic pour appelé une fonction !
                 </ng-template>
+                <ng-template contextMenuItem (execute)="showMessage($event.item.firstname + ' dit hello !')">
+                    Clic pour appelé une autre fonction !
+                </ng-template>
             </context-menu>
             <!-- Context menu pour les matières -->
             <context-menu #subjectCM>
                 <ng-template contextMenuItem let-item>
                     Langage : {{ item?.language }}
                 </ng-template>
-                <ng-template contextMenuItem divider="true"></ng-template>
                 <ng-template contextMenuItem let-item>
                     Professeur : {{ item?.teacher }}
                 </ng-template>
