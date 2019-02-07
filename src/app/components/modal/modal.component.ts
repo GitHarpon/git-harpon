@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -7,10 +7,24 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
 
-  @Input() visible: Boolean = false;
   @Input() large: Boolean;
   @Input() medium: Boolean;
   @Input() title: String;
+  currentVisible: Boolean;
+
+  @Output()
+  visibleChange = new EventEmitter<Boolean>();
+
+  @Input()
+  get visible() {
+    // console.log(this.currentVisibility);
+    return this.currentVisible;
+  }
+
+  set visible(visible) {
+    this.currentVisible = visible;
+    this.visibleChange.emit(this.currentVisible);
+  }
 
   constructor() { }
 

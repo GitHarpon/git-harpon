@@ -14,6 +14,7 @@ export class ToolboxComponent implements OnInit {
   faList: Array<any>;
   inputValue: String;
   inputEmptyValue: String;
+  modalVisible: Boolean;
 
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
@@ -107,5 +108,9 @@ export class ToolboxComponent implements OnInit {
 
   changeInputValue() {
     this.inputValue += 'daa';
+  }
+
+  openModal() {
+    this.modalVisible = true;
   }
 }

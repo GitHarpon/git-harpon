@@ -173,11 +173,12 @@
                 <h2>{{ 'MODAL_WINDOW' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-2 row">
+                <app-button value="OPEN_MODAL" (buttonClicked)="openModal()"></app-button>
             </div>
         </div>
     </ng-scrollbar>
 </app-container>
 
-<app-modal [visible]="true" [medium]="true" [title]="'MODAL_WINDOW'"></app-modal>
+<app-modal [(visible)]="modalVisible" [medium]="true" [title]="'MODAL_WINDOW'"></app-modal>
 
 <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>
