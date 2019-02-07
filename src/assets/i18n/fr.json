@@ -24,5 +24,13 @@
     "UPDATE_VALUE": "Changer la valeur",
     "DISPLAY_VALUE": "Afficher la valeur",
     "MODAL_WINDOW": "Fenêtre modale",
-    "OPEN_MODAL": "Ouvrir la fenêtre modale"
+    "OPEN_MODAL": "Ouvrir la fenêtre modale",
+    "MODAL" : {
+        "FIRST_SECTION": "Première section",
+        "SECOND_SECTION": "Deuxième section",
+        "THIRD_SECTION": "Troisième section",
+        "FIRST_CONTENT": "Premier contenu",
+        "SECOND_CONTENT": "Deuxième contenu",
+        "THIRD_CONTENT": "Troisième contenu"
+    }
 }

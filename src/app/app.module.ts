@@ -10,7 +10,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { MatTabsModule } from '@angular/material';
+import {MatTabsModule} from '@angular/material/tabs';
 
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
