@@ -25,13 +25,14 @@ export class InputNumberComponent implements OnInit {
   }
 
   set value(val) {
+    console.log(val);
     if (val > this.max) {
-      val = undefined;
+      this.currentValue = this.max;
+    } else if (val < this.min) {
+      this.currentValue = this.min;
+    } else {
+      this.currentValue = val;
     }
-    if (val < this.min) {
-      val = undefined;
-    }
-    this.currentValue = val;
     this.valueChange.emit(this.currentValue);
   }
 
