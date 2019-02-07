@@ -72,10 +72,10 @@
         </div>
         <div class="col-md-12 mt-1 row">
             <div class="col-md-12">
-                <app-checkbox [(value)]="cbValue"></app-checkbox>
+                <app-checkbox name="Checkbox 1" [(value)]="cbValue"></app-checkbox>
             </div>
             <div class="col-md-8">
-                <app-checkbox [(value)]="cbValue" [disabled]="true"></app-checkbox>
+                <app-checkbox name="Checkbox 2" [(value)]="cbValue" [disabled]="true"></app-checkbox>
             </div>
             <div class="col-md-4">
                 <button (click)="displayCbValue()">DISPLAY TEMPORAIRE</button>

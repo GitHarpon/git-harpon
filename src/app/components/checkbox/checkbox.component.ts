@@ -10,9 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CheckboxComponent implements OnInit {
 
-  // @Input() value: String;
-  // @Input() checkBox: String;
-  // @Input() checked: Boolean = false;
+  @Input() name: String;
   @Input() disabled: Boolean = false;
   @Output() valueChange = new EventEmitter<Boolean>();
   currentValue: Boolean;
@@ -31,16 +29,4 @@ export class CheckboxComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  // triggerValue(val) {
-  //   this.result = val.target.checked;
-  // }
-  // triggerValue(value) {
-  //   this.checkedBox.emit(value);
-  // }
-
-  // getValueTranslation() {
-  //   return this.translateService.instant(this.value.toUpperCase().toString());
-  // }
-
 }
