@@ -12,12 +12,14 @@ export class ToolboxComponent implements OnInit {
   colorList: Array<String>;
   fsList: Array<String>;
   faList: Array<any>;
-  checked: Boolean;
+  cbValue: Boolean;
 
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
 
   ngOnInit() {
+    this.cbValue = true;
+
     this.colorList = [
       'dark-blue',
       'light-blue',
@@ -80,25 +82,11 @@ export class ToolboxComponent implements OnInit {
   }
 
   setCheckValue() {
-    return this.checked = !this.checked;
+    return this.cbValue = !this.cbValue;
   }
 
-  check() {
-    this.toastr.info(this.translateService.instant('CHECKBOX'),
-    this.translateService.instant('INFO_CHECK'));
-  }
-
-  unCheck() {
-    this.toastr.info(this.translateService.instant('UN_CHECKBOX'),
-    this.translateService.instant('INFO_UN_CHECK'));
-  }
-
-  boxCheck() {
-    if (this.checked == false) {
-      this.check();
-    } else {
-      this.unCheck();
-    }
+  displayCbValue() {
+    this.toastr.info(this.cbValue ? 'Coché' : 'Décoché', 'Information');
   }
 
 }

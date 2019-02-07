@@ -11,28 +11,26 @@ import { ToastrService } from 'ngx-toastr';
 export class CheckboxComponent implements OnInit {
 
   // @Input() value: String;
-  @Input() result: Boolean;
   // @Input() checkBox: String;
-  @Input() checked: Boolean = false;
+  // @Input() checked: Boolean = false;
   @Input() disabled: Boolean = false;
+  @Output() valueChange = new EventEmitter<Boolean>();
   currentValue: Boolean;
-  @Output() checkedBox = new EventEmitter<any>();
+  @Input()
+  get value() {
+    return this.currentValue;
+  }
+
+  set value(val) {
+    this.currentValue = val;
+    this.valueChange.emit(this.currentValue);
+  }
 
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
 
   ngOnInit() {
   }
-
-  @Input()
-  get current() {
-    return this.currentValue;
-  }
-
-  set current(val) {
-    this.currentValue = !val;
-    this.checkedBox.emit(this.currentValue);
-}
 
   // triggerValue(val) {
   //   this.result = val.target.checked;

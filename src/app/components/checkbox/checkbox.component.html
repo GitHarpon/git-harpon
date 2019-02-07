@@ -1,8 +1,3 @@
-<input name="current" class="gh-checkbox" type="checkbox" [(ngModel)]="current"
-    (change)="current = $event" [disabled]="disabled" [checked]="checked"
+<input name="current" class="gh-checkbox" type="checkbox" [(ngModel)]="value"
+    [disabled]="disabled"
     [ngClass]="[(disabled ? 'disabled' : ''), (checked ? 'checked': '')]">
-
-<button class="gh-checkbox" type="button" value="" (change)="current = $event"
-    [ngClass]="[(disabled ? 'disabled' : ''), (checked ? 'checked' : '')]">Bouton Checkbox</button>
-
-

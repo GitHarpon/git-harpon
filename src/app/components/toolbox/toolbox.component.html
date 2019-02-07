@@ -71,20 +71,15 @@
             <h2>{{ 'CHECKBOX' | translate }}</h2>
         </div>
         <div class="col-md-12 mt-1 row">
-            <div class="col-md-2 mt-1">
-                <div class="col-md-4 offset-md-4">
-                    <app-checkbox value="Checkbox" [(current)]="value" [checked]="false" [disabled]="false" type="checked" (click)="setCheckValue() ; boxCheck()"></app-checkbox>
-                </div>
+            <div class="col-md-12">
+                <app-checkbox [(value)]="cbValue"></app-checkbox>
             </div>
-            <div class="col-md-2 mt-1">
-                <div class="col-md-4 offset-md-4">
-                    <div class="checkbox form-check-inline">
-                        <input type="checkbox" value="" id="check2" [disabled]="true">
-                    </div>
-                </div>
-                <div class="text-center color-white" for="check2">
-                    {{ 'D_CHECKBOX' | translate }}
-                </div>
+            <div class="col-md-8">
+                <app-checkbox [(value)]="cbValue" [disabled]="true"></app-checkbox>
+            </div>
+            <div class="col-md-4">
+                <button (click)="displayCbValue()">DISPLAY TEMPORAIRE</button>
+                <button (click)="setCheckValue()">CHANGER TEMPORAIRE</button>
             </div>
         </div>
     </div>

@@ -7,9 +7,3 @@
         border: 1px solid $light-blue;
     }
 }
-
-.dark-green {
-    @include bg-color($dark-green);
-    border-radius: 2px;
-    
-}
