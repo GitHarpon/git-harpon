@@ -1,6 +1,8 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import * as os from 'os';
+import * as fs from 'fs';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -42,7 +44,21 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null;
   });
-
+  
+  var auguryPath = '';
+  if (process.platform === 'darwin') {
+    auguryPath = '/Library/Application\ Support/Google/Chrome/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0/';
+  } else if (process.platform === 'linux') {
+    auguryPath = '.config/google-chrome/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0';
+  } else if (process.platform === 'win32') {
+    auguryPath = 'AppData/Local/Google/Chrome/User Data/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0';
+  }
+  if (fs.existsSync(path.join(os.homedir(), auguryPath))) {
+    // Pour avoir le devtools Augury, à changer selon l'os, le pc etc...
+    BrowserWindow.addDevToolsExtension(
+      path.join(os.homedir(), auguryPath)
+    );
+  }
 }
 
 try {

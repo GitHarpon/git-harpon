@@ -4,5 +4,28 @@
     "COLORS": "Colors",
     "TAGS": "Tags",
     "TAG": "Tag",
-    "FONT_SIZES": "Font sizes"
+    "FONT_SIZES": "Font sizes",
+    "PLACEHOLDER": "Placeholder",
+    "DISABLED": "Disabled",
+    "READONLY": "Read-only",
+    "REGULAR": "Regular",
+    "WITH_EMPTY_VALUE": "With empty value",
+    "WITH_LABEL": "With label",
+    "BUTTON": {
+        "PRIMARY": "Primary button",
+        "SUCCESS": "Success button",
+        "DANGER": "Danger button",
+        "DISABLED": "Disabled button",
+        "LARGE": "Large button"
+    },
+    "INFORMATION": "Information",
+    "SUCCESS": "Success",
+    "DANGER": "Danger",
+    "UPDATE_VALUE": "Update value",
+    "DISPLAY_VALUE": "Display value",
+    "CONTEXT_MENU": "Menu contextuel",
+    "CLICK": {
+        "RIGHT": "Right click",
+        "LEFT": "Left click"
+    }
 }

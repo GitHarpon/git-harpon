@@ -2,6 +2,7 @@
 
 $dark-blue: #353D5A;
 $light-blue: #4C5DAA;
+$light-blue-hover: #4D88FF;
 $disabled-blue: #2A3345;
 $dark-green: #314739;
 $light-green:#477F4B;
@@ -33,6 +34,9 @@ $gap-sm: 4px;
 $gap-md: 8px; 
 $gap-lg: 12px; 
 $gap-xl: 16px; 
+
+// Autres
+$footer-height: 33px;
 
 // Mixins
 @mixin box-shadow() {  

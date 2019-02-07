@@ -9,6 +9,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ContextMenuModule } from 'ngx-contextmenu';
 
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -31,6 +33,8 @@ import { ToolboxComponent } from './components/toolbox/toolbox.component';
 import { ContainerComponent } from './components/container/container.component';
 import { ButtonComponent } from './components/button/button.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { InputComponent } from './components/input/input.component';
+import { InputNumberComponent } from './components/input-number/input-number.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -47,9 +51,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     ToolboxComponent,
     ContainerComponent,
     ButtonComponent,
-    DropdownComponent
+    DropdownComponent,
+    InputComponent,
+    InputNumberComponent,
   ],
   imports: [
+    NgScrollbarModule,
     NgbModule,
     BrowserModule,
     CommonModule,
@@ -64,7 +71,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ContextMenuModule.forRoot({
+      useBootstrap4: true
+    })
   ],
   providers: [ElectronService, EditorPreferencesService],
   bootstrap: [AppComponent]
