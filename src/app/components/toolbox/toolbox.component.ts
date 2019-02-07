@@ -17,6 +17,10 @@ export class ToolboxComponent implements OnInit {
   faList: Array<any>;
   inputValue: String;
   inputEmptyValue: String;
+  inputValueNumber: number;
+  inputMinMaxValueNumber: number;
+  max: number;
+  min: number;
   contextMenuFirstObject: Array<Object>;
   contextMenuSecondObject: Array<Object>;
 
@@ -26,6 +30,11 @@ export class ToolboxComponent implements OnInit {
   ngOnInit() {
     this.inputValue = 'Test';
     this.inputEmptyValue = '';
+
+    this.inputValueNumber = 10;
+    this.inputMinMaxValueNumber = 0;
+    this.max = 10;
+    this.min = 0;
 
     this.colorList = [
       'dark-blue',
@@ -129,6 +138,11 @@ export class ToolboxComponent implements OnInit {
     this.inputValue += 'daa';
   }
 
+
+  testInputNumber() {
+    this.toastr.info(this.inputValueNumber.toString());
+	}
+	
   showMessage(message: string) {
     this.toastr.info(message);
   }
