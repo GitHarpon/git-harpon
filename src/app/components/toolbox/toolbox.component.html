@@ -179,6 +179,12 @@
     </ng-scrollbar>
 </app-container>
 
-<app-modal [(visible)]="modalVisible" [medium]="true" [title]="'MODAL_WINDOW'"></app-modal>
+<app-modal [(visible)]="modalVisible" [medium]="true" [title]="'MODAL_WINDOW'">
+    <mat-tab-group>
+        <mat-tab label="First"> Content 1 </mat-tab>
+        <mat-tab label="Second"> Content 2 </mat-tab>
+        <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group>
+</app-modal>
 
 <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>
