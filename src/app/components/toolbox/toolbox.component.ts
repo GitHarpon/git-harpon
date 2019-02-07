@@ -76,10 +76,10 @@ export class ToolboxComponent implements OnInit {
     ];
 
     this.dataDropdownExample = [
-      {key: 'Orange', value: 'Orange', selected: 'selected'},
-      {key: 'Banane', value: 'Banane'},
-      {key: 'Cerise', value: 'Cerise'},
-      {key: 'Pêche', value: 'Pêche'}
+      {id: 'Orange', name: 'Orange'},
+      {id: 'Banane', name: 'Banane'},
+      {id: 'Cerise', name: 'Cerise'},
+      {id: 'Pêche',  name: 'Pêche'}
     ];
   }
 

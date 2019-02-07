@@ -19,10 +19,14 @@ export class DropdownComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (this.required) {
+      this.value = this.options[0].name;
+    }
   }
 
-  triggerChange(value) {
-    this.dropdownChanged.emit(value);
+  triggerChange(evt) {
+    this.value = evt.target.value;
+    this.dropdownChanged.emit(evt);
   }
 
 }
