@@ -262,26 +262,17 @@
                     <h2>Dropdowns</h2>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-dropdown [options]="dataDropdownExample" [required]="true" [large]="true"></app-dropdown>
-                </div>
-                <div class="col-md-4 mt-1">
-                    <app-dropdown [options]="dataDropdownExample" [required]="true"></app-dropdown>
+                    <app-dropdown [(options)]="dataDropdownExample" [required]="true" [idKey]="key" [valueKey]="value"></app-dropdown>
                 </div>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-4 mt-1">
-                    <app-dropdown [options]="dataDropdownExample" [large]="true"></app-dropdown>
-                </div>
-                <div class="col-md-4 mt-1">
-                    <app-dropdown [options]="dataDropdownExample"></app-dropdown>
+                    <app-dropdown [(options)]="dataDropdownExample" [idKey]="key" [valueKey]="value"></app-dropdown>
                 </div>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-4 mt-1">
-                    <app-dropdown [options]="dataDropdownExample" [large]="true" [disabled]="true"></app-dropdown>
-                </div>
-                <div class="col-md-4 mt-1">
-                    <app-dropdown [options]="dataDropdownExample" [disabled]="true"></app-dropdown>
+                    <app-dropdown [(options)]="dataDropdownExample" [disabled]="true" [idKey]="key" [valueKey]="value"></app-dropdown>
                 </div>
             </div>
         </div>

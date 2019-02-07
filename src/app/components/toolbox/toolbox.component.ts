@@ -23,7 +23,10 @@ export class ToolboxComponent implements OnInit {
   min: number;
   contextMenuFirstObject: Array<Object>;
   contextMenuSecondObject: Array<Object>;
-  dataDropdownExample: Array<String>;
+  dataDropdownExample: Array<any>;
+
+  key: String = 'key';
+  value: String = 'value';
 
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
@@ -97,10 +100,10 @@ export class ToolboxComponent implements OnInit {
     ];
 
     this.dataDropdownExample = [
-      'Orange',
-      'Banane',
-      'Cerise',
-      'Pêche'
+      {key: 'Orange', value: 'Orange'},
+      {key: 'Banane', value: 'Banane'},
+      {key: 'Cerise', value: 'Cerise'},
+      {key: 'Poire', value: 'Poire'},
     ];
 
     this.contextMenuFirstObject = [
@@ -150,8 +153,8 @@ export class ToolboxComponent implements OnInit {
 
   testInputNumber() {
     this.toastr.info(this.inputValueNumber.toString());
-	}
-	
+  }
+
   showMessage(message: string) {
     this.toastr.info(message);
   }

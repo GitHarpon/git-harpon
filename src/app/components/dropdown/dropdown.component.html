@@ -1,7 +1,4 @@
-<div [ngClass]="['select-style', (large ? 'gh-droplarge' : 'gh-dropsmall')]">
-  <select [ngClass]="['gh-dropdown',(disabled ? 'disabled' : '')]" [disabled]="disabled" [(ngModel)]="value" (change)="triggerChange($event)">
-    <option *ngIf="!required" selected value=""></option>
-    <option *ngFor="let option of options" value="{{option}}">{{option}}</option>
-  </select>
-  <div class="select__icon"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-</div>
+<select [ngClass]="['gh-dropdown',(disabled ? 'disabled' : '')]" [disabled]="disabled" (change)="triggerChange($event)">
+  <option *ngIf="!required" selected value=""></option>
+  <option *ngFor="let option of options" value="{{option}}" [value]="getValue(option)">{{getValue(option)}}</option>
+</select>
