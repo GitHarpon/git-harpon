@@ -1,85 +1,36 @@
 @import '../../../variables.scss';
 
-.select-style {
-  padding: 0;
-  margin: 0 0 1rem;
-  border: 2px solid $light-blue;
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-  &.gh-dropsmall {
-    width: 75%; 
+.gh-dropdown {
+
+  &.gh-dropsmall{
+    width: 75%;
   }
-  &.gh-droplarge {
+  &.gh-droplarge{
     width: 100%;
   }
-  .gh-dropdown {
-    width:100%;
-    border: none;
-    box-shadow: none;
-    @include w100-h100();
-    @include bg-color($dark-blue);
-    border-color: $light-blue;
-    margin: 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    padding: 0.5rem;
-    color: $f-color;
-    border-radius: 0;
-    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
-    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
-    height: 2.4375rem;
-    option {
-        color: $dark-blue;
-    }
-    &.disabled {
-      @include bg-color($disabled-blue);
-      border-color: $dark-blue;
+
+  outline: none;
+  background-color: $dark;
+  color: $white;
+  border : 1px solid $dark-grey;
+  border-radius: 3px;
+  font-size: $fs-medium;
+  padding: $gap-md;
+  line-height: 1;
+  @include wX(100%);
+
+  &:focus {
+      border-color: $light-blue-hover;
+      box-shadow: 0 0 0 1px $light-blue-hover;
+      outline: 0;
+  }
+
+  &.disabled {
       color: $muted-white;
 
       &:hover {
           cursor: not-allowed;
           color: $white;
       }
-
-      .select__icon {
-        @include bg-color($disabled-blue);
-      }
-    }
-    .select__icon {
-      @include bg-color($dark-blue);
-    }
-  }
-
-  select:focus {
-      outline: none;
-  }
-
-  .select__icon {
-      color: $white;
-      float: right;
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      margin: 5px;
-      padding: 0 5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-  }
-
-  &.disabled {
-    border-color: $light-grey;
-
-    select {
-      color: $light-grey;
-    }
-
-    .select__icon {
-      background: $light-grey;
-    }
   }
 }
