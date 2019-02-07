@@ -1,69 +1,73 @@
 @import '../../../variables.scss';
 
-    .select-style {
-        padding: 0;
-        margin: 0 0 1rem;
-        border: 1px solid $light-blue;
-        overflow: hidden;
-        position: relative;
-        .gh-dropdown {
-          border: none;
-          box-shadow: none;
-          @include bg-color($dark-blue);
-          border-color: $light-blue;
-          margin: 0;
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          appearance: none;
-          padding: 0.5rem;
-          color: $f-color;
-          width: 100%;
-          height: 2.4375rem;
-          border-radius: 0;
-          box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
-          font-family: inherit;
-          font-weight: normal;
-          transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
-      
+.select-style {
+  padding: 0;
+  margin: 0 0 1rem;
+  border: 1px solid $light-blue;
+  overflow: hidden;
+  position: relative;
+  &.gh-dropsmall {
+    width: 75%;
+  }
+  &.gh-droplarge {
+    width: 100%;
+  }
+  .gh-dropdown {
+    width:100%;
+    border: none;
+    box-shadow: none;
+    @include bg-color($dark-blue);
+    border-color: $light-blue;
+    margin: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 0.5rem;
+    color: $f-color;
+    border-radius: 0;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+    font-family: inherit;
+    font-weight: normal;
+    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+    height: 2.4375rem;
+    option {
+        color: $dark-blue;
+    }
+  }
 
-          option {
-              color: $dark-blue;
-          }
-        }
-      
-        select:focus {
-            outline: none;
-        }
-      
-        .select__icon {
-            @include bg-color($dark-blue);
-            color: $white;
-            float: right;
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            margin: 5px;
-            padding: 0 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-        }
-      
-        &.disabled {
-          border-color: $light-grey;
-      
-          select {
-            color: $light-grey;
-          }
-      
-          .select__icon {
-            background: $light-grey;
-          }
-        }
-      
-        select {
-          font-size: $fs-small;
-        }
-      }
+  select:focus {
+      outline: none;
+  }
+
+  .select__icon {
+      @include bg-color($dark-blue);
+      color: $white;
+      float: right;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: 5px;
+      padding: 0 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+  }
+
+  &.disabled {
+    border-color: $light-grey;
+
+    select {
+      color: $light-grey;
+    }
+
+    .select__icon {
+      background: $light-grey;
+    }
+  }
+
+  select {
+    font-size: $fs-small;
+  }
+}

@@ -9,6 +9,7 @@ export class DropdownComponent implements OnInit {
 
   @Input() disabled: Boolean = false;
   @Input() required: Boolean = false;
+  @Input() large: Boolean = false;
   @Input() options: Array<any>;
   @Input() value: String;
   @Output() dropdownChanged: EventEmitter<any> = new EventEmitter<any>();
