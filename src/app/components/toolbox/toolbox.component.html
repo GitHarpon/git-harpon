@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="container mt-5">
+        <div class="container mt-5">    
             <div class="col-md-12 bb-white">
                 <h2>Font Awesome</h2>
             </div>
@@ -84,26 +84,24 @@
                 <a class="link-white" (click)="openFontAwesome()">Font Awesome 5 Free</a>
             </div>
         </div>
-      </div>
-    <div class="container mt-5">
-        <div class="col-md-12 bb-white">
-            <h2>{{ 'CHECKBOX' | translate }}</h2>
+        <div class="container mt-5">
+            <div class="col-md-12 bb-white">
+                <h2>{{ 'CHECKBOX' | translate }}</h2>
+            </div>
+            <div class="col-md-12 mt-1 row">
+                <div class="col-md-12">
+                    <app-checkbox name="Checkbox 1" [(value)]="cbValue"></app-checkbox>
+                </div>
+                <div class="col-md-8">
+                    <app-checkbox name="Checkbox 2" [(value)]="cbValue" [disabled]="true"></app-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <app-button value="DISPLAY_VALUE" (click)="displayCbValue()"></app-button>
+                    <app-button value="UPDATE_VALUE"(click)="setCheckValue()"></app-button>
+                </div>
+            </div>
         </div>
-        <div class="col-md-12 mt-1 row">
-            <div class="col-md-12">
-                <app-checkbox name="Checkbox 1" [(value)]="cbValue"></app-checkbox>
-            </div>
-            <div class="col-md-8">
-                <app-checkbox name="Checkbox 2" [(value)]="cbValue" [disabled]="true"></app-checkbox>
-            </div>
-            <div class="col-md-4">
-                <button (click)="displayCbValue()">DISPLAY TEMPORAIRE</button>
-                <button (click)="setCheckValue()">CHANGER TEMPORAIRE</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mt-5">
+        <div class="container mt-5">
             <div class="col-md-12 bb-white">
                 <h2>Boutons</h2>
             </div>
@@ -112,31 +110,37 @@
                     <app-button value="BUTTON.PRIMARY" type="primary" (buttonClicked)="primary()"></app-button>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.DISABLED" type="primary" [disabled]="true" (buttonClicked)="primary()"></app-button>
+                    <app-button value="BUTTON.DISABLED" type="primary" [disabled]="true" (buttonClicked)="primary()">
+                    </app-button>
                 </div>
 
                 <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.LARGE" type="primary" [large]="true" (buttonClicked)="primary()"></app-button>
+                    <app-button value="BUTTON.LARGE" type="primary" [large]="true" (buttonClicked)="primary()">
+                    </app-button>
                 </div>
 
                 <div class="col-md-4 mt-1">
                     <app-button value="BUTTON.SUCCESS" type="success" (buttonClicked)="success()"></app-button>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.DISABLED" type="success" [disabled]="true" (buttonClicked)="success()"></app-button>
+                    <app-button value="BUTTON.DISABLED" type="success" [disabled]="true" (buttonClicked)="success()">
+                    </app-button>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.LARGE" type="success" [large]="true" (buttonClicked)="success()"></app-button>
+                    <app-button value="BUTTON.LARGE" type="success" [large]="true" (buttonClicked)="success()">
+                    </app-button>
                 </div>
 
                 <div class="col-md-4 mt-1">
                     <app-button value="BUTTON.DANGER" type="danger" (buttonClicked)="danger()"></app-button>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.DISABLED" type="danger" [disabled]="true" (buttonClicked)="danger()"></app-button>
+                    <app-button value="BUTTON.DISABLED" type="danger" [disabled]="true" (buttonClicked)="danger()">
+                    </app-button>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.LARGE" type="danger" [large]="true" (buttonClicked)="danger()"></app-button>
+                    <app-button value="BUTTON.LARGE" type="danger" [large]="true" (buttonClicked)="danger()">
+                    </app-button>
                 </div>
             </div>
         </div>
@@ -166,8 +170,8 @@
                 <div class="col-md-8 row">
                     <!-- Read only -->
                     <div class="col-md-2 gh-label-input text-right">
-                            <label>{{ 'READONLY' | translate }}</label>
-                        </div>
+                        <label>{{ 'READONLY' | translate }}</label>
+                    </div>
                     <div class="col-md-10 mt-1">
                         <app-input [(value)]="inputValue" [readonly]="true"></app-input>
                     </div>
@@ -214,7 +218,7 @@
                     <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInputNumber()"></app-button>
                 </div>
             </div>
-				</div>
+        </div>
         <div class="container mt-5">
             <div class="col-md-12 bb-white">
                 <h2>{{ 'CONTEXT_MENU' | translate }}</h2>
@@ -222,15 +226,14 @@
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-6">
                     <ul class="text-white">
-                        <li *ngFor="let user of contextMenuFirstObject" 
-                            [contextMenu]="userCM" 
-                            [contextMenuSubject]="user">{{ 'CLICK.RIGHT' | translate }}: {{ user?.sexe === 'F' ? 'Mme.' : 'M.' }} {{ user?.lastname }}</li>
+                        <li *ngFor="let user of contextMenuFirstObject" [contextMenu]="userCM"
+                            [contextMenuSubject]="user">{{ 'CLICK.RIGHT' | translate }}:
+                            {{ user?.sexe === 'F' ? 'Mme.' : 'M.' }} {{ user?.lastname }}</li>
                     </ul>
                 </div>
                 <div class="col-md-6">
                     <ul class="text-white">
-                        <li *ngFor="let subject of contextMenuSecondObject" 
-                            [contextMenu]="subjectCM" 
+                        <li *ngFor="let subject of contextMenuSecondObject" [contextMenu]="subjectCM"
                             [contextMenuSubject]="subject">{{ 'CLICK.RIGHT' | translate }}: {{ subject?.name }}</li>
                     </ul>
                 </div>

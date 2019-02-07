@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ElectronService } from '../../providers/electron.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { ToastrService } from 'ngx-toastr';
-import { TranslateService } from '@ngx-translate/core';
 import { ContextMenuComponent } from 'ngx-contextmenu';
 
 @Component({
@@ -118,7 +116,7 @@ export class ToolboxComponent implements OnInit {
   openFontAwesome() {
     this.electronService.shell.openExternal('https://fontawesome.com/icons?d=gallery');
   }
-  
+
   setCheckValue() {
     return this.cbValue = !this.cbValue;
   }
@@ -153,8 +151,8 @@ export class ToolboxComponent implements OnInit {
 
   testInputNumber() {
     this.toastr.info(this.inputValueNumber.toString());
-	}
-	
+  }
+
   showMessage(message: string) {
     this.toastr.info(message);
   }
