@@ -22,5 +22,10 @@
     "SUCCESS": "Succès",
     "DANGER": "Danger",
     "UPDATE_VALUE": "Changer la valeur",
-    "DISPLAY_VALUE": "Afficher la valeur"
+    "DISPLAY_VALUE": "Afficher la valeur",
+    "CONTEXT_MENU": "Menu contextuel",
+    "CLICK": {
+        "RIGHT": "Clic droit",
+        "LEFT": "Clic gauche"
+    }
 }

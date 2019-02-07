@@ -168,7 +168,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container mt-5">
             <div class="col-md-12 bb-white">
                 <h2>Input-Number</h2>
@@ -196,6 +195,66 @@
                     <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInputNumber()"></app-button>
                 </div>
             </div>
+				</div>
+        <div class="container mt-5">
+            <div class="col-md-12 bb-white">
+                <h2>{{ 'CONTEXT_MENU' | translate }}</h2>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-6">
+                    <ul class="text-white">
+                        <li *ngFor="let user of contextMenuFirstObject" 
+                            [contextMenu]="userCM" 
+                            [contextMenuSubject]="user">{{ 'CLICK.RIGHT' | translate }}: {{ user?.sexe === 'F' ? 'Mme.' : 'M.' }} {{ user?.lastname }}</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="text-white">
+                        <li *ngFor="let subject of contextMenuSecondObject" 
+                            [contextMenu]="subjectCM" 
+                            [contextMenuSubject]="subject">{{ 'CLICK.RIGHT' | translate }}: {{ subject?.name }}</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Context menu pour les utilisateurs -->
+            <context-menu #userCM>
+                <ng-template contextMenuItem let-item>
+                    Bonjour {{ item?.firstname }}
+                </ng-template>
+                <ng-template contextMenuItem [subMenu]="saySubMenu">
+                    Informations personnels
+                </ng-template>
+                <context-menu #saySubMenu>
+                    <ng-template contextMenuItem let-item>
+                        Prénom : {{ item?.firstname }}
+                    </ng-template>
+                    <ng-template contextMenuItem let-item>
+                        Nom de famille : {{ item?.lastname }}
+                    </ng-template>
+                    <ng-template contextMenuItem let-item>
+                        Âge : {{ item?.age }}
+                    </ng-template>
+                    <ng-template contextMenuItem let-item>
+                        Sexe : {{ item?.sexe }}
+                    </ng-template>
+                </context-menu>
+                <ng-template contextMenuItem divider="true"></ng-template>
+                <ng-template contextMenuItem (execute)="showMessage($event.item.firstname + ' dit bonjour !')">
+                    Clic pour appelé une fonction !
+                </ng-template>
+                <ng-template contextMenuItem (execute)="showMessage($event.item.firstname + ' dit hello !')">
+                    Clic pour appelé une autre fonction !
+                </ng-template>
+            </context-menu>
+            <!-- Context menu pour les matières -->
+            <context-menu #subjectCM>
+                <ng-template contextMenuItem let-item>
+                    Langage : {{ item?.language }}
+                </ng-template>
+                <ng-template contextMenuItem let-item>
+                    Professeur : {{ item?.teacher }}
+                </ng-template>
+            </context-menu>
         </div>
     </ng-scrollbar>
 </app-container>
