@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ElectronService } from '../../providers/electron.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { ContextMenuComponent } from 'ngx-contextmenu';
@@ -15,6 +17,7 @@ export class ToolboxComponent implements OnInit {
   colorList: Array<String>;
   fsList: Array<String>;
   faList: Array<any>;
+  cbValue: Boolean;
   inputValue: String;
   inputEmptyValue: String;
   inputValueNumber: number;
@@ -28,6 +31,7 @@ export class ToolboxComponent implements OnInit {
     private toastr: ToastrService, private translateService: TranslateService) { }
 
   ngOnInit() {
+    this.cbValue = true;
     this.inputValue = 'Test';
     this.inputEmptyValue = '';
 
@@ -113,6 +117,14 @@ export class ToolboxComponent implements OnInit {
 
   openFontAwesome() {
     this.electronService.shell.openExternal('https://fontawesome.com/icons?d=gallery');
+  }
+  
+  setCheckValue() {
+    return this.cbValue = !this.cbValue;
+  }
+
+  displayCbValue() {
+    this.toastr.info(this.cbValue ? 'Coché' : 'Décoché', 'Information');
   }
 
   primary() {

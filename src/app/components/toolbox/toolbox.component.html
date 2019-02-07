@@ -84,7 +84,26 @@
                 <a class="link-white" (click)="openFontAwesome()">Font Awesome 5 Free</a>
             </div>
         </div>
-        <div class="container mt-5">
+      </div>
+    <div class="container mt-5">
+        <div class="col-md-12 bb-white">
+            <h2>{{ 'CHECKBOX' | translate }}</h2>
+        </div>
+        <div class="col-md-12 mt-1 row">
+            <div class="col-md-12">
+                <app-checkbox name="Checkbox 1" [(value)]="cbValue"></app-checkbox>
+            </div>
+            <div class="col-md-8">
+                <app-checkbox name="Checkbox 2" [(value)]="cbValue" [disabled]="true"></app-checkbox>
+            </div>
+            <div class="col-md-4">
+                <button (click)="displayCbValue()">DISPLAY TEMPORAIRE</button>
+                <button (click)="setCheckValue()">CHANGER TEMPORAIRE</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
             <div class="col-md-12 bb-white">
                 <h2>Boutons</h2>
             </div>
