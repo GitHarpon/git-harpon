@@ -68,43 +68,25 @@
 
     <div class="container mt-5">
         <div class="col-md-12 bb-white">
-            <h2>CheckBox</h2>
+            <h2>{{ 'CHECKBOX' | translate }}</h2>
         </div>
         <div class="col-md-12 mt-1 row">
-                <div class="col-md-2 mt-1">
-                    <!-- <div class="col-md-4 offset-md-4">
-                        <div class="checkbox form-check-inline light-blue">
-                            <input type="checkbox" value="" id="check1" [disabled]="false">
-                        </div>
-                    </div>
-                    <div class="text-center color-white" for="check1">
-                        {{ 'CHECKBOX' | translate }}
-                    </div> -->
-                    <app-checkbox [value]='CHECKBOX' [disabled]="false"></app-checkbox>
-                </div>
-                <div class="col-md-2 mt-1">
-                    <!-- <div class="col-md-4 offset-md-4">
-                        <div class="checkbox form-check-inline">
-                            <input type="checkbox" value="" id="check2" [disabled]="true">
-                        </div>
-                    </div>
-                    <div class="text-center color-white" for="check2">
-                        {{ 'D_CHECKBOX' | translate }}
-                    </div> -->
-                    <app-checkbox [value]='D_CHECKBOX' [disabled]="true"></app-checkbox>
-                </div>
-                <div class="col-md-2 mt-1">
-                    <div class="col-md-4 offset-md-4">
-                        <div class="checkbox form-check-inline dark-green">
-                            <!-- <input type="checkbox" value="" id="check3" checked> -->
-                            <i class="fas fa-check"></i>                  
-                        </div>
-                    </div>
-                    <div class="text-center color-white" for="check3">
-                        {{ 'CHECKED_BOX' | translate }}
-                    </div>
+            <div class="col-md-2 mt-1">
+                <div class="col-md-4 offset-md-4">
+                    <app-checkbox value="Checkbox" [(current)]="value" [checked]="false" [disabled]="false" type="checked" (click)="setCheckValue() ; boxCheck()"></app-checkbox>
                 </div>
             </div>
+            <div class="col-md-2 mt-1">
+                <div class="col-md-4 offset-md-4">
+                    <div class="checkbox form-check-inline">
+                        <input type="checkbox" value="" id="check2" [disabled]="true">
+                    </div>
+                </div>
+                <div class="text-center color-white" for="check2">
+                    {{ 'D_CHECKBOX' | translate }}
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container mt-5">

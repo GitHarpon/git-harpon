@@ -8,5 +8,7 @@
     "CHECKBOX": "CheckBox",
     "UN_CHECKBOX": "Unchecked checkbox",
     "D_CHECKBOX": "Disabled checkBox",
-    "CHECKED_BOX": "Checked box"
+    "CHECKED_BOX": "Checked box",
+    "INFO_CHECK": "Checked box",
+    "INFO_UN_CHECK": "Unchecked box"
 }

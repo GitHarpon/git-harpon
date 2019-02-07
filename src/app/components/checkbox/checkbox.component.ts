@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { ElectronService } from '../../providers/electron.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-checkbox',
@@ -8,24 +10,39 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CheckboxComponent implements OnInit {
 
-  @Input() value: String;
+  // @Input() value: String;
   @Input() result: Boolean;
-  @Input() checkBox: String;
-  @Input() checked: Boolean;
+  // @Input() checkBox: String;
+  @Input() checked: Boolean = false;
   @Input() disabled: Boolean = false;
-  // @Output() checkedBox: EventEmitter<any> = new EventEmitter<any>();
+  currentValue: Boolean;
+  @Output() checkedBox = new EventEmitter<any>();
 
-  constructor(private translateService: TranslateService) { }
+  constructor(private electronService: ElectronService,
+    private toastr: ToastrService, private translateService: TranslateService) { }
 
   ngOnInit() {
   }
 
-  triggerValue(val) {
-    this.value = val.target.checked;
+  @Input()
+  get current() {
+    return this.currentValue;
   }
 
-  getValueTranslation() {
-    return this.translateService.instant(this.value.toUpperCase().toString());
-  }
+  set current(val) {
+    this.currentValue = !val;
+    this.checkedBox.emit(this.currentValue);
+}
+
+  // triggerValue(val) {
+  //   this.result = val.target.checked;
+  // }
+  // triggerValue(value) {
+  //   this.checkedBox.emit(value);
+  // }
+
+  // getValueTranslation() {
+  //   return this.translateService.instant(this.value.toUpperCase().toString());
+  // }
 
 }

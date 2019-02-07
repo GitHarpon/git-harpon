@@ -8,5 +8,7 @@
     "CHECKBOX": "Case à cocher",
     "UN_CHECKBOX": "Case décochée",
     "D_CHECKBOX": "Case à cocher désactivée",
-    "CHECKED_BOX": "Case cochée"
+    "CHECKED_BOX": "Case cochée",
+    "INFO_CHECK": "Case cochée",
+    "INFO_UN_CHECK": "Case décochée"
 }

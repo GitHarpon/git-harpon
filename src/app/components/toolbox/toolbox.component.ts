@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ElectronService } from '../../providers/electron.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-toolbox',
@@ -10,8 +12,10 @@ export class ToolboxComponent implements OnInit {
   colorList: Array<String>;
   fsList: Array<String>;
   faList: Array<any>;
+  checked: Boolean;
 
-  constructor(private electronService: ElectronService) { }
+  constructor(private electronService: ElectronService,
+    private toastr: ToastrService, private translateService: TranslateService) { }
 
   ngOnInit() {
     this.colorList = [
@@ -73,6 +77,28 @@ export class ToolboxComponent implements OnInit {
 
   openFontAwesome() {
     this.electronService.shell.openExternal('https://fontawesome.com/icons?d=gallery');
+  }
+
+  setCheckValue() {
+    return this.checked = !this.checked;
+  }
+
+  check() {
+    this.toastr.info(this.translateService.instant('CHECKBOX'),
+    this.translateService.instant('INFO_CHECK'));
+  }
+
+  unCheck() {
+    this.toastr.info(this.translateService.instant('UN_CHECKBOX'),
+    this.translateService.instant('INFO_UN_CHECK'));
+  }
+
+  boxCheck() {
+    if (this.checked == false) {
+      this.check();
+    } else {
+      this.unCheck();
+    }
   }
 
 }
