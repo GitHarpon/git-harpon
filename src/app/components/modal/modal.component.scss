@@ -45,28 +45,20 @@
         background: $white;
         color: $dark;
         position: absolute;
-        padding: $gap-xl;
         /*@include box-shadow();*/
         top: 50px;
-        bottom: 75px;
-        left: $gap-xl;
-        right: $gap-xl;
+        bottom: 0;
+        @include wX(100%);
         overflow: auto;
     }
 
     &__title {
-        background: $dark-blue;
+        background: $light-grey;
         font-weight: bold;
         height: 50px;
         line-height: 50px;
         vertical-align: middle;
         padding-left: $gap-xl;
-    }
-
-    &__buttons {
-        position: absolute;
-        bottom: 0;
-        right: $gap-xl;
     }
 
     &__close {
@@ -85,6 +77,7 @@
     
         &:hover {
             background: $dark-blue;
+
         }
     }
 }

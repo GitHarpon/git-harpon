@@ -1,18 +1,13 @@
 <div class="gh-modal" [ngClass]="visible ? 'visible' : ''">
   <div class="gh-modal__overlay" (click)="closeModal()"></div>
   <div class="gh-modal__window" [ngClass]="[(large ? 'large' : ''), (medium ? 'medium' : '')]">
-    <form>
-      <div class="gh-modal__title"> {{ 'MODAL_WINDOW' | translate }}
-        <div class="gh-modal__close" (click)="closeModal()"><i class="fa fa-times"></i></div>
-      </div>
-      <div class="gh-modal__content">
-        <!-- CONTENT -->
-        Bonjour
-      </div>
-      <!-- BUTTONS -->
-      <!--<div class="gh-modal__buttons">
-        <app-button value="button_test_modal" type="primary"></app-button>
-      </div>-->
-    </form>
+    <div class="gh-modal__title">
+      {{ title | translate }}
+      <div class="gh-modal__close" (click)="closeModal()"><i class="fa fa-times"></i></div>
+    </div>
+    <div class="gh-modal__content">
+      <!-- CONTENT -->
+      Bonjour
+    </div>
   </div>
 </div>
