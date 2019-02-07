@@ -1,4 +1,8 @@
-<button class="gh-icon-button" type="button" [placement]="placement" [ngbTooltip]="value ? getValueTranslation() : ''" (click)="execClick($event)">    
-  {{ getValueTranslation() }}
-  <i [ngClass]="[(icon.isFab ? 'fab' : 'fa'), icon.name]"></i>
-</button>
+<div class="gh-icon-button" [placement]="placement" [ngbTooltip]="value ? getValueTranslation() : ''" (click)="execClick($event)">
+  <div class="gh-button-top-div">
+    <i [ngClass]="[(icon.isFab ? 'fab' : 'fa'), icon.name]" class="fa-lg"></i>
+  </div>
+  <div>
+    {{ getValueTranslation() }}
+  </div>
+</div>

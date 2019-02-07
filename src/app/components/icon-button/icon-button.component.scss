@@ -1,10 +1,14 @@
 @import '../../../variables.scss';
 
 .gh-icon-button {
-    border-style: none;
     color: $white;
     outline: none;
-
+    text-align: center;
+    width: 75px;
+    height: 75px;
+    padding: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     @include bg-color($light-grey);
     cursor: pointer;
@@ -12,8 +16,8 @@
     &:hover {
         @include bg-color($dark-grey);
     }
-}
 
-.large {
-    @include w100-h100();
+    .gh-button-top-div {
+        padding-bottom: 10px;
+    }
 }

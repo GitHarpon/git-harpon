@@ -106,9 +106,14 @@ export class ToolboxComponent implements OnInit {
       this.translateService.instant('MENUBAR'));
   }
 
-  classic() {
-    this.toastr.info(this.translateService.instant('ICONBUTTON.CLASSIC'),
-      this.translateService.instant('CLASSIC'));
+  githubButtonClicked() {
+    this.toastr.success(this.translateService.instant('ICONBUTTON.GITHUB'),
+      this.translateService.instant('ICONBUTTON.GITHUB'));
+  }
+
+  gitlabButtonClicked() {
+    this.toastr.info(this.translateService.instant('ICONBUTTON.GITLAB'),
+      this.translateService.instant('ICONBUTTON.GITLAB'));
   }
 
   testInput() {

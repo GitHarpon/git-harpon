@@ -125,11 +125,11 @@
             <h2>IconButtons</h2>
         </div>
         <div class="col-md-12 row mt-1">
-            <div class="col-md-4 mt-1">
-                <app-icon-button value="ICONBUTTON.MENUBAR" placement="bottom" [icon]="{name:'fa-github', isFab:true}" (buttonClicked)="classic()" ></app-icon-button>
+            <div class="col-md-2 mt-1">
+                <app-icon-button value="ICONBUTTON.GITHUB" placement="bottom" [icon]="{name:'fa-github', isFab:true}" (buttonClicked)="githubButtonClicked()" ></app-icon-button>
             </div>
-            <div class="col-md-4 mt-1">
-                <app-icon-button value="ICONBUTTON.MENUBAR" placement="top" [icon]="{name:'fa-download', isFab:false}" (buttonClicked)="classic()" ></app-icon-button>
+            <div class="col-md-2 mt-1">
+                <app-icon-button value="ICONBUTTON.GITLAB" placement="top" [icon]="{name:'fa-gitlab', isFab:true}" (buttonClicked)="gitlabButtonClicked()" ></app-icon-button>
             </div>
         </div>
     </div>

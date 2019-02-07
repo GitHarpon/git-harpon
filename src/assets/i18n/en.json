@@ -19,7 +19,8 @@
         "LARGE": "Large button"
     },
     "ICONBUTTON": {
-        "MENUBAR": "Menu bar icon button"
+        "GITHUB": "GitHub",
+        "GITLAB": "GitLab"
     },
     "INFORMATION": "Information",
     "SUCCESS": "Success",
