@@ -10,17 +10,16 @@ export class DropdownComponent implements OnInit {
   @Input() disabled: Boolean = false;
   @Input() required: Boolean = false;
   @Input() large: Boolean = false;
-  @Input() options: Array<any>;
+  @Input() options: Array<String>;
   @Input() value: String;
   @Output() dropdownChanged: EventEmitter<any> = new EventEmitter<any>();
   // ng model pour two way binding
-  // regarder disabled fonctionnement
 
   constructor() { }
 
   ngOnInit() {
     if (this.required) {
-      this.value = this.options[0].name;
+      this.value = this.options[0];
     }
   }
 

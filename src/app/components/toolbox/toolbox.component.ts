@@ -23,7 +23,7 @@ export class ToolboxComponent implements OnInit {
   min: number;
   contextMenuFirstObject: Array<Object>;
   contextMenuSecondObject: Array<Object>;
-  dataDropdownExample: Array<any>;
+  dataDropdownExample: Array<String>;
 
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
@@ -97,12 +97,12 @@ export class ToolboxComponent implements OnInit {
     ];
 
     this.dataDropdownExample = [
-      {id: 'Orange', name: 'Orange'},
-      {id: 'Banane', name: 'Banane'},
-      {id: 'Cerise', name: 'Cerise'},
-      {id: 'Pêche',  name: 'Pêche'}
+      'Orange',
+      'Banane',
+      'Cerise',
+      'Pêche'
     ];
-      
+
     this.contextMenuFirstObject = [
       { firstname: 'Cyrielle', lastname: 'Angoula Meka', age: 23, sexe: 'F' },
       { firstname: 'Julien', lastname: 'Besnier', age: 23, sexe: 'M' },
