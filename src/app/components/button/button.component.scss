@@ -1,0 +1,76 @@
+@import '../../../variables.scss';
+
+.gh-button {
+    border-style: solid;
+    border-radius: 2px;
+    color: $white;
+    outline: none;
+
+    &.primary {
+        @include bg-color($dark-blue);
+        border-color: $light-blue;
+        cursor: pointer;
+
+        &:hover {
+            @include bg-color($light-blue);
+        }
+
+        &.disabled {
+            @include bg-color($disabled-blue);
+            border-color: $dark-blue;
+            color: $muted-white;
+
+            &:hover {
+                cursor: not-allowed;
+                color: $white;
+            }
+        }
+    }
+
+    &.success {
+        @include bg-color($dark-green);
+        border-color: $light-green;
+        cursor: pointer;
+
+        &:hover {
+            @include bg-color($light-green);
+        }
+
+        &.disabled {
+            @include bg-color($disabled-green);
+            border-color: $dark-green;
+            color: $muted-white;
+            
+            
+            &:hover {
+                cursor: not-allowed;
+                color: $white;
+            }
+        }
+    }
+
+    &.danger {
+        @include bg-color($dark-red);
+        border-color: $light-red;
+        cursor: pointer;
+
+        &:hover {
+            @include bg-color($light-red);
+        }
+
+        &.disabled {
+            @include bg-color($disabled-red);
+            border-color: $dark-red;
+            color: $muted-white;
+            
+            &:hover {
+                cursor: not-allowed;
+                color: $white;
+            }
+        }
+    }
+}
+
+.large {
+    @include w100-h100();
+}

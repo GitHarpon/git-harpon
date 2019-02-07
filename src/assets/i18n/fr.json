@@ -10,5 +10,28 @@
     "D_CHECKBOX": "Case à cocher désactivée",
     "CHECKED_BOX": "Case cochée",
     "INFO_CHECK": "Case cochée",
-    "INFO_UN_CHECK": "Case décochée"
+    "INFO_UN_CHECK": "Case décochée",
+    "PLACEHOLDER": "Texte indicatif",
+    "DISABLED": "Désactivé",
+    "READONLY": "Lecture seule",
+    "REGULAR": "Normal",
+    "WITH_EMPTY_VALUE": "Avec une valeur vide",
+    "WITH_LABEL": "Avec label",
+    "BUTTON": {
+        "PRIMARY": "Bouton primaire",
+        "SUCCESS": "Bouton succès",
+        "DANGER": "Bouton danger",
+        "DISABLED": "Bouton désactivé",
+        "LARGE": "Bouton allongé"
+    },
+    "INFORMATION": "Information",
+    "SUCCESS": "Succès",
+    "DANGER": "Danger",
+    "UPDATE_VALUE": "Changer la valeur",
+    "DISPLAY_VALUE": "Afficher la valeur",
+    "CONTEXT_MENU": "Menu contextuel",
+    "CLICK": {
+        "RIGHT": "Clic droit",
+        "LEFT": "Clic gauche"
+    }
 }

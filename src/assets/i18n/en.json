@@ -10,5 +10,28 @@
     "D_CHECKBOX": "Disabled checkBox",
     "CHECKED_BOX": "Checked box",
     "INFO_CHECK": "Checked box",
-    "INFO_UN_CHECK": "Unchecked box"
+    "INFO_UN_CHECK": "Unchecked box",
+    "PLACEHOLDER": "Placeholder",
+    "DISABLED": "Disabled",
+    "READONLY": "Read-only",
+    "REGULAR": "Regular",
+    "WITH_EMPTY_VALUE": "With empty value",
+    "WITH_LABEL": "With label",
+    "BUTTON": {
+        "PRIMARY": "Primary button",
+        "SUCCESS": "Success button",
+        "DANGER": "Danger button",
+        "DISABLED": "Disabled button",
+        "LARGE": "Large button"
+    },
+    "INFORMATION": "Information",
+    "SUCCESS": "Success",
+    "DANGER": "Danger",
+    "UPDATE_VALUE": "Update value",
+    "DISPLAY_VALUE": "Display value",
+    "CONTEXT_MENU": "Menu contextuel",
+    "CLICK": {
+        "RIGHT": "Right click",
+        "LEFT": "Left click"
+    }
 }

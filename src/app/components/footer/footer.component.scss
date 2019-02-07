@@ -9,6 +9,7 @@
     color: $white;
     text-align:center;
     padding: $gap-sm;
+    height: $footer-height;
 
     &__content {
         text-align: right;
@@ -28,6 +29,7 @@
                 &:hover, &:visited, &:active, &:focus {
                     text-decoration: none;
                     color: $white; 
+                    outline: none;
                 }
             }            
         }
@@ -37,6 +39,9 @@
             margin-right: $gap-md;
             &:hover {
                 cursor: pointer;
+            }
+            &:focus {
+                outline: none;
             }
         }
     }

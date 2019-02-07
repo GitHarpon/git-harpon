@@ -51,3 +51,68 @@ body {
 .color-white {
     color: $white;
 }
+
+.gh-label-input {
+    color: $white;
+    padding: $gap-md $gap-md 0 $gap-md;
+    padding-right: 0;
+}
+
+.gh-scrollbar {
+    --scrollbar-color: rgba(55, 56, 65, 0.3) !important;
+    --scrollbar-thumb-color: #373841 !important;
+    --scrollbar-thumb-hover-color: #373841 !important;
+    --scrollbar-border-radius: 4px !important;
+    --scrollbar-size: 7px !important;
+}
+
+.ngx-contextmenu {
+    
+    & .dropdown-menu {
+        color: $dark;
+        background-color: rgba(230, 230, 230, 0.9);
+        border-radius: 3px;
+        padding: 0;
+
+        & .dropdown-divider {
+            margin: 0.25rem 0;
+            border-top: 1px solid $dark;
+        }
+    }
+
+    & a {
+        color: $dark;
+        font-size: $fs-small;
+        font-display: FontAwesome;
+        &:hover {
+            background: $light-blue-hover;
+            color: $white;
+        }
+    }
+}
+
+
+
+//  .ngx-contextmenu .dropdown-menu {
+//     border: solid 1px chartreuse;
+//     background-color: darkgreen;
+//     padding: 0;
+//   }
+//   .ngx-contextmenu li {
+//     display: block;
+//     border-top: solid 1px chartreuse;
+//     text-transform: uppercase;
+//     text-align: center;
+//   }
+//   .ngx-contextmenu li:first-child {
+//     border-top:none;
+//   }
+//   .ngx-contextmenu a {
+//     color:chartreuse;
+//     display: block;
+//     padding: 0.5em 1em;
+//   }
+//   .ngx-contextmenu a:hover {
+//     color:darkgreen;
+//     background-color:chartreuse;
+//   }
