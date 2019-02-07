@@ -118,20 +118,18 @@
             <div class="col-md-4 mt-1">
                 <app-button value="BUTTON.LARGE" type="danger" [large]="true" (buttonClicked)="danger()"></app-button>
             </div>
-
-
-            
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="col-md-12 bb-white">
+            <h2>IconButtons</h2>
+        </div>
+        <div class="col-md-12 row mt-1">
             <div class="col-md-4 mt-1">
-                <app-icon-button value="ICONBUTTON.MENUBAR" type="menubar" (buttonClicked)="menubar()" ></app-icon-button>
+                <app-icon-button value="ICONBUTTON.MENUBAR" placement="bottom" [icon]="{name:'fa-github', isFab:true}" (buttonClicked)="classic()" ></app-icon-button>
             </div>
             <div class="col-md-4 mt-1">
-                <app-icon-button value="ICONBUTTON.CLASSIC" type="classic" (buttonClicked)="classic()" ></app-icon-button>
-            </div>
-            <div class="col-md-4 mt-1">
-                <app-icon-button value="ICONBUTTON.MENUBAR" type="menubar" [disabled]="true" (buttonClicked)="menubar()" ></app-icon-button>
-            </div>
-            <div class="col-md-4 mt-1">
-                <app-icon-button value="ICONBUTTON.CLASSIC" type="classic" [disabled]="true" (buttonClicked)="classic()" ></app-icon-button>
+                <app-icon-button value="ICONBUTTON.MENUBAR" placement="top" [icon]="{name:'fa-download', isFab:false}" (buttonClicked)="classic()" ></app-icon-button>
             </div>
         </div>
     </div>

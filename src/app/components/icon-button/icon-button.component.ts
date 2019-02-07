@@ -8,15 +8,16 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class IconButtonComponent implements OnInit {
 
-  @Input() disabled: Boolean = false;
   @Input() value: String;
-  @Input() submit: Boolean = false;
-  @Input() large: Boolean = false;
-  @Input() type: String = 'primary';
+  @Input() placement: String;
+  @Input() icon: {
+    name: String,
+    isFab: Boolean
+  };
   @Output() buttonClicked: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private translateService: TranslateService) { 
-  }
+
+  constructor(private translateService: TranslateService) { }
 
   ngOnInit() {
   }

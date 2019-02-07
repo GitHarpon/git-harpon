@@ -1,6 +1,4 @@
-<div>
-  <button class="gh-icon-button" [type]="submit ? 'submit' : 'button'" [disabled]="disabled" [value]="value ? getValueTranslation() : ''" (click)="execClick($event)" 
-    [ngClass]="[type, (disabled ? 'disabled' : ''), (large ? 'large' : '')]">    
-    <i class="fa fa-camera-retro"></i>
-  </button>
-</div>
+<button class="gh-icon-button" type="button" [placement]="placement" [ngbTooltip]="value ? getValueTranslation() : ''" (click)="execClick($event)">    
+  {{ getValueTranslation() }}
+  <i [ngClass]="[(icon.isFab ? 'fab' : 'fa'), icon.name]"></i>
+</button>

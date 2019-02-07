@@ -19,8 +19,7 @@
         "LARGE": "Large button"
     },
     "ICONBUTTON": {
-        "MENUBAR": "Menu bar icon button",
-        "CLASSIC": "Classic icon button"
+        "MENUBAR": "Menu bar icon button"
     },
     "INFORMATION": "Information",
     "SUCCESS": "Success",

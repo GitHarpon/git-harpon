@@ -5,39 +5,12 @@
     color: $white;
     outline: none;
 
-    &.classic {
-        @include bg-color($white);
-        color: $muted-white;
-        cursor: pointer;
 
-        &:hover {
-            color: $dark;
-        }
+    @include bg-color($light-grey);
+    cursor: pointer;
 
-        &.disabled {
-            &:hover {
-                cursor: not-allowed;
-                color: $muted-white;
-            }
-        }
-    }
-
-    &.menubar {
-        @include bg-color($light-blue);
-        cursor: pointer;
-
-        &:hover {
-            @include bg-color($dark-blue);
-        }
-
-        &.disabled {
-            @include bg-color($dark-blue);
-            color: $muted-white;
-
-            &:hover {
-                cursor: not-allowed;
-            }
-        }
+    &:hover {
+        @include bg-color($dark-grey);
     }
 }
 
