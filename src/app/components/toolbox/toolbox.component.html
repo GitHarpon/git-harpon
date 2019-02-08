@@ -309,11 +309,15 @@
                 <div class="col-md-4 mt-1">
                     <app-dropdown [options]="dataDropdownExample" [disabled]="true" [idKey]="key" [valueKey]="value" [(value)]="dropdownValue"></app-dropdown>
                 </div>
-
             </div>
             <div class="col-md-12 mt-2 row">
-                <div class="col-md-8 mt-1">
-                    <app-input [(value)]="dropdownValue"></app-input>
+                <div class="col-md-4 mt-1">
+                    <app-dropdown [options]="dataDropdownExampleTwo" [idKey]="key" [valueKey]="value" [(value)]="dropdownValueTwo"></app-dropdown>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-4 mt-1">
+                    <app-button value="RANDOM_VALUE" type="primary" (buttonClicked)="testAleatDropdown()"></app-button>
                 </div>
                 <div class="col-md-4 text-right">
                     <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testDropdown()"></app-button>

@@ -25,10 +25,12 @@ export class ToolboxComponent implements OnInit {
   contextMenuFirstObject: Array<Object>;
   contextMenuSecondObject: Array<Object>;
   dataDropdownExample: Array<any>;
+  dataDropdownExampleTwo: Array<any>;
 
   key: String = 'key';
   value: String = 'value';
   dropdownValue: String;
+  dropdownValueTwo: String;
 
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
@@ -110,6 +112,13 @@ export class ToolboxComponent implements OnInit {
       {key: 'Poire', value: 'Poire'},
     ];
 
+    this.dataDropdownExampleTwo = [
+      {key: 'Carotte', value: 'Carotte'},
+      {key: 'Poireau', value: 'Poireau'},
+      {key: 'Courge', value: 'Courge'},
+      {key: 'Patate', value: 'Patate'},
+    ];
+
     this.contextMenuFirstObject = [
       { firstname: 'Cyrielle', lastname: 'Angoula Meka', age: 23, sexe: 'F' },
       { firstname: 'Julien', lastname: 'Besnier', age: 23, sexe: 'M' },
@@ -184,6 +193,10 @@ export class ToolboxComponent implements OnInit {
 
   testDropdown() {
     this.toastr.info(this.dropdownValue.toString());
+  }
+
+  testAleatDropdown() {
+    this.dropdownValue = this.dataDropdownExample[Math.floor(Math.random() * 4)].value;
   }
 
   showMessage(message: string) {

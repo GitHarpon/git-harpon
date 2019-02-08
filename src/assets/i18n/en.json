@@ -15,6 +15,7 @@
     "DISABLED": "Disabled",
     "READONLY": "Read-only",
     "REGULAR": "Regular",
+    "RANDOM_VALUE": "Random value",
     "WITH_EMPTY_VALUE": "With empty value",
     "WITH_LABEL": "With label",
     "BUTTON": {
