@@ -1,20 +1,22 @@
 <div class="gh-loader" *ngIf="loading">
-    <div class="gh-loader_overlay"></div>
-    <div class="gh-loader_content" *ngIf="loading">        
-        <div class='loader loader1'>
-            <div>
+    <div class="gh-loader_overlay">
+        <div class="gh-loader_content" *ngIf="loading">        
+            <div class='loader loader1'>
                 <div>
                     <div>
                         <div>
                             <div>
-                                <div></div>
+                                <div>
+                                    <div></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <h2>{{ 'LOADER' | translate }}</h2>
         </div>
-        <h2>{{ 'LOADER' | translate }}</h2>
+
     </div>
     <ng-content></ng-content>
 </div>

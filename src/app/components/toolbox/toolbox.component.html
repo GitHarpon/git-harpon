@@ -1,7 +1,9 @@
-<!-- <app-button value="Change Loader" (buttonClicked)="setLoading()"></app-button> -->
 <app-container classes="dark" border="true">
-    <!-- <app-loader [loading]="loading"> -->
-    <ng-scrollbar class="gh-scrollbar">
+    <app-button value="Change Loader" (buttonClicked)="setLoading()" style="position: absolute; z-index: 4"></app-button>
+    
+    <app-loader [loading]="loading">
+
+        <ng-scrollbar class="gh-scrollbar">
         <div class="text-center">
             <span class="big-heading">Toolbox</span>
         </div>
@@ -180,6 +182,6 @@
             </div>
         </div>
     </ng-scrollbar>
-<!-- </app-loader> -->
+</app-loader>
 </app-container>
 <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>
