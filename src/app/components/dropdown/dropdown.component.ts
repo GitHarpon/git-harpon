@@ -9,33 +9,41 @@ export class DropdownComponent implements OnInit {
 
   @Input() disabled: Boolean = false;
   @Input() required: Boolean = false;
-  @Input() value: String;
+
+  currentValue: string;
   @Input() idKey: String;
   @Input() valueKey: String;
 
   @Output()
-  optionsChanged = new EventEmitter<Array<string>>();
-
+  valueChange = new EventEmitter<string>();
   @Input()
   options: Array<string>;
-
-  get getOptions() {
-    return this.options;
+  @Input()
+  get value() {
+    return this.currentValue;
   }
-  set setOptions(val) {
-    this.options = val;
-    this.optionsChanged.emit(this.options);
+  set value(val) {
+    this.currentValue = val;
+    this.valueChange.emit(val);
   }
 
   constructor() { }
 
-  getKey(option: any) {
+  getOptKey(option: any) {
     if (this.idKey) {
       return option[this.idKey.toString()];
     }
   }
 
-  getValue(option: any) {
+  isSelected(opt) {
+    var valeur = this.getOptKey(opt);
+    if (valeur === this.currentValue) {
+      return 'selected';
+    }
+    return '';
+  }
+
+  getOptValue(option: any) {
     if (this.valueKey) {
       return option[this.valueKey.toString()];
     }
@@ -48,8 +56,8 @@ export class DropdownComponent implements OnInit {
   }
 
   triggerChange(evt) {
-    this.value = evt.target.value;
-    this.optionsChanged.emit(evt);
+    this.currentValue = evt;
+    this.valueChange.emit(this.currentValue);
   }
 
 }

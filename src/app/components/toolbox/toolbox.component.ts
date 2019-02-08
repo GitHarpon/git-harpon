@@ -27,6 +27,7 @@ export class ToolboxComponent implements OnInit {
 
   key: String = 'key';
   value: String = 'value';
+  dropdownValue: String;
 
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
@@ -39,6 +40,7 @@ export class ToolboxComponent implements OnInit {
     this.inputMinMaxValueNumber = 0;
     this.max = 10;
     this.min = 0;
+    this.dropdownValue = 'Orange';
 
     this.colorList = [
       'dark-blue',
@@ -153,6 +155,10 @@ export class ToolboxComponent implements OnInit {
 
   testInputNumber() {
     this.toastr.info(this.inputValueNumber.toString());
+  }
+
+  testDropdown() {
+    this.toastr.info(this.dropdownValue.toString());
   }
 
   showMessage(message: string) {

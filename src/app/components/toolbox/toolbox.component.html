@@ -262,17 +262,26 @@
                     <h2>Dropdowns</h2>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-dropdown [(options)]="dataDropdownExample" [required]="true" [idKey]="key" [valueKey]="value"></app-dropdown>
+                    <app-dropdown [options]="dataDropdownExample" [required]="true" [idKey]="key" [valueKey]="value" [(value)]="dropdownValue"></app-dropdown>
                 </div>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-4 mt-1">
-                    <app-dropdown [(options)]="dataDropdownExample" [idKey]="key" [valueKey]="value"></app-dropdown>
+                    <app-dropdown [options]="dataDropdownExample" [idKey]="key" [valueKey]="value" [(value)]="dropdownValue"></app-dropdown>
                 </div>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-4 mt-1">
-                    <app-dropdown [(options)]="dataDropdownExample" [disabled]="true" [idKey]="key" [valueKey]="value"></app-dropdown>
+                    <app-dropdown [options]="dataDropdownExample" [disabled]="true" [idKey]="key" [valueKey]="value" [(value)]="dropdownValue"></app-dropdown>
+                </div>
+
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-10 mt-1">
+                    <app-input [(value)]="dropdownValue"></app-input>
+                </div>
+                <div class="col-md-4 text-right">
+                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testDropdown()"></app-button>
                 </div>
             </div>
         </div>

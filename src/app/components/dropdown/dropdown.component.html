@@ -1,4 +1,4 @@
-<select [ngClass]="['gh-dropdown',(disabled ? 'disabled' : '')]" [disabled]="disabled" (change)="triggerChange($event)">
-  <option *ngIf="!required" selected value=""></option>
-  <option *ngFor="let option of options" value="{{option}}" [value]="getValue(option)">{{getValue(option)}}</option>
+<select [ngClass]="['gh-dropdown',(disabled ? 'disabled' : '')]" [disabled]="disabled" value="{{value}}" [(ngModel)]="value">
+  <option *ngIf="!required" value=""></option>
+  <option *ngFor="let option of options" [value]="getOptValue(option)" selected="{{isSelected(option)}}">{{getOptValue(option)}}</option>
 </select>
