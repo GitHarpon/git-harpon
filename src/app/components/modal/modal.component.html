@@ -1,7 +1,7 @@
 <div class="gh-modal" [ngClass]="{'visible': visible }">
   <div class="gh-modal__overlay" (click)="closeModal()"></div>
-  <div class="gh-modal__window" [ngClass]="[(large ? 'large' : ''), (medium ? 'medium' : '')]">
-    <div class="gh-modal__title">
+  <div class="gh-modal__window" [ngClass]="[(fullscreen ? 'fullscreen' : ''), (large ? 'large' : ''), (medium ? 'medium' : '')]">
+    <div *ngIf="!fullscreen" class="gh-modal__title">
       {{ title | translate }}
       <div class="gh-modal__close" (click)="closeModal()"><i class="fa fa-times"></i></div>
     </div>

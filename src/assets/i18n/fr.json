@@ -24,9 +24,13 @@
     "UPDATE_VALUE": "Changer la valeur",
     "DISPLAY_VALUE": "Afficher la valeur",
     "LABEL": "Label",
-    "MODAL_WINDOW": "Fenêtre modale",
-    "OPEN_MODAL": "Ouvrir la fenêtre modale",
     "MODAL" : {
+        "WINDOW": "Fenêtre modale",
+        "OPEN": {
+            "REGULAR": "Ouvrir la modale normale",
+            "FULLSCREEN": "Ouvrir la modale plein écran"
+        },
+        "EXIT": "Sortir",
         "FIRST_SECTION": "Première section",
         "SECOND_SECTION": "Deuxième section",
         "THIRD_SECTION": "Troisième section",

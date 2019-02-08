@@ -14,7 +14,8 @@ export class ToolboxComponent implements OnInit {
   faList: Array<any>;
   inputValue: String;
   inputEmptyValue: String;
-  modalVisible: Boolean;
+  modalRegularVisible: Boolean;
+  modalFullscreenVisible: Boolean;
   modalInputValue: String;
 
   constructor(private electronService: ElectronService,
@@ -80,7 +81,8 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-undo', isFab: false },
       { icon: 'fa-spinner', isFab: false },
       { icon: 'fa-upload', isFab: false },
-      { icon: 'fa-download', isFab: false }
+      { icon: 'fa-download', isFab: false },
+      { icon: 'fa-sign-out-alt', isFab: false}
     ];
   }
 
@@ -111,11 +113,19 @@ export class ToolboxComponent implements OnInit {
     this.inputValue += 'daa';
   }
 
-  openModal() {
-    this.modalVisible = true;
+  openRegularModal() {
+    this.modalRegularVisible = true;
+  }
+
+  openFullscreenModal() {
+    this.modalFullscreenVisible = true;
   }
 
   displayModalInputValue() {
     this.toastr.info(this.modalInputValue.toString());
+  }
+
+  closeFullscreenModal() {
+    this.modalFullscreenVisible = false;
   }
 }

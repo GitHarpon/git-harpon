@@ -18,26 +18,6 @@
         z-index: 1;    
     }
 
-    &__window
-    {
-        position: fixed;
-        @include wX-hX(30%, 80%);
-        top: 5%;
-        left: 35%;
-        border: 1px solid $light-grey;
-        z-index: 2;
-
-        &.medium {
-            @include wX(50%);
-            left: 25%;
-        }
-
-        &.large {
-            @include wX(90%);
-            left: 5%;
-        }
-    }
-
     &__content {
         color: $white;
         position: absolute;
@@ -73,6 +53,36 @@
         &:hover {
             background: rgba(76, 93, 170, 0.2);
 
+        }
+    }
+
+    &__window
+    {
+        position: fixed;
+        @include wX-hX(30%, 80%);
+        top: 5%;
+        left: 35%;
+        border: 1px solid $light-grey;
+        z-index: 2;
+
+        &.medium {
+            @include wX(50%);
+            left: 25%;
+        }
+
+        &.large {
+            @include wX(90%);
+            left: 5%;
+        }
+
+        &.fullscreen {
+            @include w100-h100();
+            top: 0;
+            left: 0;
+
+            & .gh-modal__content {
+                top: 0;
+            }
         }
     }
 }

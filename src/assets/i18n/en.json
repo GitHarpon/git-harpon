@@ -24,14 +24,18 @@
     "UPDATE_VALUE": "Update value",
     "DISPLAY_VALUE": "Display value",
     "LABEL": "Label",
-    "MODAL_WINDOW": "Modal window",
-    "OPEN_MODAL": "Open the modal window",
     "MODAL" : {
-        "FIRST_SECTION": "Première section",
-        "SECOND_SECTION": "Deuxième section",
-        "THIRD_SECTION": "Troisième section",
-        "FIRST_CONTENT": "Premier contenu",
-        "SECOND_CONTENT": "Deuxième contenu",
-        "THIRD_CONTENT": "Troisième contenu"
+        "WINDOW": "Modal window",
+        "OPEN": {
+            "REGULAR": "Open the regular modal",
+            "FULLSCREEN": "Open the fullscreen modal"
+        },
+        "EXIT": "Exit",
+        "FIRST_SECTION": "First section",
+        "SECOND_SECTION": "Second section",
+        "THIRD_SECTION": "Third section",
+        "FIRST_CONTENT": "First content",
+        "SECOND_CONTENT": "Second content",
+        "THIRD_CONTENT": "Third content"
     }
 }

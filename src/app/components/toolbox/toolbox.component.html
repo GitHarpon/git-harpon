@@ -170,16 +170,21 @@
         </div>
         <div class="container mt-5">
             <div class="col-md-12 bb-white">
-                <h2>{{ 'MODAL_WINDOW' | translate }}</h2>
+                <h2>{{ 'MODAL.WINDOW' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-2 row">
-                <app-button value="OPEN_MODAL" (buttonClicked)="openModal()"></app-button>
+                <div class="col-md-4 mt-1">
+                    <app-button value="MODAL.OPEN.REGULAR" (buttonClicked)="openRegularModal()"></app-button>
+                </div>
+                <div class="col-md-4 mt-1">
+                        <app-button value="MODAL.OPEN.FULLSCREEN" (buttonClicked)="openFullscreenModal()"></app-button>
+                </div>
             </div>
         </div>
     </ng-scrollbar>
 </app-container>
 
-<app-modal [(visible)]="modalVisible" [medium]="true" [title]="'MODAL_WINDOW'">
+<app-modal [(visible)]="modalRegularVisible" [medium]="true" [title]="'MODAL.WINDOW'">
     <mat-tab-group disableRipple [@.disabled]="true"> <!-- @.disabled permet de ne pas avoir de transition de changement -->
         <mat-tab label="{{ 'MODAL.FIRST_SECTION' | translate }}">
             <div class="container row">
@@ -197,6 +202,22 @@
             </div>
 
         </mat-tab>
+        <mat-tab label="{{ 'MODAL.SECOND_SECTION' | translate }}"> {{ 'MODAL.SECOND_CONTENT' | translate }} </mat-tab>
+        <mat-tab label="{{ 'MODAL.THIRD_SECTION' | translate }}"> {{ 'MODAL.THIRD_CONTENT' | translate }} </mat-tab>
+    </mat-tab-group>
+</app-modal>
+
+<app-modal [(visible)]="modalFullscreenVisible" [fullscreen]="true">
+    <mat-tab-group [selectedIndex]="1" disableRipple [@.disabled]="true"> <!-- @.disabled permet de ne pas avoir de transition de changement -->
+        <mat-tab disabled>
+            <ng-template mat-tab-label>
+                <div (click)="closeFullscreenModal()">
+                    <mat-icon><i class="fa fa-sign-out-alt fa-rotate-180 mr-1"></i></mat-icon>
+                    {{ 'MODAL.EXIT' | translate }}
+                </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="{{ 'MODAL.FIRST_SECTION' | translate }}"> {{ 'MODAL.FIRST_CONTENT' | translate }} </mat-tab>
         <mat-tab label="{{ 'MODAL.SECOND_SECTION' | translate }}"> {{ 'MODAL.SECOND_CONTENT' | translate }} </mat-tab>
         <mat-tab label="{{ 'MODAL.THIRD_SECTION' | translate }}"> {{ 'MODAL.THIRD_CONTENT' | translate }} </mat-tab>
     </mat-tab-group>

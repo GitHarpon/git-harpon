@@ -9,6 +9,7 @@ export class ModalComponent implements OnInit {
 
   @Input() large: Boolean;
   @Input() medium: Boolean;
+  @Input() fullscreen: Boolean;
   @Input() title: String;
   currentVisible: Boolean;
 
