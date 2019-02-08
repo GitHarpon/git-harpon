@@ -18,7 +18,6 @@ export class ModalComponent implements OnInit {
 
   @Input()
   get visible() {
-    // console.log(this.currentVisibility);
     return this.currentVisible;
   }
 
