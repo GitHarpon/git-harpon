@@ -24,6 +24,13 @@ export class ToolboxComponent implements OnInit {
   min: number;
   contextMenuFirstObject: Array<Object>;
   contextMenuSecondObject: Array<Object>;
+  dataDropdownExample: Array<any>;
+  dataDropdownExampleTwo: Array<any>;
+
+  key: String = 'key';
+  value: String = 'value';
+  dropdownValue: String;
+  dropdownValueTwo: String;
 
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
@@ -37,6 +44,7 @@ export class ToolboxComponent implements OnInit {
     this.inputMinMaxValueNumber = 0;
     this.max = 10;
     this.min = 0;
+    this.dropdownValue = 'Orange';
 
     this.colorList = [
       'dark-blue',
@@ -97,6 +105,20 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-download', isFab: false }
     ];
 
+    this.dataDropdownExample = [
+      {key: 'Orange', value: 'Orange'},
+      {key: 'Banane', value: 'Banane'},
+      {key: 'Cerise', value: 'Cerise'},
+      {key: 'Poire', value: 'Poire'},
+    ];
+
+    this.dataDropdownExampleTwo = [
+      {key: 'Carotte', value: 'Carotte'},
+      {key: 'Poireau', value: 'Poireau'},
+      {key: 'Courge', value: 'Courge'},
+      {key: 'Patate', value: 'Patate'},
+    ];
+
     this.contextMenuFirstObject = [
       { firstname: 'Cyrielle', lastname: 'Angoula Meka', age: 23, sexe: 'F' },
       { firstname: 'Julien', lastname: 'Besnier', age: 23, sexe: 'M' },
@@ -112,6 +134,7 @@ export class ToolboxComponent implements OnInit {
       { name: 'Langage Web', teacher: 'M. Nicart', language: 'JavaScript' },
     ];
   }
+
 
   openFontAwesome() {
     this.electronService.shell.openExternal('https://fontawesome.com/icons?d=gallery');
@@ -166,6 +189,14 @@ export class ToolboxComponent implements OnInit {
 
   testInputNumber() {
     this.toastr.info(this.inputValueNumber.toString());
+  }
+
+  testDropdown() {
+    this.toastr.info(this.dropdownValue.toString());
+  }
+
+  testAleatDropdown() {
+    this.dropdownValue = this.dataDropdownExample[Math.floor(Math.random() * 4)].value;
   }
 
   showMessage(message: string) {

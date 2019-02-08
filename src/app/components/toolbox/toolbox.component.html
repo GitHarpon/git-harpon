@@ -291,6 +291,39 @@
                 </context-menu>
             </div>
         </div>
+        <div class="container mt-5">
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-12 bb-white">
+                    <h2>Dropdowns</h2>
+                </div>
+                <div class="col-md-4 mt-1">
+                    <app-dropdown [options]="dataDropdownExample" [required]="true" [idKey]="key" [valueKey]="value" [(value)]="dropdownValue"></app-dropdown>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-4 mt-1">
+                    <app-dropdown [options]="dataDropdownExample" [idKey]="key" [valueKey]="value" [(value)]="dropdownValue"></app-dropdown>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-4 mt-1">
+                    <app-dropdown [options]="dataDropdownExample" [disabled]="true" [idKey]="key" [valueKey]="value" [(value)]="dropdownValue"></app-dropdown>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-4 mt-1">
+                    <app-dropdown [options]="dataDropdownExampleTwo" [idKey]="key" [valueKey]="value" [(value)]="dropdownValueTwo"></app-dropdown>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-4 mt-1">
+                    <app-button value="RANDOM_VALUE" type="primary" (buttonClicked)="testAleatDropdown()"></app-button>
+                </div>
+                <div class="col-md-4 text-right">
+                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testDropdown()"></app-button>
+                </div>
+            </div>
+        </div>
     </ng-scrollbar>
 </app-container>
 <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>
