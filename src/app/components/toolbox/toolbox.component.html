@@ -191,19 +191,32 @@
                 </div>
             </div>
         </div>
-        <div class="container mt-5">
-            <div class="col-md-12 bb-white">
-                <h2>Input-Number</h2>
+    </div>
+    <div class="container mt-5">
+        <div class="col-md-12 bb-white">
+            <h2>IconButtons</h2>
+        </div>
+        <div class="col-md-12 row mt-1">
+            <div class="col-md-2 mt-1">
+                <app-icon-button value="ICONBUTTON.GITHUB" placement="bottom" [icon]="{name:'fa-github', isFab:true}" (buttonClicked)="githubButtonClicked()" ></app-icon-button>
             </div>
-            <div class="col-md-12 mt-2 row">
-                <div class="col-md-8 row">
-                    <!-- Avec label -->
-                    <div class="col-md-2 gh-label-input text-right">
-                        <label>{{ 'REGULAR' | translate }}</label>
-                    </div>
-                    <div class="col-md-10">
-                        <app-input-number [(value)]="inputValueNumber"></app-input-number>
-                    </div>
+            <div class="col-md-2 mt-1">
+                <app-icon-button value="ICONBUTTON.GITLAB" placement="top" [icon]="{name:'fa-gitlab', isFab:true}" (buttonClicked)="gitlabButtonClicked()" ></app-icon-button>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="col-md-12 bb-white">
+            <h2>Input-Number</h2>
+        </div>
+        <div class="col-md-12 mt-2 row">
+            <div class="col-md-8 row">
+                <!-- Avec label -->
+                <div class="col-md-2 gh-label-input text-right">
+                    <label>{{ 'REGULAR' | translate }}</label>
+                </div>
+                <div class="col-md-10">
+                    <app-input-number [(value)]="inputValueNumber"></app-input-number>
                 </div>
                 <div class="col-md-8 row">
                     <!-- Read only -->

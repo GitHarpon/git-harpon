@@ -24,6 +24,10 @@
         "DISABLED": "Bouton désactivé",
         "LARGE": "Bouton allongé"
     },
+    "ICONBUTTON": {
+        "GITHUB": "GitHub",
+        "GITLAB": "GitLab"
+    },
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
     "DANGER": "Danger",
