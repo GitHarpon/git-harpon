@@ -23,6 +23,7 @@
     "DANGER": "Danger",
     "UPDATE_VALUE": "Update value",
     "DISPLAY_VALUE": "Display value",
+    "LABEL": "Label",
     "MODAL_WINDOW": "Modal window",
     "OPEN_MODAL": "Open the modal window",
     "MODAL" : {

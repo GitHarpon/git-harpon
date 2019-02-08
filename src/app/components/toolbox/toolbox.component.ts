@@ -15,6 +15,7 @@ export class ToolboxComponent implements OnInit {
   inputValue: String;
   inputEmptyValue: String;
   modalVisible: Boolean;
+  modalInputValue: String;
 
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
@@ -112,5 +113,9 @@ export class ToolboxComponent implements OnInit {
 
   openModal() {
     this.modalVisible = true;
+  }
+
+  displayModalInputValue() {
+    this.toastr.info(this.modalInputValue.toString());
   }
 }

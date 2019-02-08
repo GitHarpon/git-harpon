@@ -71,13 +71,17 @@ body {
 .mat-tab {
   
   &-header {
-    background: $light-grey;
+    background: $modal-left-top;
     border-right: 1px solid $dark;
+
+    &-pagination {
+      display:none !important;
+    }
   }
 
   &-body-wrapper {
     @include wX(100%);
-    background:$dark-grey;
+    background: $modal-body;
     padding:10px;
   }
 
@@ -86,8 +90,12 @@ body {
     opacity: 1 !important;
     justify-content: left !important;
 
+    &:hover {
+      background: rgba(76, 93, 170, 0.2);
+    }
+
     &-active {
-      background: $light-blue;
+      background: rgba(76, 93, 170, 0.5) !important; /* light-grey plus clair */
     }
   }
 

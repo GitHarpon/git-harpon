@@ -181,7 +181,23 @@
 
 <app-modal [(visible)]="modalVisible" [medium]="true" [title]="'MODAL_WINDOW'">
     <mat-tab-group disableRipple [@.disabled]="true"> <!-- @.disabled permet de ne pas avoir de transition de changement -->
-        <mat-tab label="{{ 'MODAL.FIRST_SECTION' | translate }}"> {{ 'MODAL.FIRST_CONTENT' | translate }} </mat-tab>
+        <mat-tab label="{{ 'MODAL.FIRST_SECTION' | translate }}">
+            <div class="container row">
+                <div class="col-md-8 row">
+                    <!-- Disabled -->
+                    <div class="col-md-2 gh-label-input text-right">
+                        <label>{{ 'LABEL' | translate }}</label>
+                    </div>
+                    <div class="col-md-10 mt-1">
+                        <app-input [(value)]="modalInputValue"></app-input>
+                    </div>
+                </div>
+                <div class="col-md-4 text-right">
+                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="displayModalInputValue()"></app-button>
+                </div>
+            </div>
+
+        </mat-tab>
         <mat-tab label="{{ 'MODAL.SECOND_SECTION' | translate }}"> {{ 'MODAL.SECOND_CONTENT' | translate }} </mat-tab>
         <mat-tab label="{{ 'MODAL.THIRD_SECTION' | translate }}"> {{ 'MODAL.THIRD_CONTENT' | translate }} </mat-tab>
     </mat-tab-group>
