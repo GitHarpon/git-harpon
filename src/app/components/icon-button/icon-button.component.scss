@@ -1,0 +1,23 @@
+@import '../../../variables.scss';
+
+.gh-icon-button {
+    color: $white;
+    outline: none;
+    text-align: center;
+    width: 75px;
+    height: 75px;
+    padding: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include bg-color($light-grey);
+    cursor: pointer;
+
+    &:hover {
+        @include bg-color($dark-grey);
+    }
+
+    .gh-button-top-div {
+        padding-bottom: 10px;
+    }
+}

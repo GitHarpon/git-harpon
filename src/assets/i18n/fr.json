@@ -5,10 +5,17 @@
     "TAGS": "Balises",
     "TAG": "Balise",
     "FONT_SIZES": "Tailles de texte",
+    "CHECKBOX": "Case à cocher",
+    "UN_CHECKBOX": "Case décochée",
+    "D_CHECKBOX": "Case à cocher désactivée",
+    "CHECKED_BOX": "Case cochée",
+    "INFO_CHECK": "Case cochée",
+    "INFO_UN_CHECK": "Case décochée",
     "PLACEHOLDER": "Texte indicatif",
     "DISABLED": "Désactivé",
     "READONLY": "Lecture seule",
     "REGULAR": "Normal",
+    "RANDOM_VALUE": "Valeur aléatoire",
     "WITH_EMPTY_VALUE": "Avec une valeur vide",
     "WITH_LABEL": "Avec label",
     "BUTTON": {
@@ -17,6 +24,10 @@
         "DANGER": "Bouton danger",
         "DISABLED": "Bouton désactivé",
         "LARGE": "Bouton allongé"
+    },
+    "ICONBUTTON": {
+        "GITHUB": "GitHub",
+        "GITLAB": "GitLab"
     },
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
@@ -37,5 +48,9 @@
         "FIRST_CONTENT": "Premier contenu",
         "SECOND_CONTENT": "Deuxième contenu",
         "THIRD_CONTENT": "Troisième contenu"
-    }
-}
+        "CONTEXT_MENU": "Menu contextuel",
+        "CLICK": {
+          "RIGHT": "Clic droit",
+          "LEFT": "Clic gauche"
+        }
+  }

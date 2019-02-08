@@ -119,3 +119,28 @@ body {
     transition:none;
   }
 }
+
+.ngx-contextmenu {
+    
+    & .dropdown-menu {
+        color: $dark;
+        background-color: rgba(230, 230, 230, 0.9);
+        border-radius: 3px;
+        padding: 0;
+
+        & .dropdown-divider {
+            margin: 0.25rem 0;
+            border-top: 1px solid $dark;
+        }
+    }
+
+    & a {
+        color: $dark;
+        font-size: $fs-small;
+        font-display: FontAwesome;
+        &:hover {
+            background: $light-blue-hover;
+            color: $white;
+        }
+    }
+}
