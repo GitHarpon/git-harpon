@@ -21,7 +21,6 @@
     &__window
     {
         position: fixed;
-        background: $blue-grey;
         @include wX-hX(30%, 80%);
         top: 5%;
         left: 35%;
@@ -49,7 +48,7 @@
     }
 
     &__title {
-        background: $modal-left-top;
+        background: $blue-grey;
         font-weight: bold;
         @include hX(50px);
         line-height: 50px;

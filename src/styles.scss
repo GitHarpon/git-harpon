@@ -71,7 +71,7 @@ body {
 .mat-tab {
   
   &-header {
-    background: $modal-left-top;
+    background: $blue-grey;
     border-right: 1px solid $dark;
 
     &-pagination {
@@ -81,7 +81,7 @@ body {
 
   &-body-wrapper {
     @include wX(100%);
-    background: $modal-body;
+    background: $dark-grey;
     padding:10px;
   }
 
