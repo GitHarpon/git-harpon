@@ -35,7 +35,7 @@
     "UPDATE_VALUE": "Update value",
     "DISPLAY_VALUE": "Display value",
     "LABEL": "Label",
-    "MODAL" : {
+    "MODAL": {
         "WINDOW": "Modal window",
         "OPEN": {
             "REGULAR": "Open the regular modal",
@@ -48,9 +48,10 @@
         "FIRST_CONTENT": "First content",
         "SECOND_CONTENT": "Second content",
         "THIRD_CONTENT": "Third content",
-        "CONTEXT_MENU": "Menu contextuel",
-        "CLICK": {
-            "RIGHT": "Right click",
-            "LEFT": "Left click"
-        }
+        "CONTEXT_MENU": "Menu contextuel"
+    },
+    "CLICK": {
+        "RIGHT": "Right click",
+        "LEFT": "Left click"
     }
+}

@@ -35,7 +35,7 @@
     "UPDATE_VALUE": "Changer la valeur",
     "DISPLAY_VALUE": "Afficher la valeur",
     "LABEL": "Label",
-    "MODAL" : {
+    "MODAL": {
         "WINDOW": "Fenêtre modale",
         "OPEN": {
             "REGULAR": "Ouvrir la modale normale",
@@ -47,10 +47,11 @@
         "THIRD_SECTION": "Troisième section",
         "FIRST_CONTENT": "Premier contenu",
         "SECOND_CONTENT": "Deuxième contenu",
-        "THIRD_CONTENT": "Troisième contenu"
-        "CONTEXT_MENU": "Menu contextuel",
-        "CLICK": {
-          "RIGHT": "Clic droit",
-          "LEFT": "Clic gauche"
-        }
-  }
+        "THIRD_CONTENT": "Troisième contenu",
+        "CONTEXT_MENU": "Menu contextuel"
+    },
+    "CLICK": {
+        "RIGHT": "Clic droit",
+        "LEFT": "Clic gauche"
+    }
+}

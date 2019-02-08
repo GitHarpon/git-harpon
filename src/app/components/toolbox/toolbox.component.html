@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="container mt-5">    
+        <div class="container mt-5">
             <div class="col-md-12 bb-white">
                 <h2>Font Awesome</h2>
             </div>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="col-md-4">
                     <app-button value="DISPLAY_VALUE" (click)="displayCbValue()"></app-button>
-                    <app-button value="UPDATE_VALUE"(click)="setCheckValue()"></app-button>
+                    <app-button value="UPDATE_VALUE" (click)="setCheckValue()"></app-button>
                 </div>
             </div>
         </div>
@@ -187,7 +187,8 @@
                 </div>
                 <div class="col-md-4 text-right">
                     <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInput()"></app-button>
-                    <app-button class="ml-2 " value="UPDATE_VALUE" type="primary" (buttonClicked)="changeInputValue()"></app-button>
+                    <app-button class="ml-2 " value="UPDATE_VALUE" type="primary" (buttonClicked)="changeInputValue()">
+                    </app-button>
                 </div>
             </div>
         </div>
@@ -200,17 +201,23 @@
                     <app-button value="MODAL.OPEN.REGULAR" (buttonClicked)="openRegularModal()"></app-button>
                 </div>
                 <div class="col-md-4 mt-1">
-                        <app-button value="MODAL.OPEN.FULLSCREEN" (buttonClicked)="openFullscreenModal()"></app-button>
-          <div class="container mt-5">
+                    <app-button value="MODAL.OPEN.FULLSCREEN" (buttonClicked)="openFullscreenModal()"></app-button>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
             <div class="col-md-12 bb-white">
                 <h2>IconButtons</h2>
             </div>
             <div class="col-md-12 row mt-1">
                 <div class="col-md-2 mt-1">
-                    <app-icon-button value="ICONBUTTON.GITHUB" placement="bottom" [icon]="{name:'fa-github', isFab:true}" (buttonClicked)="githubButtonClicked()" ></app-icon-button>
+                    <app-icon-button value="ICONBUTTON.GITHUB" placement="bottom"
+                        [icon]="{name:'fa-github', isFab:true}" (buttonClicked)="githubButtonClicked()">
+                    </app-icon-button>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <app-icon-button value="ICONBUTTON.GITLAB" placement="top" [icon]="{name:'fa-gitlab', isFab:true}" (buttonClicked)="gitlabButtonClicked()" ></app-icon-button>
+                    <app-icon-button value="ICONBUTTON.GITLAB" placement="top" [icon]="{name:'fa-gitlab', isFab:true}"
+                         (buttonClicked)="gitlabButtonClicked()"></app-icon-button>
                 </div>
             </div>
         </div>
@@ -233,11 +240,13 @@
                             <label>MIN-MAX</label>
                         </div>
                         <div class="col-md-10 mt-1">
-                            <app-input-number [(value)]="inputMinMaxValueNumber" [min]="min" [max]="max"></app-input-number>
+                            <app-input-number [(value)]="inputMinMaxValueNumber" [min]="min" [max]="max">
+                            </app-input-number>
                         </div>
                     </div>
                     <div class="col-md-4 text-right">
-                        <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInputNumber()"></app-button>
+                        <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInputNumber()">
+                        </app-button>
                     </div>
                 </div>
             </div>
@@ -307,22 +316,26 @@
                     <h2>Dropdowns</h2>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-dropdown [options]="dataDropdownExample" [required]="true" [idKey]="key" [valueKey]="value" [(value)]="dropdownValue"></app-dropdown>
+                    <app-dropdown [options]="dataDropdownExample" [required]="true" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownValue"></app-dropdown>
                 </div>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-4 mt-1">
-                    <app-dropdown [options]="dataDropdownExample" [idKey]="key" [valueKey]="value" [(value)]="dropdownValue"></app-dropdown>
+                    <app-dropdown [options]="dataDropdownExample" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownValue"></app-dropdown>
                 </div>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-4 mt-1">
-                    <app-dropdown [options]="dataDropdownExample" [disabled]="true" [idKey]="key" [valueKey]="value" [(value)]="dropdownValue"></app-dropdown>
+                    <app-dropdown [options]="dataDropdownExample" [disabled]="true" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownValue"></app-dropdown>
                 </div>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-4 mt-1">
-                    <app-dropdown [options]="dataDropdownExampleTwo" [idKey]="key" [valueKey]="value" [(value)]="dropdownValueTwo"></app-dropdown>
+                    <app-dropdown [options]="dataDropdownExampleTwo" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownValueTwo"></app-dropdown>
                 </div>
             </div>
             <div class="col-md-12 mt-2 row">
@@ -338,7 +351,8 @@
 </app-container>
 
 <app-modal [(visible)]="modalRegularVisible" [medium]="true" [title]="'MODAL.WINDOW'">
-    <mat-tab-group disableRipple [@.disabled]="true"> <!-- @.disabled permet de ne pas avoir de transition de changement -->
+    <mat-tab-group disableRipple [@.disabled]="true">
+        <!-- @.disabled permet de ne pas avoir de transition de changement -->
         <mat-tab label="{{ 'MODAL.FIRST_SECTION' | translate }}">
             <div class="container row">
                 <div class="col-md-8 row">
@@ -350,7 +364,8 @@
                     </div>
                 </div>
                 <div class="col-md-4 text-right">
-                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="displayModalInputValue()"></app-button>
+                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="displayModalInputValue()">
+                    </app-button>
                 </div>
             </div>
 
@@ -361,10 +376,11 @@
 </app-modal>
 
 <app-modal [(visible)]="modalFullscreenVisible" [fullscreen]="true">
-    <mat-tab-group [selectedIndex]="1" disableRipple [@.disabled]="true"> <!-- @.disabled permet de ne pas avoir de transition de changement -->
-        <mat-tab disabled>
+    <mat-tab-group [(selectedIndex)]="modalTabSelectedIndex" (selectedTabChange)="checkIfCloseModal($event)" disableRipple [@.disabled]="true">
+        <!-- @.disabled permet de ne pas avoir de transition de changement -->
+        <mat-tab>
             <ng-template mat-tab-label>
-                <div (click)="closeFullscreenModal()">
+                <div>
                     <mat-icon><i class="fa fa-sign-out-alt fa-rotate-180 mr-1"></i></mat-icon>
                     {{ 'MODAL.EXIT' | translate }}
                 </div>

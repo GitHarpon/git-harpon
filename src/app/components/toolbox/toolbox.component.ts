@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ElectronService } from '../../providers/electron.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -21,6 +21,7 @@ export class ToolboxComponent implements OnInit {
   modalRegularVisible: Boolean;
   modalFullscreenVisible: Boolean;
   modalInputValue: String;
+  @Input() modalTabSelectedIndex: any = 1;
   inputValueNumber: number;
   inputMinMaxValueNumber: number;
   max: number;
@@ -202,8 +203,11 @@ export class ToolboxComponent implements OnInit {
     this.toastr.info(this.modalInputValue.toString());
   }
 
-  closeFullscreenModal() {
-    this.modalFullscreenVisible = false;
+  checkIfCloseModal($event) {
+    if ($event.index === 0) {
+      this.modalTabSelectedIndex = 1;
+      this.modalFullscreenVisible = false;
+    }
   }
 
   testInputNumber() {
