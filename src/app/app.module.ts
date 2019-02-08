@@ -31,8 +31,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { ToolboxComponent } from './components/toolbox/toolbox.component';
 import { ContainerComponent } from './components/container/container.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { ButtonComponent } from './components/button/button.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { InputComponent } from './components/input/input.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 
@@ -50,10 +52,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     ToolboxComponent,
     ContainerComponent,
+    CheckboxComponent,
     ButtonComponent,
     DropdownComponent,
+    IconButtonComponent,
     InputComponent,
-    InputNumberComponent,
+    InputNumberComponent
   ],
   imports: [
     NgScrollbarModule,

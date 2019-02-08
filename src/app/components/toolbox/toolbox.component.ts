@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ElectronService } from '../../providers/electron.service';
-import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { ContextMenuComponent } from 'ngx-contextmenu';
 
 @Component({
@@ -15,6 +15,7 @@ export class ToolboxComponent implements OnInit {
   colorList: Array<String>;
   fsList: Array<String>;
   faList: Array<any>;
+  cbValue: Boolean;
   inputValue: String;
   inputEmptyValue: String;
   inputValueNumber: number;
@@ -33,6 +34,7 @@ export class ToolboxComponent implements OnInit {
     private toastr: ToastrService, private translateService: TranslateService) { }
 
   ngOnInit() {
+    this.cbValue = true;
     this.inputValue = 'Test';
     this.inputEmptyValue = '';
 
@@ -129,6 +131,14 @@ export class ToolboxComponent implements OnInit {
     this.electronService.shell.openExternal('https://fontawesome.com/icons?d=gallery');
   }
 
+  setCheckValue() {
+    return this.cbValue = !this.cbValue;
+  }
+
+  displayCbValue() {
+    this.toastr.info(this.cbValue ? 'Coché' : 'Décoché', 'Information');
+  }
+
   primary() {
     this.toastr.info(this.translateService.instant('BUTTON.PRIMARY'),
       this.translateService.instant('INFORMATION'));
@@ -142,6 +152,21 @@ export class ToolboxComponent implements OnInit {
   danger() {
     this.toastr.error(this.translateService.instant('BUTTON.DANGER'),
       this.translateService.instant('DANGER'));
+  }
+
+  menubar() {
+    this.toastr.info(this.translateService.instant('ICONBUTTON.MENUBAR'),
+      this.translateService.instant('MENUBAR'));
+  }
+
+  githubButtonClicked() {
+    this.toastr.success(this.translateService.instant('ICONBUTTON.GITHUB'),
+      this.translateService.instant('ICONBUTTON.GITHUB'));
+  }
+
+  gitlabButtonClicked() {
+    this.toastr.info(this.translateService.instant('ICONBUTTON.GITLAB'),
+      this.translateService.instant('ICONBUTTON.GITLAB'));
   }
 
   testInput() {
