@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ElectronService } from '../../providers/electron.service';
-import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
+import { ContextMenuComponent } from 'ngx-contextmenu';
 
 @Component({
   selector: 'app-toolbox',
@@ -9,18 +10,33 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./toolbox.component.scss']
 })
 export class ToolboxComponent implements OnInit {
+  @ViewChild('userCM') userCM: ContextMenuComponent;
+  @ViewChild('subjectCM') subjectCM: ContextMenuComponent;
   colorList: Array<String>;
   fsList: Array<String>;
   faList: Array<any>;
+  cbValue: Boolean;
   inputValue: String;
   inputEmptyValue: String;
+  inputValueNumber: number;
+  inputMinMaxValueNumber: number;
+  max: number;
+  min: number;
+  contextMenuFirstObject: Array<Object>;
+  contextMenuSecondObject: Array<Object>;
 
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
 
   ngOnInit() {
+    this.cbValue = true;
     this.inputValue = 'Test';
     this.inputEmptyValue = '';
+
+    this.inputValueNumber = 10;
+    this.inputMinMaxValueNumber = 0;
+    this.max = 10;
+    this.min = 0;
 
     this.colorList = [
       'dark-blue',
@@ -80,10 +96,33 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-upload', isFab: false },
       { icon: 'fa-download', isFab: false }
     ];
+
+    this.contextMenuFirstObject = [
+      { firstname: 'Cyrielle', lastname: 'Angoula Meka', age: 23, sexe: 'F' },
+      { firstname: 'Julien', lastname: 'Besnier', age: 23, sexe: 'M' },
+      { firstname: 'Martin', lastname: 'Blondel', age: 21, sexe: 'M' },
+      { firstname: 'Clément', lastname: 'Drouin', age: 21, sexe: 'M' },
+      { firstname: 'Antoine', lastname: 'Guillory', age: 21, sexe: 'M' },
+      { firstname: 'Julien', lastname: 'Lamy', age: 21, sexe: 'M' }
+    ];
+
+    this.contextMenuSecondObject = [
+      { name: 'Prog Objet', teacher: 'M. Andary', language: 'Java'  },
+      { name: 'S&T', teacher: 'M. Patrou', language: 'Scala' },
+      { name: 'Langage Web', teacher: 'M. Nicart', language: 'JavaScript' },
+    ];
   }
 
   openFontAwesome() {
     this.electronService.shell.openExternal('https://fontawesome.com/icons?d=gallery');
+  }
+
+  setCheckValue() {
+    return this.cbValue = !this.cbValue;
+  }
+
+  displayCbValue() {
+    this.toastr.info(this.cbValue ? 'Coché' : 'Décoché', 'Information');
   }
 
   primary() {
@@ -122,5 +161,14 @@ export class ToolboxComponent implements OnInit {
 
   changeInputValue() {
     this.inputValue += 'daa';
+  }
+
+
+  testInputNumber() {
+    this.toastr.info(this.inputValueNumber.toString());
+  }
+
+  showMessage(message: string) {
+    this.toastr.info(message);
   }
 }

@@ -5,6 +5,12 @@
     "TAGS": "Balises",
     "TAG": "Balise",
     "FONT_SIZES": "Tailles de texte",
+    "CHECKBOX": "Case à cocher",
+    "UN_CHECKBOX": "Case décochée",
+    "D_CHECKBOX": "Case à cocher désactivée",
+    "CHECKED_BOX": "Case cochée",
+    "INFO_CHECK": "Case cochée",
+    "INFO_UN_CHECK": "Case décochée",
     "PLACEHOLDER": "Texte indicatif",
     "DISABLED": "Désactivé",
     "READONLY": "Lecture seule",
@@ -26,5 +32,10 @@
     "SUCCESS": "Succès",
     "DANGER": "Danger",
     "UPDATE_VALUE": "Changer la valeur",
-    "DISPLAY_VALUE": "Afficher la valeur"
+    "DISPLAY_VALUE": "Afficher la valeur",
+    "CONTEXT_MENU": "Menu contextuel",
+    "CLICK": {
+        "RIGHT": "Clic droit",
+        "LEFT": "Clic gauche"
+    }
 }
