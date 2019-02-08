@@ -23,8 +23,10 @@ export class DropdownComponent implements OnInit {
     return this.currentValue;
   }
   set value(val) {
-    this.currentValue = val;
-    this.valueChange.emit(val);
+    if ( !(val == '' && this.required)) {
+      this.currentValue = val;
+      this.valueChange.emit(val);
+    }
   }
 
   constructor() { }
