@@ -25,7 +25,6 @@ export class InputNumberComponent implements OnInit {
   }
 
   set value(val) {
-    console.log(val);
     if (val > this.max) {
       this.currentValue = this.max;
     } else if (val < this.min) {
@@ -44,5 +43,4 @@ export class InputNumberComponent implements OnInit {
   getPlaceholderTranslation() {
     return this.translateService.instant(this.placeholder.toUpperCase().toString());
   }
-
 }
