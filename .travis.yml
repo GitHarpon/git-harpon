@@ -10,8 +10,13 @@ before_script:
 install:
   - npm set progress=false
   - npm install
+  - npm run electron:linux
 script:
-  - ng lint
-  - npm run test
-  - npm run e2e
-  - npm run build
+  - npm run test:e2e
+notifications:
+  email: false
+  slack:
+    rooms:
+      - secure: YfTFIipqTNzNn4f8ESZkNJk9xZc5jQ/NfidFeuUx4DHfFQ1boq7jfa2Q18QkGt2v2RbWdQnJ8MFUyMD1m4+yEK3hBAcWGxkBw+H09BN7kOBl97gFYc6g4JWIzddyViHzhiQFv8OQ+JORaftkkr0olN/puXApGJTdHW8g551qqNmz/HZg8FJXaRtgUy7itZcEtT+TptA0vR+mM7EEilYO7k7lClBNgdtgmheVRABRQD/iPLiJzQfxFfoAqiKSsTwRC8n5InWXFfa7p8tHeu/K2GScC/DX4ZIluC7ayZlviKiZUDYUb29yfohmiDa3MMtMhgTY8VKNV/eRdL+4fkc1bWm52ns7V80D66O4BRPjgbPhgVF35HsGUjRLTzvqxBDudxXkf36CzQQ113nqg+JnZ/cQEUgVC6FeXLNJEMX5PV8xPH4y2x5CRPc+1TyvTHSwQqII4sJ7+3MkkYuQolEU2UTt1Lh0WstNEIb7KHJeRm5IG96plyfV6Qp7XLyiWLShsP09fxo6FTs0qsChkzWySN0SSQS07HfBwiByTaV7YStGmWHSwJEyyBTUg4Ru9V6oSeS+Hk8JqeIXJ7Ys2F9nZYaPTc6S+PCsgIi53jh33pJfPMG6hWU8G8r04zyShZcgrrrpJuG4fotKMYsSqbKJ7vLfDkkoqoN/mq/pz0qaw5o=
+    on_success: always
+    on_failure: always
