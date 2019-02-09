@@ -34,7 +34,22 @@
     "DANGER": "Danger",
     "UPDATE_VALUE": "Changer la valeur",
     "DISPLAY_VALUE": "Afficher la valeur",
-    "CONTEXT_MENU": "Menu contextuel",
+    "LABEL": "Label",
+    "MODAL": {
+        "WINDOW": "Fenêtre modale",
+        "OPEN": {
+            "REGULAR": "Ouvrir la modale normale",
+            "FULLSCREEN": "Ouvrir la modale plein écran"
+        },
+        "EXIT": "Sortir",
+        "FIRST_SECTION": "Première section",
+        "SECOND_SECTION": "Deuxième section",
+        "THIRD_SECTION": "Troisième section",
+        "FIRST_CONTENT": "Premier contenu",
+        "SECOND_CONTENT": "Deuxième contenu",
+        "THIRD_CONTENT": "Troisième contenu",
+        "CONTEXT_MENU": "Menu contextuel"
+    },
     "CLICK": {
         "RIGHT": "Clic droit",
         "LEFT": "Clic gauche"

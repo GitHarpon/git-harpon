@@ -10,6 +10,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import {MatTabsModule, MatIconModule } from '@angular/material';
 import { ContextMenuModule } from 'ngx-contextmenu';
 
 // NG Translate
@@ -36,6 +37,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { InputComponent } from './components/input/input.component';
+import { ModalComponent } from './components/modal/modal.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 
 // AoT requires an exported function for factories
@@ -57,9 +59,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     DropdownComponent,
     IconButtonComponent,
     InputComponent,
+    ModalComponent,
     InputNumberComponent
   ],
   imports: [
+    MatIconModule,
+    MatTabsModule,
     NgScrollbarModule,
     NgbModule,
     BrowserModule,

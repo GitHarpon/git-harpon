@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ElectronService } from '../../providers/electron.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +18,10 @@ export class ToolboxComponent implements OnInit {
   cbValue: Boolean;
   inputValue: String;
   inputEmptyValue: String;
+  modalRegularVisible: Boolean;
+  modalFullscreenVisible: Boolean;
+  modalInputValue: String;
+  @Input() modalTabSelectedIndex: any = 1;
   inputValueNumber: number;
   inputMinMaxValueNumber: number;
   max: number;
@@ -102,7 +106,8 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-undo', isFab: false },
       { icon: 'fa-spinner', isFab: false },
       { icon: 'fa-upload', isFab: false },
-      { icon: 'fa-download', isFab: false }
+      { icon: 'fa-download', isFab: false },
+      { icon: 'fa-sign-out-alt', isFab: false}
     ];
 
     this.dataDropdownExample = [
@@ -186,6 +191,24 @@ export class ToolboxComponent implements OnInit {
     this.inputValue += 'daa';
   }
 
+  openRegularModal() {
+    this.modalRegularVisible = true;
+  }
+
+  openFullscreenModal() {
+    this.modalFullscreenVisible = true;
+  }
+
+  displayModalInputValue() {
+    this.toastr.info(this.modalInputValue.toString());
+  }
+
+  checkIfCloseModal($event) {
+    if ($event.index === 0) {
+      this.modalTabSelectedIndex = 1;
+      this.modalFullscreenVisible = false;
+    }
+  }
 
   testInputNumber() {
     this.toastr.info(this.inputValueNumber.toString());
