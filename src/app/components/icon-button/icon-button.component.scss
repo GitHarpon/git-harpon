@@ -4,11 +4,12 @@
     color: $white;
     outline: none;
     text-align: center;
-    width: 75px;
-    height: 75px;
-    padding: 10px;
+    width: 50px;
+    height: 50px;
+    padding: 5px 2px 5px 2px;
     overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-overflow: clip;
 
     @include bg-color($light-grey);
     cursor: pointer;
@@ -17,7 +18,7 @@
         @include bg-color($dark-grey);
     }
 
-    .gh-button-top-div {
-        padding-bottom: 10px;
+    .gh-button-div {
+        padding-bottom: 5px;
     }
 }
