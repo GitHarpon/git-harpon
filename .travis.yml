@@ -21,7 +21,7 @@ notifications:
     on_success: always
     on_failure: always
     template:
-      - "Repo `%{repository_slug}` *%{result}* build (<%{build_url}|#%{build_number}>) for commit *%{commit_message}*(<%{compare_url}|%{commit}>) on branch `%{branch}`."
+      - "Repo `%{repository_slug}` *%{result}* build (<%{build_url}|#%{build_number}>) for commit *%{commit_message}* (<%{compare_url}|%{commit}>) on branch `%{branch}`."
       - ":bust_in_silhouette: : *%{author}*"
       - ":timer_clock: : *%{duration}*"
       - ":left_speech_bubble: : %{message}"
