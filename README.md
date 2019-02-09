@@ -75,10 +75,10 @@ Installer les dépendances
 
 |Fichier / Dossier|Description|
 |--|--|
-|`package.json`| Fichier contenant les dépendandes, les scripts et diverses informations sur le projet. |
+|`package.json`| Fichier contenant les dépendances, les scripts et diverses informations sur le projet. |
 |`angular.json`| Fichier de configuration pour Angular. |
 |`.travis.yml`| Fichier de configuration pour travis. |
-|`main.ts`| Fichier d'entrée pour Electron. |
+|`main.ts`| Fichier d'entré pour Electron. |
 |`electron-builder.json`| Fichier contenant toutes les informations pour la création d'une release. |
 |`node_modules/`| Dossier contenant les modules natifs et installés. |
 |`release/`| Dossier contenant la release après génération. |
