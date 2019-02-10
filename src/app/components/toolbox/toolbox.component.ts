@@ -36,6 +36,8 @@ export class ToolboxComponent implements OnInit {
   dropdownValue: String;
   dropdownValueTwo: String;
 
+  copybuttonValue: String;
+
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
 
@@ -216,6 +218,10 @@ export class ToolboxComponent implements OnInit {
 
   testDropdown() {
     this.toastr.info(this.dropdownValue.toString());
+  }
+
+  testCopyButton() {
+    this.toastr.info('Contenu copié');
   }
 
   testAleatDropdown() {

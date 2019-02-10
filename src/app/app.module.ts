@@ -12,6 +12,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import {MatTabsModule, MatIconModule } from '@angular/material';
 import { ContextMenuModule } from 'ngx-contextmenu';
+import { ClipboardModule } from 'ngx-clipboard';
+
 
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -39,6 +41,8 @@ import { IconButtonComponent } from './components/icon-button/icon-button.compon
 import { InputComponent } from './components/input/input.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
+import { CopyButtonComponent } from './components/copy-button/copy-button.component';
+
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -60,13 +64,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     IconButtonComponent,
     InputComponent,
     ModalComponent,
-    InputNumberComponent
+    InputNumberComponent,
+    CopyButtonComponent
   ],
   imports: [
     MatIconModule,
     MatTabsModule,
     NgScrollbarModule,
     NgbModule,
+    ClipboardModule,
     BrowserModule,
     CommonModule,
     FormsModule,

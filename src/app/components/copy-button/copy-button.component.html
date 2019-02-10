@@ -1,0 +1,4 @@
+<input class="gh-input" type="text" [(ngModel)]="inputValue" [ngxClipboard]="value"/>
+<app-icon-button value="Copier" placement="bottom"
+  [icon]="{name:'fa-clipboard'}" (buttonClicked)="copy(inputValue)">
+</app-icon-button>
