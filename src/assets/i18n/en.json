@@ -18,6 +18,11 @@
     "RANDOM_VALUE": "Random value",
     "WITH_EMPTY_VALUE": "With empty value",
     "WITH_LABEL": "With label",
+    "LOADER": {
+        "ACTIVATE": "Activate the loader",
+        "DESACTIVATE": "Desactivate the loader",
+        "INFO": "Loading..."
+    },
     "BUTTON": {
         "PRIMARY": "Primary button",
         "SUCCESS": "Success button",

@@ -86,6 +86,16 @@
         </div>
         <div class="container mt-5">
             <div class="col-md-12 bb-white">
+                <h2>Loader</h2>
+            </div>
+            <div class="gh-divLoader" style="width: 500px; height: 500px">
+                <app-button value="LOADER.ACTIVATE" (buttonClicked)="setLoading()" style="position: absolute; z-index: 4" *ngIf="!loading"></app-button>
+                <app-button value="LOADER.DESACTIVATE" (buttonClicked)="setLoading()" style="position: absolute; z-index: 4" *ngIf="loading"></app-button>
+                <app-loader [loading]="loading"></app-loader>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="col-md-12 bb-white">
                 <h2>{{ 'CHECKBOX' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-1 row">
@@ -142,6 +152,7 @@
                     <app-button value="BUTTON.LARGE" type="danger" [large]="true" (buttonClicked)="danger()">
                     </app-button>
                 </div>
+
             </div>
         </div>
         <div class="container mt-5">

@@ -38,4 +38,9 @@
     &.dark-border {
         border: 1px solid $dark;
     }
+
+    &.loader-dark {
+        background-color: $dark;
+        opacity: 0.8;
+    }
 }

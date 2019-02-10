@@ -38,6 +38,9 @@ a.link-white {
 .disabled-blue {
     @include bg-color($disabled-blue);
 }
+.gh-green {
+    @include bg-color($gh-green);
+}
 .dark-green {
     @include bg-color($dark-green);
 }

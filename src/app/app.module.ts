@@ -37,6 +37,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { InputComponent } from './components/input/input.component';
+import { LoaderComponent } from './components/loader/loader.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 
@@ -59,6 +60,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DropdownComponent,
     IconButtonComponent,
     InputComponent,
+    LoaderComponent,
     ModalComponent,
     InputNumberComponent
   ],
