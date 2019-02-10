@@ -57,3 +57,90 @@ body {
     padding: $gap-md $gap-md 0 $gap-md;
     padding-right: 0;
 }
+
+.gh-scrollbar {
+--scrollbar-color: rgba(55, 56, 65, 0.3) !important;
+--scrollbar-thumb-color: #373841 !important;
+--scrollbar-thumb-hover-color: #373841 !important;
+--scrollbar-border-radius: 4px !important;
+--scrollbar-size: 7px !important;
+}
+
+
+/*** Tabs ***/
+.mat-tab {
+  
+  &-header {
+    background: $blue-grey;
+    border-right: 1px solid $dark;
+
+    &-pagination {
+      display:none !important;
+    }
+  }
+
+  &-body-wrapper {
+    @include wX(100%);
+    background: $dark-grey;
+    padding:10px;
+  }
+
+  &-label {
+    font-size: 22px;
+    opacity: 1 !important;
+    justify-content: left !important;
+
+    &:hover {
+      background: rgba(76, 93, 170, 0.2);
+    }
+
+    &-active {
+      background: rgba(76, 93, 170, 0.5) !important; /* light-grey plus clair */
+    }
+  }
+
+  &-group {
+    @include hX(100%);
+    display: flex;
+    flex-direction: row !important;
+
+  }
+
+  &-labels {
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  & md-tab-content {
+    transition:none;
+  }
+
+  & md-ink-bar {
+    transition:none;
+  }
+}
+
+.ngx-contextmenu {
+    
+    & .dropdown-menu {
+        color: $dark;
+        background-color: rgba(230, 230, 230, 0.9);
+        border-radius: 3px;
+        padding: 0;
+
+        & .dropdown-divider {
+            margin: 0.25rem 0;
+            border-top: 1px solid $dark;
+        }
+    }
+
+    & a {
+        color: $dark;
+        font-size: $fs-small;
+        font-display: FontAwesome;
+        &:hover {
+            background: $light-blue-hover;
+            color: $white;
+        }
+    }
+}

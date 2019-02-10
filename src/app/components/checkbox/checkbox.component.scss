@@ -1,0 +1,9 @@
+@import '../../../variables.scss';
+
+
+.light-blue {
+    &:hover {
+        cursor: pointer;
+        border: 1px solid $light-blue;
+    }
+}
