@@ -11,6 +11,11 @@
     "REGULAR": "Normal",
     "WITH_EMPTY_VALUE": "Avec une valeur vide",
     "WITH_LABEL": "Avec label",
+    "LOADER": {
+        "ACTIVATE": "Activer le loader",
+        "DESACTIVATE": "Désactiver le loader",
+        "INFO": "Chargement..."
+    },
     "BUTTON": {
         "PRIMARY": "Bouton primaire",
         "SUCCESS": "Bouton succès",
@@ -22,6 +27,5 @@
     "SUCCESS": "Succès",
     "DANGER": "Danger",
     "UPDATE_VALUE": "Changer la valeur",
-    "DISPLAY_VALUE": "Afficher la valeur",
-    "LOADER": "Chargement..."
+    "DISPLAY_VALUE": "Afficher la valeur"
 }

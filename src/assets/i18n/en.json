@@ -11,6 +11,11 @@
     "REGULAR": "Regular",
     "WITH_EMPTY_VALUE": "With empty value",
     "WITH_LABEL": "With label",
+    "LOADER": {
+        "ACTIVATE": "Activate the loader",
+        "DESACTIVATE": "Desactivate the loader",
+        "INFO": "Loading..."
+    },
     "BUTTON": {
         "PRIMARY": "Primary button",
         "SUCCESS": "Success button",
@@ -22,6 +27,5 @@
     "SUCCESS": "Success",
     "DANGER": "Danger",
     "UPDATE_VALUE": "Update value",
-    "DISPLAY_VALUE": "Display value",
-    "LOADER": "Loading..."
+    "DISPLAY_VALUE": "Display value"
 }

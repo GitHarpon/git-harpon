@@ -1,5 +1,5 @@
-<div class="gh-loader" *ngIf="loading">
-    <div class="gh-loader_overlay">
+<div class="gh-loader">
+    <div class="gh-loader_overlay" *ngIf="loading">
         <div class="gh-loader_content" *ngIf="loading">        
             <div class='loader loader1'>
                 <div>
@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <h2>{{ 'LOADER' | translate }}</h2>
+            <h2>{{ 'LOADER.INFO' | translate }}</h2>
         </div>
 
     </div>
