@@ -1,0 +1,8 @@
+<div class="gh-icon-button" [placement]="placement" [ngbTooltip]="value ? getValueTranslation() : ''" (click)="execClick($event)">
+  <div class="gh-button-top-div">
+    <i [ngClass]="[(icon.isFab ? 'fab' : 'fa'), icon.name]" class="fa-lg"></i>
+  </div>
+  <p>
+    {{ getValueTranslation() }}
+  </p>
+</div>

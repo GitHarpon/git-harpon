@@ -96,6 +96,23 @@
         </div>
         <div class="container mt-5">
             <div class="col-md-12 bb-white">
+                <h2>{{ 'CHECKBOX' | translate }}</h2>
+            </div>
+            <div class="col-md-12 mt-1 row">
+                <div class="col-md-12">
+                    <app-checkbox name="Checkbox 1" [(value)]="cbValue"></app-checkbox>
+                </div>
+                <div class="col-md-8">
+                    <app-checkbox name="Checkbox 2" [(value)]="cbValue" [disabled]="true"></app-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <app-button value="DISPLAY_VALUE" (click)="displayCbValue()"></app-button>
+                    <app-button value="UPDATE_VALUE" (click)="setCheckValue()"></app-button>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="col-md-12 bb-white">
                 <h2>Boutons</h2>
             </div>
             <div class="col-md-12 mt-2 row">
@@ -103,31 +120,37 @@
                     <app-button value="BUTTON.PRIMARY" type="primary" (buttonClicked)="primary()"></app-button>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.DISABLED" type="primary" [disabled]="true" (buttonClicked)="primary()"></app-button>
+                    <app-button value="BUTTON.DISABLED" type="primary" [disabled]="true" (buttonClicked)="primary()">
+                    </app-button>
                 </div>
 
                 <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.LARGE" type="primary" [large]="true" (buttonClicked)="primary()"></app-button>
+                    <app-button value="BUTTON.LARGE" type="primary" [large]="true" (buttonClicked)="primary()">
+                    </app-button>
                 </div>
 
                 <div class="col-md-4 mt-1">
                     <app-button value="BUTTON.SUCCESS" type="success" (buttonClicked)="success()"></app-button>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.DISABLED" type="success" [disabled]="true" (buttonClicked)="success()"></app-button>
+                    <app-button value="BUTTON.DISABLED" type="success" [disabled]="true" (buttonClicked)="success()">
+                    </app-button>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.LARGE" type="success" [large]="true" (buttonClicked)="success()"></app-button>
+                    <app-button value="BUTTON.LARGE" type="success" [large]="true" (buttonClicked)="success()">
+                    </app-button>
                 </div>
 
                 <div class="col-md-4 mt-1">
                     <app-button value="BUTTON.DANGER" type="danger" (buttonClicked)="danger()"></app-button>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.DISABLED" type="danger" [disabled]="true" (buttonClicked)="danger()"></app-button>
+                    <app-button value="BUTTON.DISABLED" type="danger" [disabled]="true" (buttonClicked)="danger()">
+                    </app-button>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.LARGE" type="danger" [large]="true" (buttonClicked)="danger()"></app-button>
+                    <app-button value="BUTTON.LARGE" type="danger" [large]="true" (buttonClicked)="danger()">
+                    </app-button>
                 </div>
 
             </div>
@@ -175,10 +198,210 @@
                 </div>
                 <div class="col-md-4 text-right">
                     <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInput()"></app-button>
-                    <app-button class="ml-2 " value="UPDATE_VALUE" type="primary" (buttonClicked)="changeInputValue()"></app-button>
+                    <app-button class="ml-2 " value="UPDATE_VALUE" type="primary" (buttonClicked)="changeInputValue()">
+                    </app-button>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="col-md-12 bb-white">
+                <h2>{{ 'MODAL.WINDOW' | translate }}</h2>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-4 mt-1">
+                    <app-button value="MODAL.OPEN.REGULAR" (buttonClicked)="openRegularModal()"></app-button>
+                </div>
+                <div class="col-md-4 mt-1">
+                    <app-button value="MODAL.OPEN.FULLSCREEN" (buttonClicked)="openFullscreenModal()"></app-button>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="col-md-12 bb-white">
+                <h2>IconButtons</h2>
+            </div>
+            <div class="col-md-12 row mt-1">
+                <div class="col-md-2 mt-1">
+                    <app-icon-button value="ICONBUTTON.GITHUB" placement="bottom"
+                        [icon]="{name:'fa-github', isFab:true}" (buttonClicked)="githubButtonClicked()">
+                    </app-icon-button>
+                </div>
+                <div class="col-md-2 mt-1">
+                    <app-icon-button value="ICONBUTTON.GITLAB" placement="top" [icon]="{name:'fa-gitlab', isFab:true}"
+                         (buttonClicked)="gitlabButtonClicked()"></app-icon-button>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="col-md-12 bb-white">
+                <h2>Input-Number</h2>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-8 row">
+                    <!-- Avec label -->
+                    <div class="col-md-2 gh-label-input text-right">
+                        <label>{{ 'REGULAR' | translate }}</label>
+                    </div>
+                    <div class="col-md-10">
+                        <app-input-number [(value)]="inputValueNumber"></app-input-number>
+                    </div>
+                </div>
+                <div class="col-md-8 row">
+                    <!-- Read only -->
+                    <div class="col-md-2 gh-label-input text-right">
+                        <label>MIN-MAX</label>
+                    </div>
+                    <div class="col-md-10">
+                        <app-input-number [(value)]="inputMinMaxValueNumber" [min]="min" [max]="max">
+                        </app-input-number>
+                    </div>
+                </div>
+                <div class="col-md-4 text-right">
+                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInputNumber()">
+                    </app-button>
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="col-md-12 bb-white">
+                    <h2>{{ 'CONTEXT_MENU' | translate }}</h2>
+                </div>
+                <div class="col-md-12 mt-2 row">
+                    <div class="col-md-6">
+                        <ul class="text-white">
+                            <li *ngFor="let user of contextMenuFirstObject" [contextMenu]="userCM"
+                                [contextMenuSubject]="user">{{ 'CLICK.RIGHT' | translate }}:
+                                {{ user?.sexe === 'F' ? 'Mme.' : 'M.' }} {{ user?.lastname }}</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="text-white">
+                            <li *ngFor="let subject of contextMenuSecondObject" [contextMenu]="subjectCM"
+                                [contextMenuSubject]="subject">{{ 'CLICK.RIGHT' | translate }}: {{ subject?.name }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Context menu pour les utilisateurs -->
+                <context-menu #userCM>
+                    <ng-template contextMenuItem let-item>
+                        Bonjour {{ item?.firstname }}
+                    </ng-template>
+                    <ng-template contextMenuItem [subMenu]="saySubMenu">
+                        Informations personnelles
+                    </ng-template>
+                    <context-menu #saySubMenu>
+                        <ng-template contextMenuItem let-item>
+                            Prénom : {{ item?.firstname }}
+                        </ng-template>
+                        <ng-template contextMenuItem let-item>
+                            Nom de famille : {{ item?.lastname }}
+                        </ng-template>
+                        <ng-template contextMenuItem let-item>
+                            Âge : {{ item?.age }}
+                        </ng-template>
+                        <ng-template contextMenuItem let-item>
+                            Sexe : {{ item?.sexe }}
+                        </ng-template>
+                    </context-menu>
+                    <ng-template contextMenuItem divider="true"></ng-template>
+                    <ng-template contextMenuItem (execute)="showMessage($event.item.firstname + ' dit bonjour !')">
+                        Clic pour appelé une fonction !
+                    </ng-template>
+                    <ng-template contextMenuItem (execute)="showMessage($event.item.firstname + ' dit hello !')">
+                        Clic pour appelé une autre fonction !
+                    </ng-template>
+                </context-menu>
+                <!-- Context menu pour les matières -->
+                <context-menu #subjectCM>
+                    <ng-template contextMenuItem let-item>
+                        Langage : {{ item?.language }}
+                    </ng-template>
+                    <ng-template contextMenuItem let-item>
+                        Professeur : {{ item?.teacher }}
+                    </ng-template>
+                </context-menu>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-12 bb-white">
+                    <h2>Dropdowns</h2>
+                </div>
+                <div class="col-md-4 mt-1">
+                    <app-dropdown [options]="dataDropdownExample" [required]="true" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownValue"></app-dropdown>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-4 mt-1">
+                    <app-dropdown [options]="dataDropdownExample" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownValue"></app-dropdown>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-4 mt-1">
+                    <app-dropdown [options]="dataDropdownExample" [disabled]="true" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownValue"></app-dropdown>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-4 mt-1">
+                    <app-dropdown [options]="dataDropdownExampleTwo" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownValueTwo"></app-dropdown>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-4 mt-1">
+                    <app-button value="RANDOM_VALUE" type="primary" (buttonClicked)="testAleatDropdown()"></app-button>
+                </div>
+                <div class="col-md-4 text-right">
+                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testDropdown()"></app-button>
                 </div>
             </div>
         </div>
     </ng-scrollbar>
 </app-container>
+
+<app-modal [(visible)]="modalRegularVisible" [medium]="true" [title]="'MODAL.WINDOW'">
+    <mat-tab-group disableRipple [@.disabled]="true">
+        <!-- @.disabled permet de ne pas avoir de transition de changement -->
+        <mat-tab label="{{ 'MODAL.FIRST_SECTION' | translate }}">
+            <div class="container row">
+                <div class="col-md-8 row">
+                    <div class="col-md-2 gh-label-input text-right">
+                        <label>{{ 'LABEL' | translate }}</label>
+                    </div>
+                    <div class="col-md-10 mt-1">
+                        <app-input [(value)]="modalInputValue"></app-input>
+                    </div>
+                </div>
+                <div class="col-md-4 text-right">
+                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="displayModalInputValue()">
+                    </app-button>
+                </div>
+            </div>
+
+        </mat-tab>
+        <mat-tab label="{{ 'MODAL.SECOND_SECTION' | translate }}"> {{ 'MODAL.SECOND_CONTENT' | translate }} </mat-tab>
+        <mat-tab label="{{ 'MODAL.THIRD_SECTION' | translate }}"> {{ 'MODAL.THIRD_CONTENT' | translate }} </mat-tab>
+    </mat-tab-group>
+</app-modal>
+
+<app-modal [(visible)]="modalFullscreenVisible" [fullscreen]="true">
+    <mat-tab-group [(selectedIndex)]="modalTabSelectedIndex" (selectedTabChange)="checkIfCloseModal($event)" disableRipple [@.disabled]="true">
+        <!-- @.disabled permet de ne pas avoir de transition de changement -->
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <div>
+                    <mat-icon><i class="fa fa-sign-out-alt fa-rotate-180 mr-1"></i></mat-icon>
+                    {{ 'MODAL.EXIT' | translate }}
+                </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="{{ 'MODAL.FIRST_SECTION' | translate }}"> {{ 'MODAL.FIRST_CONTENT' | translate }} </mat-tab>
+        <mat-tab label="{{ 'MODAL.SECOND_SECTION' | translate }}"> {{ 'MODAL.SECOND_CONTENT' | translate }} </mat-tab>
+        <mat-tab label="{{ 'MODAL.THIRD_SECTION' | translate }}"> {{ 'MODAL.THIRD_CONTENT' | translate }} </mat-tab>
+    </mat-tab-group>
+</app-modal>
+
+
 <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>
