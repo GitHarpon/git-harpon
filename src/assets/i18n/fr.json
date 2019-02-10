@@ -27,7 +27,11 @@
     },
     "ICONBUTTON": {
         "GITHUB": "GitHub",
-        "GITLAB": "Ceci est GitLab"
+        "GITLAB": "GitLab",
+        "TOOLTIP": {
+            "GITHUB": "Ceci est GitHub",
+            "GITLAB": "Ceci est GitLab"
+        }
     },
     "INFORMATION": "Information",
     "SUCCESS": "Succès",

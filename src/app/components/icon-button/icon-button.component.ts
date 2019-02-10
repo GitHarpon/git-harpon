@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class IconButtonComponent implements OnInit {
 
   @Input() value: String;
+  @Input() tooltipValue: String;
   @Input() placement: String;
   @Input() icon: {
     name: String,
@@ -28,5 +29,9 @@ export class IconButtonComponent implements OnInit {
 
   getValueTranslation() {
     return this.translateService.instant(this.value.toUpperCase().toString());
+  }
+
+  getTooltipTranslation() {
+    return this.translateService.instant(this.tooltipValue.toUpperCase().toString());
   }
 }
