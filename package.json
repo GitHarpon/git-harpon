@@ -45,6 +45,7 @@
     "mocha": "^5.2.0",
     "mocha-sinon": "^2.1.0",
     "monaco-editor": "^0.14.3",
+    "ngx-clipboard": "^11.1.9",
     "ngx-contextmenu": "^5.1.1",
     "ngx-scrollbar": "^4.1.1",
     "ngx-toastr": "^9.1.1",
