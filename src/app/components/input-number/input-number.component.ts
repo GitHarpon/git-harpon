@@ -25,13 +25,7 @@ export class InputNumberComponent implements OnInit {
   }
 
   set value(val) {
-    if (val > this.max) {
-      this.currentValue = this.max;
-    } else if (val < this.min) {
-      this.currentValue = this.min;
-    } else {
-      this.currentValue = val;
-    }
+    this.currentValue = val;
     this.valueChange.emit(this.currentValue);
   }
 
@@ -42,5 +36,15 @@ export class InputNumberComponent implements OnInit {
 
   getPlaceholderTranslation() {
     return this.translateService.instant(this.placeholder.toUpperCase().toString());
+  }
+
+  checkMinMax(event) {
+    console.log(event.key);
+    /*if (val > this.max) {
+      this.currentValue = this.max;
+    } else if (val < this.min) {
+      this.currentValue = this.min;
+    }*/
+    event.preventDefault();
   }
 }
