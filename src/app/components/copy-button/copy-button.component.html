@@ -1,3 +1,2 @@
-<app-icon-button value="Copier" [icon]="{name:'fa-copy'}" (buttonClicked)="copy(inputValue)">
-  </app-icon-button>
-<input class="gh-input" type="text" [(ngModel)]="inputValue" [ngxClipboard]="value"/>
+<app-icon-button value="COPY" [icon]="{ name:'fa-copy', isFab: false }" (buttonClicked)="copy()">
+</app-icon-button>

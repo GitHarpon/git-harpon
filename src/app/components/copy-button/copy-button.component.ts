@@ -8,17 +8,17 @@ import { ClipboardService } from 'ngx-clipboard';
 })
 export class CopyButtonComponent implements OnInit {
 
-  @Input() inputValue: string;
-  @Input() value: string;
+  @Input() template: string;
 
-  copy(text: string) {
-    this._clipboardService.copyFromContent(text);
-  }
 
-  constructor(private _clipboardService: ClipboardService) {}
+  constructor(private clipboardService: ClipboardService) {}
 
 
   ngOnInit() {
+  }
+
+  copy() {
+    this.clipboardService.copyFromContent(this.template);
   }
 
 }
