@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { isNull } from '@angular/compiler/src/output/output_ast';
-import { isUndefined } from 'util';
 import { FormControl } from '@angular/forms';
 
 @Component({
