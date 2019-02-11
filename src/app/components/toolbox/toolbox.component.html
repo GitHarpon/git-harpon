@@ -90,7 +90,7 @@
             </div>
             <div class="mt-2 col-md-12 row">
                 <div class="col-md-3 mt-2">
-                    <app-button [value]="loading ? 'LOADER.ACTIVATE' : 'LOADER.DESACTIVATE'" (buttonClicked)="setLoading()"></app-button>
+                    <app-button [value]="loading ? 'LOADER.DESACTIVATE' : 'LOADER.ACTIVATE'" (buttonClicked)="setLoading()"></app-button>
                 </div>
                 <div class="col-md-1 mt-2">
                     <app-copy-button template='<app-loader [loading]="loading">
@@ -416,6 +416,7 @@
                 </div>
                 <div class="col-md-12 text-right">
                     <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInputNumber()"></app-button>
+                    <app-button class="ml-2" value="UPDATE_VALUE" (click)="setInputNumber()"></app-button>
                 </div>
             </div>
             <div class="container mt-5">
