@@ -9,6 +9,7 @@ import { ClipboardService } from 'ngx-clipboard';
 export class CopyButtonComponent implements OnInit {
 
   @Input() inputValue: string;
+  @Input() value: string;
 
   copy(text: string) {
     this._clipboardService.copyFromContent(text);
