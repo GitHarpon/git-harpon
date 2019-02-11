@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { isNull } from '@angular/compiler/src/output/output_ast';
+import { isUndefined } from 'util';
 
 @Component({
   selector: 'app-input-number',
@@ -25,7 +27,13 @@ export class InputNumberComponent implements OnInit {
   }
 
   set value(val) {
-    this.currentValue = val;
+    if (val > this.max) {
+      this.currentValue = this.max;
+    } else if (val < this.min) {
+      this.currentValue = this.min;
+    } else {
+      this.currentValue = val;
+    }
     this.valueChange.emit(this.currentValue);
   }
 
@@ -39,12 +47,12 @@ export class InputNumberComponent implements OnInit {
   }
 
   checkMinMax(event) {
-    console.log(event.key);
-    /*if (val > this.max) {
-      this.currentValue = this.max;
-    } else if (val < this.min) {
-      this.currentValue = this.min;
-    }*/
-    event.preventDefault();
+    if (!isUndefined(this.max)) {
+      if (!isNaN(Number(event.key))) {
+        if (this.currentValue == this.max) {
+          event.preventDefault();
+        }
+      }
+    }
   }
 }
