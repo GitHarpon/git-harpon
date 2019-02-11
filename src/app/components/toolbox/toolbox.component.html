@@ -206,7 +206,7 @@
                 <div class="col-md-1">
                     <app-copy-button template='<div class="col-md-8 row">
                             <div class="col-md-2 gh-label-input text-right">
-                                <label>{{ translatedParam | translate }}</label>
+                                <label></label>
                             </div>
                             <div class="col-md-10">
                                 <app-input [(value)]="inputValue"></app-input>
@@ -226,7 +226,7 @@
                     <app-copy-button template='<div class="col-md-8 row">
                             <!-- Placeholder + empty value -->
                             <div class="col-md-2 gh-label-input text-right">
-                                <label>{{ translatedParam | translate }}</label>
+                                <label></label>
                             </div>
                             <div class="col-md-10 mt-1">
                                 <app-input [(value)]="inputEmptyValue" placeholder="PLACEHOLDER"></app-input>
@@ -246,7 +246,7 @@
                     <app-copy-button template='<div class="col-md-8 row mt-2">
                             <!-- Read only -->
                             <div class="col-md-2 gh-label-input text-right">
-                                <label>{{ translatedParam | translate }}</label>
+                                <label></label>
                             </div>
                             <div class="col-md-10 mt-1">
                                 <app-input [(value)]="inputValue" [readonly]="true"></app-input>
@@ -266,7 +266,7 @@
                     <app-copy-button template='<div class="col-md-8 row">
                             <!-- Disabled -->
                             <div class="col-md-2 gh-label-input text-right">
-                                <label>{{ translatedParam | translate }}</label>
+                                <label></label>
                             </div>
                             <div class="col-md-10 mt-1">
                                 <app-input [(value)]="inputValue" [disabled]="true"></app-input>
@@ -288,14 +288,14 @@
                     <app-button value="MODAL.OPEN.REGULAR" (buttonClicked)="openRegularModal()"></app-button>
                 </div>
                 <div class="col-md-1 mt-1">
-                    <app-copy-button template='<app-modal [(visible)]="modalRegularVisible" [medium]="true" [title]="translatedParam">
+                    <app-copy-button template='<app-modal [(visible)]="modalRegularVisible" [medium]="true" title="title">
                         <mat-tab-group disableRipple [@.disabled]="true">
                             <!-- @.disabled permet de ne pas avoir de transition de changement -->
-                            <mat-tab label="{{ translatedParam | translate }}">
+                            <mat-tab label="">
                                 <div class="container row">
                                     <div class="col-md-8 row">
                                         <div class="col-md-2 gh-label-input text-right">
-                                            <label>{{ translatedParam | translate }}</label>
+                                            <label></label>
                                         </div>
                                         <div class="col-md-10 mt-1">
                                             <app-input [(value)]="modalInputValue"></app-input>
@@ -308,8 +308,8 @@
                                 </div>
 
                             </mat-tab>
-                            <mat-tab label="{{ translatedParam | translate }}"> {{ translatedParam | translate }} </mat-tab>
-                            <mat-tab label="{{ translatedParam | translate }}"> {{ translatedParam | translate }} </mat-tab>
+                            <mat-tab label="label">label</mat-tab>
+                            <mat-tab label="label">label</mat-tab>
                         </mat-tab-group>
                     </app-modal>'></app-copy-button>
                 </div>
@@ -326,13 +326,13 @@
                                 <ng-template mat-tab-label>
                                     <div>
                                         <mat-icon><i class="fa fa-sign-out-alt fa-rotate-180 mr-1"></i></mat-icon>
-                                        {{ translatedParam | translate }}
+                                        label
                                     </div>
                                 </ng-template>
                             </mat-tab>
-                            <mat-tab label="{{ translatedParam | translate }}"> {{ translatedParam | translate }} </mat-tab>
-                            <mat-tab label="{{ translatedParam | translate }}"> {{ translatedParam | translate }} </mat-tab>
-                            <mat-tab label="{{ translatedParam | translate }}"> {{ translatedParam | translate }} </mat-tab>
+                            <mat-tab label="label"> label </mat-tab>
+                            <mat-tab label="label"> label </mat-tab>
+                            <mat-tab label="label"> label </mat-tab>
                         </mat-tab-group>
                     </app-modal>'></app-copy-button>
                 </div>
@@ -385,7 +385,7 @@
                     <app-copy-button template='<div class="col-md-8 row">
                         <!-- Avec label -->
                         <div class="col-md-2 gh-label-input text-right">
-                            <label>{{ translatedParam | translate }}</label>
+                            <label>label</label>
                         </div>
                         <div class="col-md-10">
                             <app-input-number [(value)]="inputValueNumber"></app-input-number>
@@ -433,7 +433,7 @@
                     <div class="col-md-1 mt-1">
                         <app-copy-button template='<ul class="text-white">
                             <li *ngFor="let user of contextMenuFirstObject" [contextMenu]="userCM"
-                                [contextMenuSubject]="user">{{ translatedParam | translate }}:
+                                [contextMenuSubject]="user">test:
                                 {{ user?.sexe === "F" ? "Mme." : "M." }} {{ user?.lastname }}</li>
                             </ul>
                             <context-menu #userCM>
@@ -475,7 +475,7 @@
                     <div class="col-md-1 mt-1">
                         <app-copy-button template='<ul class="text-white">
                             <li *ngFor="let subject of contextMenuSecondObject" [contextMenu]="subjectCM"
-                                [contextMenuSubject]="subject">{{ translatedParam | translate }}: {{ subject?.name }}</li>
+                                [contextMenuSubject]="subject">label: {{ subject?.name }}</li>
                             </ul>
                             <context-menu #subjectCM>
                                 <ng-template contextMenuItem let-item>
