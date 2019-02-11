@@ -1,0 +1,32 @@
+@import '../../../variables.scss';
+
+.gh-button-bar {
+    @include wX-hX(100%, 50px);
+    @include bg-color($light-grey);
+    color: $white;
+
+    &-project {
+        @include hX(50px);
+        line-height: 50px;
+        float: left;
+        text-align: left;
+    }
+
+    &-more {
+        @include hX(50px);
+        line-height: 50px;
+        float: right;
+        text-align: right;
+    }
+
+    &-actions {
+        @include hX(50px);
+        margin: 0 auto;
+        display: inline-block;
+        text-align: center;
+    }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

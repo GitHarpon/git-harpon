@@ -62,5 +62,8 @@
     "CLICK": {
         "RIGHT": "Right click",
         "LEFT": "Left click"
-    }
+    },
+    "BRANCH": "Branch",
+    "PUSH": "Push",
+    "PULL": "Pull"
 }

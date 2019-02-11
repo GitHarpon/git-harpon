@@ -109,7 +109,9 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-spinner', isFab: false },
       { icon: 'fa-upload', isFab: false },
       { icon: 'fa-download', isFab: false },
-      { icon: 'fa-sign-out-alt', isFab: false}
+      { icon: 'fa-sign-out-alt', isFab: false},
+      { icon: 'fa-code-branch', isFab: false},
+      { icon: 'fa-cog', isFab: false}
     ];
 
     this.dataDropdownExample = [
@@ -196,7 +198,7 @@ export class ToolboxComponent implements OnInit {
   setLoading() {
     this.loading = !this.loading;
   }
-    
+
   openRegularModal() {
     this.modalRegularVisible = true;
   }
