@@ -18,6 +18,7 @@ export class ToolboxComponent implements OnInit {
   cbValue: Boolean;
   inputValue: String;
   inputEmptyValue: String;
+  loading: Boolean;
   modalRegularVisible: Boolean;
   modalFullscreenVisible: Boolean;
   modalInputValue: String;
@@ -57,6 +58,7 @@ export class ToolboxComponent implements OnInit {
       'light-blue',
       'light-blue-hover',
       'disabled-blue',
+      'gh-green',
       'dark-green',
       'light-green',
       'disabled-green',
@@ -193,6 +195,10 @@ export class ToolboxComponent implements OnInit {
     this.inputValue += 'daa';
   }
 
+  setLoading() {
+    this.loading = !this.loading;
+  }
+    
   openRegularModal() {
     this.modalRegularVisible = true;
   }
