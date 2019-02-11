@@ -434,27 +434,27 @@
                         <app-copy-button template='<ul class="text-white">
                             <li *ngFor="let user of contextMenuFirstObject" [contextMenu]="userCM"
                                 [contextMenuSubject]="user">test:
-                                {{ user?.sexe === "F" ? "Mme." : "M." }} {{ user?.lastname }}</li>
+                                <!-- On peut utiliser user?.sexe --></li>
                             </ul>
                             <context-menu #userCM>
                                 <ng-template contextMenuItem let-item>
-                                    Bonjour {{ item?.firstname }}
+                                    Bonjour <!-- On peut utiliser item?.firstname -->
                                 </ng-template>
                                 <ng-template contextMenuItem [subMenu]="saySubMenu">
                                     Informations personnelles
                                 </ng-template>
                                 <context-menu #saySubMenu>
                                     <ng-template contextMenuItem let-item>
-                                        Prénom : {{ item?.firstname }}
+                                        Prénom : <!-- On peut utiliser item?.firstname -->
                                     </ng-template>
                                     <ng-template contextMenuItem let-item>
-                                        Nom de famille : {{ item?.lastname }}
+                                        Nom de famille : <!-- On peut utiliser item?.lastname -->
                                     </ng-template>
                                     <ng-template contextMenuItem let-item>
-                                        Âge : {{ item?.age }}
+                                        Âge : <!-- On peut utiliser item?.age -->
                                     </ng-template>
                                     <ng-template contextMenuItem let-item>
-                                        Sexe : {{ item?.sexe }}
+                                        Sexe : <!-- On peut utiliser item?.sexe -->
                                     </ng-template>
                                 </context-menu>
                                 <ng-template contextMenuItem divider="true"></ng-template>
@@ -475,14 +475,14 @@
                     <div class="col-md-1 mt-1">
                         <app-copy-button template='<ul class="text-white">
                             <li *ngFor="let subject of contextMenuSecondObject" [contextMenu]="subjectCM"
-                                [contextMenuSubject]="subject">label: {{ subject?.name }}</li>
+                                [contextMenuSubject]="subject">label: <!-- On peut utiliser subject?.name --></li>
                             </ul>
                             <context-menu #subjectCM>
                                 <ng-template contextMenuItem let-item>
-                                    Langage : {{ item?.language }}
+                                    Langage : <!-- On peut utiliser item?.language -->
                                 </ng-template>
                                 <ng-template contextMenuItem let-item>
-                                    Professeur : {{ item?.teacher }}
+                                    Professeur :<!-- On peut utiliser item?.teacher -->
                                 </ng-template>
                             </context-menu>'></app-copy-button>
                     </div>
