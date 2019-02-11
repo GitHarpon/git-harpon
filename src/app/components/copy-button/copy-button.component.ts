@@ -11,7 +11,6 @@ export class CopyButtonComponent implements OnInit {
   @Input() inputValue: string;
 
   copy(text: string) {
-    console.log(text);
     this._clipboardService.copyFromContent(text);
   }
 
