@@ -89,8 +89,7 @@
                 <h2>Loader</h2>
             </div>
             <div class="gh-divLoader" style="width: 500px; height: 500px">
-                <app-button value="LOADER.ACTIVATE" (buttonClicked)="setLoading()" style="position: absolute; z-index: 4" *ngIf="!loading"></app-button>
-                <app-button value="LOADER.DESACTIVATE" (buttonClicked)="setLoading()" style="position: absolute; z-index: 4" *ngIf="loading"></app-button>
+                <app-button [value]="loading ? 'LOADER.ACTIVATE' : 'LOADER.DESACTIVATE'" (buttonClicked)="setLoading()" style="position: absolute; z-index: 4"></app-button>
                 <app-loader [loading]="loading"></app-loader>
             </div>
         </div>
@@ -99,8 +98,11 @@
                 <h2>{{ 'CHECKBOX' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-1 row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <app-checkbox name="Checkbox 1" [(value)]="cbValue"></app-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <app-copy-button template="`<app-checkbox name='Checkbox 1' [(value)]='cbValue'></app-checkbox>`"></app-copy-button>
                 </div>
                 <div class="col-md-8">
                     <app-checkbox name="Checkbox 2" [(value)]="cbValue" [disabled]="true"></app-checkbox>
@@ -357,14 +359,6 @@
                 <div class="col-md-4 text-right">
                     <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testDropdown()"></app-button>
                 </div>
-            </div>
-        </div>
-        <div class="container mt-5">
-            <div class="col-md-12 bb-white">
-                <h2>Copy button</h2>
-            </div>
-            <div class="col-md-12 mt-2 row">
-                <app-copy-button template="toto"></app-copy-button>
             </div>
         </div>
     </ng-scrollbar>
