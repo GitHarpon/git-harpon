@@ -56,9 +56,9 @@
         "THIRD_SECTION": "Troisième section",
         "FIRST_CONTENT": "Premier contenu",
         "SECOND_CONTENT": "Deuxième contenu",
-        "THIRD_CONTENT": "Troisième contenu",
-        "CONTEXT_MENU": "Menu contextuel"
+        "THIRD_CONTENT": "Troisième contenu"
     },
+    "CONTEXT_MENU": "Menu contextuel",
     "CLICK": {
         "RIGHT": "Clic droit",
         "LEFT": "Clic gauche"
