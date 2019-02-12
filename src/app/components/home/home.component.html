@@ -5,13 +5,6 @@
         <div class="col-4 gh-button-bar-project">
             Folder > Projet > Branche
         </div>
-        <!-- Plus (à droite) -->
-        <div class="col-4 gh-button-bar-more">
-            <div>
-                <a class="cursor-pointer mr-2" (click)="openTerminal()"><i class="fas fa-terminal"></i></a>
-                <a class="cursor-pointer" (click)="openPreferences()"><i class="fas fa-cog"></i></a>
-            </div>
-        </div>
         <!-- Actions (au milieu) -->
         <div class="col-4 gh-button-bar-actions">
             <div class="d-inline-block">
@@ -28,6 +21,13 @@
                 <app-icon-button value="BRANCH"  tooltipValue="BRANCH" placement="bottom"
                     [icon]="{name:'fa-code-branch', isFab:false}" (buttonClicked)="branchButtonClicked()">
                 </app-icon-button>
+            </div>
+        </div>
+        <!-- Plus (à droite) -->
+        <div class="col-4 gh-button-bar-more">
+            <div>
+                <a class="cursor-pointer mr-2" (click)="openTerminal()"><i class="fas fa-terminal"></i></a>
+                <a class="cursor-pointer" (click)="openPreferences()"><i class="fas fa-cog"></i></a>
             </div>
         </div>
     </div>

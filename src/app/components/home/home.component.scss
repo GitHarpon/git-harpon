@@ -12,18 +12,18 @@
         text-align: left;
     }
 
-    &-more {
-        @include hX(50px);
-        line-height: 50px;
-        float: right;
-        text-align: right;
-    }
-
     &-actions {
         @include hX(50px);
         margin: 0 auto;
         display: inline-block;
         text-align: center;
+    }
+
+    &-more {
+        @include hX(50px);
+        line-height: 50px;
+        float: right;
+        text-align: right;
     }
 }
 
