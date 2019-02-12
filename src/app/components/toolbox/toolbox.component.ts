@@ -223,6 +223,10 @@ export class ToolboxComponent implements OnInit {
     this.toastr.info(this.inputValueNumber.toString());
   }
 
+  setInputNumber() {
+    this.inputValueNumber = 1000;
+  }
+
   testDropdown() {
     this.toastr.info(this.dropdownValue.toString());
   }
