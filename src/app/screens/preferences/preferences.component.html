@@ -1,0 +1,20 @@
+<app-modal [(visible)]="preferencesVisible" [fullscreen]="true">
+  <mat-tab-group [(selectedIndex)]="preferencesTabSelectedIndex" (selectedTabChange)="checkIfCloseModal($event)" disableRipple [@.disabled]="true">
+      <!-- @.disabled permet de ne pas avoir de transition de changement -->
+      <mat-tab>
+          <ng-template mat-tab-label>
+              <div>
+                  <mat-icon><i class="fa fa-sign-out-alt fa-rotate-180 mr-1"></i></mat-icon>
+                  {{ 'EXIT_PREFERENCES' | translate }}
+              </div>
+          </ng-template>
+      </mat-tab>
+      <mat-tab label="{{ 'GENERAL' | translate }}">
+        <span class="section-title">
+            {{ 'GENERAL' | translate }}
+        </span>
+      </mat-tab>
+      <mat-tab label="{{ 'EDITOR' | translate }}"> {{ 'EDITOR' | translate }} </mat-tab>
+      <mat-tab label="{{ 'UI' | translate }}"> {{ 'UI' | translate }} </mat-tab>
+  </mat-tab-group>
+</app-modal>

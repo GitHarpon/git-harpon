@@ -1,8 +1,9 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ToolboxComponent } from './components/toolbox/toolbox.component';
-import { HomeComponent } from './components/home/home.component';
+import { ToolboxComponent } from './screens/toolbox/toolbox.component';
+import { HomeComponent } from './screens/home/home.component';
+import { PreferencesComponent } from './screens/preferences/preferences.component';
 
 const ROUTES: Routes = [
     {
@@ -17,6 +18,10 @@ const ROUTES: Routes = [
     {
         path: 'toolbox',
         component: ToolboxComponent
+    },
+    {
+        path: 'preferences',
+        component: PreferencesComponent
     }
 ];
 

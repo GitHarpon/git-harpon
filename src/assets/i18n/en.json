@@ -63,8 +63,12 @@
         "RIGHT": "Right click",
         "LEFT": "Left click"
     },
-    "COPY": "Copy"
+    "COPY": "Copy",
     "BRANCH": "Branch",
+    "PULL": "Pull",
     "PUSH": "Push",
-    "PULL": "Pull"
+    "EXIT_PREFERENCES": "Exit preferences",
+    "GENERAL": "General",
+    "EDITOR": "Editor",
+    "UI": "User Interface"
 }

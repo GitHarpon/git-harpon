@@ -1,0 +1,107 @@
+@import '../../../variables.scss';
+
+.gh-button-bar {
+    @include wX-hX(100%, 50px);
+    @include bg-color($light-grey);
+    color: $white;
+
+    &-project {
+        @include hX(50px);
+        line-height: 50px;
+        float: left;
+        text-align: left;
+        padding-left: 0;
+
+        & .gh-folder {
+            @include hX(50px);
+            display: inline-block;
+            background:yellow;
+        }
+
+        & .gh-project {
+            @include hX(50px);
+            display: inline-block;
+            background-color: green;
+        }
+
+        & .gh-branch {
+            @include hX(50px);
+            display: inline-block;
+            background-color: rebeccapurple;
+        }
+    }
+
+    &-actions {
+        @include hX(50px);
+        margin: 0 auto;
+        display: inline-block;
+        text-align: center;
+    }
+
+    &-more {
+        @include hX(50px);
+        line-height: 50px;
+        float: right;
+        text-align: right;
+    }
+}
+
+.gh-breadcrumbs {
+    color:red;
+    list-style: none;
+    overflow: hidden;
+    font-size: 16px;
+
+    & ul {
+        padding-left: 0;
+
+        & li {
+            float: left;
+
+            & a {
+                color: white;
+                text-decoration: none; 
+                padding-left: 65px;
+                background: hsla(34,85%,35%,1); 
+                position: relative; 
+                display: block;
+                float: left;
+
+                &::after {
+                    content: " "; 
+                    display: block; 
+                    width: 0; 
+                    height: 0;
+                    border-top: 50px solid transparent; /* Go big on the size, and let overflow hide */
+                    border-bottom: 50px solid transparent;
+                    border-left: 30px solid hsla(34,85%,35%,1);
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -50px;
+                    left: 100%;
+                    z-index: 2;
+                }
+
+                &::before {
+                    content: " "; 
+                    display: block; 
+                    width: 0; 
+                    height: 0;
+                    border-top: 50px solid transparent;
+                    border-bottom: 50px solid transparent;
+                    border-left: 30px solid white;
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -50px;
+                    margin-left: 1px;
+                    left: 100%;
+                    z-index: 1;
+                }
+            }
+        }
+    }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

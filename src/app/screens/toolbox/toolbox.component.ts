@@ -214,8 +214,8 @@ export class ToolboxComponent implements OnInit {
     this.toastr.info(this.modalInputValue.toString());
   }
 
-  checkIfCloseModal($event) {
-    if ($event.index === 0) {
+  checkIfCloseModal(event) {
+    if (event.index === 0) {
       this.modalTabSelectedIndex = 1;
       this.modalFullscreenVisible = false;
     }
