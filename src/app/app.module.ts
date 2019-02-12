@@ -31,8 +31,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { EditorPreferencesService } from './providers/editor-preferences.service';
 import { FooterComponent } from './components/footer/footer.component';
-import { HomeComponent } from './components/home/home.component';
-import { ToolboxComponent } from './components/toolbox/toolbox.component';
+import { HomeComponent } from './screens/home/home.component';
+import { ToolboxComponent } from './screens/toolbox/toolbox.component';
 import { ContainerComponent } from './components/container/container.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { ButtonComponent } from './components/button/button.component';
@@ -43,6 +43,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 import { CopyButtonComponent } from './components/copy-button/copy-button.component';
+import { PreferencesComponent } from './screens/preferences/preferences.component';
 
 
 // AoT requires an exported function for factories
@@ -67,7 +68,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoaderComponent,
     ModalComponent,
     InputNumberComponent,
-    CopyButtonComponent
+    CopyButtonComponent,
+    PreferencesComponent
   ],
   imports: [
     ReactiveFormsModule,

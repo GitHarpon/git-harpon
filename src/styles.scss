@@ -52,6 +52,10 @@ body {
     color: $white;
 }
 
+.section-title {
+  font-size: 32px;
+}
+
 .gh-label-input {
     color: $white;
     padding: $gap-md $gap-md 0 $gap-md;
@@ -71,7 +75,7 @@ body {
 .mat-tab {
   
   &-header {
-    background: $blue-grey;
+    background: $light-grey;
     border-right: 1px solid $dark;
 
     &-pagination {

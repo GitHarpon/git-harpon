@@ -38,11 +38,13 @@ export class DropdownComponent implements OnInit {
   }
 
   isSelected(opt) {
-    var valeur = this.getOptKey(opt);
-    if (valeur === this.currentValue) {
-      return 'selected';
+    const VALUE = this.getOptKey(opt);
+    const SELECTED = 'selected';
+    const EMPTY = '';
+    if (VALUE === this.currentValue) {
+      return SELECTED;
     }
-    return '';
+    return EMPTY;
   }
 
   getOptValue(option: any) {

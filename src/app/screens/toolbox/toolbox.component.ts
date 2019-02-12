@@ -112,7 +112,10 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-spinner', isFab: false },
       { icon: 'fa-upload', isFab: false },
       { icon: 'fa-download', isFab: false },
-      { icon: 'fa-sign-out-alt', isFab: false}
+      { icon: 'fa-sign-out-alt', isFab: false},
+      { icon: 'fa-code-branch', isFab: false},
+      { icon: 'fa-cog', isFab: false},
+      { icon: 'fa-search', isFab: false}
     ];
 
     this.dataDropdownExample = [
@@ -212,8 +215,8 @@ export class ToolboxComponent implements OnInit {
     this.toastr.info(this.modalInputValue.toString());
   }
 
-  checkIfCloseModal($event) {
-    if ($event.index === 0) {
+  checkIfCloseModal(event) {
+    if (event.index === 0) {
       this.modalTabSelectedIndex = 1;
       this.modalFullscreenVisible = false;
     }

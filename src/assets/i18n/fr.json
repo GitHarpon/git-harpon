@@ -63,5 +63,16 @@
         "RIGHT": "Clic droit",
         "LEFT": "Clic gauche"
     },
-    "COPY": "Copier"
+    "COPY": "Copier",
+    "BRANCH": "Branche",
+    "PULL": "Tirer",
+    "PUSH": "Pousser",
+    "EXIT_PREFERENCES": "Sortir des préferences",
+    "GENERAL": "Général",
+    "EDITOR": "Editeur",
+    "UI": "Interface Utilisateur",
+    "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
+    "OPEN": "Ouvrir",
+    "CLONE": "Cloner",
+    "INIT": "Initialiser"
 }

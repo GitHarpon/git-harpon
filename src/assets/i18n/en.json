@@ -63,5 +63,16 @@
         "RIGHT": "Right click",
         "LEFT": "Left click"
     },
-    "COPY": "Copy"
+    "COPY": "Copy",
+    "BRANCH": "Branch",
+    "PULL": "Pull",
+    "PUSH": "Push",
+    "EXIT_PREFERENCES": "Exit preferences",
+    "GENERAL": "General",
+    "EDITOR": "Editor",
+    "UI": "User Interface",
+    "REPOSITORY_MANAGEMENT": "Repository management",
+    "OPEN": "Open",
+    "CLONE": "Clone",
+    "INIT": "Init"
 }
