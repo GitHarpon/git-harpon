@@ -22,7 +22,7 @@ export class ToolboxComponent implements OnInit {
   modalRegularVisible: Boolean;
   modalFullscreenVisible: Boolean;
   modalInputValue: String;
-  @Input() modalTabSelectedIndex: any = 1;
+  modalTabSelectedIndex: any;
   inputValueNumber: number;
   inputMinMaxValueNumber: number;
   max: number;
@@ -45,6 +45,8 @@ export class ToolboxComponent implements OnInit {
     this.cbValue = true;
     this.inputValue = 'Test';
     this.inputEmptyValue = '';
+
+    this.modalTabSelectedIndex = 1;
 
     this.inputValueNumber = 10;
     this.inputMinMaxValueNumber = 0;

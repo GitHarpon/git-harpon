@@ -9,6 +9,7 @@ import { ClipboardService } from 'ngx-clipboard';
 export class CopyButtonComponent implements OnInit {
 
   @Input() template: string;
+  copy: Boolean;
 
 
   constructor(private clipboardService: ClipboardService) {}
@@ -17,8 +18,16 @@ export class CopyButtonComponent implements OnInit {
   ngOnInit() {
   }
 
-  copy() {
+  copyToClipboard() {
     this.clipboardService.copyFromContent(this.template);
+    this.switchCopy();
+  }
+
+  switchCopy() {
+    this.copy = true;
+    setTimeout(time => {
+      this.copy = false;
+    }, 500);
   }
 
 }

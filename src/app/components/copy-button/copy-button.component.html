@@ -1,2 +1,14 @@
-<app-icon-button value="COPY" [icon]="{ name:'fa-copy', isFab: false }" (buttonClicked)="copy()">
-</app-icon-button>
+<div class="copy-button" (click)="copyToClipboard()">
+    <div class="copy-button__button">
+        <i class="fa fa-copy fa-lg"></i>
+    </div>
+    <div class="copy-button__copy ">
+        <i class="fa fa-lg" [ngClass]="[copy ? 'fa-check' : '']"></i>
+    </div>
+    <textarea class="hidden clipboard"></textarea>
+    <div class="hidden">
+        <div class="contentCopy">
+            {{template}}
+        </div>
+    </div>
+</div>
