@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input-number',
@@ -15,6 +16,7 @@ export class InputNumberComponent implements OnInit {
   @Input() max: number;
   @Input() min: number;
   currentValue: number;
+  form: FormControl;
 
   @Output()
   valueChange = new EventEmitter<number>();
@@ -26,8 +28,10 @@ export class InputNumberComponent implements OnInit {
 
   set value(val) {
     if (val > this.max) {
+      this.form.setValue(this.max);
       this.currentValue = this.max;
     } else if (val < this.min) {
+      this.form.setValue(this.min);
       this.currentValue = this.min;
     } else {
       this.currentValue = val;
@@ -38,6 +42,7 @@ export class InputNumberComponent implements OnInit {
   constructor(private translateService: TranslateService) { }
 
   ngOnInit() {
+    this.form = new FormControl('');
   }
 
   getPlaceholderTranslation() {

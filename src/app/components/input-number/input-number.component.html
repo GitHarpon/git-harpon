@@ -1,2 +1,2 @@
 <input class="gh-input" type="number" [max]="max" [min]="min" [name]="name" [placeholder]="placeholder ? getPlaceholderTranslation() : ''" 
-    [readonly]="readonly" [disabled]="disabled" [ngClass]="disabled ? 'disabled' : ''" [(ngModel)]="value" />
+    [readonly]="readonly" [disabled]="disabled" [ngClass]="disabled ? 'disabled' : ''" [formControl]="form" [(ngModel)]="value" />

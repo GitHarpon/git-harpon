@@ -22,7 +22,7 @@ export class ToolboxComponent implements OnInit {
   modalRegularVisible: Boolean;
   modalFullscreenVisible: Boolean;
   modalInputValue: String;
-  @Input() modalTabSelectedIndex: any = 1;
+  modalTabSelectedIndex: any;
   inputValueNumber: number;
   inputMinMaxValueNumber: number;
   max: number;
@@ -37,6 +37,7 @@ export class ToolboxComponent implements OnInit {
   dropdownValue: String;
   dropdownValueTwo: String;
 
+
   constructor(private electronService: ElectronService,
     private toastr: ToastrService, private translateService: TranslateService) { }
 
@@ -44,6 +45,8 @@ export class ToolboxComponent implements OnInit {
     this.cbValue = true;
     this.inputValue = 'Test';
     this.inputEmptyValue = '';
+
+    this.modalTabSelectedIndex = 1;
 
     this.inputValueNumber = 10;
     this.inputMinMaxValueNumber = 0;
@@ -222,8 +225,16 @@ export class ToolboxComponent implements OnInit {
     this.toastr.info(this.inputValueNumber.toString());
   }
 
+  setInputNumber() {
+    this.inputValueNumber = 1000;
+  }
+
   testDropdown() {
     this.toastr.info(this.dropdownValue.toString());
+  }
+
+  testCopyButton() {
+    this.toastr.info('Contenu copié');
   }
 
   testAleatDropdown() {

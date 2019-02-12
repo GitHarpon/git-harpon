@@ -88,10 +88,21 @@
             <div class="col-md-12 bb-white">
                 <h2>Loader</h2>
             </div>
-            <div class="gh-divLoader" style="width: 500px; height: 500px">
-                <app-button value="LOADER.ACTIVATE" (buttonClicked)="setLoading()" style="position: absolute; z-index: 4" *ngIf="!loading"></app-button>
-                <app-button value="LOADER.DESACTIVATE" (buttonClicked)="setLoading()" style="position: absolute; z-index: 4" *ngIf="loading"></app-button>
-                <app-loader [loading]="loading"></app-loader>
+            <div class="mt-2 col-md-12 row">
+                <div class="col-md-3 mt-2">
+                    <app-button [value]="loading ? 'LOADER.DESACTIVATE' : 'LOADER.ACTIVATE'" (buttonClicked)="setLoading()"></app-button>
+                </div>
+                <div class="col-md-1 mt-2">
+                    <app-copy-button template='<app-loader [loading]="loading">
+                            <!-- CONTENU DANS LOADER -->
+                        </app-loader>'></app-copy-button>
+                </div>
+                <div class="col-md-8 offset-md-2 mt-2">
+                    <app-loader [loading]="loading">
+                        <div [ngClass]="{'gh-div-loader': loading }">
+                        </div>
+                    </app-loader>
+                </div>
             </div>
         </div>
         <div class="container mt-5">
@@ -99,15 +110,21 @@
                 <h2>{{ 'CHECKBOX' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-1 row">
-                <div class="col-md-12">
+                <div class="col-md-2">
                     <app-checkbox name="Checkbox 1" [(value)]="cbValue"></app-checkbox>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-10">
+                    <app-copy-button template='<app-checkbox name="Checkbox 1" [(value)]="cbValue"></app-checkbox>'></app-copy-button>
+                </div>
+                <div class="col-md-2 mt-2">
                     <app-checkbox name="Checkbox 2" [(value)]="cbValue" [disabled]="true"></app-checkbox>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mt-2">
+                    <app-copy-button template='<app-checkbox name="Checkbox 1" [(value)]="cbValue"></app-checkbox>'></app-copy-button>
+                </div>
+                <div class="col-md-12 mt-1 text-right">
                     <app-button value="DISPLAY_VALUE" (click)="displayCbValue()"></app-button>
-                    <app-button value="UPDATE_VALUE" (click)="setCheckValue()"></app-button>
+                    <app-button class="ml-2" value="UPDATE_VALUE" (click)="setCheckValue()"></app-button>
                 </div>
             </div>
         </div>
@@ -116,43 +133,60 @@
                 <h2>Boutons</h2>
             </div>
             <div class="col-md-12 mt-2 row">
-                <div class="col-md-4 mt-1">
+                <div class="col-md-3 mt-1">
                     <app-button value="BUTTON.PRIMARY" type="primary" (buttonClicked)="primary()"></app-button>
                 </div>
-                <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.DISABLED" type="primary" [disabled]="true" (buttonClicked)="primary()">
-                    </app-button>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-button value="BUTTON.PRIMARY" type="primary" (buttonClicked)="primary()"></app-button>'></app-copy-button>
                 </div>
-
-                <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.LARGE" type="primary" [large]="true" (buttonClicked)="primary()">
-                    </app-button>
+                <div class="col-md-3 mt-1">
+                    <app-button value="BUTTON.DISABLED" type="primary" [disabled]="true" (buttonClicked)="primary()"></app-button>
                 </div>
-
-                <div class="col-md-4 mt-1">
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-button value="BUTTON.DISABLED" type="primary" [disabled]="true" (buttonClicked)="primary()"></app-button>'></app-copy-button>
+                </div>
+                <div class="col-md-3 mt-1">
+                    <app-button value="BUTTON.LARGE" type="primary" [large]="true" (buttonClicked)="primary()"></app-button>
+                </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-button value="BUTTON.LARGE" type="primary" [large]="true" (buttonClicked)="primary()"></app-button>'></app-copy-button>
+                </div>
+                <div class="col-md-3 mt-1">
                     <app-button value="BUTTON.SUCCESS" type="success" (buttonClicked)="success()"></app-button>
                 </div>
-                <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.DISABLED" type="success" [disabled]="true" (buttonClicked)="success()">
-                    </app-button>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-button value="BUTTON.SUCCESS" type="success" (buttonClicked)="success()"></app-button>'></app-copy-button>
                 </div>
-                <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.LARGE" type="success" [large]="true" (buttonClicked)="success()">
-                    </app-button>
+                <div class="col-md-3 mt-1">
+                    <app-button value="BUTTON.DISABLED" type="success" [disabled]="true" (buttonClicked)="success()"></app-button>
                 </div>
-
-                <div class="col-md-4 mt-1">
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='app-button value="BUTTON.DISABLED" type="success" [disabled]="true" (buttonClicked)="success()"></app-button>'></app-copy-button>
+                </div>
+                <div class="col-md-3 mt-1">
+                    <app-button value="BUTTON.LARGE" type="success" [large]="true" (buttonClicked)="success()"></app-button>
+                </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-button value="BUTTON.LARGE" type="success" [large]="true" (buttonClicked)="success()"></app-button>'></app-copy-button>
+                </div>
+                <div class="col-md-3 mt-1">
                     <app-button value="BUTTON.DANGER" type="danger" (buttonClicked)="danger()"></app-button>
                 </div>
-                <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.DISABLED" type="danger" [disabled]="true" (buttonClicked)="danger()">
-                    </app-button>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-button value="BUTTON.DANGER" type="danger" (buttonClicked)="danger()"></app-button>'></app-copy-button>
                 </div>
-                <div class="col-md-4 mt-1">
-                    <app-button value="BUTTON.LARGE" type="danger" [large]="true" (buttonClicked)="danger()">
-                    </app-button>
+                <div class="col-md-3 mt-1">
+                    <app-button value="BUTTON.DISABLED" type="danger" [disabled]="true" (buttonClicked)="danger()"></app-button>
                 </div>
-
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-button value="BUTTON.DISABLED" type="danger" [disabled]="true" (buttonClicked)="danger()"></app-button>'></app-copy-button>
+                </div>
+                <div class="col-md-3 mt-1">
+                    <app-button value="BUTTON.LARGE" type="danger" [large]="true" (buttonClicked)="danger()"></app-button>
+                </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-button value="BUTTON.LARGE" type="danger" [large]="true" (buttonClicked)="danger()"></app-button>'></app-copy-button>
+                </div>
             </div>
         </div>
         <div class="container mt-5">
@@ -169,7 +203,17 @@
                         <app-input [(value)]="inputValue"></app-input>
                     </div>
                 </div>
-                <div class="col-md-8 row">
+                <div class="col-md-1">
+                    <app-copy-button template='<div class="col-md-8 row">
+                            <div class="col-md-2 gh-label-input text-right">
+                                <label></label>
+                            </div>
+                            <div class="col-md-10">
+                                <app-input [(value)]="inputValue"></app-input>
+                            </div>
+                        </div>'></app-copy-button>
+                </div>                
+                <div class="col-md-8 row mt-2">
                     <!-- Placeholder + empty value -->
                     <div class="col-md-2 gh-label-input text-right">
                         <label>{{ 'PLACEHOLDER' | translate }}</label>
@@ -178,15 +222,37 @@
                         <app-input [(value)]="inputEmptyValue" placeholder="PLACEHOLDER"></app-input>
                     </div>
                 </div>
-                <div class="col-md-8 row">
+                <div class="col-md-1 mt-2">
+                    <app-copy-button template='<div class="col-md-8 row">
+                            <!-- Placeholder + empty value -->
+                            <div class="col-md-2 gh-label-input text-right">
+                                <label></label>
+                            </div>
+                            <div class="col-md-10 mt-1">
+                                <app-input [(value)]="inputEmptyValue" placeholder="PLACEHOLDER"></app-input>
+                            </div>
+                        </div>'></app-copy-button>
+                </div>  
+                <div class="col-md-8 row mt-2">
                     <!-- Read only -->
                     <div class="col-md-2 gh-label-input text-right">
                         <label>{{ 'READONLY' | translate }}</label>
                     </div>
-                    <div class="col-md-10 mt-1">
+                    <div class="col-md-10 mt-2">
                         <app-input [(value)]="inputValue" [readonly]="true"></app-input>
                     </div>
                 </div>
+                <div class="col-md-1 mt-2">
+                    <app-copy-button template='<div class="col-md-8 row mt-2">
+                            <!-- Read only -->
+                            <div class="col-md-2 gh-label-input text-right">
+                                <label></label>
+                            </div>
+                            <div class="col-md-10 mt-1">
+                                <app-input [(value)]="inputValue" [readonly]="true"></app-input>
+                            </div>
+                        </div>'></app-copy-button>
+                </div> 
                 <div class="col-md-8 row">
                     <!-- Disabled -->
                     <div class="col-md-2 gh-label-input text-right">
@@ -196,10 +262,20 @@
                         <app-input [(value)]="inputValue" [disabled]="true"></app-input>
                     </div>
                 </div>
-                <div class="col-md-4 text-right">
+                <div class="col-md-1 mt-2">
+                    <app-copy-button template='<div class="col-md-8 row">
+                            <!-- Disabled -->
+                            <div class="col-md-2 gh-label-input text-right">
+                                <label></label>
+                            </div>
+                            <div class="col-md-10 mt-1">
+                                <app-input [(value)]="inputValue" [disabled]="true"></app-input>
+                            </div>
+                        </div>'></app-copy-button>
+                </div> 
+                <div class="col-md-12 text-right mt-2">
                     <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInput()"></app-button>
-                    <app-button class="ml-2 " value="UPDATE_VALUE" type="primary" (buttonClicked)="changeInputValue()">
-                    </app-button>
+                    <app-button class="ml-2" value="UPDATE_VALUE" type="primary" (buttonClicked)="changeInputValue()"></app-button>
                 </div>
             </div>
         </div>
@@ -211,8 +287,54 @@
                 <div class="col-md-4 mt-1">
                     <app-button value="MODAL.OPEN.REGULAR" (buttonClicked)="openRegularModal()"></app-button>
                 </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-modal [(visible)]="modalRegularVisible" [medium]="true" title="title">
+                        <mat-tab-group disableRipple [@.disabled]="true">
+                            <!-- @.disabled permet de ne pas avoir de transition de changement -->
+                            <mat-tab label="">
+                                <div class="container row">
+                                    <div class="col-md-8 row">
+                                        <div class="col-md-2 gh-label-input text-right">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-md-10 mt-1">
+                                            <app-input [(value)]="modalInputValue"></app-input>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="displayModalInputValue()">
+                                        </app-button>
+                                    </div>
+                                </div>
+
+                            </mat-tab>
+                            <mat-tab label="label">label</mat-tab>
+                            <mat-tab label="label">label</mat-tab>
+                        </mat-tab-group>
+                    </app-modal>'></app-copy-button>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 row">
                 <div class="col-md-4 mt-1">
                     <app-button value="MODAL.OPEN.FULLSCREEN" (buttonClicked)="openFullscreenModal()"></app-button>
+                </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-modal [(visible)]="modalFullscreenVisible" [fullscreen]="true">
+                        <mat-tab-group [(selectedIndex)]="modalTabSelectedIndex" (selectedTabChange)="checkIfCloseModal($event)" disableRipple [@.disabled]="true">
+                            <!-- @.disabled permet de ne pas avoir de transition de changement -->
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <div>
+                                        <mat-icon><i class="fa fa-sign-out-alt fa-rotate-180 mr-1"></i></mat-icon>
+                                        label
+                                    </div>
+                                </ng-template>
+                            </mat-tab>
+                            <mat-tab label="label"> label </mat-tab>
+                            <mat-tab label="label"> label </mat-tab>
+                            <mat-tab label="label"> label </mat-tab>
+                        </mat-tab-group>
+                    </app-modal>'></app-copy-button>
                 </div>
             </div>
         </div>
@@ -226,10 +348,22 @@
                         [icon]="{name:'fa-github', isFab:true}" (buttonClicked)="githubButtonClicked()">
                     </app-icon-button>
                 </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-icon-button value="ICONBUTTON.GITHUB"  tooltipValue="ICONBUTTON.TOOLTIP.GITLAB" placement="bottom"
+                        [icon]="{name:"fa-github", isFab:true}" (buttonClicked)="githubButtonClicked()">
+                        </app-icon-button>'></app-copy-button>
+                </div>
+            </div>
+            <div class="col-md-12 row mt-1">
                 <div class="col-md-2 mt-1">
                     <app-icon-button value="ICONBUTTON.GITLAB" tooltipValue="ICONBUTTON.TOOLTIP.GITHUB" placement="top" 
                         [icon]="{name:'fa-gitlab', isFab:true}"
                         (buttonClicked)="gitlabButtonClicked()"></app-icon-button>
+                </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-icon-button value="ICONBUTTON.GITLAB" tooltipValue="ICONBUTTON.TOOLTIP.GITHUB" placement="top" 
+                        [icon]="{name:"fa-gitlab", isFab:true}"
+                        (buttonClicked)="gitlabButtonClicked()"></app-icon-button>'></app-copy-button>
                 </div>
             </div>
         </div>
@@ -247,7 +381,18 @@
                         <app-input-number [(value)]="inputValueNumber"></app-input-number>
                     </div>
                 </div>
-                <div class="col-md-8 row">
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<div class="col-md-8 row">
+                        <!-- Avec label -->
+                        <div class="col-md-2 gh-label-input text-right">
+                            <label>label</label>
+                        </div>
+                        <div class="col-md-10">
+                            <app-input-number [(value)]="inputValueNumber"></app-input-number>
+                        </div>
+                    </div>'></app-copy-button>
+                </div>
+                <div class="col-md-8 row mt-1">
                     <!-- Read only -->
                     <div class="col-md-2 gh-label-input text-right">
                         <label>MIN-MAX</label>
@@ -257,9 +402,21 @@
                         </app-input-number>
                     </div>
                 </div>
-                <div class="col-md-4 text-right">
-                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInputNumber()">
-                    </app-button>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<div class="col-md-8 row mt-1">
+                        <!-- Read only -->
+                        <div class="col-md-2 gh-label-input text-right">
+                            <label>MIN-MAX</label>
+                        </div>
+                        <div class="col-md-10">
+                            <app-input-number [(value)]="inputMinMaxValueNumber" [min]="min" [max]="max">
+                            </app-input-number>
+                        </div>
+                    </div>'></app-copy-button>
+                </div>
+                <div class="col-md-12 text-right">
+                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInputNumber()"></app-button>
+                    <app-button class="ml-2" value="UPDATE_VALUE" (click)="setInputNumber()"></app-button>
                 </div>
             </div>
             <div class="container mt-5">
@@ -267,18 +424,68 @@
                     <h2>{{ 'CONTEXT_MENU' | translate }}</h2>
                 </div>
                 <div class="col-md-12 mt-2 row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <ul class="text-white">
                             <li *ngFor="let user of contextMenuFirstObject" [contextMenu]="userCM"
                                 [contextMenuSubject]="user">{{ 'CLICK.RIGHT' | translate }}:
                                 {{ user?.sexe === 'F' ? 'Mme.' : 'M.' }} {{ user?.lastname }}</li>
                         </ul>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-1 mt-1">
+                        <app-copy-button template='<ul class="text-white">
+                            <li *ngFor="let user of contextMenuFirstObject" [contextMenu]="userCM"
+                                [contextMenuSubject]="user">test:
+                                <!-- On peut utiliser user?.sexe --></li>
+                            </ul>
+                            <context-menu #userCM>
+                                <ng-template contextMenuItem let-item>
+                                    Bonjour <!-- On peut utiliser item?.firstname -->
+                                </ng-template>
+                                <ng-template contextMenuItem [subMenu]="saySubMenu">
+                                    Informations personnelles
+                                </ng-template>
+                                <context-menu #saySubMenu>
+                                    <ng-template contextMenuItem let-item>
+                                        Prénom : <!-- On peut utiliser item?.firstname -->
+                                    </ng-template>
+                                    <ng-template contextMenuItem let-item>
+                                        Nom de famille : <!-- On peut utiliser item?.lastname -->
+                                    </ng-template>
+                                    <ng-template contextMenuItem let-item>
+                                        Âge : <!-- On peut utiliser item?.age -->
+                                    </ng-template>
+                                    <ng-template contextMenuItem let-item>
+                                        Sexe : <!-- On peut utiliser item?.sexe -->
+                                    </ng-template>
+                                </context-menu>
+                                <ng-template contextMenuItem divider="true"></ng-template>
+                                <ng-template contextMenuItem (execute)="showMessage($event.item.firstname + " dit bonjour !")">
+                                    Clic pour appelé une fonction !
+                                </ng-template>
+                                <ng-template contextMenuItem (execute)="showMessage($event.item.firstname + " dit hello !")">
+                                    Clic pour appelé une autre fonction !
+                                </ng-template>
+                            </context-menu>'></app-copy-button>
+                    </div>
+                    <div class="col-md-5">
                         <ul class="text-white">
                             <li *ngFor="let subject of contextMenuSecondObject" [contextMenu]="subjectCM"
                                 [contextMenuSubject]="subject">{{ 'CLICK.RIGHT' | translate }}: {{ subject?.name }}</li>
                         </ul>
+                    </div>
+                    <div class="col-md-1 mt-1">
+                        <app-copy-button template='<ul class="text-white">
+                            <li *ngFor="let subject of contextMenuSecondObject" [contextMenu]="subjectCM"
+                                [contextMenuSubject]="subject">label: <!-- On peut utiliser subject?.name --></li>
+                            </ul>
+                            <context-menu #subjectCM>
+                                <ng-template contextMenuItem let-item>
+                                    Langage : <!-- On peut utiliser item?.language -->
+                                </ng-template>
+                                <ng-template contextMenuItem let-item>
+                                    Professeur :<!-- On peut utiliser item?.teacher -->
+                                </ng-template>
+                            </context-menu>'></app-copy-button>
                     </div>
                 </div>
                 <!-- Context menu pour les utilisateurs -->
@@ -327,9 +534,13 @@
                 <div class="col-md-12 bb-white">
                     <h2>Dropdowns</h2>
                 </div>
-                <div class="col-md-4 mt-1">
+                <div class="col-md-4 mt-2">
                     <app-dropdown [options]="dataDropdownExample" [required]="true" [idKey]="key" [valueKey]="value"
                         [(value)]="dropdownValue"></app-dropdown>
+                </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-dropdown [options]="dataDropdownExample" [required]="true" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownValue"></app-dropdown>'></app-copy-button>
                 </div>
             </div>
             <div class="col-md-12 mt-2 row">
@@ -337,11 +548,19 @@
                     <app-dropdown [options]="dataDropdownExample" [idKey]="key" [valueKey]="value"
                         [(value)]="dropdownValue"></app-dropdown>
                 </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-dropdown [options]="dataDropdownExample" [required]="true" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownValue"></app-dropdown>'></app-copy-button>
+                </div>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-4 mt-1">
                     <app-dropdown [options]="dataDropdownExample" [disabled]="true" [idKey]="key" [valueKey]="value"
                         [(value)]="dropdownValue"></app-dropdown>
+                </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-dropdown [options]="dataDropdownExample" [disabled]="true" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownValue"></app-dropdown>'></app-copy-button>
                 </div>
             </div>
             <div class="col-md-12 mt-2 row">
@@ -349,14 +568,14 @@
                     <app-dropdown [options]="dataDropdownExampleTwo" [idKey]="key" [valueKey]="value"
                         [(value)]="dropdownValueTwo"></app-dropdown>
                 </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-dropdown [options]="dataDropdownExampleTwo" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownValueTwo"></app-dropdown>'></app-copy-button>
+                </div>
             </div>
-            <div class="col-md-12 mt-2 row">
-                <div class="col-md-4 mt-1">
-                    <app-button value="RANDOM_VALUE" type="primary" (buttonClicked)="testAleatDropdown()"></app-button>
-                </div>
-                <div class="col-md-4 text-right">
-                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testDropdown()"></app-button>
-                </div>
+            <div class="col-md-12 mt-2 text-right">
+                <app-button value="RANDOM_VALUE" type="primary" (buttonClicked)="testAleatDropdown()"></app-button>
+                <app-button class="ml-2" value="DISPLAY_VALUE" type="primary" (buttonClicked)="testDropdown()"></app-button>
             </div>
         </div>
     </ng-scrollbar>

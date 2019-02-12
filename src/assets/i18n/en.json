@@ -56,13 +56,14 @@
         "THIRD_SECTION": "Third section",
         "FIRST_CONTENT": "First content",
         "SECOND_CONTENT": "Second content",
-        "THIRD_CONTENT": "Third content",
-        "CONTEXT_MENU": "Menu contextuel"
+        "THIRD_CONTENT": "Third content"
     },
+    "CONTEXT_MENU": "Menu contextuel",
     "CLICK": {
         "RIGHT": "Right click",
         "LEFT": "Left click"
     },
+    "COPY": "Copy"
     "BRANCH": "Branch",
     "PUSH": "Push",
     "PULL": "Pull"
