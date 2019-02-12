@@ -11,24 +11,6 @@
         float: left;
         text-align: left;
         padding-left: 0;
-
-        & .gh-folder {
-            @include hX(50px);
-            display: inline-block;
-            background:yellow;
-        }
-
-        & .gh-project {
-            @include hX(50px);
-            display: inline-block;
-            background-color: green;
-        }
-
-        & .gh-branch {
-            @include hX(50px);
-            display: inline-block;
-            background-color: rebeccapurple;
-        }
     }
 
     &-actions {
@@ -43,11 +25,15 @@
         line-height: 50px;
         float: right;
         text-align: right;
+
+        & .searchInput {
+            width: 175px;
+            display: inline-block;
+        }
     }
 }
 
 .gh-breadcrumbs {
-    color:red;
     list-style: none;
     overflow: hidden;
     font-size: 16px;
@@ -59,22 +45,22 @@
             float: left;
 
             & a {
-                color: white;
-                text-decoration: none; 
-                padding-left: 65px;
-                background: hsla(34,85%,35%,1); 
+                color: $white;
+                text-decoration: none;
+                padding-left: 45px;
+                background: $blue-grey; // A MODIFIER ? (blue-grey = light grey wtf)
                 position: relative; 
                 display: block;
                 float: left;
+                cursor: pointer;
 
                 &::after {
                     content: " "; 
-                    display: block; 
-                    width: 0; 
-                    height: 0;
-                    border-top: 50px solid transparent; /* Go big on the size, and let overflow hide */
+                    display: block;
+                    @include wX-hX(0, 0);
+                    border-top: 50px solid transparent;
                     border-bottom: 50px solid transparent;
-                    border-left: 30px solid hsla(34,85%,35%,1);
+                    border-left: 30px solid $blue-grey;
                     position: absolute;
                     top: 50%;
                     margin-top: -50px;
@@ -85,17 +71,27 @@
                 &::before {
                     content: " "; 
                     display: block; 
-                    width: 0; 
-                    height: 0;
+                    @include wX-hX(0, 0);
                     border-top: 50px solid transparent;
                     border-bottom: 50px solid transparent;
-                    border-left: 30px solid white;
+                    border-left: 30px solid $light-grey;
                     position: absolute;
                     top: 50%;
                     margin-top: -50px;
-                    margin-left: 1px;
+                    margin-left: 2px;
                     left: 100%;
                     z-index: 1;
+                }
+            }
+
+            &:first-child {
+                a {
+                    padding-left: 10px;
+                    @include bg-color($light-grey);
+
+                    &::before, &::after {
+                        border-left: 30px solid $light-grey;
+                    }
                 }
             }
         }

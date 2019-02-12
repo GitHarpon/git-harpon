@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +9,13 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public router: Router) { }
+  projectModalVisible: Boolean;
+  searchInputValue: String;
+
+  constructor(public router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
+
   }
 
   pullButtonClicked() {
@@ -31,6 +36,14 @@ export class HomeComponent implements OnInit {
 
   openPreferences() {
     this.router.navigate(['preferences']);
+  }
+
+  openProjectModal() {
+    this.projectModalVisible = true;
+  }
+
+  displaySearchInputValue() {
+    this.toastr.info(this.searchInputValue.toString());
   }
 
 }

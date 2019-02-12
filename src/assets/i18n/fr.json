@@ -70,5 +70,9 @@
     "EXIT_PREFERENCES": "Sortir des préferences",
     "GENERAL": "Général",
     "EDITOR": "Editeur",
-    "UI": "Interface Utilisateur"
+    "UI": "Interface Utilisateur",
+    "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
+    "OPEN": "Ouvrir",
+    "CLONE": "Cloner",
+    "INIT": "Initialiser"
 }
