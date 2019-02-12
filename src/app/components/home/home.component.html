@@ -2,18 +2,18 @@
     <!-- Button-Bar -->
     <div class="gh-button-bar">
         <!-- Project (à gauche) -->
-        <div class="col-md-4 gh-button-bar-project">
+        <div class="col-4 gh-button-bar-project">
             Folder > Projet > Branche
         </div>
         <!-- Plus (à droite) -->
-        <div class="col-md-4 gh-button-bar-more">
+        <div class="col-4 gh-button-bar-more">
             <div>
                 <a class="cursor-pointer mr-2" (click)="openTerminal()"><i class="fas fa-terminal"></i></a>
                 <a class="cursor-pointer" (click)="openPreferences()"><i class="fas fa-cog"></i></a>
             </div>
         </div>
         <!-- Actions (au milieu) -->
-        <div class="col-md-4 gh-button-bar-actions">
+        <div class="col-4 gh-button-bar-actions">
             <div class="d-inline-block">
                 <app-icon-button value="PULL"  tooltipValue="PULL" placement="bottom"
                     [icon]="{name:'fa-download', isFab:false}" (buttonClicked)="pullButtonClicked()">
