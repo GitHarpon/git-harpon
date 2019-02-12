@@ -1,9 +1,146 @@
-/* You can add global styles to this file, and also import other style files */
-html, body {
-  margin: 0;
-  padding: 0;
+@import '~ngx-toastr/toastr.css';
+@import 'variables.scss';
 
-  height: 100%;
+html {
+  min-height: 100%;
 }
 
-@import '~ngx-toastr/toastr.css';
+body {
+  min-height: 100%;
+  display: flex;
+  position: relative;
+}
+
+body {
+  color: $f-color;
+  font-family: $ff-default;
+  margin: 0;
+  background: $dark;
+  h1 {
+      font-size: $fs-xlarge;
+      font-weight: bold;
+      color: $white;
+  }
+  h2 {
+      font-size: $fs-large;
+      font-weight: bold;
+      color: $white;
+  }
+  h3 {
+      font-size: $fs-large;
+      color: $white;
+  }
+  h4 {
+      font-size: $fs-medium;
+      font-weight: bold;
+      color: $white;
+  }
+  h5 {
+      font-size: $fs-medium;
+      color: $white;
+  }
+  h6 {
+      font-size: $fs-small;
+      color: $white;
+  }
+  p {
+    font-size: $fs-large;
+  }
+}
+
+.color-white {
+    color: $white;
+}
+
+.gh-label-input {
+    color: $white;
+    padding: $gap-md $gap-md 0 $gap-md;
+    padding-right: 0;
+}
+
+.gh-scrollbar {
+--scrollbar-color: rgba(55, 56, 65, 0.3) !important;
+--scrollbar-thumb-color: #373841 !important;
+--scrollbar-thumb-hover-color: #373841 !important;
+--scrollbar-border-radius: 4px !important;
+--scrollbar-size: 7px !important;
+}
+
+
+/*** Tabs ***/
+.mat-tab {
+  
+  &-header {
+    background: $blue-grey;
+    border-right: 1px solid $dark;
+
+    &-pagination {
+      display:none !important;
+    }
+  }
+
+  &-body-wrapper {
+    @include wX(100%);
+    background: $dark-grey;
+    padding:10px;
+  }
+
+  &-label {
+    font-size: 22px;
+    opacity: 1 !important;
+    justify-content: left !important;
+
+    &:hover {
+      background: rgba(76, 93, 170, 0.2);
+    }
+
+    &-active {
+      background: rgba(76, 93, 170, 0.5) !important; /* light-grey plus clair */
+    }
+  }
+
+  &-group {
+    @include hX(100%);
+    display: flex;
+    flex-direction: row !important;
+
+  }
+
+  &-labels {
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  & md-tab-content {
+    transition:none;
+  }
+
+  & md-ink-bar {
+    transition:none;
+  }
+}
+
+.ngx-contextmenu {
+    
+    & .dropdown-menu {
+        color: $dark;
+        background-color: rgba(230, 230, 230, 0.9);
+        border-radius: 3px;
+        padding: 0;
+
+        & .dropdown-divider {
+            margin: 0.25rem 0;
+            border-top: 1px solid $dark;
+        }
+    }
+
+    & a {
+        color: $dark;
+        font-size: $fs-small;
+        font-display: FontAwesome;
+        &:hover {
+            background: $light-blue-hover;
+            color: $white;
+        }
+    }
+}

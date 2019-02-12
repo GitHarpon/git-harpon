@@ -1,16 +1,27 @@
-import { HomeComponent } from './components/home/home.component';
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ToolboxComponent } from './components/toolbox/toolbox.component';
+import { HomeComponent } from './components/home/home.component';
 
-const routes: Routes = [
+const ROUTES: Routes = [
     {
         path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+    },
+    {
+        path: 'home',
         component: HomeComponent
+    },
+    {
+        path: 'toolbox',
+        component: ToolboxComponent
     }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {useHash: true})],
+    imports: [RouterModule.forRoot(ROUTES, {useHash: true})],
     exports: [RouterModule]
 })
 export class AppRoutingModule { }

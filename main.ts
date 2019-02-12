@@ -1,6 +1,8 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import * as os from 'os';
+import * as fs from 'fs';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -16,7 +18,8 @@ function createWindow() {
     x: 0,
     y: 0,
     width: size.width,
-    height: size.height
+    height: size.height,
+    icon: path.join(__dirname, 'src/favicon.256x256.png')
   });
 
   if (serve) {
@@ -32,7 +35,7 @@ function createWindow() {
     }));
   }
 
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -41,7 +44,21 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null;
   });
-
+  
+  var auguryPath = '';
+  if (process.platform === 'darwin') {
+    auguryPath = '/Library/Application\ Support/Google/Chrome/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0/';
+  } else if (process.platform === 'linux') {
+    auguryPath = '.config/google-chrome/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0';
+  } else if (process.platform === 'win32') {
+    auguryPath = 'AppData/Local/Google/Chrome/User Data/Default/Extensions/elgalmkoelokbchhkhacckoklkejnhcd/1.22.0_0';
+  }
+  if (fs.existsSync(path.join(os.homedir(), auguryPath))) {
+    // Pour avoir le devtools Augury, à changer selon l'os, le pc etc...
+    BrowserWindow.addDevToolsExtension(
+      path.join(os.homedir(), auguryPath)
+    );
+  }
 }
 
 try {

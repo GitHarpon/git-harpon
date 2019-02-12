@@ -1,0 +1,48 @@
+@import '../../../variables.scss';
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid $dark;
+    background: $light-grey;
+    color: $white;
+    text-align:center;
+    padding: $gap-sm;
+    height: $footer-height;
+
+    &__content {
+        text-align: right;
+        &__version {
+            font-weight: bold;
+            background-color: #3E4453;
+            display: inline-block;
+            padding: 0 $gap-sm;
+        }
+
+        &__toolbox {
+            display: inline-block;
+            margin-right: $gap-md;
+            & > a {
+                color: $white; 
+                text-decoration: none;
+                &:hover, &:visited, &:active, &:focus {
+                    text-decoration: none;
+                    color: $white; 
+                    outline: none;
+                }
+            }            
+        }
+
+        &__github {
+            display: inline-block;
+            margin-right: $gap-md;
+            &:hover {
+                cursor: pointer;
+            }
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}

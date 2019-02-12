@@ -1,0 +1,15 @@
+<div class="footer">
+    <div class="footer__content col-md-4 offset-md-8">
+      <div *ngIf="!production" class="footer__content__toolbox">
+        <a [routerLink]="devRedirect.link" routerLinkActive="active" placement="top" [ngbTooltip]="devRedirect.link === '/home' ? getHomeTranslation() : 'Toolbox'">
+          <i class="fa" [ngClass]="[ devRedirect.icon ]"></i>
+        </a>
+      </div>
+      <div class="footer__content__github" placement="top" ngbTooltip="GitHub" (click)="openGithub()">
+          <i class="fab fa-github"></i>
+      </div>
+      <div class="footer__content__version" placement="top" ngbTooltip="Version">
+        {{ version }}
+      </div>
+    </div>
+</div>  

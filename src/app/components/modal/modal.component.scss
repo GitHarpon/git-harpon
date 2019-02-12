@@ -1,0 +1,88 @@
+@import '../../../variables.scss';
+
+.gh-modal {
+    display: none;
+
+    &.visible {
+        display:block;
+        float: left;
+    }
+
+    &__overlay {
+        background: $white;
+        opacity: 0.6;
+        position: fixed;
+        top: 0;
+        left: 0;
+        @include w100-h100();
+        z-index: 1;    
+    }
+
+    &__content {
+        color: $white;
+        position: absolute;
+        top: 50px;
+        bottom: 0;
+        @include wX(100%);
+        overflow: auto;
+    }
+
+    &__title {
+        background: $blue-grey;
+        font-weight: bold;
+        @include hX(50px);
+        line-height: 50px;
+        vertical-align: middle;
+        padding-left: $gap-xl;
+        border-bottom: 1px solid $dark;
+    }
+
+    &__close {
+        position: absolute;
+        color: $white;
+        top: 15px;
+        right: $gap-xl;
+        @include wX-hX(20px, 20px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        -webkit-transition: background-color 0.25s ease-out, color 0.25s ease-out;
+        transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    
+        &:hover {
+            background: rgba(76, 93, 170, 0.2);
+
+        }
+    }
+
+    &__window
+    {
+        position: fixed;
+        @include wX-hX(30%, 80%);
+        top: 5%;
+        left: 35%;
+        border: 1px solid $light-grey;
+        z-index: 2;
+
+        &.medium {
+            @include wX(50%);
+            left: 25%;
+        }
+
+        &.large {
+            @include wX(90%);
+            left: 5%;
+        }
+
+        &.fullscreen {
+            @include w100-h100();
+            top: 0;
+            left: 0;
+
+            & .gh-modal__content {
+                top: 0;
+            }
+        }
+    }
+}
