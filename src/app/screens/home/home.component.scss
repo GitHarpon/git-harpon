@@ -90,7 +90,7 @@
                     @include bg-color($light-grey);
 
                     &::before, &::after {
-                        border-left: 30px solid $light-grey;
+                        border-left: 16px solid $light-grey;
                     }
                 }
             }
