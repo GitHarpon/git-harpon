@@ -83,6 +83,8 @@ Installer les dépendances
 |`node_modules/`| Dossier contenant les modules natifs et installés. |
 |`release/`| Dossier contenant la release après génération. |
 |`tests/`| Dossier contenant les fichiers de test. |
+|`coverage/`| Dossier contenant le résultat de la couverture de code. |
+|`units/units.html`| Fichier de rapport des tests unitaires. |
 |`src/styles.scss`| Feuille de style globale. |
 |`src/variables.scss`| Feuille des variables de style. |
 |`src/assets/`| Dossier contenant les fichiers de traduction. |
@@ -106,11 +108,18 @@ Comme expliqué plus haut, nous avons utilisé le kit de démarrage. Le fichier 
 |`yarn electron:linux`| Sous Linux, build l'application et crée un `.AppImage`. |
 |`yarn electron:windows`| Sous Windows, build l'application et crée un `.exe`, exécutable pour les systèmes en 32 et 64 bits. |
 |`yarn electron:mac`|  Sous macOS, build l'application et crée un `.dmg` contenant le `.app`. |
+|`yarn test:unit`| Lance les tests unitaires |
+|`yarn test:unit:coverage`| Lance les tests unitaires et le couvrage de code |
 |`yarn test:e2e`| Lance les tests end-to-end (e2e) |
 
 ⚠️ Il faut supprimer le dossier release avant d'en regénérer un autre ⚠️
 
-## Lancer les tests
+## Lancer les tests unitaires
+
+Il est nécessaire d'avoir installé chrome auparavant sur son ordinateur pour lancer les tests unitaires.
+Une fois cette condition réalisée, il suffit de lancé `yarn test:unit`. Le rapport est alors disponible dans `units/units.html`.
+
+## Lancer les tests end-to-end
 
 Comme expliqué ci-dessus, la commande `yarn test:e2e` lance les tests end-to-end. Cependant, il est nécessaire de créer une release avant de lancer cette commande. 
 

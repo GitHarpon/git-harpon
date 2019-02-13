@@ -28,8 +28,9 @@
     "electron:linux": "npm run build:prod && npx electron-builder build --linux",
     "electron:windows": "npm run build:prod && npx electron-builder build --windows",
     "electron:mac": "npm run build:prod && npx electron-builder build --mac",
-    "test": "npm run postinstall:web && ng test",
     "e2e": "npm run postinstall:web && ng e2e",
+    "test:unit": "npm run postinstall:web && ng test",
+    "test:unit:coverage": "npm run postinstall:web && ng test --watch=false --code-coverage",
     "test:e2e": "mocha --timeout 15000 tests/test.js"
   },
   "dependencies": {
@@ -42,6 +43,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "jquery": "^3.3.1",
+    "karma-htmlfile-reporter": "^0.3.8",
     "mocha": "^5.2.0",
     "mocha-sinon": "^2.1.0",
     "monaco-editor": "^0.14.3",
