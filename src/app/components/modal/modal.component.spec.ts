@@ -2,19 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ModalComponent } from './modal.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/Observable';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-
-
-let translations: any = {"CARDS_TITLE": "This is a test"};
-
-class MockTranslateLoader implements TranslateLoader {
-  getTranslation(lang: string): Observable<any> {
-    return translations;
-  }
-}
-
+import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 
 describe('ModalComponent', () => {
   let component: ModalComponent;

@@ -5,12 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-
-class MockTranslateService {
-  instant(text: string) {
-    return text;
-  }
-}
+import { MockTranslateService } from '../../models/MockTranslateService';
 
 describe('InputComponent', () => {
   let component: InputComponent;
