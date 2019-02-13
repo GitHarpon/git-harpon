@@ -83,6 +83,7 @@ Installer les dépendances
 |`node_modules/`| Dossier contenant les modules natifs et installés. |
 |`release/`| Dossier contenant la release après génération. |
 |`tests/`| Dossier contenant les fichiers de test. |
+|`coverage/`| Dossier contenant le résultat de la couverture de code. |
 |`units/units.html`| Fichier de rapport des tests unitaires. |
 |`src/styles.scss`| Feuille de style globale. |
 |`src/variables.scss`| Feuille des variables de style. |
