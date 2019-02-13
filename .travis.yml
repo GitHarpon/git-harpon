@@ -12,8 +12,8 @@ install:
   - npm install
   - npm run electron:linux
 script:
-  - npm run test:e2e
   - npm run test:unit:coverage
+  - npm run test:e2e
 notifications:
   email: false
   slack:
