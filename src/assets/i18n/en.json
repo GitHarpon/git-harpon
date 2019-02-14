@@ -81,5 +81,6 @@
         "WHERE": "Initialize in"
     },
     "FULL_PATH": "Full path",
-    "BROWSE": "Browse"
+    "BROWSE": "Browse",
+    "CREATE_REPOSITORY": "Create Repository"
 }

@@ -81,5 +81,6 @@
         "WHERE": "Initialiser dans"
     },
     "FULL_PATH": "Chemin complet",
-    "BROWSE": "Parcourir"
+    "BROWSE": "Parcourir",
+    "CREATE_REPOSITORY": "Créer le répertoire"
 }
