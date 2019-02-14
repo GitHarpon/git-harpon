@@ -6,6 +6,7 @@ import { ipcRenderer, webFrame, remote, shell } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as process from 'process';
 
 @Injectable()
 export class ElectronService {
@@ -14,6 +15,7 @@ export class ElectronService {
   webFrame: typeof webFrame;
   remote: typeof remote;
   childProcess: typeof childProcess;
+  process: typeof process;
   fs: typeof fs;
   path: typeof path;
   shell: typeof shell;
@@ -29,6 +31,7 @@ export class ElectronService {
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
       this.path = window.require('path');
+      this.process = window.require('process');
     }
   }
 
@@ -36,4 +39,13 @@ export class ElectronService {
     return window && window.process && window.process.type;
   }
 
+  browse() {
+    const PATH = this.remote.dialog.showOpenDialog({
+      properties: ['openDirectory']
+    });
+    if (path !== undefined) {
+      return PATH[0];
+    }
+    return null;
+  }
 }
