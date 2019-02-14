@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { GitService } from '../../providers/git.service';
+import { ElectronService } from '../../providers/electron.service';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +13,10 @@ export class HomeComponent implements OnInit {
 
   projectModalVisible: Boolean;
   searchInputValue: String;
+  initName: String;
+  initLocation: String;
 
-  constructor(public router: Router, private toastr: ToastrService) { }
+  constructor(public router: Router, private toastr: ToastrService, private electronService: ElectronService) { }
 
   ngOnInit() {
 
@@ -46,4 +50,15 @@ export class HomeComponent implements OnInit {
     this.toastr.info(this.searchInputValue.toString());
   }
 
+  initBrowse() {
+    const INITPATH = this.electronService.browse();
+    if (INITPATH !== undefined) {
+      this.initLocation = INITPATH;
+    }
+  }
+
+  initSubmit() {
+    console.log('initName : ' + this.initName);
+    console.log('initLocation : ' + this.initLocation);
+  }
 }
