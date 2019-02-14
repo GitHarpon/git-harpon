@@ -11,6 +11,8 @@ export class HomeComponent implements OnInit {
 
   projectModalVisible: Boolean;
   searchInputValue: String;
+  cloneUrl: String;
+  cloneFolder: String;
 
   constructor(public router: Router, private toastr: ToastrService) { }
 

@@ -23,6 +23,12 @@
         "DESACTIVATE": "Désactiver le loader",
         "INFO": "Chargement..."
     },
+    "CLONE": {
+        "WHERE": "Où cloner",
+        "URL": "URL",
+        "TITLE": "Cloner"
+    },
+    "BROWSE": "Parcourir",
     "BUTTON": {
         "PRIMARY": "Bouton primaire",
         "SUCCESS": "Bouton succès",
@@ -73,6 +79,5 @@
     "UI": "Interface Utilisateur",
     "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
     "OPEN": "Ouvrir",
-    "CLONE": "Cloner",
     "INIT": "Initialiser"
 }

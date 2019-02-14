@@ -46,7 +46,33 @@
         <mat-tab label="{{ 'OPEN' | translate }}">
                 {{ 'OPEN' | translate }}
         </mat-tab>
-        <mat-tab label="{{ 'CLONE' | translate }}">{{ 'CLONE' | translate }}</mat-tab>
+        <mat-tab label="{{ 'CLONE.TITLE' | translate }}">
+                <span class="section-title">
+                    <i class="fas fa-globe fa-xs" ></i>
+                    {{ 'CLONE.TITLE' | translate }}
+                </span>
+                <div class="col-md-12">
+                    <div class="col-md-12 row">
+                        <div class="col-md-3 gh-label-input text-right">
+                            <label>{{ 'CLONE.WHERE' | translate }} </label>
+                        </div>
+                        <div class="col-md-7">
+                            <app-input [(value)]="cloneFolder"></app-input>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <app-button value="BROWSE" type="primary" (buttonClicked)="primary()"></app-button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 row">
+                        <div class="col-md-3 gh-label-input text-right">
+                            <label>{{ 'CLONE.URL' | translate }} </label>
+                        </div>
+                        <div class="col-md-9">
+                            <app-input class="px-0" [(value)]="cloneURL"></app-input>
+                        </div>
+                    </div>
+                </div>
+        </mat-tab>
         <mat-tab label="{{ 'INIT' | translate }}">{{ 'INIT' | translate }}</mat-tab>
     </mat-tab-group>
 </app-modal>

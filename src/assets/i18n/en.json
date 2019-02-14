@@ -23,6 +23,12 @@
         "DESACTIVATE": "Desactivate the loader",
         "INFO": "Loading..."
     },
+    "CLONE": {
+        "WHERE": "Where to clone",
+        "URL": "URL",
+        "TITLE": "Clone"
+    },
+    "BROWSE": "Browse",
     "BUTTON": {
         "PRIMARY": "Primary button",
         "SUCCESS": "Success button",
@@ -73,6 +79,5 @@
     "UI": "User Interface",
     "REPOSITORY_MANAGEMENT": "Repository management",
     "OPEN": "Open",
-    "CLONE": "Clone",
     "INIT": "Init"
 }
