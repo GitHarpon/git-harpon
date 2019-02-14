@@ -73,6 +73,7 @@
     "UI": "Interface Utilisateur",
     "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
     "OPEN": "Ouvrir",
+    "OPEN_REPO": "Ouvrir un Dépôt",
     "CLONE": "Cloner",
     "INIT": "Initialiser"
 }

@@ -73,6 +73,7 @@
     "UI": "User Interface",
     "REPOSITORY_MANAGEMENT": "Repository management",
     "OPEN": "Open",
+    "OPEN_REPO": "Open a Reporitory",
     "CLONE": "Clone",
     "INIT": "Init"
 }
