@@ -38,6 +38,7 @@
             "GITLAB": "Ceci est GitLab"
         }
     },
+    "NAME": "Nom",
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
     "DANGER": "Danger",
@@ -74,5 +75,11 @@
     "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
     "OPEN": "Ouvrir",
     "CLONE": "Cloner",
-    "INIT": "Initialiser"
+    "INIT": {
+        "TITLE": "Initialiser",
+        "TAB_TITLE": "Initialiser un dépôt",
+        "WHERE": "Initialiser dans"
+    },
+    "FULL_PATH": "Chemin complet",
+    "BROWSE": "Parcourir"
 }

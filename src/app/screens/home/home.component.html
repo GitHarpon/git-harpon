@@ -47,7 +47,46 @@
                 {{ 'OPEN' | translate }}
         </mat-tab>
         <mat-tab label="{{ 'CLONE' | translate }}">{{ 'CLONE' | translate }}</mat-tab>
-        <mat-tab label="{{ 'INIT' | translate }}">{{ 'INIT' | translate }}</mat-tab>
+        <mat-tab label="{{ 'INIT.TITLE' | translate }}">
+            <span class="section-title">
+                <i class="fas fa-laptop fa-xs" ></i>
+                {{ 'INIT.TAB_TITLE' | translate }}
+            </span>
+            <div class="col-md-12">
+                <div class="col-md-12 row mt-2">
+                    <div class="col-md-3 gh-label-input text-right">
+                        <label>{{ 'NAME' | translate }} </label>
+                    </div>
+                    <div class="col-md-9">
+                        <app-input class="px-0" [(value)]="initName"></app-input>
+                    </div>
+                </div>
+                <div class="col-md-12 row mt-2">
+                    <div class="col-md-3 gh-label-input text-right">
+                        <label>{{ 'INIT.WHERE' | translate }} </label>
+                    </div>
+                    <div class="col-md-7">
+                            <app-input class="px-0" [(value)]="initLocation"></app-input>
+                        </div>
+                    <div class="col-md-2 text-right">
+                        <app-button value="BROWSE" type="primary" (buttonClicked)="initBrowse()"></app-button>
+                    </div>
+                </div>
+                <div class="col-md-12 row mt-2">
+                        <div class="col-md-3 gh-label-input text-right">
+                           <label>{{ 'FULL_PATH' | translate }} </label>
+                        </div>
+                        <div class="col-md-9 gh-label-input pl-3 text-break-word">
+                            {{ initLocation }}
+                        </div>
+                    </div>
+                <div class="col-md-12 row mt-2">
+                    <div class="col-md-12 text-right">
+                        <app-button value="BUTTON.SUCCESS" type="success" (buttonClicked)="initSubmit()"></app-button>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
     </mat-tab-group>
 </app-modal>
 

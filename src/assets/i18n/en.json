@@ -38,6 +38,7 @@
             "GITLAB": "This is GitLab"
         }
     },
+    "NAME": "Nom",
     "INFORMATION": "Information",
     "SUCCESS": "Success",
     "DANGER": "Danger",
@@ -74,5 +75,11 @@
     "REPOSITORY_MANAGEMENT": "Repository management",
     "OPEN": "Open",
     "CLONE": "Clone",
-    "INIT": "Init"
+    "INIT": {
+        "TITLE": "Init",
+        "TAB_TITLE": "Initialize a Repo",
+        "WHERE": "Initialize in"
+    },
+    "FULL_PATH": "Full path",
+    "BROWSE": "Browse"
 }
