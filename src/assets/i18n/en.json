@@ -72,8 +72,12 @@
     "EDITOR": "Editor",
     "UI": "User Interface",
     "REPOSITORY_MANAGEMENT": "Repository management",
-    "OPEN": "Open",
-    "OPEN_REPO": "Open a Reporitory",
+    "OPEN": {
+        "TITLE": "Open",
+        "REPO": "Open a Reporitory",
+        "OPENED": "Recently Opened",
+        "BROWSE": "Browse"
+    },
     "CLONE": "Clone",
     "INIT": "Init"
 }
