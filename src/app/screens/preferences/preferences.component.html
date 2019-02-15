@@ -14,6 +14,21 @@
             <span class="section-title">
                 {{ 'GENERAL' | translate }}
             </span>
+
+            <div class="container mt-5">
+                <div class="row col-md-12">
+                    <div class="col-md-3 mt-1 text-right">
+                        <label>{{ 'LANGUE' | translate }}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <app-dropdown [options]="dataDropdownLanguage" [idKey]="key" [valueKey]="value"
+                        [(value)]="dropdownLanguageValue" (click)="switchLanguage()"></app-dropdown>
+                    </div>
+
+                </div>
+
+            </div>
+
         </mat-tab>
         <mat-tab label="{{ 'EDITOR' | translate }}">
             <span class="section-title">
