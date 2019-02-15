@@ -19,8 +19,10 @@ export class ToolboxComponent implements OnInit {
   inputValue: String;
   inputEmptyValue: String;
   loading: Boolean;
+  modalLoading: Boolean;
   modalRegularVisible: Boolean;
   modalFullscreenVisible: Boolean;
+  modalLoadingVisible: Boolean;
   modalInputValue: String;
   modalTabSelectedIndex: any;
   inputValueNumber: number;
@@ -209,6 +211,16 @@ export class ToolboxComponent implements OnInit {
 
   openFullscreenModal() {
     this.modalFullscreenVisible = true;
+  }
+
+  openLoadingModal() {
+    this.modalLoadingVisible = true;
+    this.modalLoading = true;
+    new Promise(resolve => setTimeout(resolve, 3000))
+      .then( () => {
+        this.modalLoading = false;
+      }
+    );
   }
 
   displayModalInputValue() {

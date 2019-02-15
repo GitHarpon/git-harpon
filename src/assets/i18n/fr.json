@@ -48,7 +48,8 @@
         "WINDOW": "Fenêtre modale",
         "OPEN": {
             "REGULAR": "Ouvrir la modale normale",
-            "FULLSCREEN": "Ouvrir la modale plein écran"
+            "FULLSCREEN": "Ouvrir la modale plein écran",
+            "LOADING": "Ouvrir la modale avec chargement"
         },
         "EXIT": "Sortir",
         "FIRST_SECTION": "Première section",
