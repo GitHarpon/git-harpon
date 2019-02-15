@@ -31,4 +31,8 @@ export class GitService {
   isRepo(currentPath: string) {
     return gitPromise(currentPath).checkIsRepo();
   }
+
+  init(currentPath: string) {
+    return gitPromise(currentPath).init();
+  }
 }
