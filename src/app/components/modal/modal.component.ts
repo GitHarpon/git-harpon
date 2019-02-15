@@ -28,6 +28,8 @@ export class ModalComponent implements OnInit {
     this.visibleChange.emit(this.currentVisible);
   }
 
+  constructor() { }
+
   ngOnInit() {
   }
 
