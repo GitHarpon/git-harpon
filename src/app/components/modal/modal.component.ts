@@ -12,6 +12,7 @@ export class ModalComponent implements OnInit {
   @Input() medium: Boolean;
   @Input() fullscreen: Boolean;
   @Input() title: String;
+  @Input() loading: Boolean = false;
   currentVisible: Boolean;
 
   @Output()
@@ -27,13 +28,13 @@ export class ModalComponent implements OnInit {
     this.visibleChange.emit(this.currentVisible);
   }
 
-  constructor() { }
-
   ngOnInit() {
   }
 
   closeModal() {
-    this.visible = false;
+    if (!this.loading) {
+      this.visible = false;
+    }
   }
 
 }
