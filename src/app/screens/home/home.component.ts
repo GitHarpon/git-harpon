@@ -12,14 +12,14 @@ import { ElectronService } from '../../providers/electron.service';
 export class HomeComponent implements OnInit {
 
   projectModalVisible: Boolean;
-  searchInputValue: String;
-  initName: String;
-  initLocation: String;
+  searchInputValue: string;
+  initName: string;
+  initLocation: string;
+  fullPath: string;
 
   constructor(public router: Router, private toastr: ToastrService, private electronService: ElectronService) { }
 
   ngOnInit() {
-
   }
 
   pullButtonClicked() {
@@ -55,10 +55,24 @@ export class HomeComponent implements OnInit {
     if (INITPATH !== undefined) {
       this.initLocation = INITPATH;
     }
+    this.updateFullPath();
+  }
+
+  updateFullPath() {
+    if (this.initLocation !== undefined && this.initLocation !== '') {
+      this.fullPath = this.initLocation;
+
+      if (this.initName !== undefined && this.initName !== '') {
+        this.fullPath += '\\' + this.initName;
+      }
+    } else {
+      this.fullPath = '';
+    }
   }
 
   initSubmit() {
     console.log('initName : ' + this.initName);
     console.log('initLocation : ' + this.initLocation);
+
   }
 }

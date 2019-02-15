@@ -58,7 +58,7 @@
                         <label>{{ 'NAME' | translate }} </label>
                     </div>
                     <div class="col-md-9">
-                        <app-input class="px-0" [(value)]="initName"></app-input>
+                        <app-input class="px-0" [(value)]="initName" (keyup)="updateFullPath()"></app-input>
                     </div>
                 </div>
                 <div class="col-md-12 row mt-2">
@@ -66,8 +66,8 @@
                         <label>{{ 'INIT.WHERE' | translate }} </label>
                     </div>
                     <div class="col-md-7">
-                            <app-input class="px-0" [(value)]="initLocation"></app-input>
-                        </div>
+                        <app-input class="px-0" [(value)]="initLocation" (keyup)="updateFullPath()"></app-input>
+                    </div>
                     <div class="col-md-2 text-right">
                         <app-button value="BROWSE" type="primary" (buttonClicked)="initBrowse()"></app-button>
                     </div>
@@ -77,7 +77,7 @@
                            <label>{{ 'FULL_PATH' | translate }} </label>
                         </div>
                         <div class="col-md-9 gh-label-input pl-3 text-break-word">
-                            {{ initLocation }}
+                            {{ fullPath }}
                         </div>
                     </div>
                 <div class="col-md-12 row mt-2">
