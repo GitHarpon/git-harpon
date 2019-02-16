@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { GitService } from '../../providers/git.service';
 import { ElectronService } from '../../providers/electron.service';
 
 @Component({
@@ -12,9 +13,11 @@ export class HomeComponent implements OnInit {
 
   projectModalVisible: Boolean;
   searchInputValue: String;
+  projectModalLoading: Boolean;
   destination: string;
 
-  constructor(public router: Router, private toastr: ToastrService, private electronService: ElectronService) { }
+  constructor(public router: Router, private toastr: ToastrService,
+    private electronService: ElectronService, private gitService: GitService) { }
 
   ngOnInit() {
 
@@ -48,13 +51,14 @@ export class HomeComponent implements OnInit {
     this.toastr.info(this.searchInputValue.toString());
   }
 
-  browse() {
-    const NEWPATH = this.electronService.remote.dialog.showOpenDialog({
-      properties: ['openDirectory']
-    });
-    if (NEWPATH !== undefined) {
-      this.destination = NEWPATH[0];
+  async browse() {
+    this.projectModalLoading = true;
+    const RESULT = await this.gitService.setPath(this.electronService.browse());
+    if (RESULT.success) {
+      this.toastr.info(RESULT.message, RESULT.title);
+    } else {
+      this.toastr.error(RESULT.message, RESULT.title);
     }
-
+    this.projectModalLoading = false;
   }
 }

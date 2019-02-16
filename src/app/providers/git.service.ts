@@ -31,4 +31,23 @@ export class GitService {
   isRepo(currentPath: string) {
     return gitPromise(currentPath).checkIsRepo();
   }
+
+  /**
+   * Fonction permettant de changer le chemin courant
+   * @param newPath le nouveau chemin
+   */
+  async setPath(newPath) {
+    if (await this.isRepo(newPath)) {
+      this.path = newPath;
+      this.electronService.process.chdir(this.path);
+      this.git.cwd(this.path);
+      this.gitP.cwd(this.path);
+      this.emitPathSubject();
+      // A traduir
+      return new ServiceResult(true, 'Succès', 'Répo ouvert');
+    } else {
+      return new ServiceResult(false, 'Echec', 'Répo pas ouvert');
+
+    }
+  }
 }

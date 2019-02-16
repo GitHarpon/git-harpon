@@ -20,6 +20,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { ElectronService } from './providers/electron.service';
+import { GitService } from './providers/git.service';
 
 import { WebviewDirective } from './directives/webview.directive';
 
@@ -96,7 +97,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       useBootstrap4: true
     })
   ],
-  providers: [ElectronService, EditorPreferencesService],
+  providers: [ElectronService, GitService, EditorPreferencesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
