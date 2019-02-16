@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceResult } from '../../models/ServiceResult';
+import { OpenTerminalService } from '../../providers/open-terminal.service';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +14,10 @@ export class HomeComponent implements OnInit {
   projectModalVisible: Boolean;
   searchInputValue: String;
 
-  constructor(public router: Router, private toastr: ToastrService) { }
+  constructor(public router: Router, private toastr: ToastrService, private openTerminalService: OpenTerminalService) { }
 
   ngOnInit() {
-
+    console.log(this.openTerminalService.test());
   }
 
   pullButtonClicked() {
@@ -32,8 +33,8 @@ export class HomeComponent implements OnInit {
   }
 
 
-  async openTerminal() {
-    const RES: ServiceResult = await this.openTerminal();
+  openTerminal() {
+    const RES: ServiceResult = this.openTerminalService.openTerminal();
     if (RES.success) {
       this.toastr.info(RES.message, RES.title, {
           onActivateTick: true

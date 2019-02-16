@@ -30,7 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
 import { EditorPreferencesService } from './providers/editor-preferences.service';
-import { OpenTerminalService } from './providers/openterminal.service';
+import { OpenTerminalService } from './providers/open-terminal.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './screens/home/home.component';
 import { ToolboxComponent } from './screens/toolbox/toolbox.component';
