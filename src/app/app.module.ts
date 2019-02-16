@@ -10,7 +10,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import {MatTabsModule, MatIconModule } from '@angular/material';
+import { MatTabsModule, MatIconModule } from '@angular/material';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { ClipboardModule } from 'ngx-clipboard';
 
@@ -44,6 +44,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 import { CopyButtonComponent } from './components/copy-button/copy-button.component';
 import { PreferencesComponent } from './screens/preferences/preferences.component';
+import { GitService } from './providers/git.service';
 
 
 // AoT requires an exported function for factories
@@ -96,7 +97,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       useBootstrap4: true
     })
   ],
-  providers: [ElectronService, EditorPreferencesService],
+  providers: [ElectronService,
+    EditorPreferencesService,
+    GitService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
