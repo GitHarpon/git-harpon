@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GitService } from '../../providers/git.service';
 import { ElectronService } from '../../providers/electron.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +15,26 @@ export class HomeComponent implements OnInit {
   projectModalVisible: Boolean;
   searchInputValue: String;
   projectModalLoading: Boolean;
-  destination: string;
+  repoName: any;
+  repoNameSubscription: Subscription;
+  path: any;
+  pathSubscription: Subscription;
 
   constructor(public router: Router, private toastr: ToastrService,
-    private electronService: ElectronService, private gitService: GitService) { }
+    private electronService: ElectronService, private gitService: GitService) {
+      this.pathSubscription = this.gitService.pathSubject.subscribe(
+        (path: any) => {
+          this.path = path;
+        }
+      );
+      this.gitService.emitPathSubject();
+      this.repoNameSubscription = this.gitService.repoNameSubject.subscribe(
+        (repoName: any) => {
+          this.repoName = repoName;
+        }
+      );
+      this.gitService.emitRepoNameSubject();
+     }
 
   ngOnInit() {
 
@@ -51,13 +68,16 @@ export class HomeComponent implements OnInit {
     this.toastr.info(this.searchInputValue.toString());
   }
 
-  async browse() {
+  openBrowse() {
     this.projectModalLoading = true;
-    const RESULT = await this.gitService.setPath(this.electronService.browse());
-    if (RESULT.success) {
-      this.toastr.info(RESULT.message, RESULT.title);
-    } else {
-      this.toastr.error(RESULT.message, RESULT.title);
+    const NEWPATH = this.electronService.browse();
+    if (NEWPATH !== null) {
+      const RESULT = this.gitService.setPath(NEWPATH);
+      if (RESULT.success) {
+        this.toastr.info(RESULT.message, RESULT.title);
+      } else {
+        this.toastr.error(RESULT.message, RESULT.title);
+      }
     }
     this.projectModalLoading = false;
   }

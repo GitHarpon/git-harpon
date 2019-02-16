@@ -10,6 +10,8 @@ import { ServiceResult } from '../models/ServiceResult';
 export class GitService {
   path: any;
   pathSubject: Subject<any>;
+  repoName: any;
+  repoNameSubject: Subject<any>;
   gitP: any;
   git: any;
 
@@ -17,11 +19,16 @@ export class GitService {
     this.gitP = gitPromise();
     this.git = simpleGit();
     this.pathSubject = new Subject<any>();
+    this.repoNameSubject = new Subject<any>();
     this.path = this.electronService.process.cwd();
   }
 
   emitPathSubject() {
     this.pathSubject.next(this.path);
+  }
+
+  emitRepoNameSubject() {
+    this.repoNameSubject.next(this.repoName);
   }
 
   /**
@@ -36,13 +43,15 @@ export class GitService {
    * Fonction permettant de changer le chemin courant
    * @param newPath le nouveau chemin
    */
-  async setPath(newPath) {
-    if (await this.isRepo(newPath)) {
+  setPath(newPath) {
+    if (this.isRepo(newPath)) {
       this.path = newPath;
+      this.repoName = this.electronService.path.basename(this.path);
       this.electronService.process.chdir(this.path);
       this.git.cwd(this.path);
       this.gitP.cwd(this.path);
       this.emitPathSubject();
+      this.emitRepoNameSubject();
       // A traduir
       return new ServiceResult(true, 'Succès', 'Répo ouvert');
     } else {

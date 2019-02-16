@@ -5,7 +5,7 @@
         <div class="col-4 gh-button-bar-project gh-breadcrumbs">
             <ul>
                 <li class="gh-folder"><a (click)="openProjectModal()"><i class="far fa-folder fa-lg"></i></a></li>
-                <li class="gh-project"><a>Projet</a></li>
+                <li class="gh-project"><a data-toggle="tooltip" title="{{ path }}">{{ repoName }}</a></li>
                 <li class="gh-branch"><a>Branch</a></li>
             </ul>
         </div>
@@ -49,7 +49,7 @@
                 {{ 'OPEN.REPO' | translate }}
             </span>
             <div class="col-md-12">
-                <app-button value="OPEN.BROWSE" type="primary" (buttonClicked)="browse()"></app-button>
+                <app-button value="OPEN.BROWSE" type="primary" (buttonClicked)="openBrowse()"></app-button>
             </div>
             <div class="col-md-12 row">
                 <span class="section-title">
