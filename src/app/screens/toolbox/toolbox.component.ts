@@ -54,7 +54,7 @@ export class ToolboxComponent implements OnInit {
     this.inputMinMaxValueNumber = 0;
     this.max = 10;
     this.min = 0;
-    this.dropdownValue = 'Orange';
+    this.dropdownValue = 'banana';
 
     this.colorList = [
       'dark-blue',
@@ -121,17 +121,17 @@ export class ToolboxComponent implements OnInit {
     ];
 
     this.dataDropdownExample = [
-      {key: 'Orange', value: 'Orange'},
-      {key: 'Banane', value: 'Banane'},
-      {key: 'Cerise', value: 'Cerise'},
-      {key: 'Poire', value: 'Poire'},
+      {key: 'orange', value: 'Orange'},
+      {key: 'banana', value: 'Banane'},
+      {key: 'cherry', value: 'Cerise'},
+      {key: 'pear', value: 'Poire'},
     ];
 
     this.dataDropdownExampleTwo = [
-      {key: 'Carotte', value: 'Carotte'},
-      {key: 'Poireau', value: 'Poireau'},
-      {key: 'Courge', value: 'Courge'},
-      {key: 'Patate', value: 'Patate'},
+      {key: 'carrot', value: 'Carotte'},
+      {key: 'leek', value: 'Poireau'},
+      {key: 'squash', value: 'Courge'},
+      {key: 'potato', value: 'Patate'},
     ];
 
     this.contextMenuFirstObject = [
@@ -251,7 +251,7 @@ export class ToolboxComponent implements OnInit {
   }
 
   testAleatDropdown() {
-    this.dropdownValue = this.dataDropdownExample[Math.floor(Math.random() * 4)].value;
+    this.dropdownValue = this.dataDropdownExample[Math.floor(Math.random() * 4)].key;
   }
 
   showMessage(message: string) {
