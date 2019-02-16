@@ -5,6 +5,8 @@
     "TAGS": "Balises",
     "TAG": "Balise",
     "LANGUE": "Langage",
+    "FRENCH": "Français",
+    "ENGLISH": "Anglais",
     "FONT_SIZES": "Tailles de texte",
     "CHECKBOX": "Case à cocher",
     "UN_CHECKBOX": "Case décochée",

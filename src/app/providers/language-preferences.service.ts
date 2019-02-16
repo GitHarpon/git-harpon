@@ -5,8 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 @Injectable()
 export class LanguagePreferencesService {
     languages: any[];
-    preferences: any;
-    preferencesSubject = new Subject<any>();
+    preferences: string;
+    preferencesSubject = new Subject<string>();
 
     constructor(private translate: TranslateService) {
         this.languages = [
@@ -14,9 +14,8 @@ export class LanguagePreferencesService {
             { key: 'en', value: this.translate.instant('ENGLISH') },
         ];
 
-        this.preferences = {
-            language: this.languages[0].value
-        };
+        // Ici ca sera pas forcement ça en fonction du local storage encore uen fois
+        this.preferences = this.languages[0].value;
         this.emitPreferencesSubject();
     }
 
@@ -25,7 +24,12 @@ export class LanguagePreferencesService {
     }
 
     setLanguage(newLanguage) {
-        this.preferences.language = newLanguage;
+        this.preferences = newLanguage;
+        if (this.preferences === this.translate.instant('FRENCH')) {
+            this.translate.setDefaultLang('fr');
+        } else {
+            this.translate.setDefaultLang('en');
+        }
         this.emitPreferencesSubject();
     }
 

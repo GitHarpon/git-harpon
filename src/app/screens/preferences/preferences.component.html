@@ -14,19 +14,17 @@
             <span class="section-title">
                 {{ 'GENERAL' | translate }}
             </span>
-
-            <div class="container mt-5">
-                <div class="row col-md-12">
-                    <div class="col-md-3 mt-1 text-right">
-                        <label>{{ 'LANGUE' | translate }}</label>
-                    </div>
-                    <div class="col-md-6">
-                        <app-dropdown [options]="dataDropdownLanguage" idKey="key" valueKey="value"
-                        [(value)]="dropdownLanguageValue" (click)="switchLanguage(dropdownLanguageValue)"></app-dropdown>
-                    </div>
-
+            <div class="col-md-6 row mt-3">
+                <div class="col-md-3 mt-1 text-right">
+                    <label>{{ 'LANGUE' | translate }}</label>
                 </div>
-
+                <div class="col-md-9">
+                    <app-dropdown [options]="dataDropdownLanguage" idKey="key" valueKey="value"
+                    [(value)]="dropdownLanguageValue"></app-dropdown>
+                </div>
+                <div class="col-md-12 mt-2 text-right">
+                    <app-button value="CHANGE_PREFERENCE" type="primary" (buttonClicked)="tes()"></app-button>
+                </div>
             </div>
 
         </mat-tab>

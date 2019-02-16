@@ -5,6 +5,8 @@
     "TAGS": "Tags",
     "TAG": "Tag",
     "LANGUE": "Language",
+    "FRENCH": "French",
+    "ENGLISH": "English",
     "FONT_SIZES": "Font sizes",
     "CHECKBOX": "CheckBox",
     "UN_CHECKBOX": "Unchecked checkbox",
