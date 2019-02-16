@@ -42,6 +42,8 @@
     "INFORMATION": "Information",
     "SUCCESS": "Success",
     "DANGER": "Danger",
+    "ERROR": "Error",
+    "PATH_NOT_FOUND": "This path doesn't exist",
     "UPDATE_VALUE": "Update value",
     "DISPLAY_VALUE": "Display value",
     "LABEL": "Label",
@@ -79,7 +81,9 @@
     "INIT": {
         "TITLE": "Init",
         "TAB_TITLE": "Initialize a Repo",
-        "WHERE": "Initialize in"
+        "WHERE": "Initialize in",
+        "SUCCESS": "Init successed",
+        "FAILED": "Init failed"
     },
     "FULL_PATH": "Full path",
     "BROWSE": "Browse",

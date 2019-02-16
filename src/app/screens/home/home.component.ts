@@ -5,6 +5,8 @@ import { GitService } from '../../providers/git.service';
 import { ElectronService } from '../../providers/electron.service';
 import { initNgModule } from '@angular/core/src/view/ng_module';
 import { Subscription } from 'rxjs';
+import { ServiceResult } from '../../models/ServiceResult';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -23,15 +25,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   pathSubscription: Subscription;
 
   constructor(public router: Router, private toastr: ToastrService,
-    private electronService: ElectronService, private gitService: GitService) {
-      this.pathSubscription = this.gitService.pathSubject.subscribe(
-        (path: any) => {
-          this.path = path;
-        }
-      );
-      this.gitService.emitPathSubject();
-  
-    }
+    private electronService: ElectronService, private gitService: GitService,
+    private translateService: TranslateService) {
+    this.pathSubscription = this.gitService.pathSubject.subscribe(
+      (path: any) => {
+        this.path = path;
+      }
+    );
+    this.gitService.emitPathSubject();
+
+  }
 
   ngOnInit() {
   }
@@ -73,10 +76,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   updateFullPath() {
-    if (this.initLocation !== undefined && this.initLocation !== '') {
+    if (this.initLocation) {
       this.fullPath = this.initLocation;
 
-      if (this.initName !== undefined && this.initName !== '') {
+      if (this.initName) {
         this.fullPath = this.electronService.path.join(this.initLocation, this.initName).toString();
       }
     } else {
@@ -84,30 +87,47 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  initSubmit() {
+  async initSubmit() {
     this.projectModalLoading = true;
-    if (this.initLocation !== undefined && this.initLocation !== '' && this.initName !== undefined && this.initName !== '') {
-      console.log('initName : ' + this.initName);
-      console.log('initLocation : ' + this.initLocation);
+    // A DEPLACER DANS LE SERVICE ? (rapide à faire)
+    // Si les champs sont bien remplis
+    if (this.initLocation && this.initName) {
+      // Si l'emplacement existe
       if (this.electronService.fs.existsSync(this.initLocation)) {
-        if (this.electronService.fs.existsSync(this.electronService.path.join(this.initLocation, this.initName))) {
-          // dossier existe déjà avec le nom passé donc on peut init dans le dossier
-          this.gitService.init(this.electronService.path.join(this.initLocation, this.initName))
-            .then( () => {
-              console.log('init done');
-            });
-        } else {
-          // Dossier existe pas encore donc on le créé et on init dedans
+        if (!this.electronService.fs.existsSync(this.electronService.path.join(this.initLocation, this.initName))) {
+          // Répertoire existe pas encore donc on le créé et on init dedans
           this.electronService.fs.mkdirSync(this.electronService.path.join(this.initLocation, this.initName));
-          this.gitService.init(this.electronService.path.join(this.initLocation, this.initName))
-            .then( () => {
-              console.log('init done');
-            });
         }
+
+        const RESULT = await this.gitService.init(this.electronService.path.join(this.initLocation, this.initName));
+          if (RESULT.success) {
+            this.toastr.success(this.translateService.instant(RESULT.message), this.translateService.instant(RESULT.title), {
+              onActivateTick: true
+            });
+
+            // METTRE LE CHEMIN COMME ETANT CELUI PAR DEFAUT
+          } else {
+            this.toastr.error(this.translateService.instant('INIT.FAILED'), this.translateService.instant('ERROR'), {
+              onActivateTick: true
+            });
+          }
+
+          this.projectModalLoading = false;
+
       } else {
-        console.log('répertoire n\'existe pas');
+        this.toastr.error(this.translateService.instant('PATH_NOT_FOUND'), this.translateService.instant('ERROR'), {
+          onActivateTick: true
+        });
+
+        this.projectModalLoading = false;
       }
     }
+
+    // On vide les champs et on ferme la modale
+    this.projectModalVisible = false;
+    this.initName = '';
+    this.initLocation = '';
+    this.fullPath = '';
   }
 
   ngOnDestroy() {

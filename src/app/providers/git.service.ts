@@ -32,7 +32,18 @@ export class GitService {
     return gitPromise(currentPath).checkIsRepo();
   }
 
-  init(currentPath: string) {
-    return gitPromise(currentPath).init();
+  /**
+   * Fonction permettant d'initialiser un repo git
+   * @param currentPath le chemin dans lequel doit être initialisé le projet
+   */
+  async init(currentPath: string) {
+    let RES;
+
+    await gitPromise(currentPath).init()
+      .then( () => {
+        RES = new ServiceResult(true, 'SUCCESS', 'INIT.SUCCESS');
+      });
+
+    return RES;
   }
 }
