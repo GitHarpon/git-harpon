@@ -28,6 +28,14 @@ Pour assurer le fonctionnement de cette application depuis n'importe quel OS, il
 
 Nous utiliserons aussi yarn.
 
+Pour la gestion des mots de passes, il est nécessaire d'avoir installé le package `libsecret` sur Linux.
+Selon la distribution, il faut lancer les commandes suivantes :
+
+- Debian/Ubuntu: `sudo apt-get install libsecret-1-dev`
+- Red Hat-based: `sudo yum install libsecret-devel`
+- Arch Linux: `sudo pacman -S libsecret`
+
+
 ### Installation de Node.js
 **Windows et macOS**
 
