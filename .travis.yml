@@ -8,6 +8,7 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 install:
+  - sudo apt-get install libsecret-1-dev
   - npm set progress=false
   - npm install
   - npm run electron:linux

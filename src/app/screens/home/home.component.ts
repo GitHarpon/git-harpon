@@ -64,5 +64,4 @@ export class HomeComponent implements OnInit {
       this.toastr.error(this.translate.instant('ERROR'), this.translate.instant('NO_FOLDER'));
     }
   }
-
 }
