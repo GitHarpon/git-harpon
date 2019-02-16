@@ -75,5 +75,6 @@
     "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
     "OPEN": "Ouvrir",
     "CLONE": "Cloner",
-    "INIT": "Initialiser"
+    "INIT": "Initialiser",
+    "UNKNOWN_TERMINAL": "Terminal inconnu"
 }

@@ -6,6 +6,7 @@ import { ipcRenderer, webFrame, remote, shell } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as os from 'os';
 import * as process from 'process';
 
 @Injectable()
@@ -18,6 +19,7 @@ export class ElectronService {
   process: typeof process;
   fs: typeof fs;
   path: typeof path;
+  os: typeof os;
   shell: typeof shell;
 
   constructor() {
@@ -32,6 +34,7 @@ export class ElectronService {
       this.fs = window.require('fs');
       this.path = window.require('path');
       this.process = window.require('process');
+      this.os = window.require('os');
     }
   }
 

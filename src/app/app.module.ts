@@ -30,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
 import { EditorPreferencesService } from './providers/editor-preferences.service';
+import { OpenTerminalService } from './providers/openterminal.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './screens/home/home.component';
 import { ToolboxComponent } from './screens/toolbox/toolbox.component';
@@ -96,7 +97,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       useBootstrap4: true
     })
   ],
-  providers: [ElectronService, EditorPreferencesService],
+  providers: [ElectronService, EditorPreferencesService, OpenTerminalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

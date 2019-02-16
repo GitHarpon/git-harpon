@@ -82,6 +82,4 @@ export class EditorPreferencesService {
         this.preferences.lineNumbers = newLineNumbers;
         this.emitPreferencesSubject();
     }
-
-
 }
