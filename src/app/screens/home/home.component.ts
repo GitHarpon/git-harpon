@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ElectronService } from '../../providers/electron.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +16,8 @@ export class HomeComponent implements OnInit {
   cloneUrl: String;
   cloneFolder: String;
 
-  constructor(public router: Router, private toastr: ToastrService) { }
+  constructor(public router: Router, private toastr: ToastrService,
+    private electronService: ElectronService, private translate: TranslateService) { }
 
   ngOnInit() {
 
@@ -46,6 +49,20 @@ export class HomeComponent implements OnInit {
 
   displaySearchInputValue() {
     this.toastr.info(this.searchInputValue.toString());
+  }
+
+  cloneBrowse() {
+    const BROWSEPATH = this.electronService.browse();
+    if (BROWSEPATH !== null) {
+      this.cloneFolder = BROWSEPATH;
+    }
+  }
+
+  clone() {
+    if (this.electronService.fs.existsSync(this.cloneFolder.toString())) {
+    } else {
+      this.toastr.error(this.translate.instant('ERROR'), this.translate.instant('NO_FOLDER'));
+    }
   }
 
 }

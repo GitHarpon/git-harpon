@@ -19,6 +19,7 @@ export class ElectronService {
   fs: typeof fs;
   path: typeof path;
   shell: typeof shell;
+  keytar: any;
 
   constructor() {
     // Conditional imports
@@ -32,6 +33,8 @@ export class ElectronService {
       this.fs = window.require('fs');
       this.path = window.require('path');
       this.process = window.require('process');
+      this.keytar = this.remote.require('keytar');
+      console.log(this.keytar);
     }
   }
 
@@ -43,7 +46,7 @@ export class ElectronService {
     const PATH = this.remote.dialog.showOpenDialog({
       properties: ['openDirectory']
     });
-    if (path !== undefined) {
+    if (PATH !== undefined) {
       return PATH[0];
     }
     return null;

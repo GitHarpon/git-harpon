@@ -56,11 +56,11 @@
                         <div class="col-md-3 gh-label-input text-right">
                             <label>{{ 'CLONE.WHERE' | translate }} </label>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-6">
                             <app-input [(value)]="cloneFolder"></app-input>
                         </div>
-                        <div class="col-md-2 text-right">
-                            <app-button value="BROWSE" type="primary" (buttonClicked)="primary()"></app-button>
+                        <div class="col-md-3 text-right">
+                            <app-button value="BROWSE" type="primary" (buttonClicked)="cloneBrowse()"></app-button>
                         </div>
                     </div>
                     <div class="col-md-12 row">
@@ -68,7 +68,12 @@
                             <label>{{ 'CLONE.URL' | translate }} </label>
                         </div>
                         <div class="col-md-9">
-                            <app-input class="px-0" [(value)]="cloneURL"></app-input>
+                            <app-input [(value)]="cloneUrl"></app-input>
+                        </div>
+                    </div>
+                    <div class="col-md-12 row mt-3">
+                        <div class="col-md-12 text-right">
+                            <app-button value="CLONE.TITLE" type="success" [disabled]="!cloneUrl || !cloneFolder" (buttonClicked)="clone()"></app-button>
                         </div>
                     </div>
                 </div>
