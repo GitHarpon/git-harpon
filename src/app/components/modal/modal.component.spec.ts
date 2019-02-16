@@ -8,9 +8,9 @@ import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 import { LoaderComponent } from '../loader/loader.component';
 
 describe('ModalComponent', () => {
-  const component: ModalComponent;
-  const fixture: ComponentFixture<ModalComponent>;
-  const modalEl: DebugElement;
+  let component: ModalComponent;
+  let fixture: ComponentFixture<ModalComponent>;
+  let modalEl: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
