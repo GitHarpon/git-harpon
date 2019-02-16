@@ -16,8 +16,7 @@ export class PreferencesComponent implements OnInit {
   dropdownLanguageValue: String;
   dataDropdownLanguage: Array<any>;
 
-  path: any;
-  pathSubscription: Subscription;
+  languageSubscription: Subscription;
 
   key: String = 'key';
   value: String = 'value';
@@ -34,12 +33,18 @@ export class PreferencesComponent implements OnInit {
   ngOnInit() {
     this.preferencesVisible = true;
     this.preferencesTabSelectedIndex = 1;
-    this.dropdownLanguageValue = 'Français';
-
     this.dataDropdownLanguage = [
       {key: 'Français', value: 'Français'},
       {key: 'English', value: 'English'},
     ];
+    this.dropdownLanguageValue = this.dataDropdownLanguage[0].key;
+
+    this.languageSubscription = this.gitService.preferencesSubject.subscribe(
+      (dropdownLanguageValue) => {
+        this.dropdownLanguageValue = dropdownLanguageValue;
+      }
+    );
+    this.gitService.emitPreferencesSubject();
   }
 
   checkIfCloseModal(event) {
@@ -51,11 +56,13 @@ export class PreferencesComponent implements OnInit {
   switchLanguage(language: String) {
     this.gitService.setLanguage(language);
     if (language === 'Français') {
-      this.translate.use('fr');
-      // this.translate.getLangs()[0];
+      // this.translate.use('fr');
+      this.translate.setDefaultLang(this.translate.getLangs()[0]);
+
     } else {
-      this.translate.use('en');
-      // this.translate.getLangs()[1];
+      // this.translate.use('en');
+      this.translate.setDefaultLang(this.translate.getLangs()[1]);
+
     }
     // if (this.dropdownLanguageValue === 'Français') {
     //   this.translate.use('fr');

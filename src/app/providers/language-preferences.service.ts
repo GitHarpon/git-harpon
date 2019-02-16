@@ -5,8 +5,6 @@ import { Subject } from 'rxjs';
 export class LanguagePreferencesService {
     languages: any[];
     preferences: any;
-    gitP: any;
-    git: any;
     preferencesSubject = new Subject<any>();
 
     constructor() {
@@ -26,11 +24,8 @@ export class LanguagePreferencesService {
     }
 
     setLanguage(newLanguage) {
-        this.gitP.switchLanguage(newLanguage)
-            .then(() => {
-                this.preferences.language = newLanguage;
-                this.emitPreferencesSubject();
-            });
+        this.preferences.language = newLanguage;
+        this.emitPreferencesSubject();
     }
 
 }
