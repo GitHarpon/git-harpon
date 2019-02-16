@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class LanguagePreferencesService {
@@ -7,10 +8,10 @@ export class LanguagePreferencesService {
     preferences: any;
     preferencesSubject = new Subject<any>();
 
-    constructor() {
+    constructor(private translate: TranslateService) {
         this.languages = [
-            { value: 'fr', text: 'Français' },
-            { value: 'en', text: 'English' },
+            { key: 'fr', value: this.translate.instant('FRENCH') },
+            { key: 'en', value: this.translate.instant('ENGLISH') },
         ];
 
         this.preferences = {
@@ -26,6 +27,10 @@ export class LanguagePreferencesService {
     setLanguage(newLanguage) {
         this.preferences.language = newLanguage;
         this.emitPreferencesSubject();
+    }
+
+    getLanguages() {
+        return this.languages;
     }
 
 }

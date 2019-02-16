@@ -21,7 +21,7 @@
                         <label>{{ 'LANGUE' | translate }}</label>
                     </div>
                     <div class="col-md-6">
-                        <app-dropdown [options]="dataDropdownLanguage" [idKey]="key" [valueKey]="value"
+                        <app-dropdown [options]="dataDropdownLanguage" idKey="key" valueKey="value"
                         [(value)]="dropdownLanguageValue" (click)="switchLanguage(dropdownLanguageValue)"></app-dropdown>
                     </div>
 
