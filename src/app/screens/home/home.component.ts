@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GitService } from '../../providers/git.service';
 import { ElectronService } from '../../providers/electron.service';
 import { Subscription } from 'rxjs';
+import { LocalStorage } from 'ngx-store';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-
+export class HomeComponent implements OnInit, OnDestroy {
   projectModalVisible: Boolean;
   searchInputValue: String;
   projectModalLoading: Boolean;
@@ -19,22 +19,31 @@ export class HomeComponent implements OnInit {
   repoNameSubscription: Subscription;
   path: any;
   pathSubscription: Subscription;
+  recentProject: any[];
+  recentProjectSubscription: Subscription;
+
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService) {
-      this.pathSubscription = this.gitService.pathSubject.subscribe(
-        (path: any) => {
-          this.path = path;
-        }
-      );
-      this.gitService.emitPathSubject();
-      this.repoNameSubscription = this.gitService.repoNameSubject.subscribe(
-        (repoName: any) => {
-          this.repoName = repoName;
-        }
-      );
-      this.gitService.emitRepoNameSubject();
-     }
+    this.pathSubscription = this.gitService.pathSubject.subscribe(
+      (path: any) => {
+        this.path = path;
+      }
+    );
+    this.gitService.emitPathSubject();
+    this.repoNameSubscription = this.gitService.repoNameSubject.subscribe(
+      (repoName: any) => {
+        this.repoName = repoName;
+      }
+    );
+    this.gitService.emitRepoNameSubject();
+    this.recentProjectSubscription = this.gitService.recentProjectSubject.subscribe(
+      (recentProject: any) => {
+        this.recentProject = recentProject;
+      }
+    );
+    this.gitService.emitRecentProjectSubject();
+  }
 
   ngOnInit() {
 
@@ -69,16 +78,27 @@ export class HomeComponent implements OnInit {
   }
 
   openBrowse() {
-    this.projectModalLoading = true;
     const NEWPATH = this.electronService.browse();
-    if (NEWPATH !== null) {
-      const RESULT = this.gitService.setPath(NEWPATH);
-      if (RESULT.success) {
-        this.toastr.info(RESULT.message, RESULT.title);
-      } else {
-        this.toastr.error(RESULT.message, RESULT.title);
+    this.openRepo(NEWPATH);
+  }
+
+  openRepo(path: any) {
+    if (this.path !== path) {
+      this.projectModalLoading = true;
+      if (path !== null) {
+        const RESULT = this.gitService.setPath(path);
+        if (RESULT.success) {
+          this.toastr.info(RESULT.message, RESULT.title);
+        } else {
+          this.toastr.error(RESULT.message, RESULT.title);
+        }
       }
+      this.projectModalLoading = false;
     }
-    this.projectModalLoading = false;
+  }
+
+  ngOnDestroy() {
+    this.pathSubscription.unsubscribe();
+    this.repoNameSubscription.unsubscribe();
   }
 }

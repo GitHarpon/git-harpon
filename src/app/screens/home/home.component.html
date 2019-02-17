@@ -53,9 +53,24 @@
             </div>
             <div class="col-md-12 row">
                 <span class="section-title">
-                    <i class="fas fa-folder-open fa-xs"></i>
+                    <i class="fas fa-clock fa-xs"></i>
                     {{ 'OPEN.OPENED' | translate }}
                 </span>
+                <div *ngFor="let project of recentProject | keyvalue; first as isFirst" (click)="openRepo(project.value.path)"
+                    [class.gh-open-first]="isFirst" class="col-md-12 row pt-1 pb-1 gh-open-recentProject">
+                    <div class="col-md-12 row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            {{project.value.repo}}
+                        </div>
+                    </div>
+                    <div class="col-md-12 row gh-open-recentPath">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            {{project.value.path}}
+                        </div>
+                    </div>
+                </div>
             </div>
         </mat-tab>
         <mat-tab label="{{ 'CLONE' | translate }}">{{ 'CLONE' | translate }}</mat-tab>

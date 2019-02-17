@@ -40,6 +40,7 @@
     },
     "INFORMATION": "Information",
     "SUCCESS": "Success",
+    "ERROR": "Error",
     "DANGER": "Danger",
     "UPDATE_VALUE": "Update value",
     "DISPLAY_VALUE": "Display value",
@@ -49,7 +50,9 @@
         "OPEN": {
             "REGULAR": "Open the regular modal",
             "FULLSCREEN": "Open the fullscreen modal",
-            "LOADING": "Open the modal with loading"
+            "LOADING": "Open the modal with loading",
+            "OPENED_REPO": "The repository was successfully opened",
+            "NOT_GIT_REPO": "This is not a git repository"
         },
         "EXIT": "Exit",
         "FIRST_SECTION": "First section",

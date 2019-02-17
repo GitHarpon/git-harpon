@@ -40,6 +40,7 @@
     },
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
+    "ERROR": "Erreur",
     "DANGER": "Danger",
     "UPDATE_VALUE": "Changer la valeur",
     "DISPLAY_VALUE": "Afficher la valeur",
@@ -77,7 +78,9 @@
         "TITLE": "Ouvrir",
         "REPO": "Ouvrir un Dépôt",
         "OPENED": "Ouvert récemment",
-        "BROWSE": "Parcourir"
+        "BROWSE": "Parcourir",
+        "OPENED_REPO": "Le dépôt a été ouvert avec succès",
+        "NOT_GIT_REPO": "Ce répertoire n'est pas un répertoire git"
     },
     "CLONE": "Cloner",
     "INIT": "Initialiser"
