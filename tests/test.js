@@ -30,10 +30,10 @@ global.before(function () {
 
 describe('Test Example', function () {
     beforeEach(function () {
-        // var log = console.log;
-        // this.sinon.stub(console, 'log').callsFake( function() {
-        //   return log.apply(log, arguments);
-        // });
+        var log = console.log;
+        this.sinon.stub(console, 'log').callsFake( function() {
+           return log.apply(log, arguments);
+        });
         return app.start();
     });
   
@@ -71,4 +71,13 @@ describe('Test Example', function () {
     //         expect(text).to.be.equal('test2');
     //     });
     // });
+
+    it('Ouverture terminal', function () {
+        var btn = app.client.element('#terminalOpener');
+        btn.click();
+        console.log('test');
+        // btntext = app.client.getText('#btntest').then(function(text){
+        //     expect(text).to.be.equal('test2');
+        // });
+    });
 });
