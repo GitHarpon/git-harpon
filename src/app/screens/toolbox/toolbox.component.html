@@ -373,11 +373,13 @@
                 <div class="col-md-2 mt-1">
                     <app-icon-button value="ICONBUTTON.GITLAB" tooltipValue="ICONBUTTON.TOOLTIP.GITHUB" placement="top" 
                         [icon]="{name:'fa-gitlab', isFab:true}"
+                        [disabled]="true"
                         (buttonClicked)="gitlabButtonClicked()"></app-icon-button>
                 </div>
                 <div class="col-md-1 mt-1">
                     <app-copy-button template='<app-icon-button value="ICONBUTTON.GITLAB" tooltipValue="ICONBUTTON.TOOLTIP.GITHUB" placement="top" 
                         [icon]="{name:"fa-gitlab", isFab:true}"
+                        [disabled]="true"
                         (buttonClicked)="gitlabButtonClicked()"></app-icon-button>'></app-copy-button>
                 </div>
             </div>
