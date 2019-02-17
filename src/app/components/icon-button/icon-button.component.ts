@@ -11,6 +11,7 @@ export class IconButtonComponent implements OnInit {
   @Input() value: String;
   @Input() tooltipValue: String;
   @Input() placement: String;
+  @Input() disabled: Boolean = false;
   @Input() icon: {
     name: String,
     isFab: Boolean
@@ -24,7 +25,9 @@ export class IconButtonComponent implements OnInit {
   }
 
   execClick(evt) {
-    this.buttonClicked.emit(evt);
+    if (!this.disabled) {
+      this.buttonClicked.emit(evt);
+    }
   }
 
   getValueTranslation() {
