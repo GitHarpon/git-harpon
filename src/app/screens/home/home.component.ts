@@ -89,45 +89,28 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   async initSubmit() {
     this.projectModalLoading = true;
-    // A DEPLACER DANS LE SERVICE ? (rapide à faire)
-    // Si les champs sont bien remplis
+
     if (this.initLocation && this.initName) {
-      // Si l'emplacement existe
-      if (this.electronService.fs.existsSync(this.initLocation)) {
-        if (!this.electronService.fs.existsSync(this.electronService.path.join(this.initLocation, this.initName))) {
-          // Répertoire existe pas encore donc on le créé et on init dedans
-          this.electronService.fs.mkdirSync(this.electronService.path.join(this.initLocation, this.initName));
-        }
+      await this.gitService.init(this.initLocation, this.initName)
+        .then( (result) => {
+          this.toastr.info(this.translateService.instant(result.message), this.translateService.instant(result.title), {
+            onActivateTick: true
+          });
 
-        const RESULT = await this.gitService.init(this.electronService.path.join(this.initLocation, this.initName));
-          if (RESULT.success) {
-            this.toastr.success(this.translateService.instant(RESULT.message), this.translateService.instant(RESULT.title), {
-              onActivateTick: true
-            });
-
-            // METTRE LE CHEMIN COMME ETANT CELUI PAR DEFAUT
-          } else {
-            this.toastr.error(this.translateService.instant('INIT.FAILED'), this.translateService.instant('ERROR'), {
-              onActivateTick: true
-            });
-          }
-
-          this.projectModalLoading = false;
-
-      } else {
-        this.toastr.error(this.translateService.instant('PATH_NOT_FOUND'), this.translateService.instant('ERROR'), {
-          onActivateTick: true
+          // On vide les champs et on ferme la modale
+          this.projectModalVisible = false;
+          this.initName = '';
+          this.initLocation = '';
+          this.fullPath = '';
+        })
+        .catch( (result) => {
+          this.toastr.error(this.translateService.instant(result.message), this.translateService.instant(result.title), {
+            onActivateTick: true
+          });
         });
-
-        this.projectModalLoading = false;
-      }
     }
 
-    // On vide les champs et on ferme la modale
-    this.projectModalVisible = false;
-    this.initName = '';
-    this.initLocation = '';
-    this.fullPath = '';
+    this.projectModalLoading = false;
   }
 
   ngOnDestroy() {

@@ -34,16 +34,32 @@ export class GitService {
 
   /**
    * Fonction permettant d'initialiser un repo git
-   * @param currentPath le chemin dans lequel doit être initialisé le projet
+   * @param initLocation le chemin qui contiendra le projet
+   * @param initName le nom du projet
    */
-  async init(currentPath: string) {
-    let RES;
+  init(initLocation: string, initName: string) {
 
-    await gitPromise(currentPath).init()
-      .then( () => {
-        RES = new ServiceResult(true, 'SUCCESS', 'INIT.SUCCESS');
+    if (initLocation && initName) {
+      const PATHTOREPO = this.electronService.path.join(initLocation, initName);
+      return new Promise<ServiceResult>((resolve, reject) => {
+        // Si l'emplacement existe
+        if (this.electronService.fs.existsSync(initLocation)) {
+          if (!this.electronService.fs.existsSync(PATHTOREPO)) {
+            // Répertoire existe pas encore donc on le créé et on init dedans
+            this.electronService.fs.mkdirSync(PATHTOREPO);
+          }
+
+          gitPromise(PATHTOREPO).init()
+            .then( () => {
+              resolve(new ServiceResult(true, 'SUCCESS', 'INIT.SUCCESS'));
+            })
+            .catch( () => {
+              reject(new ServiceResult(false, 'ERROR', 'INIT.FAILED'));
+            });
+        } else {
+          reject(new ServiceResult(false, 'ERROR', 'PATH_NOT_FOUND'));
+        }
       });
-
-    return RES;
+    }
   }
 }
