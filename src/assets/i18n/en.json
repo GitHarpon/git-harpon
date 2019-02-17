@@ -50,9 +50,7 @@
         "OPEN": {
             "REGULAR": "Open the regular modal",
             "FULLSCREEN": "Open the fullscreen modal",
-            "LOADING": "Open the modal with loading",
-            "OPENED_REPO": "The repository was successfully opened",
-            "NOT_GIT_REPO": "This is not a git repository"
+            "LOADING": "Open the modal with loading"
         },
         "EXIT": "Exit",
         "FIRST_SECTION": "First section",
@@ -80,7 +78,10 @@
         "TITLE": "Open",
         "REPO": "Open a Reporitory",
         "OPENED": "Recently Opened",
-        "BROWSE": "Browse"
+        "BROWSE": "Browse",
+        "OPENED_REPO": "The repository was successfully opened",
+        "NOT_GIT_REPO": "This is not a git repository",
+        "REPO_NOT_EXIST": "The repository no longer exist"
     },
     "CLONE": "Clone",
     "INIT": "Init"

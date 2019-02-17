@@ -80,7 +80,8 @@
         "OPENED": "Ouvert récemment",
         "BROWSE": "Parcourir",
         "OPENED_REPO": "Le dépôt a été ouvert avec succès",
-        "NOT_GIT_REPO": "Ce répertoire n'est pas un répertoire git"
+        "NOT_GIT_REPO": "Ce répertoire n'est pas un répertoire git",
+        "REPO_NOT_EXIST": "Ce répertoire n'existe plus"
     },
     "CLONE": "Cloner",
     "INIT": "Initialiser"

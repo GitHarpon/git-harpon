@@ -65,6 +65,7 @@ export class ToolboxComponent implements OnInit {
       'dark-green',
       'light-green',
       'disabled-green',
+      'light-green-hover',
       'dark-red',
       'light-red',
       'disabled-red',

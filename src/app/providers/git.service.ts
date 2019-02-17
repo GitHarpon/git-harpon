@@ -7,6 +7,7 @@ import * as  GitUrlParse from 'git-url-parse';
 import { ServiceResult } from '../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-store';
+import { resolve } from 'url';
 
 @Injectable()
 export class GitService {
@@ -26,7 +27,7 @@ export class GitService {
     this.repoNameSubject = new Subject<any>();
     this.recentProjectSubject = new Subject<any[]>();
     if (this.recentProject[0].path) {
-      this.path = this.recentProject[0].path;
+      this.setPath(this.recentProject[0].path);
     } else {
       this.path = this.electronService.process.cwd();
     }
@@ -56,21 +57,27 @@ export class GitService {
    * Fonction permettant de changer le chemin courant
    * @param newPath le nouveau chemin
    */
-  setPath(newPath) {
-    if (this.isRepo(newPath)) {
-      this.path = newPath;
-      this.repoName = this.electronService.path.basename(this.path);
-      this.emitRepoNameSubject();
-      this.electronService.process.chdir(this.path);
-      this.git.cwd(this.path);
-      this.gitP.cwd(this.path);
-      this.emitPathSubject();
-      this.registerProject(this.repoName, this.path);
-      return new ServiceResult(true, this.translate.instant('SUCCESS'),
-        this.translate.instant('OPEN.OPENED_REPO'));
+  async setPath(newPath) {
+    if (this.electronService.fs.existsSync(newPath)) {
+      if (await this.isRepo(newPath)) {
+        this.path = newPath;
+        this.repoName = this.electronService.path.basename(this.path);
+        this.emitRepoNameSubject();
+        this.electronService.process.chdir(this.path);
+        this.git.cwd(this.path);
+        this.gitP.cwd(this.path);
+        this.emitPathSubject();
+        this.registerProject(this.repoName, this.path);
+        return new ServiceResult(true, this.translate.instant('SUCCESS'),
+          this.translate.instant('OPEN.OPENED_REPO'));
+      } else {
+        return new ServiceResult(false, this.translate.instant('ERROR'),
+          this.translate.instant('OPEN.NOT_GIT_REPO'));
+      }
     } else {
+      this.deleteProjetWithPath(newPath);
       return new ServiceResult(false, this.translate.instant('ERROR'),
-        this.translate.instant('OPEN.NOT_GIT_REPO'));
+          this.translate.instant('OPEN.REPO_NOT_EXIST'));
     }
   }
 
@@ -95,6 +102,16 @@ export class GitService {
 
   deleteProject(id: number) {
     this.recentProject.splice(id, 1);
+    this.emitRecentProjectSubject();
+  }
+
+  deleteProjetWithPath(path: any) {
+    for (let INDEX = 0; INDEX < this.recentProject.length; INDEX++) {
+      if (this.recentProject[INDEX].path == path) {
+        this.recentProject.splice(INDEX, 1);
+        INDEX--;
+      }
+    }
     this.emitRecentProjectSubject();
   }
 }

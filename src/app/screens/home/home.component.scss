@@ -110,10 +110,10 @@
 }
 
 .gh-open-first {
-    @include bg-color($disabled-green);
+    @include bg-color($light-green-hover);
 
     &:hover {
-        @include bg-color($disabled-green);
+        @include bg-color($light-green-hover);
         cursor: default;
     }
 }
