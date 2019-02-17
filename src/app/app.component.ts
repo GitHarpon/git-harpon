@@ -14,7 +14,15 @@ export class AppComponent {
 
     this.translate.addLangs(['fr', 'en']);
     // Ici on doit chercher depuis le local storage (si vide prendre fr du coup)
-    this.translate.setDefaultLang(this.translate.getLangs()[0]);
+    // this.translate.setDefaultLang(this.translate.getLangs()[0]);
+    // localStorage.setItem('en', 'en');
+      if (this.translate.getDefaultLang() === 'en') {
+        this.translate.setDefaultLang('en');
+      } else {
+        this.translate.setDefaultLang('fr');
+      }
+
+
     console.log('AppConfig', AppConfig);
 
     if (electronService.isElectron()) {

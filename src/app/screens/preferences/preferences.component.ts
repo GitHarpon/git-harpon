@@ -48,17 +48,9 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     }
   }
 
-  switchLanguage(language: String) {
-    this.langPrefService.setLanguage(language);
-    // if (language === 'Français') {
-    //   // this.translate.use('fr');
-    //   this.translate.setDefaultLang(this.translate.getLangs()[0]);
-
-    // } else {
-    //   // this.translate.use('en');
-    //   this.translate.setDefaultLang(this.translate.getLangs()[1]);
-
-    // }
+  switchLanguage() {
+    // console.log(language);
+    this.langPrefService.setLanguage(this.dropdownLanguageValue);
   }
 
   ngOnDestroy() {
