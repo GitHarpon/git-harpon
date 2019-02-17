@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceResult } from '../../models/ServiceResult';
-import { OpenTerminalService } from '../../providers/open-terminal.service';
+import { TerminalManagerService } from '../../providers/terminalManager.service';
 
 @Component({
   selector: 'app-home',
@@ -14,11 +14,9 @@ export class HomeComponent implements OnInit {
   projectModalVisible: Boolean;
   searchInputValue: String;
 
-  constructor(public router: Router, private toastr: ToastrService, private openTerminalService: OpenTerminalService) { }
+  constructor(public router: Router, private toastr: ToastrService, private openTerminalService: TerminalManagerService) { }
 
-  ngOnInit() {
-    console.log(this.openTerminalService.test());
-  }
+  ngOnInit() { }
 
   pullButtonClicked() {
     console.log('Bouton pull cliqué');
@@ -32,18 +30,13 @@ export class HomeComponent implements OnInit {
     console.log('Bouton branche cliqué');
   }
 
-
   openTerminal() {
-    const RES: ServiceResult = this.openTerminalService.openTerminal();
-    if (RES.success) {
-      this.toastr.info(RES.message, RES.title, {
+    this.openTerminalService.openTerminal()
+      .catch((data) => {
+        this.toastr.error(data.message, data.title, {
           onActivateTick: true
+        });
       });
-    } else {
-      this.toastr.error(RES.message, RES.title, {
-          onActivateTick: true
-      });
-    }
   }
 
   openPreferences() {

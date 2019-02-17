@@ -76,5 +76,8 @@
     "OPEN": "Open",
     "CLONE": "Clone",
     "INIT": "Init",
-    "UNKNOWN_TERMINAL": "Unknown terminal"
+    "TERMINAL": {
+        "UNKNOWN": "Unknown terminal",
+        "MESSAGE": "It seeems not installed on the device"
+    }
 }

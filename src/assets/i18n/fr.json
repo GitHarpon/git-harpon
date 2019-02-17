@@ -76,5 +76,8 @@
     "OPEN": "Ouvrir",
     "CLONE": "Cloner",
     "INIT": "Initialiser",
-    "UNKNOWN_TERMINAL": "Terminal inconnu"
+    "TERMINAL": {
+        "UNKNOWN": "Terminal inconnu",
+        "MESSAGE": "Il ne semble pas installé sur la machine"
+    }
 }
