@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceResult } from '../../models/ServiceResult';
-import { TerminalManagerService } from '../../providers/terminalManager.service';
+import { TerminalManagerService } from '../../providers/terminal-manager.service';
 
 @Component({
   selector: 'app-home',

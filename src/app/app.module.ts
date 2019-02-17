@@ -10,7 +10,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import {MatTabsModule, MatIconModule } from '@angular/material';
+import { MatTabsModule, MatIconModule } from '@angular/material';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { ClipboardModule } from 'ngx-clipboard';
 
@@ -30,7 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
 import { EditorPreferencesService } from './providers/editor-preferences.service';
-import { TerminalManagerService } from './providers/terminalManager.service';
+import { TerminalManagerService } from './providers/terminal-manager.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './screens/home/home.component';
 import { ToolboxComponent } from './screens/toolbox/toolbox.component';

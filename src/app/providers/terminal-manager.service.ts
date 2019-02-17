@@ -25,9 +25,10 @@ export class TerminalManagerService {
   constructor(private electronService: ElectronService,
     private translateService: TranslateService,
     private toastr: ToastrService) {
-      this.currentOs = this.electronService.os.type();
-      this.setTerminalList();
-      this.setCurrentTerminal(this.terminalList[0]); }
+    this.currentOs = this.electronService.os.type();
+    this.setTerminalList();
+    this.setCurrentTerminal(this.terminalList[0]);
+  }
 
   openTerminal(): Promise<ServiceResult> {
     return new Promise((resolve, reject) => {
@@ -53,70 +54,58 @@ export class TerminalManagerService {
   }
 
   emitCurrentTerminalSubject() {
-      this.currentTerminalSubject.next(this.currentTerminal);
+    this.currentTerminalSubject.next(this.currentTerminal);
   }
 
   setTerminalList() {
     let List = [];
     switch (this.currentOs) {
-        case 'Linux':
-            List =  [{
-                cmd: 'terminator',
-                name: 'terminator'
-            },
-            {
-                cmd: 'gnome-terminal',
-                name: 'gnome-terminal'
-            },
-            {
-                cmd: 'xterm',
-                name: 'xterm'
-            },
-            {
-                cmd: 'terminal-bidon',
-                name: 'terminal-bidon'
-            }];
-            break;
-        case 'Darwin':
-            List =  [{
-                cmd: 'open -a Terminal',
-                name: 'Terminal'
-            },
-            {
-                cmd: 'open -a iTerm',
-                name: 'iTerm'
-            },
-            {
-                cmd: 'open -a terminator',
-                name: 'terminator'
-            },
-            {
-                cmd: 'open -a terminal-bidon',
-                name: 'terminal-bidon'
-            }];
-            break;
-        case 'Windows_NT':
-            List = [{
-                cmd: 'start cmd.exe',
-                name: 'cmd'
-            },
-            {
-                cmd: 'start PowerShell.exe',
-                name: 'PowerShell'
-            },
-            {
-                cmd: 'start "" "%ProgramFiles%\\Git\\git-bash.exe"',
-                name: 'Git Bash'
-            },
-            {
-                cmd: 'start terminal-bidon',
-                name: 'terminal-bidon'
-            }];
-            break;
-        default:
-            break;
+      case 'Linux':
+        List = [{
+          cmd: 'terminator',
+          name: 'terminator'
+        },
+        {
+          cmd: 'gnome-terminal',
+          name: 'gnome-terminal'
+        },
+        {
+          cmd: 'xterm',
+          name: 'xterm'
+        }];
+        break;
+      case 'Darwin':
+        List = [{
+          cmd: 'open -a Terminal',
+          name: 'Terminal'
+        },
+        {
+          cmd: 'open -a iTerm',
+          name: 'iTerm'
+        },
+        {
+          cmd: 'open -a terminator',
+          name: 'terminator'
+        }];
+        break;
+      case 'Windows_NT':
+        List = [{
+          cmd: 'start cmd.exe',
+          name: 'cmd'
+        },
+        {
+          cmd: 'start PowerShell.exe',
+          name: 'PowerShell'
+        },
+        {
+          cmd: 'start "" "%ProgramFiles%\\Git\\git-bash.exe"',
+          name: 'Git Bash'
+        }];
+        break;
+      default:
+        break;
     }
     this.terminalList = List;
     this.emitTerminalListSubject();
-}
+  }
 }
