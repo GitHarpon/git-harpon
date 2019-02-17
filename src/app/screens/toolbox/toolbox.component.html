@@ -337,6 +337,21 @@
                     </app-modal>'></app-copy-button>
                 </div>
             </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-4 mt-1">
+                    <app-button value="MODAL.OPEN.LOADING" (buttonClicked)="openLoadingModal()"></app-button>
+                </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-modal [(visible)]="modalLoadingVisible" [medium]="true" [title]="title" [loading]="modalLoading">
+                        <mat-tab-group disableRipple [@.disabled]="true">
+                            <!-- @.disabled permet de ne pas avoir de transition de changement -->
+                            <mat-tab label="label"> label </mat-tab>
+                            <mat-tab label="label"> label </mat-tab>
+                            <mat-tab label="label"> label </mat-tab>
+                        </mat-tab-group>
+                    </app-modal>'></app-copy-button>
+                </div>
+            </div>
         </div>
         <div class="container mt-5">
             <div class="col-md-12 bb-white">
@@ -358,11 +373,13 @@
                 <div class="col-md-2 mt-1">
                     <app-icon-button value="ICONBUTTON.GITLAB" tooltipValue="ICONBUTTON.TOOLTIP.GITHUB" placement="top" 
                         [icon]="{name:'fa-gitlab', isFab:true}"
+                        [disabled]="true"
                         (buttonClicked)="gitlabButtonClicked()"></app-icon-button>
                 </div>
                 <div class="col-md-1 mt-1">
                     <app-copy-button template='<app-icon-button value="ICONBUTTON.GITLAB" tooltipValue="ICONBUTTON.TOOLTIP.GITHUB" placement="top" 
                         [icon]="{name:"fa-gitlab", isFab:true}"
+                        [disabled]="true"
                         (buttonClicked)="gitlabButtonClicked()"></app-icon-button>'></app-copy-button>
                 </div>
             </div>
@@ -601,6 +618,15 @@
             </div>
 
         </mat-tab>
+        <mat-tab label="{{ 'MODAL.SECOND_SECTION' | translate }}"> {{ 'MODAL.SECOND_CONTENT' | translate }} </mat-tab>
+        <mat-tab label="{{ 'MODAL.THIRD_SECTION' | translate }}"> {{ 'MODAL.THIRD_CONTENT' | translate }} </mat-tab>
+    </mat-tab-group>
+</app-modal>
+
+<app-modal [(visible)]="modalLoadingVisible" [medium]="true" [title]="'MODAL.WINDOW'" [loading]="modalLoading">
+    <mat-tab-group disableRipple [@.disabled]="true">
+        <!-- @.disabled permet de ne pas avoir de transition de changement -->
+        <mat-tab label="{{ 'MODAL.FIRST_SECTION' | translate }}"> {{ 'MODAL.FIRST_CONTENT' | translate }} </mat-tab>
         <mat-tab label="{{ 'MODAL.SECOND_SECTION' | translate }}"> {{ 'MODAL.SECOND_CONTENT' | translate }} </mat-tab>
         <mat-tab label="{{ 'MODAL.THIRD_SECTION' | translate }}"> {{ 'MODAL.THIRD_CONTENT' | translate }} </mat-tab>
     </mat-tab-group>

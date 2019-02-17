@@ -54,7 +54,8 @@
         "WINDOW": "Modal window",
         "OPEN": {
             "REGULAR": "Open the regular modal",
-            "FULLSCREEN": "Open the fullscreen modal"
+            "FULLSCREEN": "Open the fullscreen modal",
+            "LOADING": "Open the modal with loading"
         },
         "EXIT": "Exit",
         "FIRST_SECTION": "First section",

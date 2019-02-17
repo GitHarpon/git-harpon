@@ -5,6 +5,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
+import { LoaderComponent } from '../loader/loader.component';
 
 describe('ModalComponent', () => {
   let component: ModalComponent;
@@ -13,12 +14,12 @@ describe('ModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalComponent ],
+      declarations: [ ModalComponent, LoaderComponent ],
       imports: [
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader},
         })
-      ]
+      ],
     })
     .compileComponents();
   }));
