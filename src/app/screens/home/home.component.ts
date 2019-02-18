@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ResizeEvent } from 'angular-resizable-element';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +12,13 @@ export class HomeComponent implements OnInit {
 
   projectModalVisible: Boolean;
   searchInputValue: String;
+  dimensions: number;
+  style: Object;
 
   constructor(public router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
-
+    this.dimensions = 20;
   }
 
   pullButtonClicked() {
@@ -44,6 +47,21 @@ export class HomeComponent implements OnInit {
 
   displaySearchInputValue() {
     this.toastr.info(this.searchInputValue.toString());
+  }
+
+  validate(event: ResizeEvent): boolean {
+    if (event.rectangle.width &&
+      (event.rectangle.width < this.dimensions)
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  onResizeEnd(event: ResizeEvent): void {
+    this.style = {
+      width: `${event.rectangle.width}px`
+    };
   }
 
 }

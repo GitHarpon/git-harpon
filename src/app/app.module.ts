@@ -13,6 +13,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import {MatTabsModule, MatIconModule } from '@angular/material';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { ClipboardModule } from 'ngx-clipboard';
+import { ResizableModule } from 'angular-resizable-element';
 
 
 // NG Translate
@@ -83,6 +84,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    ResizableModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

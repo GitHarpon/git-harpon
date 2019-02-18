@@ -101,3 +101,20 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.rectangle {
+    position: fixed;
+    top: 50px;
+    height: 88%;
+    min-width: 20%;
+    max-width: 50%;
+    border-top: 1px solid $dark;
+    background: $light-grey;
+    color: $white;
+    text-align:center;
+    padding: $gap-sm;
+    
+    mwlResizable {
+        box-sizing: border-box;
+    }
+}
