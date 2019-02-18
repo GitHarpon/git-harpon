@@ -122,3 +122,15 @@
     font-size: $fs-small;
     color: $muted-white;
 }
+
+.gh-project-not-opened {
+    visibility: hidden;
+}
+
+.icon-times {
+    color: $muted-white;
+
+    &:hover {
+        color: $white;
+    }
+}

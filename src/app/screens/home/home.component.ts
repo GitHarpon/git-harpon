@@ -150,6 +150,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  closeRepo() {
+    this.path = undefined;
+    this.repoName = undefined;
+  }
+
   ngOnDestroy() {
     this.pathSubscription.unsubscribe();
     this.repoNameSubscription.unsubscribe();

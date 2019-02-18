@@ -119,7 +119,8 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-code-branch', isFab: false},
       { icon: 'fa-cog', isFab: false},
       {icon: 'fa-laptop', isFab: false},
-      { icon: 'fa-search', isFab: false}
+      { icon: 'fa-search', isFab: false},
+      { icon: 'fa-times', isFab: false}
     ];
 
     this.dataDropdownExample = [
