@@ -97,7 +97,6 @@ export class HomeComponent implements OnInit, OnDestroy {
             onActivateTick: true
           });
 
-          // On vide les champs et on ferme la modale
           this.projectModalVisible = false;
           this.initName = '';
           this.initLocation = '';
