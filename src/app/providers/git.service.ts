@@ -59,6 +59,7 @@ export class GitService {
 
           gitPromise(PATHTOREPO).init()
             .then(() => {
+              this.setPath(PATHTOREPO);
               resolve(new ServiceResult(true, 'SUCCESS', 'INIT.SUCCESS'));
             })
             .catch(() => {
@@ -76,7 +77,6 @@ export class GitService {
       if (this.electronService.fs.existsSync(newPath)) {
         gitPromise(newPath).checkIsRepo()
           .then(isRepo => {
-            console.log(isRepo);
             if (isRepo) {
               this.path = newPath;
               this.repoName = this.electronService.path.basename(this.path);
@@ -111,8 +111,8 @@ export class GitService {
       path: path
     };
     for (let INDEX = 0; INDEX < this.recentProject.length; INDEX++) {
-      if (this.recentProject[INDEX].repo == PROJECT.repo
-        && this.recentProject[INDEX].path == PROJECT.path) {
+      if (this.recentProject[INDEX].repo === PROJECT.repo
+        && this.recentProject[INDEX].path === PROJECT.path) {
         this.recentProject.splice(INDEX, 1);
         INDEX--;
       }
@@ -131,7 +131,7 @@ export class GitService {
 
   deleteProjetWithPath(path: any) {
     for (let INDEX = 0; INDEX < this.recentProject.length; INDEX++) {
-      if (this.recentProject[INDEX].path == path) {
+      if (this.recentProject[INDEX].path === path) {
         this.recentProject.splice(INDEX, 1);
         INDEX--;
       }
