@@ -44,18 +44,10 @@ export class GitService {
     this.recentProjectSubject.next(this.recentProject.slice());
   }
 
-  /**
-   * Fonction permettant de tester si currentPath est un repo git
-   * @param currentPath le chemin à tester
-   */
   isRepo(currentPath: string) {
     return gitPromise(currentPath).checkIsRepo();
   }
 
-  /**
-   * Fonction permettant de changer le chemin courant
-   * @param newPath le nouveau chemin
-   */
   async setPath(newPath) {
     if (this.electronService.fs.existsSync(newPath)) {
       if (await this.isRepo(newPath)) {
