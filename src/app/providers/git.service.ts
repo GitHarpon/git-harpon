@@ -51,6 +51,9 @@ export class GitService {
 
           gitPromise(PATHTOREPO).init()
             .then( () => {
+              // TODO : Mettre le chemin comme étant mtn celui par défaut
+
+
               resolve(new ServiceResult(true, 'SUCCESS', 'INIT.SUCCESS'));
             })
             .catch( () => {
