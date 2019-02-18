@@ -7,7 +7,6 @@ import { initNgModule } from '@angular/core/src/view/ng_module';
 import { Subscription } from 'rxjs';
 import { ServiceResult } from '../../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -37,13 +36,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.path = path;
     });
     this.gitService.emitPathSubject();
-   
+
     this.repoNameSubscription = this.gitService.repoNameSubject.subscribe(
       (repoName: any) => {
         this.repoName = repoName;
     });
     this.gitService.emitRepoNameSubject();
-   
+
     this.recentProjectSubscription = this.gitService.recentProjectSubject.subscribe(
       (recentProject: any) => {
         this.recentProject = recentProject;
@@ -128,7 +127,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   openBrowse() {
     const NEWPATH = this.electronService.browse();
-    this.openRepo(NEWPATH);
+    if (NEWPATH !== null) {
+      this.openRepo(NEWPATH);
+    }
   }
 
   openRepo(path: any) {

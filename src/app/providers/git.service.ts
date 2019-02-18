@@ -10,7 +10,7 @@ import { LocalStorage } from 'ngx-store';
 
 @Injectable()
 export class GitService {
-  @LocalStorage({key: 'recentProject'}) recentProject = [];
+  @LocalStorage({ key: 'recentProject' }) recentProject = [];
   recentProjectSubject: Subject<any[]>;
   path: any;
   pathSubject: Subject<any>;
@@ -25,8 +25,12 @@ export class GitService {
     this.pathSubject = new Subject<any>();
     this.repoNameSubject = new Subject<any>();
     this.recentProjectSubject = new Subject<any[]>();
-    if (this.recentProject[0].path) {
-      this.setPath(this.recentProject[0].path);
+    if (this.recentProject[0]) {
+      if (this.recentProject[0].path) {
+        this.setPath(this.recentProject[0].path);
+      } else {
+        this.path = this.electronService.process.cwd();
+      }
     } else {
       this.path = this.electronService.process.cwd();
     }
@@ -43,7 +47,7 @@ export class GitService {
   emitRecentProjectSubject() {
     this.recentProjectSubject.next(this.recentProject.slice());
   }
-  
+
   isRepo(currentPath: string) {
     return gitPromise(currentPath).checkIsRepo();
   }
@@ -58,10 +62,10 @@ export class GitService {
           }
 
           gitPromise(PATHTOREPO).init()
-            .then( () => {
+            .then(() => {
               resolve(new ServiceResult(true, 'SUCCESS', 'INIT.SUCCESS'));
             })
-            .catch( () => {
+            .catch(() => {
               reject(new ServiceResult(false, 'ERROR', 'INIT.FAILED'));
             });
         } else {
@@ -70,7 +74,7 @@ export class GitService {
       });
     }
   }
- 
+
   async setPath(newPath) {
     if (this.electronService.fs.existsSync(newPath)) {
       if (await this.isRepo(newPath)) {
@@ -91,7 +95,7 @@ export class GitService {
     } else {
       this.deleteProjetWithPath(newPath);
       return new ServiceResult(false, this.translate.instant('ERROR'),
-          this.translate.instant('OPEN.REPO_NOT_EXIST'));
+        this.translate.instant('OPEN.REPO_NOT_EXIST'));
     }
   }
 
@@ -102,7 +106,7 @@ export class GitService {
     };
     for (let INDEX = 0; INDEX < this.recentProject.length; INDEX++) {
       if (this.recentProject[INDEX].repo == PROJECT.repo
-          && this.recentProject[INDEX].path == PROJECT.path) {
+        && this.recentProject[INDEX].path == PROJECT.path) {
         this.recentProject.splice(INDEX, 1);
         INDEX--;
       }
