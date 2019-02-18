@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   initBrowse() {
     const INITPATH = this.electronService.browse();
-    if (INITPATH !== undefined) {
+    if (INITPATH !== null) {
       this.initLocation = INITPATH;
     }
     this.updateFullPath();
