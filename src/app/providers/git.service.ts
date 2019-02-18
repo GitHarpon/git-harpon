@@ -48,10 +48,6 @@ export class GitService {
     this.recentProjectSubject.next(this.recentProject.slice());
   }
 
-  isRepo(currentPath: string) {
-    return gitPromise(currentPath).checkIsRepo();
-  }
-
   init(initLocation: string, initName: string) {
     if (initLocation && initName) {
       const PATHTOREPO = this.electronService.path.join(initLocation, initName);
@@ -76,27 +72,33 @@ export class GitService {
   }
 
   async setPath(newPath) {
-    if (this.electronService.fs.existsSync(newPath)) {
-      if (await this.isRepo(newPath)) {
-        this.path = newPath;
-        this.repoName = this.electronService.path.basename(this.path);
-        this.emitRepoNameSubject();
-        this.electronService.process.chdir(this.path);
-        this.git.cwd(this.path);
-        this.gitP.cwd(this.path);
-        this.emitPathSubject();
-        this.registerProject(this.repoName, this.path);
-        return new ServiceResult(true, this.translate.instant('SUCCESS'),
-          this.translate.instant('OPEN.OPENED_REPO'));
+    return new Promise<ServiceResult>((resolve, reject) => {
+      if (this.electronService.fs.existsSync(newPath)) {
+        gitPromise(newPath).checkIsRepo()
+          .then(isRepo => {
+            if (isRepo) {
+              this.path = newPath;
+              this.repoName = this.electronService.path.basename(this.path);
+              this.emitRepoNameSubject();
+              this.electronService.process.chdir(this.path);
+              this.git.cwd(this.path);
+              this.gitP.cwd(this.path);
+              this.emitPathSubject();
+              this.registerProject(this.repoName, this.path);
+              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('OPEN.OPENED_REPO')));
+            }
+          })
+          .catch(() => {
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+              this.translate.instant('OPEN.NOT_GIT_REPO')));
+          });
       } else {
-        return new ServiceResult(false, this.translate.instant('ERROR'),
-          this.translate.instant('OPEN.NOT_GIT_REPO'));
+        this.deleteProjetWithPath(newPath);
+        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+          this.translate.instant('OPEN.REPO_NOT_EXIST')));
       }
-    } else {
-      this.deleteProjetWithPath(newPath);
-      return new ServiceResult(false, this.translate.instant('ERROR'),
-        this.translate.instant('OPEN.REPO_NOT_EXIST'));
-    }
+    });
   }
 
   registerProject(repo: any, path: any) {

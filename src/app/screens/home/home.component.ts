@@ -138,12 +138,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (path !== null) {
         this.gitService.setPath(path)
           .then((data) => {
-            if (data.success) {
-              this.toastr.info(data.message, data.title);
-            } else {
-              this.toastr.error(data.message, data.title);
-            }
             this.projectModalLoading = false;
+            this.toastr.info(data.message, data.title);
+          })
+          .catch((data) => {
+            this.projectModalLoading = false;
+            this.toastr.error(data.message, data.title);
           });
       }
     }
