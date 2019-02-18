@@ -76,6 +76,7 @@ export class GitService {
       if (this.electronService.fs.existsSync(newPath)) {
         gitPromise(newPath).checkIsRepo()
           .then(isRepo => {
+            console.log(isRepo);
             if (isRepo) {
               this.path = newPath;
               this.repoName = this.electronService.path.basename(this.path);
@@ -87,6 +88,9 @@ export class GitService {
               this.registerProject(this.repoName, this.path);
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                 this.translate.instant('OPEN.OPENED_REPO')));
+            } else {
+              reject(new ServiceResult(false, this.translate.instant('ERROR'),
+              this.translate.instant('OPEN.NOT_GIT_REPO')));
             }
           })
           .catch(() => {
