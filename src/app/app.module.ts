@@ -20,6 +20,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { ElectronService } from './providers/electron.service';
+import { GitService } from './providers/git.service';
 
 import { WebviewDirective } from './directives/webview.directive';
 
@@ -27,6 +28,7 @@ import { AppComponent } from './app.component';
 import { MonacoEditorWrapperComponent } from './components/monaco-wrapper/monaco-editor-wrapper.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WebStorageModule } from 'ngx-store';
 
 import { ToastrModule } from 'ngx-toastr';
 import { EditorPreferencesService } from './providers/editor-preferences.service';
@@ -83,6 +85,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    WebStorageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -96,7 +99,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       useBootstrap4: true
     })
   ],
-  providers: [ElectronService, EditorPreferencesService],
+  providers: [ElectronService, GitService, EditorPreferencesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -40,6 +40,7 @@
     },
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
+    "ERROR": "Erreur",
     "DANGER": "Danger",
     "UPDATE_VALUE": "Changer la valeur",
     "DISPLAY_VALUE": "Afficher la valeur",
@@ -73,7 +74,15 @@
     "EDITOR": "Editeur",
     "UI": "Interface Utilisateur",
     "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
-    "OPEN": "Ouvrir",
+    "OPEN": {
+        "TITLE": "Ouvrir",
+        "REPO": "Ouvrir un Dépôt",
+        "OPENED": "Ouvert récemment",
+        "BROWSE": "Parcourir",
+        "OPENED_REPO": "Le dépôt a été ouvert avec succès",
+        "NOT_GIT_REPO": "Ce répertoire n'est pas un répertoire git",
+        "REPO_NOT_EXIST": "Ce répertoire n'existe plus"
+    },
     "CLONE": "Cloner",
     "INIT": "Initialiser"
 }

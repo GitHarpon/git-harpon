@@ -40,6 +40,7 @@
     },
     "INFORMATION": "Information",
     "SUCCESS": "Success",
+    "ERROR": "Error",
     "DANGER": "Danger",
     "UPDATE_VALUE": "Update value",
     "DISPLAY_VALUE": "Display value",
@@ -73,7 +74,15 @@
     "EDITOR": "Editor",
     "UI": "User Interface",
     "REPOSITORY_MANAGEMENT": "Repository management",
-    "OPEN": "Open",
+    "OPEN": {
+        "TITLE": "Open",
+        "REPO": "Open a Reporitory",
+        "OPENED": "Recently Opened",
+        "BROWSE": "Browse",
+        "OPENED_REPO": "The repository was successfully opened",
+        "NOT_GIT_REPO": "This is not a git repository",
+        "REPO_NOT_EXIST": "The repository no longer exist"
+    },
     "CLONE": "Clone",
     "INIT": "Init"
 }
