@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { GitService } from '../../providers/git.service';
 import { ElectronService } from '../../providers/electron.service';
 import { Subscription } from 'rxjs';
-import { LocalStorage } from 'ngx-store';
 
 @Component({
   selector: 'app-home',

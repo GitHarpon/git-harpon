@@ -7,7 +7,6 @@ import * as  GitUrlParse from 'git-url-parse';
 import { ServiceResult } from '../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-store';
-import { resolve } from 'url';
 
 @Injectable()
 export class GitService {
