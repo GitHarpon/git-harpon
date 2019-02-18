@@ -41,6 +41,7 @@
     "NAME": "Nom",
     "INFORMATION": "Information",
     "SUCCESS": "Success",
+    "ERROR": "Error",
     "DANGER": "Danger",
     "ERROR": "Error",
     "PATH_NOT_FOUND": "This path doesn't exist",
@@ -76,7 +77,15 @@
     "EDITOR": "Editor",
     "UI": "User Interface",
     "REPOSITORY_MANAGEMENT": "Repository management",
-    "OPEN": "Open",
+    "OPEN": {
+        "TITLE": "Open",
+        "REPO": "Open a Reporitory",
+        "OPENED": "Recently Opened",
+        "BROWSE": "Browse",
+        "OPENED_REPO": "The repository was successfully opened",
+        "NOT_GIT_REPO": "This is not a git repository",
+        "REPO_NOT_EXIST": "The repository no longer exist"
+    },
     "CLONE": "Clone",
     "INIT": {
         "TITLE": "Init",

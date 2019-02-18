@@ -58,6 +58,7 @@
     "ngx-clipboard": "^11.1.9",
     "ngx-contextmenu": "^5.1.1",
     "ngx-scrollbar": "^4.1.1",
+    "ngx-store": "^2.1.0",
     "ngx-toastr": "^9.1.1",
     "popper.js": "^1.14.7",
     "rxjs-compat": "^6.3.3",

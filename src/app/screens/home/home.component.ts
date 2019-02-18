@@ -7,6 +7,7 @@ import { initNgModule } from '@angular/core/src/view/ng_module';
 import { Subscription } from 'rxjs';
 import { ServiceResult } from '../../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,6 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-
   projectModalVisible: Boolean;
   searchInputValue: string;
   initName: string;
@@ -23,17 +23,32 @@ export class HomeComponent implements OnInit, OnDestroy {
   projectModalLoading: Boolean;
   path: any;
   pathSubscription: Subscription;
+  repoName: any;
+  repoNameSubscription: Subscription;
+  recentProject: any[];
+  recentProjectSubscription: Subscription;
 
-  constructor(public router: Router, private toastr: ToastrService,
+
+ constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
     private translateService: TranslateService) {
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
-      }
-    );
+    });
     this.gitService.emitPathSubject();
-
+   
+    this.repoNameSubscription = this.gitService.repoNameSubject.subscribe(
+      (repoName: any) => {
+        this.repoName = repoName;
+    });
+    this.gitService.emitRepoNameSubject();
+   
+    this.recentProjectSubscription = this.gitService.recentProjectSubject.subscribe(
+      (recentProject: any) => {
+        this.recentProject = recentProject;
+    });
+    this.gitService.emitRecentProjectSubject();
   }
 
   ngOnInit() {
@@ -108,11 +123,34 @@ export class HomeComponent implements OnInit, OnDestroy {
           });
         });
     }
-
     this.projectModalLoading = false;
+  }
+
+  openBrowse() {
+    const NEWPATH = this.electronService.browse();
+    this.openRepo(NEWPATH);
+  }
+
+  openRepo(path: any) {
+    if (this.path !== path) {
+      this.projectModalLoading = true;
+      if (path !== null) {
+        this.gitService.setPath(path)
+          .then((data) => {
+            if (data.success) {
+              this.toastr.info(data.message, data.title);
+            } else {
+              this.toastr.error(data.message, data.title);
+            }
+            this.projectModalLoading = false;
+          });
+      }
+    }
   }
 
   ngOnDestroy() {
     this.pathSubscription.unsubscribe();
+    this.repoNameSubscription.unsubscribe();
+    this.recentProjectSubscription.unsubscribe();
   }
 }

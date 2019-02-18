@@ -28,6 +28,7 @@ import { AppComponent } from './app.component';
 import { MonacoEditorWrapperComponent } from './components/monaco-wrapper/monaco-editor-wrapper.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WebStorageModule } from 'ngx-store';
 
 import { ToastrModule } from 'ngx-toastr';
 import { EditorPreferencesService } from './providers/editor-preferences.service';
@@ -84,6 +85,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    WebStorageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
