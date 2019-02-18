@@ -28,25 +28,25 @@ export class HomeComponent implements OnInit, OnDestroy {
   recentProjectSubscription: Subscription;
 
 
- constructor(public router: Router, private toastr: ToastrService,
+  constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
     private translateService: TranslateService) {
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
-    });
+      });
     this.gitService.emitPathSubject();
 
     this.repoNameSubscription = this.gitService.repoNameSubject.subscribe(
       (repoName: any) => {
         this.repoName = repoName;
-    });
+      });
     this.gitService.emitRepoNameSubject();
 
     this.recentProjectSubscription = this.gitService.recentProjectSubject.subscribe(
       (recentProject: any) => {
         this.recentProject = recentProject;
-    });
+      });
     this.gitService.emitRecentProjectSubject();
   }
 
@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     if (this.initLocation && this.initName) {
       await this.gitService.init(this.initLocation, this.initName)
-        .then( (result) => {
+        .then((result) => {
           this.toastr.info(this.translateService.instant(result.message), this.translateService.instant(result.title), {
             onActivateTick: true
           });
@@ -116,7 +116,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.initLocation = '';
           this.fullPath = '';
         })
-        .catch( (result) => {
+        .catch((result) => {
           this.toastr.error(this.translateService.instant(result.message), this.translateService.instant(result.title), {
             onActivateTick: true
           });
@@ -139,6 +139,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.gitService.setPath(path)
           .then((data) => {
             this.projectModalLoading = false;
+            this.projectModalVisible = false;
             this.toastr.info(data.message, data.title);
           })
           .catch((data) => {
