@@ -38,10 +38,13 @@
             "GITLAB": "Ceci est GitLab"
         }
     },
+    "NAME": "Nom",
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
     "ERROR": "Erreur",
     "DANGER": "Danger",
+    "ERROR": "Erreur",
+    "PATH_NOT_FOUND": "Ce chemin n'existe pas",
     "UPDATE_VALUE": "Changer la valeur",
     "DISPLAY_VALUE": "Afficher la valeur",
     "LABEL": "Label",
@@ -84,5 +87,14 @@
         "REPO_NOT_EXIST": "Ce répertoire n'existe plus"
     },
     "CLONE": "Cloner",
-    "INIT": "Initialiser"
+    "INIT": {
+        "TITLE": "Initialiser",
+        "TAB_TITLE": "Initialiser un dépôt",
+        "WHERE": "Initialiser dans",
+        "SUCCESS": "Initialisation réussie",
+        "FAILED": "Initialisation échouée"
+    },
+    "FULL_PATH": "Chemin complet",
+    "BROWSE": "Parcourir",
+    "CREATE_REPOSITORY": "Créer le répertoire"
 }
