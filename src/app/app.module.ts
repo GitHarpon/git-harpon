@@ -44,6 +44,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 import { CopyButtonComponent } from './components/copy-button/copy-button.component';
 import { PreferencesComponent } from './screens/preferences/preferences.component';
+import { AccordionComponent } from './components/accordion/accordion.component';
 
 
 // AoT requires an exported function for factories
@@ -69,7 +70,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModalComponent,
     InputNumberComponent,
     CopyButtonComponent,
-    PreferencesComponent
+    PreferencesComponent,
+    AccordionComponent
   ],
   imports: [
     ReactiveFormsModule,
