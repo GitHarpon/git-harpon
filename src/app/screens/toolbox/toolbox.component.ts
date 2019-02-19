@@ -25,6 +25,7 @@ export class ToolboxComponent implements OnInit {
   modalLoadingVisible: Boolean;
   modalInputValue: String;
   modalTabSelectedIndex: any;
+  infoBarVisible: Boolean;
   inputValueNumber: number;
   inputMinMaxValueNumber: number;
   max: number;
@@ -223,6 +224,14 @@ export class ToolboxComponent implements OnInit {
         this.modalLoading = false;
       }
     );
+  }
+
+  openInfoBar() {
+    this.infoBarVisible = true;
+  }
+
+  closeInfoBar() {
+    this.infoBarVisible = false;
   }
 
   displayModalInputValue() {
