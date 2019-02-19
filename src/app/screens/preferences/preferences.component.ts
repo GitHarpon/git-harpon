@@ -27,7 +27,6 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     this.preferencesTabSelectedIndex = 1;
 
     this.dataDropdownLanguage = this.langPrefService.getLanguages();
-    console.log(this.dataDropdownLanguage);
 
     // Ici il faut récupérer le language courant de l'appli
     // Donc comme ça c'est bon mais dans l'app.component.ts faut gérer avec le LocalStorage
@@ -55,6 +54,11 @@ export class PreferencesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.languageSubscription.unsubscribe();
+  }
+
+  // Fonction qui regroupe toutes les fonctions applicables aux préférences
+  saveChangedPreferences() {
+    this.switchLanguage();
   }
 
 }

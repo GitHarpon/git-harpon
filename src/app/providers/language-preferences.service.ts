@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class LanguagePreferencesService {
     languages: any[];
     preferences: string;
-    index: number;
     preferencesSubject = new Subject<string>();
 
     constructor(private translate: TranslateService) {
@@ -33,9 +32,10 @@ export class LanguagePreferencesService {
     setLanguage(newLanguage) {
         this.preferences = this.translate.instant(newLanguage);
         if (this.preferences === this.translate.instant('FRENCH')) {
-            localStorage.clear;
+            localStorage.removeItem('lang');
             this.translate.setDefaultLang('fr');
         } else {
+            localStorage.setItem('lang', 'en');
             this.translate.setDefaultLang('en');
         }
         this.emitPreferencesSubject();
