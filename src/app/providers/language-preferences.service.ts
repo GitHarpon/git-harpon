@@ -31,19 +31,18 @@ export class LanguagePreferencesService {
     }
 
     setLanguage(newLanguage) {
-        return new Promise<ServiceResult>((resolve) => {
-            this.preferences = newLanguage;
-            if (this.preferences === this.languages[0].key) {
-                localStorage.removeItem('lang');
-                this.translate.setDefaultLang('fr');
-            } else {
-                localStorage.setItem('lang', 'en');
-                this.translate.setDefaultLang('en');
-            }
-            resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-                this.translate.instant('CHANGE_PREFERENCE')));
-            this.emitPreferencesSubject();
-        });
+        localStorage.setItem('lang', newLanguage);
+        this.translate.setDefaultLang(newLanguage);
+
+        // this.preferences = newLanguage;
+        // if (this.preferences === this.languages[0].key) {
+        //     localStorage.removeItem('lang');
+        //     this.translate.setDefaultLang('fr');
+        // } else {
+        //     localStorage.setItem('lang', 'en');
+        //     this.translate.setDefaultLang('en');
+        // }
+        this.emitPreferencesSubject();
     }
 
     getLanguages() {

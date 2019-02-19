@@ -37,7 +37,6 @@ export class PreferencesComponent implements OnInit, OnDestroy {
 
     this.languageSubscription = this.langPrefService.preferencesSubject.subscribe(
       (preference) => {
-        console.log(preference);
         this.dropdownLanguageValue = preference;
       }
     );
@@ -50,20 +49,17 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     }
   }
 
-  // switchLanguage() {
-  //   this.langPrefService.setLanguage(this.dropdownLanguageValue);
-  // }
+  switchLanguage() {
+    this.langPrefService.setLanguage(this.dropdownLanguageValue);
+  }
 
   // Fonction qui regroupe toutes les fonctions applicables aux préférences
   saveChangedPreferences() {
     this.loading = true;
-    this.langPrefService.setLanguage(this.dropdownLanguageValue)
-    .then((res) => {
-      this.loading = false;
-      this.toastr.info(res.message, res.title);
-    });
-    // this.switchLanguage();
+    this.switchLanguage();
     this.loading = false;
+    this.toastr.info(this.translate.instant('SUCCESS'),
+        this.translate.instant('CHANGE_PREFERENCE'));
     this.router.navigate(['home']);
   }
 
