@@ -8,7 +8,11 @@
     @include bg-color($dark-blue);
     @include wX(100%);
     min-height: 50px;
-    display: flex;
     align-items: center;
     justify-content: center;
+    display:none;
+
+    &.visible {
+        display: flex;
+    }
 }

@@ -38,6 +38,7 @@
             "GITLAB": "Ceci est GitLab"
         }
     },
+    "CLOSE": "Fermer",
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
     "ERROR": "Erreur",
@@ -84,5 +85,9 @@
         "REPO_NOT_EXIST": "Ce répertoire n'existe plus"
     },
     "CLONE": "Cloner",
-    "INIT": "Initialiser"
+    "INIT": "Initialiser",
+    "INFOBAR": {
+        "TITLE": "Barre d'informations",
+        "OPEN": "Ouvrir la barre d'informations"
+    }
 }
