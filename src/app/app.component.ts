@@ -21,8 +21,6 @@ export class AppComponent {
     } else {
       this.translate.setDefaultLang('en');
     }
-    console.log(localStorage.length);
-
 
     console.log('AppConfig', AppConfig);
 

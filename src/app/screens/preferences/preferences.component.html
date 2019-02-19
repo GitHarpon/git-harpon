@@ -1,4 +1,4 @@
-<app-modal [(visible)]="preferencesVisible" [fullscreen]="true">
+<app-modal [(visible)]="preferencesVisible" [fullscreen]="true" [loading]="loading">
     <mat-tab-group [(selectedIndex)]="preferencesTabSelectedIndex" (selectedTabChange)="checkIfCloseModal($event)"
         disableRipple [@.disabled]="true">
         <!-- @.disabled permet de ne pas avoir de transition de changement -->
@@ -23,7 +23,7 @@
                     [(value)]="dropdownLanguageValue"></app-dropdown>
                 </div>
                 <div class="col-md-12 mt-2 text-right">
-                    <app-button value="CHANGE_PREFERENCE" type="primary" (buttonClicked)="saveChangedPreferences()"></app-button>
+                    <app-button value="CHANGE_PREFERENCE" type="success" (buttonClicked)="saveChangedPreferences()"></app-button>
                 </div>
             </div>
 

@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { ServiceResult } from '../models/ServiceResult';
 
 @Injectable()
 export class LanguagePreferencesService {
@@ -30,15 +31,19 @@ export class LanguagePreferencesService {
     }
 
     setLanguage(newLanguage) {
-        this.preferences = this.translate.instant(newLanguage);
-        if (this.preferences === this.translate.instant('FRENCH')) {
-            localStorage.removeItem('lang');
-            this.translate.setDefaultLang('fr');
-        } else {
-            localStorage.setItem('lang', 'en');
-            this.translate.setDefaultLang('en');
-        }
-        this.emitPreferencesSubject();
+        return new Promise<ServiceResult>((resolve) => {
+            this.preferences = newLanguage;
+            if (this.preferences === this.languages[0].key) {
+                localStorage.removeItem('lang');
+                this.translate.setDefaultLang('fr');
+            } else {
+                localStorage.setItem('lang', 'en');
+                this.translate.setDefaultLang('en');
+            }
+            resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('CHANGE_PREFERENCE')));
+            this.emitPreferencesSubject();
+        });
     }
 
     getLanguages() {
