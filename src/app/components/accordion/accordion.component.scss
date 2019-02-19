@@ -9,7 +9,6 @@
 }
 
 /deep/ .card {
-    top: 80px;
     @include wX(10cm);
     border: $light-grey;
     background: $light-grey;
@@ -17,8 +16,9 @@
 
 /deep/ .card-block {
     @include wX(10cm);
-    max-width: 100%;
-    min-width: 80%;
+    // max-width: 100%;
+    // min-width: 80%;
+    margin-bottom: 20px;
 }
 
 /deep/ .card-header {

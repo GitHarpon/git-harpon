@@ -41,9 +41,6 @@
     </div>
 </app-container>
 
-<app-accordion title="LOCAL" [icon]="{name:'fa-laptop', isFab:false}"></app-accordion>
-<app-accordion title="{{ 'REMOTE' | translate }}" [icon]="{name:'fa-cloud', isFab:false}" [disabled]="true"></app-accordion>
-
 <app-modal [(visible)]="projectModalVisible" [medium]="true" title="{{ 'REPOSITORY_MANAGEMENT' | translate }}">
     <mat-tab-group disableRipple [@.disabled]="true">
         <mat-tab label="{{ 'OPEN' | translate }}">
