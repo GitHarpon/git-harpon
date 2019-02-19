@@ -17,8 +17,8 @@ Cette application a été réalisée par des étudiants de Master 1 Génie de l'
 Pour cela, nous avons utilisé :
 
 - Angular v7.1.4
-- Electron v2.0.7
-- Electron Builder v20.28.1
+- Electron v4.0.0
+- Electron Builder v20.36.1
 - Bootstrap 4
 - le [kit de démarrage](https://github.com/maximegris/angular-electron) de maximegris
 

@@ -5,7 +5,7 @@
         <div class="col-4 gh-button-bar-project gh-breadcrumbs">
             <ul>
                 <li class="gh-folder"><a (click)="openProjectModal()"><i class="far fa-folder fa-lg"></i></a></li>
-                <li class="gh-project"><a>Projet</a></li>
+                <li class="gh-project"><a data-toggle="tooltip" title="{{ path }}">{{ repoName }}</a></li>
                 <li class="gh-branch"><a>Branch</a></li>
             </ul>
         </div>
@@ -41,13 +41,77 @@
     </div>
 </app-container>
 
-<app-modal [(visible)]="projectModalVisible" [medium]="true" title="{{ 'REPOSITORY_MANAGEMENT' | translate }}">
+<app-modal [(visible)]="projectModalVisible" [medium]="true" title="{{ 'REPOSITORY_MANAGEMENT' | translate }}" [loading]="projectModalLoading">
     <mat-tab-group disableRipple [@.disabled]="true">
-        <mat-tab label="{{ 'OPEN' | translate }}">
-                {{ 'OPEN' | translate }}
+        <mat-tab label="{{ 'OPEN.TITLE' | translate }}">
+            <span class="section-title">
+                <i class="fas fa-folder-open fa-xs"></i>
+                {{ 'OPEN.REPO' | translate }}
+            </span>
+            <div class="col-md-12 text-right">
+                <app-button value="OPEN.BROWSE" type="primary" (buttonClicked)="openBrowse()"></app-button>
+            </div>
+                <span class="section-title">
+                    <i class="fas fa-clock fa-xs"></i>
+                    {{ 'OPEN.OPENED' | translate }}
+                </span>
+                <div *ngFor="let project of recentProject | keyvalue; first as isFirst" (click)="openRepo(project.value.path)"
+                    [class.gh-open-first]="isFirst" class="col-md-12 pt-1 pb-1 gh-open-recentProject">
+                    <div class="col-md-12">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            {{project.value.repo}}
+                        </div>
+                    </div>
+                    <div class="col-md-12 gh-open-recentPath">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            {{project.value.path}}
+                        </div>
+                    </div>
+                </div>
         </mat-tab>
         <mat-tab label="{{ 'CLONE' | translate }}">{{ 'CLONE' | translate }}</mat-tab>
-        <mat-tab label="{{ 'INIT' | translate }}">{{ 'INIT' | translate }}</mat-tab>
+        <mat-tab label="{{ 'INIT.TITLE' | translate }}">
+            <span class="section-title">
+                <i class="fas fa-laptop fa-xs" ></i>
+                {{ 'INIT.TAB_TITLE' | translate }}
+            </span>
+            <div class="col-md-12">
+                <div class="col-md-12 row mt-2">
+                    <div class="col-md-3 gh-label-input text-right">
+                        <label>{{ 'NAME' | translate }} </label>
+                    </div>
+                    <div class="col-md-9">
+                        <app-input class="px-0" [(value)]="initName" (keyup)="updateFullPath()"></app-input>
+                    </div>
+                </div>
+                <div class="col-md-12 row mt-2">
+                    <div class="col-md-3 gh-label-input text-right">
+                        <label>{{ 'INIT.WHERE' | translate }} </label>
+                    </div>
+                    <div class="col-md-7">
+                        <app-input class="px-0" [(value)]="initLocation" (keyup)="updateFullPath()"></app-input>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <app-button value="BROWSE" type="primary" (buttonClicked)="initBrowse()"></app-button>
+                    </div>
+                </div>
+                <div class="col-md-12 row mt-2">
+                        <div class="col-md-3 gh-label-input text-right">
+                           <label>{{ 'FULL_PATH' | translate }} </label>
+                        </div>
+                        <div class="col-md-9 gh-label-input pl-3 text-break-word">
+                            {{ fullPath }}
+                        </div>
+                    </div>
+                <div class="col-md-12 row mt-2">
+                    <div class="col-md-12 text-right">
+                        <app-button value="CREATE_REPOSITORY" type="success" [disabled]="!initName || !initLocation" (buttonClicked)="initSubmit()"></app-button>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
     </mat-tab-group>
 </app-modal>
 
