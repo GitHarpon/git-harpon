@@ -1,38 +1,4 @@
-<!-- 
-<mat-accordion class="gh-accordion" displayMode="flat">
-  <mat-expansion-panel class="gh-accordion__panel">
-    <mat-expansion-panel-header class="gh-accordion__header">
-      <mat-panel-title class="gh-accordion__title">
-        <i class="fa fa-laptop" aria-hidden="true"></i>
-        LOCAL
-      </mat-panel-title>
-      <mat-panel-description>
-        Type your name and age
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <div class="gh-accordion__content">
-      <span>Panel 1</span>
-    </div>
-  </mat-expansion-panel>
-
-  <mat-expansion-panel class="gh-accordion__panel">
-      <mat-expansion-panel-header class="gh-accordion__header">
-        <mat-panel-title class="gh-accordion__title">
-          <i class="fa fa-cloud" aria-hidden="true"></i>
-          REMOTE
-        </mat-panel-title>
-        <mat-panel-description>
-          Type your name and age
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="gh-accordion__content">
-        <span>Panel 2</span>
-      </div>
-    </mat-expansion-panel>
-</mat-accordion> -->
-
-
-<ngb-accordion #acc="ngbAccordion" class="gh-accordion accordion" [destroyOnHide]="false">
+<ngb-accordion #acc="ngbAccordion" class="gh-accordion" [destroyOnHide]="false">
   <ngb-panel [disabled]="disabled">
     <ng-template ngbPanelTitle>
         <span><i [ngClass]="[(icon.isFab ? 'fab' : 'fa'), icon.name]" class="fa-lg"></i>{{ title }}</span>
