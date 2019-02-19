@@ -119,6 +119,7 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-sign-out-alt', isFab: false},
       { icon: 'fa-code-branch', isFab: false},
       { icon: 'fa-cog', isFab: false},
+      {icon: 'fa-laptop', isFab: false},
       { icon: 'fa-search', isFab: false}
     ];
 
