@@ -1,7 +1,26 @@
 @import '../../../variables.scss';
 
-.gh-accordion {
-    position: fixed;
-    top: 50px;
-    background: $blue-grey;
+// .gh-accordion {
+//     position: fixed;
+//     top: 70px;
+//     max-width: 50%;
+//     min-width: 20%;
+// }
+
+/deep/ .card {
+    top: 80px;
+}
+
+/deep/ .card-block {
+    max-width: 50%;
+    min-width: 20%;
+}
+
+/deep/ .card-header {
+    background: $light-grey;
+    border-color: $muted-white;
+}
+
+/deep/ .card-body {
+    background: $dark-grey;
 }

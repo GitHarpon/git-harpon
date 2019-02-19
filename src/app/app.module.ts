@@ -10,10 +10,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import {MatTabsModule, MatIconModule } from '@angular/material';
+import {MatTabsModule, MatIconModule, MatExpansionModule, MatSortModule, MatFormFieldModule } from '@angular/material';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { ClipboardModule } from 'ngx-clipboard';
-
 
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -77,6 +76,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     MatIconModule,
     MatTabsModule,
+    MatSortModule,
+    MatExpansionModule,
+    MatFormFieldModule,
     NgScrollbarModule,
     NgbModule,
     ClipboardModule,

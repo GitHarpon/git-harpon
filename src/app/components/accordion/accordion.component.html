@@ -1,12 +1,72 @@
-<ngb-accordion class="gh-accordion" #acc="ngbAccordion">
-  <ngb-panel title="First">
-    <ng-template ngbPanelContent>
-        EMPLACEMENT PROVISOIR
-    </ng-template>
-  </ngb-panel>
-  <ngb-panel title="Second">
+<!-- 
+<mat-accordion class="gh-accordion" displayMode="flat">
+  <mat-expansion-panel class="gh-accordion__panel">
+    <mat-expansion-panel-header class="gh-accordion__header">
+      <mat-panel-title class="gh-accordion__title">
+        <i class="fa fa-laptop" aria-hidden="true"></i>
+        LOCAL
+      </mat-panel-title>
+      <mat-panel-description>
+        Type your name and age
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="gh-accordion__content">
+      <span>Panel 1</span>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="gh-accordion__panel">
+      <mat-expansion-panel-header class="gh-accordion__header">
+        <mat-panel-title class="gh-accordion__title">
+          <i class="fa fa-cloud" aria-hidden="true"></i>
+          REMOTE
+        </mat-panel-title>
+        <mat-panel-description>
+          Type your name and age
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="gh-accordion__content">
+        <span>Panel 2</span>
+      </div>
+    </mat-expansion-panel>
+</mat-accordion> -->
+
+
+<ngb-accordion #acc="ngbAccordion" >
+    <ngb-panel>
+      <ng-template ngbPanelTitle>
+            <span>{{ title }}</span>
+      </ng-template>
       <ng-template ngbPanelContent>
-        EMPLACEMENT PROVISOIR
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+        labore sustainable VHS.
       </ng-template>
     </ngb-panel>
-</ngb-accordion>
+    <!-- <ngb-panel>
+      <ng-template ngbPanelTitle>
+        <span>&#9733; <b>Fancy</b> title &#9733;</span>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+        labore sustainable VHS.
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel title="Disabled" [disabled]="true">
+      <ng-template ngbPanelContent>
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+        labore sustainable VHS.
+      </ng-template>
+    </ngb-panel> -->
+  </ngb-accordion>
