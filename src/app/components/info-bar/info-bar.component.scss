@@ -10,9 +10,5 @@
     min-height: 50px;
     align-items: center;
     justify-content: center;
-    display:none;
-
-    &.visible {
-        display: flex;
-    }
+    display: flex;
 }

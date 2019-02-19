@@ -7,6 +7,8 @@ import { initNgModule } from '@angular/core/src/view/ng_module';
 import { Subscription } from 'rxjs';
 import { ServiceResult } from '../../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
+import * as GitUrlParse from 'git-url-parse';
+
 
 @Component({
   selector: 'app-home',
@@ -28,8 +30,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   repoNameSubscription: Subscription;
   recentProject: any[];
   recentProjectSubscription: Subscription;
-
-  constructor(public router: Router, private toastr: ToastrService) { }
+  credInfoBarVisible: boolean;
+  username: string;
+  password: string;
+  homeLoading: boolean;
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
@@ -91,12 +95,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  clone() {
+  cloneSubmit() {
     if (this.electronService.fs.existsSync(this.cloneFolder.toString())) {
+      this.projectModalVisible = false;
+      this.credInfoBarVisible = true;
     } else {
-      this.toastr.error(this.translate.instant('ERROR'), this.translate.instant('NO_FOLDER'));
+      this.toastr.error(this.translateService.instant('ERROR'), this.translateService.instant('NO_FOLDER'));
     }
   }
+
+  clone() {
+    console.log(this.username, this.password);
+    this.credInfoBarVisible = false;
+    this.homeLoading = true;
+    // lancer le loader de home + appel au service
+  }
+
   initBrowse() {
     const INITPATH = this.electronService.browse();
     if (INITPATH !== null) {
@@ -164,6 +178,14 @@ export class HomeComponent implements OnInit, OnDestroy {
           });
       }
     }
+  }
+
+  closeCredInfoBar() {
+    this.credInfoBarVisible = false;
+    this.username = '';
+    this.password = '';
+    this.cloneUrl = '';
+    this.cloneFolder = '';
   }
 
   ngOnDestroy() {

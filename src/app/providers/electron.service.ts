@@ -7,6 +7,7 @@ import * as childProcess from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as process from 'process';
+import * as url from 'url';
 
 @Injectable()
 export class ElectronService {
@@ -19,7 +20,7 @@ export class ElectronService {
   fs: typeof fs;
   path: typeof path;
   shell: typeof shell;
-  keytar: any;
+  url: typeof url;
 
   constructor() {
     // Conditional imports
@@ -33,8 +34,7 @@ export class ElectronService {
       this.fs = window.require('fs');
       this.path = window.require('path');
       this.process = window.require('process');
-      this.keytar = this.remote.require('keytar');
-      console.log(this.keytar);
+      this.url = window.require('url');
     }
   }
 

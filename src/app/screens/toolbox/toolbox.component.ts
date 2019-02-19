@@ -39,6 +39,7 @@ export class ToolboxComponent implements OnInit {
   value: String = 'value';
   dropdownValue: String;
   dropdownValueTwo: String;
+  passwordInput: string;
 
 
   constructor(private electronService: ElectronService,
@@ -50,6 +51,7 @@ export class ToolboxComponent implements OnInit {
     this.inputEmptyValue = '';
 
     this.modalTabSelectedIndex = 1;
+    this.passwordInput = 'toto';
 
     this.inputValueNumber = 10;
     this.inputMinMaxValueNumber = 0;

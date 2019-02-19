@@ -28,7 +28,6 @@
         "URL": "URL",
         "TITLE": "Cloner"
     },
-    "BROWSE": "Parcourir",
     "BUTTON": {
         "PRIMARY": "Bouton primaire",
         "SUCCESS": "Bouton succès",
@@ -48,7 +47,6 @@
     "NAME": "Nom",
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
-    "ERROR": "Erreur",
     "DANGER": "Danger",
     "ERROR": "Erreur",
     "PATH_NOT_FOUND": "Ce chemin n'existe pas",
@@ -97,7 +95,6 @@
         "NOT_GIT_REPO": "Ce répertoire n'est pas un répertoire git",
         "REPO_NOT_EXIST": "Ce répertoire n'existe plus"
     },
-    "CLONE": "Cloner",
     "INIT": {
         "TITLE": "Initialiser",
         "TAB_TITLE": "Initialiser un dépôt",
@@ -107,5 +104,10 @@
     },
     "FULL_PATH": "Chemin complet",
     "BROWSE": "Parcourir",
-    "CREATE_REPOSITORY": "Créer le répertoire"
+    "CREATE_REPOSITORY": "Créer le répertoire",
+    "LOG_IN": "S'identifier",
+    "CANCEL": "Annuler",
+    "USERNAME": "Nom d'utilisateur",
+    "PASSWORD": "Mot de passe",
+    "LOG_TO_CONTINUE": "Veuillez vous identifier pour continuer :"
 }

@@ -1,44 +1,46 @@
 <app-container classes="dark">
     <!-- Button-Bar -->
-    <div class="gh-button-bar">
-        <!-- Project (à gauche) -->
-        <div class="col-4 gh-button-bar-project gh-breadcrumbs">
-            <ul>
-                <li class="gh-folder"><a (click)="openProjectModal()"><i class="far fa-folder fa-lg"></i></a></li>
-                <li class="gh-project"><a data-toggle="tooltip" title="{{ path }}">{{ repoName }}</a></li>
-                <li class="gh-branch"><a>Branch</a></li>
-            </ul>
-        </div>
-        <!-- Actions (au milieu) -->
-        <div class="col-4 gh-button-bar-actions">
-            <div class="d-inline-block">
-                <app-icon-button value="PULL" tooltipValue="PULL" placement="bottom"
-                    [icon]="{name:'fa-download', isFab:false}" (buttonClicked)="pullButtonClicked()">
-                </app-icon-button>
+    <app-loader [loading]="homeLoading">
+        <div class="gh-button-bar">
+            <!-- Project (à gauche) -->
+            <div class="col-4 gh-button-bar-project gh-breadcrumbs">
+                <ul>
+                    <li class="gh-folder"><a (click)="openProjectModal()"><i class="far fa-folder fa-lg"></i></a></li>
+                    <li class="gh-project"><a data-toggle="tooltip" title="{{ path }}">{{ repoName }}</a></li>
+                    <li class="gh-branch"><a>Branch</a></li>
+                </ul>
             </div>
-            <div class="d-inline-block">
-                <app-icon-button value="PUSH" tooltipValue="PUSH" placement="bottom"
-                    [icon]="{name:'fa-upload', isFab:false}" (buttonClicked)="pushButtonClicked()">
-                </app-icon-button>
-            </div>
-            <div class="d-inline-block">
-                <app-icon-button value="BRANCH" tooltipValue="BRANCH" placement="bottom"
-                    [icon]="{name:'fa-code-branch', isFab:false}" (buttonClicked)="branchButtonClicked()">
-                </app-icon-button>
-            </div>
-        </div>
-        <!-- Plus (à droite) -->
-        <div class="col-4 gh-button-bar-more">
-            <div>
-                <div class="searchInput mr-3">
-                    <app-input [(value)]="searchInputValue"></app-input>
+            <!-- Actions (au milieu) -->
+            <div class="col-4 gh-button-bar-actions">
+                <div class="d-inline-block">
+                    <app-icon-button value="PULL" tooltipValue="PULL" placement="bottom"
+                        [icon]="{name:'fa-download', isFab:false}" (buttonClicked)="pullButtonClicked()">
+                    </app-icon-button>
                 </div>
-                <a class="cursor-pointer mr-3" (click)="displaySearchInputValue()"><i class="fa fa-search"></i></a>
-                <a class="cursor-pointer mr-3" (click)="openTerminal()"><i class="fas fa-terminal"></i></a>
-                <a class="cursor-pointer" (click)="openPreferences()"><i class="fas fa-cog"></i></a>
+                <div class="d-inline-block">
+                    <app-icon-button value="PUSH" tooltipValue="PUSH" placement="bottom"
+                        [icon]="{name:'fa-upload', isFab:false}" (buttonClicked)="pushButtonClicked()">
+                    </app-icon-button>
+                </div>
+                <div class="d-inline-block">
+                    <app-icon-button value="BRANCH" tooltipValue="BRANCH" placement="bottom"
+                        [icon]="{name:'fa-code-branch', isFab:false}" (buttonClicked)="branchButtonClicked()">
+                    </app-icon-button>
+                </div>
+            </div>
+            <!-- Plus (à droite) -->
+            <div class="col-4 gh-button-bar-more">
+                <div>
+                    <div class="searchInput mr-3">
+                        <app-input [(value)]="searchInputValue"></app-input>
+                    </div>
+                    <a class="cursor-pointer mr-3" (click)="displaySearchInputValue()"><i class="fa fa-search"></i></a>
+                    <a class="cursor-pointer mr-3" (click)="openTerminal()"><i class="fas fa-terminal"></i></a>
+                    <a class="cursor-pointer" (click)="openPreferences()"><i class="fas fa-cog"></i></a>
+                </div>
             </div>
         </div>
-    </div>
+    </app-loader>
 </app-container>
 
 <app-modal [(visible)]="projectModalVisible" [medium]="true" title="{{ 'REPOSITORY_MANAGEMENT' | translate }}" [loading]="projectModalLoading">
@@ -98,7 +100,7 @@
                     </div>
                     <div class="col-md-12 row mt-3">
                         <div class="col-md-12 text-right">
-                            <app-button value="CLONE.TITLE" type="success" [disabled]="!cloneUrl || !cloneFolder" (buttonClicked)="clone()"></app-button>
+                            <app-button value="CLONE.TITLE" type="success" [disabled]="!cloneUrl || !cloneFolder" (buttonClicked)="cloneSubmit()"></app-button>
                         </div>
                     </div>
                 </div>
@@ -147,3 +149,12 @@
 </app-modal>
 
 <app-footer [devRedirect]="{ icon: 'fa-toolbox', link: '/toolbox' }"></app-footer>
+
+<!-- Info bar credentials -->
+<app-info-bar [visible]="credInfoBarVisible">
+    <span>{{ 'LOG_TO_CONTINUE' | translate }}</span>
+    <app-input [(value)]="username" [placeholder]="USERNAME" class="ml-3"></app-input>
+    <app-input [(value)]="password" [placeholder]="PASSWORD" type="password" class="ml-3"></app-input>
+    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!username || !password" (buttonClicked)="clone()"></app-button>
+    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeCredInfoBar()"></app-button>
+</app-info-bar>
