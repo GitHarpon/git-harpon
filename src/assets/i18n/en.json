@@ -61,6 +61,10 @@
         "SECOND_CONTENT": "Second content",
         "THIRD_CONTENT": "Third content"
     },
+    "INFOBAR": {
+        "TITLE": "Information bar",
+        "OPEN": "Open the information bar"
+    },
     "CONTEXT_MENU": "Menu contextuel",
     "CLICK": {
         "RIGHT": "Right click",
@@ -85,9 +89,5 @@
         "REPO_NOT_EXIST": "The repository no longer exist"
     },
     "CLONE": "Clone",
-    "INIT": "Init",
-    "INFOBAR": {
-        "TITLE": "Information bar",
-        "OPEN": "Open the information bar"
-    }
+    "INIT": "Init"
 }
