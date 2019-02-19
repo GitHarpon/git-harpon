@@ -7,7 +7,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AccordionComponent implements OnInit {
 
-  @Input() title: String = 'test';
+  @Input() title: String;
+  @Input() disabled: Boolean = false;
+  @Input() icon: {
+    name: String,
+    isFab: Boolean
+  };
 
   constructor() { }
 

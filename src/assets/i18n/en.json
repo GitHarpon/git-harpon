@@ -73,6 +73,7 @@
     "EDITOR": "Editor",
     "UI": "User Interface",
     "REPOSITORY_MANAGEMENT": "Repository management",
+    "REMOTE": "REMOTE",
     "OPEN": "Open",
     "CLONE": "Clone",
     "INIT": "Init"

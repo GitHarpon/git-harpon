@@ -1,26 +1,45 @@
 @import '../../../variables.scss';
 
-// .gh-accordion {
-//     position: fixed;
-//     top: 70px;
-//     max-width: 50%;
-//     min-width: 20%;
-// }
+.gh-accordion {
+    & i {
+        float: left;
+        padding: 5px;
+        font-size: 15px;
+    }
+}
 
 /deep/ .card {
     top: 80px;
+    @include wX(10cm);
+    border: $light-grey;
+    background: $light-grey;
 }
 
 /deep/ .card-block {
-    max-width: 50%;
-    min-width: 20%;
+    @include wX(10cm);
+    max-width: 100%;
+    min-width: 80%;
 }
 
 /deep/ .card-header {
+    @include wX(10cm);
+    padding: 0;
     background: $light-grey;
-    border-color: $muted-white;
+    border: 1px solid $dark-grey;
 }
 
 /deep/ .card-body {
+    @include wX(10cm);
     background: $dark-grey;
+    font-size: 15px;
+}
+
+/deep/ .btn-link {
+    font-size: 15px;
+    color: $white;
+    
+    &:hover {
+        text-decoration: none;
+        color: $white;
+    }
 }
