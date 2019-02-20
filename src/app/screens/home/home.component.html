@@ -7,7 +7,7 @@
                 <li class="gh-folder"><a (click)="openProjectModal()"><i class="far fa-folder fa-lg"></i></a></li>
                 <li class="gh-project" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
                     <a data-toggle="tooltip" title="{{ path }}">
-                        <i class="fa fa-times fa-xs mr-2 icon-times" (click)="closeRepo()"></i>{{ repoName }}</a></li>
+                        <i class="fa fa-times fa-xs mr-2 icon-times" (click)="closeRepo(0)"></i>{{ repoName }}</a></li>
                 <li class="gh-branch" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
                     <a>Branch</a></li>
             </ul>
