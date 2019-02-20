@@ -97,18 +97,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   cloneSubmit() {
     if (this.electronService.fs.existsSync(this.cloneFolder.toString())) {
-      this.projectModalVisible = false;
-      this.credInfoBarVisible = true;
+      var URL = GitUrlParse(this.cloneUrl);
+      if (URL.protocol === 'https') {
+        this.projectModalVisible = false;
+        this.credInfoBarVisible = true;
+      } else if (URL.protocol === 'ssh') {
+        this.toastr.error('Pas de ssh pour le moment', 'Erreur');
+      } else {
+        this.toastr.error(this.translateService.instant('INVALID_URL'),
+          this.translateService.instant('ERROR'));
+      }
     } else {
-      this.toastr.error(this.translateService.instant('ERROR'), this.translateService.instant('NO_FOLDER'));
+      this.toastr.error(this.translateService.instant('PATH_NOT_FOUND'),
+        this.translateService.instant('ERROR'));
     }
   }
 
   clone() {
-    console.log(this.username, this.password);
     this.credInfoBarVisible = false;
     this.homeLoading = true;
-    // lancer le loader de home + appel au service
+    this.gitService.clone();
   }
 
   initBrowse() {

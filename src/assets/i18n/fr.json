@@ -109,5 +109,6 @@
     "CANCEL": "Annuler",
     "USERNAME": "Nom d'utilisateur",
     "PASSWORD": "Mot de passe",
-    "LOG_TO_CONTINUE": "Veuillez vous identifier pour continuer :"
+    "LOG_TO_CONTINUE": "Veuillez vous identifier pour continuer :",
+    "INVALID_URL": "URL invalide"
 }

@@ -109,5 +109,6 @@
     "CANCEL": "Cancel",
     "USERNAME": "USERNAME",
     "PASSWORD": "PASSWORD",
-    "LOG_TO_CONTINUE": "Please log to continue:"
+    "LOG_TO_CONTINUE": "Please log to continue:",
+    "INVALID_URL": "Invalid URL"
 }
