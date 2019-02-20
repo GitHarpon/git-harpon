@@ -4,25 +4,28 @@
         <!-- Project (à gauche) -->
         <div class="col-4 gh-button-bar-project gh-breadcrumbs">
             <ul>
-                <li class="gh-folder"><a (click)="openProjectModal()"><i class="far fa-folder fa-lg"></i></a></li>
-                <li class="gh-project"><a data-toggle="tooltip" title="{{ path }}">{{ repoName }}</a></li>
-                <li class="gh-branch"><a>Branch</a></li>
+                <li class="gh-folder"><a (click)="openProjectModal(0)"><i class="far fa-folder fa-lg"></i></a></li>
+                <li class="gh-project" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
+                    <a data-toggle="tooltip" title="{{ path }}">
+                        <i class="fa fa-times fa-xs mr-2 icon-times" (click)="closeRepo()"></i>{{ repoName }}</a></li>
+                <li class="gh-branch" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
+                    <a>Branch</a></li>
             </ul>
         </div>
         <!-- Actions (au milieu) -->
         <div class="col-4 gh-button-bar-actions">
             <div class="d-inline-block">
-                <app-icon-button value="PULL" tooltipValue="PULL" placement="bottom"
+                <app-icon-button value="PULL" tooltipValue="PULL" placement="bottom" [disabled]="!repoName"
                     [icon]="{name:'fa-download', isFab:false}" (buttonClicked)="pullButtonClicked()">
                 </app-icon-button>
             </div>
             <div class="d-inline-block">
-                <app-icon-button value="PUSH" tooltipValue="PUSH" placement="bottom"
+                <app-icon-button value="PUSH" tooltipValue="PUSH" placement="bottom" [disabled]="!repoName"
                     [icon]="{name:'fa-upload', isFab:false}" (buttonClicked)="pushButtonClicked()">
                 </app-icon-button>
             </div>
             <div class="d-inline-block">
-                <app-icon-button value="BRANCH" tooltipValue="BRANCH" placement="bottom"
+                <app-icon-button value="BRANCH" tooltipValue="BRANCH" placement="bottom" [disabled]="!repoName"
                     [icon]="{name:'fa-code-branch', isFab:false}" (buttonClicked)="branchButtonClicked()">
                 </app-icon-button>
             </div>
@@ -31,11 +34,30 @@
         <div class="col-4 gh-button-bar-more">
             <div>
                 <div class="searchInput mr-3">
-                    <app-input [(value)]="searchInputValue"></app-input>
+                    <app-input [(value)]="searchInputValue" [disabled]="!repoName"></app-input>
                 </div>
-                <a class="cursor-pointer mr-3" (click)="displaySearchInputValue()"><i class="fa fa-search"></i></a>
+                <a class="cursor-pointer mr-3" (click)="displaySearchInputValue()">
+                    <i [ngClass]="[(!repoName ? 'disabled-search' : '')]" class="fa fa-search"></i></a>
                 <a class="cursor-pointer mr-3" (click)="openTerminal()"><i class="fas fa-terminal"></i></a>
                 <a class="cursor-pointer" (click)="openPreferences()"><i class="fas fa-cog"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main-Panel -->
+    <div class="gh-main-panel" [ngClass]="[(repoName ? 'gh-project-not-opened' : '')]">
+        <div class="row gh-main-panel-not-opened text-center">
+            <div class="offset-2 col-md-2 gh-main-panel-not-opened-button" (click)="openProjectModal(0)">
+                <div class="mb-1">{{ 'OPEN.REPO' | translate }}</div>
+                <div><i class="fa fa-folder fa-lg"></i></div>
+            </div>
+            <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" (click)="openProjectModal(2)">
+                <div class="mb-1">{{ 'INIT.TAB_TITLE' | translate }}</div>
+                <div><i class="fa fa-laptop fa-lg"></i></div>
+            </div>
+            <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" (click)="openProjectModal(1)">
+                <div class="mb-1">{{ 'CLONE' | translate }}</div>
+                <div><i class="fa fa-globe fa-lg"></i></div>
             </div>
         </div>
     </div>
@@ -46,7 +68,7 @@
 </div>
 
 <app-modal [(visible)]="projectModalVisible" [medium]="true" title="{{ 'REPOSITORY_MANAGEMENT' | translate }}" [loading]="projectModalLoading">
-    <mat-tab-group disableRipple [@.disabled]="true">
+    <mat-tab-group disableRipple [(selectedIndex)]="projectModalTabSelectedIndex" [@.disabled]="true">
         <mat-tab label="{{ 'OPEN.TITLE' | translate }}">
             <span class="section-title">
                 <i class="fas fa-folder-open fa-xs"></i>
@@ -60,16 +82,14 @@
                     {{ 'OPEN.OPENED' | translate }}
                 </span>
                 <div *ngFor="let project of recentProject | keyvalue; first as isFirst" (click)="openRepo(project.value.path)"
-                    [class.gh-open-first]="isFirst" class="col-md-12 pt-1 pb-1 gh-open-recentProject">
+                    [class.gh-open-first]="isFirst && repoName" class="col-md-12 pt-1 pb-1 gh-open-recentProject">
                     <div class="col-md-12">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-11">
+                        <div class="col-md-12">
                             {{project.value.repo}}
                         </div>
                     </div>
                     <div class="col-md-12 gh-open-recentPath">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-11">
+                        <div class="col-md-12">
                             {{project.value.path}}
                         </div>
                     </div>

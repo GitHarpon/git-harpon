@@ -33,6 +33,31 @@
     }
 }
 
+.gh-main-panel {
+    @include wX-hX(100%, 100%);
+    position: fixed;
+    color: $muted-white;
+    font-size: $fs-large;
+
+    &-not-opened {
+        top: 40%;
+        position: relative;
+
+        &-button {
+            border-style: solid;
+            border-color: $light-grey;
+            border-width: 1px;
+            padding: 10px 20px;
+
+            &:hover {
+                @include bg-color($light-grey);
+                cursor: pointer;
+            }
+        }
+    }
+    
+}
+
 .gh-breadcrumbs {
     list-style: none;
     overflow: hidden;
@@ -137,4 +162,21 @@
 .gh-open-recentPath {
     font-size: $fs-small;
     color: $muted-white;
+}
+
+.gh-project-not-opened {
+    visibility: hidden;
+}
+
+.icon-times {
+    color: $muted-white;
+
+    &:hover {
+        color: $white;
+    }
+}
+
+.disabled-search {
+    cursor: not-allowed;
+    color: $muted-white
 }

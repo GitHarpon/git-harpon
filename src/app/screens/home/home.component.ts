@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  projectModalTabSelectedIndex: any;
   projectModalVisible: Boolean;
   searchInputValue: String;
   dimensions: number;
@@ -76,12 +77,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['preferences']);
   }
 
-  openProjectModal() {
+  openProjectModal(tabSelected: any) {
+    this.projectModalTabSelectedIndex = tabSelected;
     this.projectModalVisible = true;
   }
 
   displaySearchInputValue() {
-    this.toastr.info(this.searchInputValue.toString());
+    if (this.repoName) {
+      this.toastr.info(this.searchInputValue.toString());
+    }
   }
 
   validate(event: ResizeEvent): boolean {
@@ -166,6 +170,11 @@ export class HomeComponent implements OnInit, OnDestroy {
           });
       }
     }
+  }
+
+  closeRepo() {
+    this.path = undefined;
+    this.repoName = undefined;
   }
 
   ngOnDestroy() {
