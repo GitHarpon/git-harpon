@@ -38,9 +38,14 @@
             "GITLAB": "This is GitLab"
         }
     },
+    "CLOSE": "Close",
+    "NAME": "Nom",
     "INFORMATION": "Information",
     "SUCCESS": "Success",
+    "ERROR": "Error",
     "DANGER": "Danger",
+    "ERROR": "Error",
+    "PATH_NOT_FOUND": "This path doesn't exist",
     "UPDATE_VALUE": "Update value",
     "DISPLAY_VALUE": "Display value",
     "LABEL": "Label",
@@ -59,6 +64,10 @@
         "SECOND_CONTENT": "Second content",
         "THIRD_CONTENT": "Third content"
     },
+    "INFOBAR": {
+        "TITLE": "Information bar",
+        "OPEN": "Open the information bar"
+    },
     "CONTEXT_MENU": "Menu contextuel",
     "CLICK": {
         "RIGHT": "Right click",
@@ -73,7 +82,24 @@
     "EDITOR": "Editor",
     "UI": "User Interface",
     "REPOSITORY_MANAGEMENT": "Repository management",
-    "OPEN": "Open",
+    "OPEN": {
+        "TITLE": "Open",
+        "REPO": "Open a Reporitory",
+        "OPENED": "Recently Opened",
+        "BROWSE": "Browse",
+        "OPENED_REPO": "The repository was successfully opened",
+        "NOT_GIT_REPO": "This is not a git repository",
+        "REPO_NOT_EXIST": "The repository no longer exist"
+    },
     "CLONE": "Clone",
-    "INIT": "Init"
+    "INIT": {
+        "TITLE": "Init",
+        "TAB_TITLE": "Initialize a Repo",
+        "WHERE": "Initialize in",
+        "SUCCESS": "Init successed",
+        "FAILED": "Init failed"
+    },
+    "FULL_PATH": "Full path",
+    "BROWSE": "Browse",
+    "CREATE_REPOSITORY": "Create Repository"
 }

@@ -43,7 +43,7 @@ export class ElectronService {
     const PATH = this.remote.dialog.showOpenDialog({
       properties: ['openDirectory']
     });
-    if (path !== undefined) {
+    if (PATH !== undefined) {
       return PATH[0];
     }
     return null;
