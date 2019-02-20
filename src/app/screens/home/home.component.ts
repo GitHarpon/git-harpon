@@ -74,7 +74,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['preferences']);
   }
 
-  openProjectModal() {
+  openProjectModal(tabSelected: any) {
+    this.projectModalTabSelectedIndex = tabSelected;
     this.projectModalVisible = true;
   }
 

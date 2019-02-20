@@ -43,19 +43,21 @@
             </div>
         </div>
     </div>
-    <div class="gh-main-panel">
+
+    <!-- Main-Panel -->
+    <div class="gh-main-panel" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
         <div class="row gh-main-panel-not-opened text-center">
-            <div class="offset-1 col-md-2 gh-main-panel-not-opened-button">
-                <div>{{ 'OPEN.REPO' | translate }}</div>
-                <div><i class="fa fa-folder"></i></div>
+            <div class="offset-2 col-md-2 gh-main-panel-not-opened-button" (click)="openProjectModal(0)">
+                <div class="mb-1">{{ 'OPEN.REPO' | translate }}</div>
+                <div><i class="fa fa-folder fa-lg"></i></div>
             </div>
-            <div class="offset-2 col-md-2 gh-main-panel-not-opened-button">
-                <div>{{ 'INIT.TAB_TITLE' | translate }}</div>
-                <div><i class="fa fa-laptop"></i></div>
+            <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" (click)="openProjectModal(2)">
+                <div class="mb-1">{{ 'INIT.TAB_TITLE' | translate }}</div>
+                <div><i class="fa fa-laptop fa-lg"></i></div>
             </div>
-            <div class="offset-2 col-md-2 gh-main-panel-not-opened-button">
-                <div>{{ 'CLONE' | translate }}</div>
-                <div><i class="fa fa-globe"></i></div>
+            <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" (click)="openProjectModal(1)">
+                <div class="mb-1">{{ 'CLONE' | translate }}</div>
+                <div><i class="fa fa-globe fa-lg"></i></div>
             </div>
         </div>
     </div>
