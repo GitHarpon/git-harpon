@@ -13,9 +13,7 @@ export class AppComponent {
     private translate: TranslateService) {
 
     this.translate.addLangs(['fr', 'en']);
-    // Ici on doit chercher depuis le local storage (si vide prendre fr du coup)
-    // this.translate.setDefaultLang(this.translate.getLangs()[0]);
-    // localStorage.setItem('en', 'en');
+
     if (localStorage.getItem('lang') === 'en') {
       this.translate.setDefaultLang('en');
     } else {
