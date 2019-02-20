@@ -25,6 +25,7 @@ export class ToolboxComponent implements OnInit {
   modalLoadingVisible: Boolean;
   modalInputValue: String;
   modalTabSelectedIndex: any;
+  infoBarVisible: Boolean;
   inputValueNumber: number;
   inputMinMaxValueNumber: number;
   max: number;
@@ -65,6 +66,7 @@ export class ToolboxComponent implements OnInit {
       'dark-green',
       'light-green',
       'disabled-green',
+      'light-green-hover',
       'dark-red',
       'light-red',
       'disabled-red',
@@ -119,6 +121,7 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-laptop', isFab: false},
       { icon: 'fa-cloud', isFab: false},
       { icon: 'fa-cog', isFab: false},
+      {icon: 'fa-laptop', isFab: false},
       { icon: 'fa-search', isFab: false}
     ];
 
@@ -223,6 +226,14 @@ export class ToolboxComponent implements OnInit {
         this.modalLoading = false;
       }
     );
+  }
+
+  openInfoBar() {
+    this.infoBarVisible = true;
+  }
+
+  closeInfoBar() {
+    this.infoBarVisible = false;
   }
 
   displayModalInputValue() {

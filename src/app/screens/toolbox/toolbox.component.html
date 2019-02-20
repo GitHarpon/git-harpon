@@ -353,6 +353,26 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="container mt-5">
+            <div class="col-md-12 bb-white">
+                <h2>{{ 'INFOBAR.TITLE' | translate }}</h2>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-4 mt-1">
+                    <app-button value="INFOBAR.OPEN" (buttonClicked)="openInfoBar()"></app-button>
+                </div>
+                <div class="col-md-1 mt-1">
+                    <app-copy-button template='<app-info-bar [visible]="infoBarVisible">
+                        Content
+                    </app-info-bar>'></app-copy-button>
+                </div>
+            </div>
+        </div>
+
+        
+
         <div class="container mt-5">
             <div class="col-md-12 bb-white">
                 <h2>IconButtons</h2>
@@ -672,5 +692,9 @@
     </mat-tab-group>
 </app-modal>
 
+<app-info-bar [visible]="infoBarVisible">
+    {{ 'INFOBAR.TITLE' | translate }}
+    <app-button class="ml-3" value="CLOSE" type="primary" (buttonClicked)="closeInfoBar()"></app-button>
+</app-info-bar>
 
 <app-footer [devRedirect]="{ icon: 'fa-home', link: '/home' }"></app-footer>

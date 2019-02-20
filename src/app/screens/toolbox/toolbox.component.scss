@@ -55,6 +55,9 @@ a.link-white {
 .disabled-green {
     @include bg-color($disabled-green);
 }
+.light-green-hover {
+    @include bg-color($light-green-hover);
+}
 .dark-red {
     @include bg-color($dark-red);
 }

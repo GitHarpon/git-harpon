@@ -101,3 +101,40 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.left-panel {
+    position: fixed;
+    top: 50px;
+    height: 88%;
+    min-width: 20%;
+    max-width: 50%;
+    border-top: 1px solid $dark;
+    background: $light-grey;
+    color: $white;
+    text-align:center;
+    padding: $gap-sm;
+    
+    mwlResizable {
+        box-sizing: border-box;
+    }
+}
+.gh-open-recentProject {
+    &:hover {
+        @include bg-color($disabled-blue);
+        cursor: pointer;
+    }
+}
+
+.gh-open-first {
+    @include bg-color($light-green-hover);
+
+    &:hover {
+        @include bg-color($light-green-hover);
+        cursor: default;
+    }
+}
+
+.gh-open-recentPath {
+    font-size: $fs-small;
+    color: $muted-white;
+}
