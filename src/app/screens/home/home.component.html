@@ -155,6 +155,6 @@
     <span>{{ 'LOG_TO_CONTINUE' | translate }}</span>
     <app-input [(value)]="username" [placeholder]="USERNAME" class="ml-3"></app-input>
     <app-input [(value)]="password" [placeholder]="PASSWORD" type="password" class="ml-3"></app-input>
-    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!username || !password" (buttonClicked)="clone()"></app-button>
+    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!username || !password" (buttonClicked)="cloneHttps()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeCredInfoBar()"></app-button>
 </app-info-bar>

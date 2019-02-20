@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   projectModalVisible: Boolean;
   searchInputValue: string;
   cloneUrl: String;
-  cloneFolder: String;
+  cloneFolder: string;
   initName: string;
   initLocation: string;
   projectModalLoading: Boolean;
@@ -113,10 +113,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  clone() {
+  cloneHttps() {
     this.credInfoBarVisible = false;
     this.homeLoading = true;
-    this.gitService.clone();
+    this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.username, this.password)
+      .then((data) => {
+        this.homeLoading = false;
+        this.resetCloneInputs();
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.homeLoading = false;
+        this.resetCloneInputs();
+        this.toastr.error(data.message, data.title);
+      });
   }
 
   initBrowse() {
@@ -190,6 +200,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   closeCredInfoBar() {
     this.credInfoBarVisible = false;
+    this.resetCloneInputs();
+  }
+
+  resetCloneInputs() {
     this.username = '';
     this.password = '';
     this.cloneUrl = '';

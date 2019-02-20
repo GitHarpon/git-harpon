@@ -138,4 +138,38 @@ export class GitService {
     }
     this.emitRecentProjectSubject();
   }
+
+  async cloneHttps(url: GitUrlParse, folder: string, username: string, password: string) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      const REMOTE = `https://${username}:${password}@${url.resource}${url.pathname}`;
+      gitPromise(folder)
+        .clone(REMOTE, null)
+        .then(() => {
+          const REPOPATH = this.electronService.path.join(folder, url.name);
+          gitPromise(REPOPATH)
+            .raw(['remote', 'set-url', 'origin', url])
+            .then(() => {
+              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('CLONE.DONE')));
+            })
+            .catch((err) => {
+              console.log(err);
+              reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('CLONE.ERROR')));
+            });
+        })
+        .catch((err) => {
+          var ERRMSG = 'CLONE.ERROR';
+          if (err.toString().includes('unable to update url base from redirection')) {
+            ERRMSG = 'CLONE.UNABLE_TO_UPDATE';
+          } else if (err.toString().includes('HTTP Basic: Access denied')) {
+            ERRMSG = 'CLONE.HTTP_ACCESS_DENIED';
+          } else if (err.toString().includes('could not create work tree')) {
+            ERRMSG = 'CLONE.NOT_WORK_TREE';
+          }
+          reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant(ERRMSG)));
+        });
+    });
+  }
 }

@@ -26,7 +26,12 @@
     "CLONE": {
         "WHERE": "Où cloner",
         "URL": "URL",
-        "TITLE": "Cloner"
+        "TITLE": "Cloner",
+        "DONE": "Le répertoire a été cloné",
+        "ERROR": "Problème lors du clone",
+        "UNABLE_TO_UPDATE": "Impossible de mettre à jour la base de l'URL à partir d'une redirection",
+        "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
+        "NOT_WORK_TREE": "Impossible de créer le repertoire de travail : permission refusé"
     },
     "BUTTON": {
         "PRIMARY": "Bouton primaire",
@@ -34,6 +39,7 @@
         "DANGER": "Bouton danger",
         "DISABLED": "Bouton désactivé",
         "LARGE": "Bouton allongé"
+        
     },
     "ICONBUTTON": {
         "GITHUB": "GitHub",

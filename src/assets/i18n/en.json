@@ -26,7 +26,12 @@
     "CLONE": {
         "WHERE": "Where to clone",
         "URL": "URL",
-        "TITLE": "Clone"
+        "TITLE": "Clone",
+        "DONE": "The repository was clone",
+        "ERROR": "Problem during the clone",
+        "UNABLE_TO_UPDATE": "Unable to update url base from redirection",
+        "HTTP_ACCESS_DENIED": "HTTP basic: Access denied",
+        "NOT_WORK_TREE": "Could not create work tree : permission denied"
     },
     "BUTTON": {
         "PRIMARY": "Primary button",
