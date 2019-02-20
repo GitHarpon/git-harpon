@@ -16,8 +16,8 @@ export class LanguagePreferencesService {
             { key: 'en', value: this.translate.instant('ENGLISH') },
         ];
 
-        // Ici ca sera pas forcement ça en fonction du local storage encore uen fois
-        if (this.translate.getDefaultLang() === 'fr') {
+        // // Ici ca sera pas forcement ça en fonction du local storage encore uen fois
+        if (localStorage.getItem('lang') === 'fr') {
             this.preferences = this.languages[0].value;
         } else {
             this.preferences = this.languages[1].value;
@@ -45,8 +45,8 @@ export class LanguagePreferencesService {
         this.emitPreferencesSubject();
     }
 
-    getLanguages() {
-        return this.languages;
-    }
+    // getLanguages() {
+    //     return this.languages;
+    // }
 
 }

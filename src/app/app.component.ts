@@ -16,10 +16,10 @@ export class AppComponent {
     // Ici on doit chercher depuis le local storage (si vide prendre fr du coup)
     // this.translate.setDefaultLang(this.translate.getLangs()[0]);
     // localStorage.setItem('en', 'en');
-    if (localStorage.getItem('lang') === null) {
-      this.translate.setDefaultLang('fr');
-    } else {
+    if (localStorage.getItem('lang') === 'en') {
       this.translate.setDefaultLang('en');
+    } else {
+      this.translate.setDefaultLang('fr');
     }
 
     console.log('AppConfig', AppConfig);
