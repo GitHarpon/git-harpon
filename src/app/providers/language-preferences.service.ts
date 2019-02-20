@@ -10,12 +10,7 @@ export class LanguagePreferencesService {
 
     constructor(private translate: TranslateService) {
 
-        if (localStorage.getItem('lang') === null
-                || localStorage.getItem('lang') === 'fr') {
-            this.preferences = 'fr';
-        } else {
-            this.preferences = 'en';
-        }
+        this.preferences = this.translate.getDefaultLang();
 
         this.emitPreferencesSubject();
     }
