@@ -9,27 +9,25 @@
 }
 
 /deep/ .card {
-    @include wX(10cm);
+    @include wX(9cm);
     border: $light-grey;
     background: $light-grey;
+    margin-bottom: 2cm;
 }
 
 /deep/ .card-block {
-    @include wX(10cm);
-    // max-width: 100%;
-    // min-width: 80%;
-    margin-bottom: 20px;
+    @include wX(9cm);
 }
 
 /deep/ .card-header {
-    @include wX(10cm);
+    @include wX(9cm);
     padding: 0;
     background: $light-grey;
     border: 1px solid $dark-grey;
 }
 
 /deep/ .card-body {
-    @include wX(10cm);
+    @include wX(9cm);
     background: $dark-grey;
     font-size: 15px;
 }
@@ -37,8 +35,11 @@
 /deep/ .btn-link {
     font-size: 15px;
     color: $white;
+    @include wX(100%);
+    text-decoration: none;
+    text-align: left;
     
-    &:hover {
+    &:hover, &:focus {
         text-decoration: none;
         color: $white;
     }
