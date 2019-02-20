@@ -14,10 +14,10 @@ export class AppComponent {
 
     this.translate.addLangs(['fr', 'en']);
 
-    if (localStorage.getItem('lang') === 'en') {
-      this.translate.setDefaultLang('en');
-    } else {
+    if (localStorage.getItem('lang') === null || localStorage.getItem('lang') === 'fr') {
       this.translate.setDefaultLang('fr');
+    } else {
+      this.translate.setDefaultLang('en');
     }
 
     console.log('AppConfig', AppConfig);
