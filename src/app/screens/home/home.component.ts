@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ResizeEvent } from 'angular-resizable-element';
 import { GitService } from '../../providers/git.service';
 import { ElectronService } from '../../providers/electron.service';
 import { initNgModule } from '@angular/core/src/view/ng_module';
@@ -15,7 +16,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   projectModalVisible: Boolean;
-  searchInputValue: string;
+  searchInputValue: String;
+  dimensions: number;
+  style: Object;
   initName: string;
   initLocation: string;
   fullPath: string;
@@ -27,6 +30,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   recentProject: any[];
   recentProjectSubscription: Subscription;
 
+  ngOnInit() {
+    this.dimensions = 20;
+  }
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
@@ -48,9 +54,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.recentProject = recentProject;
       });
     this.gitService.emitRecentProjectSubject();
-  }
-
-  ngOnInit() {
   }
 
   pullButtonClicked() {
@@ -79,6 +82,21 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   displaySearchInputValue() {
     this.toastr.info(this.searchInputValue.toString());
+  }
+
+  validate(event: ResizeEvent): boolean {
+    if (event.rectangle.width &&
+      (event.rectangle.width < this.dimensions)
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  onResizeEnd(event: ResizeEvent): void {
+    this.style = {
+      width: `${event.rectangle.width}px`
+    };
   }
 
   initBrowse() {

@@ -41,6 +41,10 @@
     </div>
 </app-container>
 
+<div class="left-panel" mwlResizable [ngStyle]="style" [validateResize]="validate" [enableGhostResize]="true" [resizeEdges]="{right: true}" (resizeEnd)="onResizeEnd($event)">
+    DIV TEST
+</div>
+
 <app-modal [(visible)]="projectModalVisible" [medium]="true" title="{{ 'REPOSITORY_MANAGEMENT' | translate }}" [loading]="projectModalLoading">
     <mat-tab-group disableRipple [@.disabled]="true">
         <mat-tab label="{{ 'OPEN.TITLE' | translate }}">
