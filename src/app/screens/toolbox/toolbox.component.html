@@ -615,6 +615,29 @@
                 <app-button class="ml-2" value="DISPLAY_VALUE" type="primary" (buttonClicked)="testDropdown()"></app-button>
             </div>
         </div>
+        <div class="container mt-5">
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-12 bb-white">
+                    <h2>Accordion</h2>
+                </div>
+                <div class="col-md-12 mt-2 row">
+                    <div class="col-md-4 mt-1">
+                        <app-accordion title="LOCAL" [icon]="{name:'fa-laptop', isFab:false}"></app-accordion>
+                    </div>
+                    <div class="col-md-1 mt-1">
+                        <app-copy-button template='<app-accordion title="LOCAL" [icon]="{name:"fa-laptop", isFab:false}">
+                            </app-accordion>'></app-copy-button>
+                    </div>
+                    <div class="col-md-4 mt-1">
+                        <app-accordion title="{{ 'REMOTE' | translate }}" [icon]="{name:'fa-cloud', isFab:false}" [disabled]="true"></app-accordion>
+                    </div>
+                    <div class="col-md-1 mt-1">
+                        <app-copy-button template='<app-accordion title="{{ "REMOTE" | translate }}" [icon]="{name:"fa-cloud", isFab:false}" 
+                            [disabled]="true"></app-accordion>'></app-copy-button>
+                    </div>
+                </div>            
+            </div>
+        </div>
     </ng-scrollbar>
 </app-container>
 

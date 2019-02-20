@@ -82,6 +82,7 @@
     "EDITOR": "Editeur",
     "UI": "Interface Utilisateur",
     "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
+    "REMOTE": "DISTANT",
     "OPEN": {
         "TITLE": "Ouvrir",
         "REPO": "Ouvrir un Dépôt",

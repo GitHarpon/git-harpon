@@ -82,6 +82,7 @@
     "EDITOR": "Editor",
     "UI": "User Interface",
     "REPOSITORY_MANAGEMENT": "Repository management",
+    "REMOTE": "REMOTE",
     "OPEN": {
         "TITLE": "Open",
         "REPO": "Open a Reporitory",

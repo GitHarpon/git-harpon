@@ -10,11 +10,10 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import {MatTabsModule, MatIconModule } from '@angular/material';
+import {MatTabsModule, MatIconModule, MatExpansionModule, MatSortModule, MatFormFieldModule } from '@angular/material';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { ClipboardModule } from 'ngx-clipboard';
 import { ResizableModule } from 'angular-resizable-element';
-
 
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -47,6 +46,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 import { CopyButtonComponent } from './components/copy-button/copy-button.component';
 import { PreferencesComponent } from './screens/preferences/preferences.component';
+import { AccordionComponent } from './components/accordion/accordion.component';
 import { InfoBarComponent } from './components/info-bar/info-bar.component';
 
 
@@ -74,12 +74,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     InputNumberComponent,
     CopyButtonComponent,
     PreferencesComponent,
+    AccordionComponent,
     InfoBarComponent
   ],
   imports: [
     ReactiveFormsModule,
     MatIconModule,
     MatTabsModule,
+    MatSortModule,
+    MatExpansionModule,
+    MatFormFieldModule,
     NgScrollbarModule,
     NgbModule,
     ClipboardModule,

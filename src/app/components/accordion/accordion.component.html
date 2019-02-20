@@ -1,0 +1,12 @@
+<ngb-accordion #acc="ngbAccordion" class="gh-accordion" [destroyOnHide]="false">
+  <ngb-panel [disabled]="disabled">
+    <ng-template ngbPanelTitle>
+        <span><i [ngClass]="[(icon.isFab ? 'fab' : 'fa'), icon.name]" class="fa-lg"></i>{{ title }}</span>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <ul>
+        <li>branche test</li>
+      </ul>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
