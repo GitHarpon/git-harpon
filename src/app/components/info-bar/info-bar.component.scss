@@ -1,0 +1,18 @@
+@import '../../../variables.scss';
+
+.gh-info-bar {
+    position: fixed;
+    z-index: 4;
+    color: $white;
+    @include fs($fs-medium);
+    @include bg-color($dark-blue);
+    @include wX(100%);
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    display:none;
+
+    &.visible {
+        display: flex;
+    }
+}

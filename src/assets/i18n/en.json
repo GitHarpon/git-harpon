@@ -38,6 +38,7 @@
             "GITLAB": "This is GitLab"
         }
     },
+    "CLOSE": "Close",
     "NAME": "Nom",
     "INFORMATION": "Information",
     "SUCCESS": "Success",
@@ -62,6 +63,10 @@
         "FIRST_CONTENT": "First content",
         "SECOND_CONTENT": "Second content",
         "THIRD_CONTENT": "Third content"
+    },
+    "INFOBAR": {
+        "TITLE": "Information bar",
+        "OPEN": "Open the information bar"
     },
     "CONTEXT_MENU": "Menu contextuel",
     "CLICK": {
