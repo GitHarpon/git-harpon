@@ -13,6 +13,7 @@
     border: 1px solid $light-grey;
     background: $light-grey;
     margin-bottom: 76px;
+    border: 0;
 }
 
 /deep/ .card-block {
@@ -24,6 +25,7 @@
     padding: 0;
     background: $light-grey;
     border: 1px solid $dark-grey;
+    border-radius: 0 !important;
 }
 
 /deep/ .card-body {
