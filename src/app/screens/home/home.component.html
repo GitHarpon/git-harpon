@@ -62,7 +62,7 @@
 </app-container>
 
 <app-modal [(visible)]="projectModalVisible" [medium]="true" title="{{ 'REPOSITORY_MANAGEMENT' | translate }}" [loading]="projectModalLoading">
-    <mat-tab-group disableRipple [@.disabled]="true">
+    <mat-tab-group disableRipple [(selectedIndex)]="projectModalTabSelectedIndex" [@.disabled]="true">
         <mat-tab label="{{ 'OPEN.TITLE' | translate }}">
             <span class="section-title">
                 <i class="fas fa-folder-open fa-xs"></i>

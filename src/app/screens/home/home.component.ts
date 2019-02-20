@@ -14,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  projectModalTabSelectedIndex: any;
   projectModalVisible: Boolean;
   searchInputValue: string;
   initName: string;
