@@ -4,10 +4,10 @@
         <!-- Project (à gauche) -->
         <div class="col-4 gh-button-bar-project gh-breadcrumbs">
             <ul>
-                <li class="gh-folder"><a (click)="openProjectModal()"><i class="far fa-folder fa-lg"></i></a></li>
+                <li class="gh-folder"><a (click)="openProjectModal(0)"><i class="far fa-folder fa-lg"></i></a></li>
                 <li class="gh-project" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
                     <a data-toggle="tooltip" title="{{ path }}">
-                        <i class="fa fa-times fa-xs mr-2 icon-times" (click)="closeRepo(0)"></i>{{ repoName }}</a></li>
+                        <i class="fa fa-times fa-xs mr-2 icon-times" (click)="closeRepo()"></i>{{ repoName }}</a></li>
                 <li class="gh-branch" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
                     <a>Branch</a></li>
             </ul>
