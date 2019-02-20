@@ -78,7 +78,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   displaySearchInputValue() {
-    this.toastr.info(this.searchInputValue.toString());
+    if (this.repoName) {
+      this.toastr.info(this.searchInputValue.toString());
+    }
   }
 
   initBrowse() {
