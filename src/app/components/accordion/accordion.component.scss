@@ -9,7 +9,7 @@
 }
 
 /deep/ .card {
-    @include wX(9cm);
+    @include wX(340px);
     border: 1px solid $light-grey;
     background: $light-grey;
     margin-bottom: 76px;
