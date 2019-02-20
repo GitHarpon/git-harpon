@@ -44,6 +44,10 @@ export class TerminalManagerService {
     });
   }
 
+  getCurrentTerminal() {
+    return this.currentTerminal;
+  }
+
   setCurrentTerminal(newTerminal: any) {
     this.currentTerminal = newTerminal;
     this.emitCurrentTerminalSubject();

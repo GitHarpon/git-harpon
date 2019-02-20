@@ -32,7 +32,7 @@ describe('Test Example', function () {
     beforeEach(function () {
         var log = console.log;
         this.sinon.stub(console, 'log').callsFake( function() {
-           return log.apply(log, arguments);
+          return log.apply(log, arguments);
         });
         return app.start();
     });
@@ -73,11 +73,31 @@ describe('Test Example', function () {
     // });
 
     it('Ouverture terminal', function () {
-        var btn = app.client.element('#terminalOpener');
+        var btn = app.client.element('#terminal-opener');
         btn.click();
-        console.log('test');
-        // btntext = app.client.getText('#btntest').then(function(text){
-        //     expect(text).to.be.equal('test2');
-        // });
+
+        const util = require('util');
+        const exec = util.promisify(require('child_process').exec);
+
+        async function lsExample() {
+            var command;
+            // TODO ajouter le support dynamique du terminal
+            if (process.platform === 'linux') {
+                // TODO ajouter le support de Linux
+                command = 'ps -A -ww | grep [^]]Terminal';
+            } else if (process.platform === 'darwin') {
+                command = 'ps -A -ww | grep [^]]Terminal';
+            } else if (process.platform === 'win32') {
+                // TODO ajouter le support de Windows
+                command = 'ps -A -ww | grep [^]]Terminal';
+            }
+            
+            const { stdout, stderr } = await exec('command');
+            console.log('stdout:', stdout);
+
+            return stdout.length;
+        }
+        var length = lsExample();
+        expect(length).to.be.not.equal(0);
     });
 });
