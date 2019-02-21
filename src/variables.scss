@@ -1,10 +1,9 @@
 // Couleurs
 
+// DARK THEME
 $dark-blue: #353D5A;
 $light-blue: #4C5DAA;
-$light-blue-hover: #4D88FF;
 $disabled-blue: #2A3345;
-$gh-green: #1B958A;
 $dark-green: #314739;
 $light-green:#477F4B;
 $disabled-green: #2C3835;
@@ -15,9 +14,35 @@ $disabled-red: #382C32;
 $dark-grey: #2C2E34;
 $light-grey: #373841;
 $blue-grey: #3E4453;
-$white: #fff;
+$version: #3E4453;
+
+
+// LIGHT THEME
+$dark-blue-light: #4C88FC;
+$light-blue-light: #DDE6F8;
+$disabled-blue-light: #EAEFF8;
+$dark-green-light: #5BB862;
+$light-green-light: #E0EDE1;
+$disabled-green-light: #ECF2EC;
+$light-green-hover-light: #C7E4CA;
+$dark-red-light: #DA413E;
+$light-red-light: #ECD6D5;
+$disabled-red-light: #E0D6D5;
+$button-bar-light: #464E69;
+$arrow-light: #525C7C;
+$border-grey-light: #C6C6C6;
+$dark-grey-light: #F0F0F0;
+$light-grey-light: #F7F7F7;
+$grey-variant-light: #E8E8E8;
+
+// Independent of theme
+$light-blue-hover: #4D88FF;
 $muted-white: #C9CACC;
+$white: #fff;;
+$muted-dark: #8A8A8B;
 $dark: #222328;
+$gh-green: #1B958A;
+
 
 // Font family
 $ff-default: 'Open Sans', sans-serif;

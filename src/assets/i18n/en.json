@@ -110,5 +110,8 @@
     "CREATE_REPOSITORY": "Create Repository",
     "LIGHT": "Light",
     "DARK": "Dark",
-    "THEME": "Theme"
+    "THEME": "Theme",
+    "DARK_THEME": "Dark theme",
+    "LIGHT_THEME": "Light theme",
+    "INDEPENDENT_THEME": "Independent of the theme"
 }
