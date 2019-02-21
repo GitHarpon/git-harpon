@@ -29,7 +29,7 @@ global.before(function () {
     chai.use(chaiAsPromised);
 });
 
-describe('Test Example', function () {
+describe('Test open repository', function () {
     beforeEach(function () {
         var log = console.log;
         this.sinon.stub(console, 'log').callsFake( function() {
@@ -42,11 +42,21 @@ describe('Test Example', function () {
         return app.stop();
     });
     
-    it('tests the open repository', function() {
-        var btn = app.client.waitUntilWindowLoaded().element('#project-manager');
-        console.log(btn);
-        btn.click();
-        var openTab = app.client.element('#tab-open');
+    it('should open the repository', function() {
+        /*var btn = app.client.waitUntilWindowLoaded().element('#project-manager');
+        btn.click();*/
+        return app.client.waitUntilWindowLoaded()
+            .click('#project-manager')
+            .click('#mat-tab-label-0-0')
+            .setValue('.open-input input', 'toto')
+            .waitUntilTextExists()
+            .element('.open-browse input').isEnabled().should.be.equal(true);
+        //console.log(t);
+        /*var openTab = app.client.waitUntilWindowLoaded().element('#mat-tab-label-0-0');
+        openTab.click();*/
+        // var input = app.client.waitUntilWindowLoaded().element('.open-input input');
+        // input.setValue('toto');
+        //return app.client.waitUntilWindowLoaded().element('.open-input input').getValue().should.be.equal('toto');
     });
 
     // it('test console.log', function() {

@@ -80,13 +80,13 @@
                         <label>{{ 'OPEN.WHERE' | translate }} </label>
                     </div>
                     <div class="col-md-6">
-                        <app-input [(value)]="openFolder"></app-input>
+                        <app-input class="open-input" [(value)]="openFolder"></app-input>
                     </div>
                     <div class="col-md-3 text-right">
                         <app-button value="BROWSE" type="primary" (buttonClicked)="openBrowse()"></app-button>
                     </div>
                 </div>
-                <div class="col-md-12 row mt-2">
+                <div class="col-md-12 row mt-2 open-browse">
                     <div class="col-md-12 text-right">
                         <app-button value="OPEN.TITLE" [disabled]="!openFolder" type="success" (buttonClicked)="openRepo()"></app-button>
                     </div>
