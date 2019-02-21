@@ -60,8 +60,8 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.switchLanguage();
     this.loading = false;
-    this.toastr.info(this.translate.instant('SUCCESS'),
-        this.translate.instant('CHANGE_PREFERENCE'));
+    this.toastr.info(this.translate.instant('CHANGE_PREF_DONE'),
+        this.translate.instant('SUCCESS'));
     this.router.navigate(['home']);
   }
 
