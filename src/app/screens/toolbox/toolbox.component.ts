@@ -3,6 +3,8 @@ import { ElectronService } from '../../providers/electron.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { ContextMenuComponent } from 'ngx-contextmenu';
+import { Subscription } from 'rxjs';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
 @Component({
   selector: 'app-toolbox',
@@ -40,9 +42,20 @@ export class ToolboxComponent implements OnInit {
   dropdownValue: String;
   dropdownValueTwo: String;
 
+  themePrefSubscription: Subscription;
+  currentTheme: string;
+
 
   constructor(private electronService: ElectronService,
-    private toastr: ToastrService, private translateService: TranslateService) { }
+    private toastr: ToastrService, private translateService: TranslateService,
+    private themePrefService: ThemePreferencesService) {
+      this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
+        (newTheme: string) => {
+          this.currentTheme = newTheme;
+        }
+      );
+      this.themePrefService.emitThemePreferencesSubject();
+    }
 
   ngOnInit() {
     this.cbValue = true;

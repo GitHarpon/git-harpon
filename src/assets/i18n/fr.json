@@ -107,5 +107,8 @@
     },
     "FULL_PATH": "Chemin complet",
     "BROWSE": "Parcourir",
-    "CREATE_REPOSITORY": "Créer le répertoire"
+    "CREATE_REPOSITORY": "Créer le répertoire",
+    "LIGHT": "Clair",
+    "DARK": "Sombre",
+    "THEME": "Theme"
 }

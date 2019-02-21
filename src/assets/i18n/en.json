@@ -107,5 +107,8 @@
     },
     "FULL_PATH": "Full path",
     "BROWSE": "Browse",
-    "CREATE_REPOSITORY": "Create Repository"
+    "CREATE_REPOSITORY": "Create Repository",
+    "LIGHT": "Light",
+    "DARK": "Dark",
+    "THEME": "Theme"
 }
