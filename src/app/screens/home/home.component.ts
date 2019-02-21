@@ -31,6 +31,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   recentProject: any[];
   recentProjectSubscription: Subscription;
   credInfoBarVisible: boolean;
+  openClonedInfoBarVisible: boolean;
+  newClonedRepoPath: string;
   username: string;
   password: string;
   homeLoading: boolean;
@@ -119,7 +121,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.username, this.password)
       .then((data) => {
         this.homeLoading = false;
-        this.resetCloneInputs();
+        this.openClonedInfoBarVisible = true;
+        this.newClonedRepoPath = data.newData;
         this.toastr.info(data.message, data.title);
       })
       .catch((data) => {
@@ -203,11 +206,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.resetCloneInputs();
   }
 
+  openClonedRepo() {
+    this.gitService.setPath(this.newClonedRepoPath);
+    this.closeClonedInfoBar();
+  }
+
+  closeClonedInfoBar() {
+    this.openClonedInfoBarVisible = false;
+    this.resetCloneInputs();
+  }
+
   resetCloneInputs() {
     this.username = '';
     this.password = '';
     this.cloneUrl = '';
     this.cloneFolder = '';
+    this.newClonedRepoPath = '';
   }
 
   ngOnDestroy() {

@@ -158,3 +158,10 @@
     <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!username || !password" (buttonClicked)="cloneHttps()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeCredInfoBar()"></app-button>
 </app-info-bar>
+
+<!-- Open cloned repo -->
+<app-info-bar [visible]="openClonedInfoBarVisible">
+    <app-button value="OPEN_NOW" type="success" (buttonClicked)="openClonedRepo()"></app-button>
+    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeClonedInfoBar()"></app-button>
+</app-info-bar>
+

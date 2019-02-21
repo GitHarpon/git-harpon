@@ -31,7 +31,10 @@
         "ERROR": "Problem during the clone",
         "UNABLE_TO_UPDATE": "Unable to update url base from redirection",
         "HTTP_ACCESS_DENIED": "HTTP basic: Access denied",
-        "NOT_WORK_TREE": "Could not create work tree : permission denied"
+        "NOT_WORK_TREE": "Could not create work tree : permission denied",
+        "REPO_NOT_FOUND": "Repository not found",
+        "ALREADY_EXISTS": "This repository already exists and is not an empty directory",
+        "INVALID_CRED": "Invalid username or password"
     },
     "BUTTON": {
         "PRIMARY": "Primary button",
@@ -112,6 +115,7 @@
     "CREATE_REPOSITORY": "Create Repository",
     "LOG_IN": "Log in",
     "CANCEL": "Cancel",
+    "OPEN_NOW": "Open now",
     "USERNAME": "USERNAME",
     "PASSWORD": "PASSWORD",
     "LOG_TO_CONTINUE": "Please log to continue:",

@@ -150,7 +150,7 @@ export class GitService {
             .raw(['remote', 'set-url', 'origin', url])
             .then(() => {
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-                this.translate.instant('CLONE.DONE')));
+                this.translate.instant('CLONE.DONE'), REPOPATH));
             })
             .catch((err) => {
               console.log(err);
@@ -166,6 +166,12 @@ export class GitService {
             ERRMSG = 'CLONE.HTTP_ACCESS_DENIED';
           } else if (err.toString().includes('could not create work tree')) {
             ERRMSG = 'CLONE.NOT_WORK_TREE';
+          } else if (err.toString().includes('Repository not found')) {
+            ERRMSG = 'CLONE.REPO_NOT_FOUND';
+          } else if (err.toString().includes('already exists and is not an empty directory')) {
+            ERRMSG = 'CLONE.ALREADY_EXISTS';
+          } else if (err.toString().includes('Invalid username or password')) {
+            ERRMSG = 'CLONE.INVALID_CRED';
           }
           reject(new ServiceResult(false, this.translate.instant('ERROR'),
             this.translate.instant(ERRMSG)));
