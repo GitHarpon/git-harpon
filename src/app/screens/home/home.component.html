@@ -4,7 +4,7 @@
         <!-- Project (à gauche) -->
         <div class="col-4 gh-button-bar-project gh-breadcrumbs">
             <ul>
-                <li class="gh-folder"><a (click)="openProjectModal(0)"><i class="far fa-folder fa-lg"></i></a></li>
+                <li class="gh-folder"><a id="project-manager" (click)="openProjectModal(0)"><i class="far fa-folder fa-lg"></i></a></li>
                 <li class="gh-project" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
                     <a data-toggle="tooltip" title="{{ path }}">
                         <i class="fa fa-times fa-xs mr-2 icon-times" (click)="closeRepo()"></i>{{ repoName }}</a></li>
@@ -69,7 +69,7 @@
 
 <app-modal [(visible)]="projectModalVisible" [medium]="true" title="{{ 'REPOSITORY_MANAGEMENT' | translate }}" [loading]="projectModalLoading">
     <mat-tab-group disableRipple [(selectedIndex)]="projectModalTabSelectedIndex" [@.disabled]="true">
-        <mat-tab label="{{ 'OPEN.TITLE' | translate }}">
+        <mat-tab label="{{ 'OPEN.TITLE' | translate }}" id="tab-open">
             <span class="section-title">
                 <i class="fas fa-folder-open fa-xs"></i>
                 {{ 'OPEN.REPO' | translate }}
@@ -86,12 +86,17 @@
                         <app-button value="BROWSE" type="primary" (buttonClicked)="openBrowse()"></app-button>
                     </div>
                 </div>
+                <div class="col-md-12 row mt-2">
+                    <div class="col-md-12 text-right">
+                        <app-button value="OPEN.TITLE" [disabled]="!openFolder" type="success" (buttonClicked)="openRepo()"></app-button>
+                    </div>
+                </div>
             </div>
             <span class="section-title">
                 <i class="fas fa-clock fa-xs"></i>
                 {{ 'OPEN.OPENED' | translate }}
             </span>
-            <div *ngFor="let project of recentProject | keyvalue; first as isFirst" (click)="openRepo(project.value.path)"
+            <div *ngFor="let project of recentProject | keyvalue; first as isFirst" (click)="openRecentRepo(project.value.path)"
                 [class.gh-open-first]="isFirst && repoName" class="col-md-12 pt-1 pb-1 gh-open-recentProject">
                 <div class="col-md-12">
                     <div class="col-md-12">
@@ -105,8 +110,8 @@
                 </div>
             </div>
         </mat-tab>
-        <mat-tab label="{{ 'CLONE' | translate }}">{{ 'CLONE' | translate }}</mat-tab>
-        <mat-tab label="{{ 'INIT.TITLE' | translate }}">
+        <mat-tab label="{{ 'CLONE' | translate }}" id="tab-clone">{{ 'CLONE' | translate }}</mat-tab>
+        <mat-tab label="{{ 'INIT.TITLE' | translate }}" id="tab-init">
             <span class="section-title">
                 <i class="fas fa-laptop fa-xs" ></i>
                 {{ 'INIT.TAB_TITLE' | translate }}

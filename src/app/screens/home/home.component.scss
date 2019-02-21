@@ -155,7 +155,6 @@
 
     &:hover {
         @include bg-color($light-green-hover);
-        cursor: default;
     }
 }
 
