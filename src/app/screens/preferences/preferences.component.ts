@@ -1,26 +1,71 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { LanguagePreferencesService } from '../../providers/language-preferences.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-preferences',
   templateUrl: './preferences.component.html',
   styleUrls: ['./preferences.component.scss']
 })
-export class PreferencesComponent implements OnInit {
+export class PreferencesComponent implements OnInit, OnDestroy {
+
+  @Input() loading: Boolean = false;
 
   preferencesVisible: Boolean;
   preferencesTabSelectedIndex: any;
+  dropdownLanguageValue: string;
+  dataDropdownLanguage: Array<any>;
 
-  constructor(public router: Router) { }
+  languageSubscription: Subscription;
+
+  constructor(public router: Router, private translate: TranslateService,
+      private langPrefService: LanguagePreferencesService, private toastr: ToastrService) {
+  }
 
   ngOnInit() {
     this.preferencesVisible = true;
     this.preferencesTabSelectedIndex = 1;
+
+    this.dataDropdownLanguage = [
+      { key: 'fr', value: this.translate.instant('FRENCH') },
+      { key: 'en', value: this.translate.instant('ENGLISH') },
+    ];
+
+    this.dropdownLanguageValue = this.translate.getDefaultLang(); // renvoie 'fr' ou 'en'
+
+    this.languageSubscription = this.langPrefService.preferencesSubject.subscribe(
+      (preference) => {
+        this.dropdownLanguageValue = preference;
+        this.langPrefService.preferences = preference;
+      }
+    );
+    this.langPrefService.emitPreferencesSubject();
   }
 
   checkIfCloseModal(event) {
     if (event.index === 0) {
       this.router.navigate(['home']);
     }
+  }
+
+  switchLanguage() {
+    this.langPrefService.setLanguage(this.dropdownLanguageValue);
+  }
+
+  // Fonction qui regroupe toutes les fonctions applicables aux préférences
+  saveChangedPreferences() {
+    this.loading = true;
+    this.switchLanguage();
+    this.loading = false;
+    this.toastr.info(this.translate.instant('CHANGE_PREF_DONE'),
+        this.translate.instant('SUCCESS'));
+    this.router.navigate(['home']);
+  }
+
+  ngOnDestroy() {
+    this.languageSubscription.unsubscribe();
   }
 }

@@ -13,7 +13,13 @@ export class AppComponent {
     private translate: TranslateService) {
 
     this.translate.addLangs(['fr', 'en']);
-    this.translate.setDefaultLang(this.translate.getLangs()[0]);
+
+    if (localStorage.getItem('lang') === null || localStorage.getItem('lang') === 'fr') {
+      this.translate.setDefaultLang('fr');
+    } else {
+      this.translate.setDefaultLang('en');
+    }
+
     console.log('AppConfig', AppConfig);
 
     if (electronService.isElectron()) {
