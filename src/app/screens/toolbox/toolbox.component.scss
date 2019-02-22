@@ -12,7 +12,11 @@
 }
 
 .bb-white {
-    border-bottom: 1px solid $white;
+    border-bottom: 2px solid $white;
+}
+
+.bb-dark {
+    border-bottom: 1px solide $dark;
 }
 
 .gh-div-loader {
@@ -85,6 +89,9 @@ a.link-white {
 .dark-green-light {
     @include bg-color($dark-green-light);
 }
+.light-green-light {
+    @include bg-color($light-green-light);
+}
 .disabled-green-light {
     @include bg-color($disabled-green-light);
 }
@@ -103,11 +110,17 @@ a.link-white {
 .button-bar-light {
     @include bg-color($button-bar-light);
 }
+.button-bar-hover-light {
+    @include bg-color($button-bar-hover-light);
+}
 .arrow-light {
     @include bg-color($arrow-light);
 }
-.border-grey-light {
-    @include bg-color($border-grey-light);
+.border-light-grey-light {
+    @include bg-color($border-light-grey-light);
+}
+.border-dark-grey-light {
+    @include bg-color($border-dark-grey-light);
 }
 .dark-grey-light {
     @include bg-color($dark-grey-light);

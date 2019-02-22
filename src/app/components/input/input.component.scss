@@ -2,27 +2,43 @@
 
 .gh-input {
     outline: none;
-    background-color: $dark;
-    color: $white;
-    border : 1px solid $dark-grey;
     border-radius: 3px;
     font-size: $fs-medium;
     padding: $gap-md;
     line-height: 1;
     @include wX(100%);
 
+    &.dark {
+        color: $white;
+        border : 1px solid $dark-grey;
+        background-color: $dark;
+        &.disabled {
+            color: $muted-white;
+    
+            &:hover {
+                cursor: not-allowed;
+                color: $white;
+            }
+        }
+    }
+
+    &.light {
+        color: $dark;
+        border : 1px solid $border-light-grey-light;
+        background-color: $white;
+        &.disabled {
+            color: $dark;
+    
+            &:hover {
+                cursor: not-allowed;
+                color: $muted-dark;
+            }
+        }
+    }
+
     &:focus {
         border-color: $light-blue-hover;
         box-shadow: 0 0 0 1px $light-blue-hover;
         outline: 0;
-    }
-
-    &.disabled {
-        color: $muted-white;
-
-        &:hover {
-            cursor: not-allowed;
-            color: $white;
-        }
     }
 }

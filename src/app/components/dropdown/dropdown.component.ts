@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
 @Component({
   selector: 'app-dropdown',
@@ -9,6 +11,8 @@ export class DropdownComponent implements OnInit {
 
   @Input() disabled: Boolean = false;
   @Input() required: Boolean = false;
+  themePrefSubscription: Subscription;
+  currentTheme: string;
 
   currentValue: string;
   @Input() idKey: String;
@@ -29,7 +33,14 @@ export class DropdownComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  constructor(private themePrefService: ThemePreferencesService) {
+    this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
+      (newTheme: string) => {
+        this.currentTheme = newTheme;
+      }
+    );
+    this.themePrefService.emitThemePreferencesSubject();
+   }
 
   getOptKey(option: any) {
     if (this.idKey) {

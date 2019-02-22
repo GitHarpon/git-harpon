@@ -11,17 +11,33 @@
     white-space: nowrap;
     text-overflow: clip;
 
-    @include bg-color($light-grey);
+    
     cursor: pointer;
 
-    &.disabled {
-        color: $muted-white;
-        cursor: not-allowed;
+    &.dark {
+        @include bg-color($light-grey);
+        &.disabled {
+            color: $muted-white;
+            cursor: not-allowed;
+        }
+    
+        &:hover {
+            @include bg-color($dark-grey);
+        }
     }
 
-    &:hover {
-        @include bg-color($dark-grey);
+    &.light {
+        @include bg-color($button-bar-light);
+        &.disabled {
+            color: $muted-white;
+            cursor: not-allowed;
+        }
+    
+        &:hover {
+            @include bg-color($button-bar-hover-light);
+        }
     }
+    
 
     .gh-button-div {
         padding-bottom: 5px;

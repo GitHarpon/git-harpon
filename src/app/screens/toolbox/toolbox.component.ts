@@ -101,8 +101,10 @@ export class ToolboxComponent implements OnInit {
       'light-red-light',
       'disabled-red-light',
       'button-bar-light',
+      'button-bar-hover-light',
       'arrow-light',
-      'border-grey-light',
+      'border-light-grey-light',
+      'border-dark-grey-light',
       'dark-grey-light',
       'light-grey-light',
       'grey-variant-light'
