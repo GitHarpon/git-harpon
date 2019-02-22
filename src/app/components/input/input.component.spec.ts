@@ -6,6 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { MockTranslateService } from '../../models/MockTranslateService';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
+import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -22,6 +24,10 @@ describe('InputComponent', () => {
         {
           provide: TranslateService,
           useClass: MockTranslateService
+        },
+        {
+          provide: ThemePreferencesService,
+          useClass: MockThemePreferencesService
         }
       ]
     })
