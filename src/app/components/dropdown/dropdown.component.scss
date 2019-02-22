@@ -38,15 +38,15 @@
 
   &.light {
     background-color: $white;
-    color: $white;
+    color: $dark;
     border : 1px solid $border-light-grey-light;
 
     &.disabled {
-      color: $muted-white;
+      color: $muted-dark;
 
       &:hover {
           cursor: not-allowed;
-          color: $white;
+          color: $dark;
       }
     }
   }

@@ -43,7 +43,7 @@ export class InputNumberComponent implements OnInit {
     this.valueChange.emit(this.currentValue);
   }
 
-  constructor(private translateService: TranslateService, private themePrefService: ThemePreferencesService) { 
+  constructor(private translateService: TranslateService, private themePrefService: ThemePreferencesService) {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
         this.currentTheme = newTheme;

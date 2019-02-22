@@ -107,7 +107,9 @@ export class ToolboxComponent implements OnInit {
       'border-dark-grey-light',
       'dark-grey-light',
       'light-grey-light',
-      'grey-variant-light'
+      'grey-variant-light',
+      'modal-tab-selected-light',
+      'modal-tab-hover-light'
     ];
 
     this.independentColorList = [

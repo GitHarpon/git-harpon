@@ -1,119 +1,119 @@
-<app-container classes="dark" border="true">
-    <ng-scrollbar class="gh-scrollbar">
+<app-container [classes]="currentTheme" border="true">
+    <ng-scrollbar [ngClass]="['gh-scrollbar-' + currentTheme]">
         <div class="text-center">
-            <span class="big-heading">Toolbox</span>
+            <span class="big-heading" [ngClass]="currentTheme">Toolbox</span>
         </div>
         <div class="container">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>{{ 'DARK_THEME' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-2 mt-1" *ngFor="let color of darkColorList">
-                    <div class="col-md-4 offset-md-4 color-item" [ngClass]="[color]">
+                    <div class="col-md-4 offset-md-4 color-item" [ngClass]="[color, 'border-' + currentTheme]">
                     </div>
-                    <div class="text-center color-white">
+                    <div class="text-center" [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                         ${{ color }}
                     </div>
                 </div>
             </div>
         </div>
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>{{ 'LIGHT_THEME' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-2 mt-1" *ngFor="let color of lightColorList">
-                    <div class="col-md-4 offset-md-4 color-item" [ngClass]="[color]">
+                    <div class="col-md-4 offset-md-4 color-item" [ngClass]="[color, 'border-' + currentTheme]">
                     </div>
-                    <div class="text-center color-white">
+                    <div class="text-center" [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                         ${{ color }}
                     </div>
                 </div>
             </div>
         </div>
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>{{ 'INDEPENDENT_THEME' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-2 mt-1" *ngFor="let color of independentColorList">
-                    <div class="col-md-4 offset-md-4 color-item" [ngClass]="[color]">
+                    <div class="col-md-4 offset-md-4 color-item" [ngClass]="[color, 'border-' + currentTheme]">
                     </div>
-                    <div class="text-center color-white">
+                    <div class="text-center" [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                         ${{ color }}
                     </div>
                 </div>
             </div>
         </div>
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>{{ 'FONT_SIZES' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-2 mt-1" *ngFor="let fs of fsList">
-                    <div class="text-center color-white" [ngClass]="[fs]">
+                    <div class="text-center" [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']" [ngClass]="[fs]">
                         ${{ fs }}
                     </div>
                 </div>
             </div>
         </div>
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>{{ 'TAGS' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-2 mt-1">
-                    <div class="text-center color-white">
+                    <div class="text-center" [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                         <h1>{{ 'TAG' | translate }} h1</h1>
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <div class="text-center color-white">
+                    <div class="text-center" [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                         <h2>{{ 'TAG' | translate }} h2</h2>
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <div class="text-center color-white">
+                    <div class="text-center" [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                         <h3>{{ 'TAG' | translate }} h3</h3>
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <div class="text-center color-white">
+                    <div class="text-center" [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                         <h4>{{ 'TAG' | translate }} h4</h4>
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <div class="text-center color-white">
+                    <div class="text-center " [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                         <h5>{{ 'TAG' | translate }} h5</h5>
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <div class="text-center color-white">
+                    <div class="text-center" [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                         <h6>{{ 'TAG' | translate }} h6</h6>
                     </div>
                 </div>
             </div>
         </div>
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>Font Awesome</h2>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-2 mt-3" *ngFor="let fa of faList">
-                    <div class="col-md-4 offset-md-4 color-white">
+                    <div class="col-md-4 offset-md-4" [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                         <i [ngClass]="[(fa.isFab ? 'fab' : 'fa'), fa.icon]"></i>
                     </div>
-                    <div class="text-center color-white">
+                    <div class="text-center" [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                         {{ fa.icon }}
                     </div>
                 </div>
             </div>
             <div class="col-md-12 text-center mt-3">
-                <a class="link-white" (click)="openFontAwesome()">Font Awesome 5 Free</a>
+                <a [ngClass]="[currentTheme === 'light' ? 'link-dark' : 'link-white']" (click)="openFontAwesome()">Font Awesome 5 Free</a>
             </div>
         </div>
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>Loader</h2>
             </div>
             <div class="mt-2 col-md-12 row">
@@ -134,7 +134,7 @@
             </div>
         </div>
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>{{ 'CHECKBOX' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-1 row">
@@ -157,7 +157,7 @@
             </div>
         </div>
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>Boutons</h2>
             </div>
             <div class="col-md-12 mt-2 row">
@@ -218,13 +218,13 @@
             </div>
         </div>
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>Input</h2>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-8 row">
                     <!-- Avec label -->
-                    <div class="col-md-2 gh-label-input text-right">
+                    <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === 'light' ? 'light' : 'dark']">
                         <label>{{ 'REGULAR' | translate }}</label>
                     </div>
                     <div class="col-md-10">
@@ -233,7 +233,7 @@
                 </div>
                 <div class="col-md-1">
                     <app-copy-button template='<div class="col-md-8 row">
-                            <div class="col-md-2 gh-label-input text-right">
+                            <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === "light" ? "light" : "dark"]">
                                 <label></label>
                             </div>
                             <div class="col-md-10">
@@ -243,7 +243,7 @@
                 </div>                
                 <div class="col-md-8 row mt-2">
                     <!-- Placeholder + empty value -->
-                    <div class="col-md-2 gh-label-input text-right">
+                    <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === 'light' ? 'light' : 'dark']">
                         <label>{{ 'PLACEHOLDER' | translate }}</label>
                     </div>
                     <div class="col-md-10 mt-1">
@@ -253,7 +253,7 @@
                 <div class="col-md-1 mt-2">
                     <app-copy-button template='<div class="col-md-8 row">
                             <!-- Placeholder + empty value -->
-                            <div class="col-md-2 gh-label-input text-right">
+                            <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === "light" ? "light" : "dark"]">
                                 <label></label>
                             </div>
                             <div class="col-md-10 mt-1">
@@ -263,7 +263,7 @@
                 </div>  
                 <div class="col-md-8 row mt-2">
                     <!-- Read only -->
-                    <div class="col-md-2 gh-label-input text-right">
+                    <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === 'light' ? 'light' : 'dark']">
                         <label>{{ 'READONLY' | translate }}</label>
                     </div>
                     <div class="col-md-10 mt-2">
@@ -273,7 +273,7 @@
                 <div class="col-md-1 mt-2">
                     <app-copy-button template='<div class="col-md-8 row mt-2">
                             <!-- Read only -->
-                            <div class="col-md-2 gh-label-input text-right">
+                            <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === "light" ? "light" : "dark"]">
                                 <label></label>
                             </div>
                             <div class="col-md-10 mt-1">
@@ -283,7 +283,7 @@
                 </div> 
                 <div class="col-md-8 row mt-2">
                     <!-- Disabled -->
-                    <div class="col-md-2 gh-label-input text-right">
+                    <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === 'light' ? 'light' : 'dark']">
                         <label>{{ 'DISABLED' | translate }}</label>
                     </div>
                     <div class="col-md-10 mt-2">
@@ -293,7 +293,7 @@
                 <div class="col-md-1 mt-2">
                     <app-copy-button template='<div class="col-md-8 row">
                             <!-- Disabled -->
-                            <div class="col-md-2 gh-label-input text-right">
+                            <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === "light" ? "light" : "dark"]">
                                 <label></label>
                             </div>
                             <div class="col-md-10 mt-1">
@@ -308,7 +308,7 @@
             </div>
         </div>
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>{{ 'MODAL.WINDOW' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-2 row">
@@ -322,7 +322,7 @@
                             <mat-tab label="">
                                 <div class="container row">
                                     <div class="col-md-8 row">
-                                        <div class="col-md-2 gh-label-input text-right">
+                                        <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === "light" ? "light" : "dark"]">
                                             <label></label>
                                         </div>
                                         <div class="col-md-10 mt-1">
@@ -381,10 +381,8 @@
                 </div>
             </div>
         </div>
-
-
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>{{ 'INFOBAR.TITLE' | translate }}</h2>
             </div>
             <div class="col-md-12 mt-2 row">
@@ -398,11 +396,8 @@
                 </div>
             </div>
         </div>
-
-        
-
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>IconButtons</h2>
             </div>
             <div class="col-md-12 row mt-1">
@@ -433,13 +428,13 @@
             </div>
         </div>
         <div class="container mt-5">
-            <div class="col-md-12 bb-white">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                 <h2>Input-Number</h2>
             </div>
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-8 row">
                     <!-- Avec label -->
-                    <div class="col-md-2 gh-label-input text-right">
+                    <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === 'light' ? 'light' : 'dark']">
                         <label>{{ 'REGULAR' | translate }}</label>
                     </div>
                     <div class="col-md-10">
@@ -449,8 +444,7 @@
                 <div class="col-md-1 mt-1">
                     <app-copy-button template='<div class="col-md-8 row">
                         <!-- Avec label -->
-                        <div class="col-md-2 gh-label-input text-right">
-                            <label>label</label>
+                        <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === "light" ? "light" : "dark"]">                            <label>label</label>
                         </div>
                         <div class="col-md-10">
                             <app-input-number [(value)]="inputValueNumber"></app-input-number>
@@ -459,7 +453,7 @@
                 </div>
                 <div class="col-md-8 row mt-1">
                     <!-- Read only -->
-                    <div class="col-md-2 gh-label-input text-right">
+                    <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === 'light' ? 'light' : 'dark']">
                         <label>MIN-MAX</label>
                     </div>
                     <div class="col-md-10">
@@ -470,7 +464,7 @@
                 <div class="col-md-1 mt-1">
                     <app-copy-button template='<div class="col-md-8 row mt-1">
                         <!-- Read only -->
-                        <div class="col-md-2 gh-label-input text-right">
+                        <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === "light" ? "light" : "dark"]">
                             <label>MIN-MAX</label>
                         </div>
                         <div class="col-md-10">
@@ -485,12 +479,12 @@
                 </div>
             </div>
             <div class="container mt-5">
-                <div class="col-md-12 bb-white">
+                <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                     <h2>{{ 'CONTEXT_MENU' | translate }}</h2>
                 </div>
                 <div class="col-md-12 mt-2 row">
                     <div class="col-md-5">
-                        <ul class="text-white">
+                        <ul [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                             <li *ngFor="let user of contextMenuFirstObject" [contextMenu]="userCM"
                                 [contextMenuSubject]="user">{{ 'CLICK.RIGHT' | translate }}:
                                 {{ user?.sexe === 'F' ? 'Mme.' : 'M.' }} {{ user?.lastname }}</li>
@@ -533,7 +527,7 @@
                             </context-menu>'></app-copy-button>
                     </div>
                     <div class="col-md-5">
-                        <ul class="text-white">
+                        <ul [ngClass]="[currentTheme === 'light' ? 'color-dark' : 'color-white']">
                             <li *ngFor="let subject of contextMenuSecondObject" [contextMenu]="subjectCM"
                                 [contextMenuSubject]="subject">{{ 'CLICK.RIGHT' | translate }}: {{ subject?.name }}</li>
                         </ul>
@@ -596,7 +590,7 @@
         </div>
         <div class="container mt-5">
             <div class="col-md-12 mt-2 row">
-                <div class="col-md-12 bb-white">
+                <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                     <h2>Dropdowns</h2>
                 </div>
                 <div class="col-md-4 mt-2">
@@ -645,7 +639,7 @@
         </div>
         <div class="container mt-5">
             <div class="col-md-12 mt-2 row">
-                <div class="col-md-12 bb-white">
+                <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                     <h2>Accordion</h2>
                 </div>
                 <div class="col-md-12 mt-2 row">
@@ -675,7 +669,7 @@
         <mat-tab label="{{ 'MODAL.FIRST_SECTION' | translate }}">
             <div class="container row">
                 <div class="col-md-8 row">
-                    <div class="col-md-2 gh-label-input text-right">
+                    <div class="col-md-2 gh-label-input text-right" [ngClass]="[currentTheme === 'light' ? 'light' : 'dark']">
                         <label>{{ 'LABEL' | translate }}</label>
                     </div>
                     <div class="col-md-10 mt-1">

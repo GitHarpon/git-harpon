@@ -17,10 +17,17 @@
 
     &.light {
         background-color: $white;
+        &.gh-border {
+            border: 1px solid $border-dark-grey-light;
+        }
     }
 
     &.dark-grey {
         background-color: $dark-grey;
+        &.gh-border {
+            border: 1px solid $dark;
+        }
+    
     }
 
     &.light-grey {
@@ -33,10 +40,6 @@
 
     &.dark {
         background-color: $dark;
-    }
-
-    &.dark-border {
-        border: 1px solid $dark;
     }
 
     &.loader-dark {
