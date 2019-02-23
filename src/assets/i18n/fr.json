@@ -47,7 +47,6 @@
     "NAME": "Nom",
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
-    "ERROR": "Erreur",
     "DANGER": "Danger",
     "ERROR": "Erreur",
     "PATH_NOT_FOUND": "Ce chemin n'existe pas",
@@ -95,7 +94,9 @@
         "BROWSE": "Parcourir",
         "OPENED_REPO": "Le dépôt a été ouvert avec succès",
         "NOT_GIT_REPO": "Ce répertoire n'est pas un répertoire git",
-        "REPO_NOT_EXIST": "Ce répertoire n'existe plus"
+        "REPO_NOT_EXIST": "Ce répertoire n'existe plus",
+        "WHERE": "Où ouvrir",
+        "ALREADY": "Déjà ouvert"
     },
     "CLONE": "Cloner",
     "INIT": {

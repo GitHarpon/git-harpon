@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   repoNameSubscription: Subscription;
   recentProject: any[];
   recentProjectSubscription: Subscription;
+  openFolder: string;
   themePrefSubscription: Subscription;
   currentTheme: string;
 
@@ -160,26 +161,36 @@ export class HomeComponent implements OnInit, OnDestroy {
   openBrowse() {
     const NEWPATH = this.electronService.browse();
     if (NEWPATH !== null) {
-      this.openRepo(NEWPATH);
+      this.openFolder = NEWPATH;
     }
   }
 
-  openRepo(path: any) {
-    if (this.path !== path) {
+  openRepo() {
+    if (this.path !== this.openFolder) {
       this.projectModalLoading = true;
-      if (path !== null) {
-        this.gitService.setPath(path)
+      if (this.openFolder !== null) {
+        this.gitService.setPath(this.openFolder)
           .then((data) => {
             this.projectModalLoading = false;
             this.projectModalVisible = false;
+            this.openFolder = '';
             this.toastr.info(data.message, data.title);
           })
           .catch((data) => {
             this.projectModalLoading = false;
+            this.openFolder = '';
             this.toastr.error(data.message, data.title);
           });
       }
+    } else {
+      this.toastr.error(this.translateService.instant('OPEN.ALREADY'),
+        this.translateService.instant('ERROR'));
     }
+  }
+
+  openRecentRepo(recentPath: string) {
+    this.openFolder = recentPath;
+    this.openRepo();
   }
 
   closeRepo() {
