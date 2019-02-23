@@ -6,6 +6,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 import { LoaderComponent } from '../loader/loader.component';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
+import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 
 describe('ModalComponent', () => {
   let component: ModalComponent;
@@ -20,6 +22,12 @@ describe('ModalComponent', () => {
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader},
         })
       ],
+      providers: [
+        {
+          provide: ThemePreferencesService,
+          useClass: MockThemePreferencesService
+        }
+      ]
     })
     .compileComponents();
   }));

@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 import { ToastrService } from 'ngx-toastr';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
 @Component({
   selector: 'app-preferences',
@@ -18,11 +19,15 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   preferencesTabSelectedIndex: any;
   dropdownLanguageValue: string;
   dataDropdownLanguage: Array<any>;
+  dataDropdownTheme: Array<any>;
+  currentTheme: string;
 
   languageSubscription: Subscription;
+  themePrefSubscription: Subscription;
 
   constructor(public router: Router, private translate: TranslateService,
-      private langPrefService: LanguagePreferencesService, private toastr: ToastrService) {
+      private langPrefService: LanguagePreferencesService, private toastr: ToastrService,
+      private themePrefService: ThemePreferencesService) {
   }
 
   ngOnInit() {
@@ -34,6 +39,11 @@ export class PreferencesComponent implements OnInit, OnDestroy {
       { key: 'en', value: this.translate.instant('ENGLISH') },
     ];
 
+    this.dataDropdownTheme = [
+      { key: 'dark', value: this.translate.instant('DARK') },
+      { key: 'light', value: this.translate.instant('LIGHT') }
+    ];
+
     this.dropdownLanguageValue = this.translate.getDefaultLang(); // renvoie 'fr' ou 'en'
 
     this.languageSubscription = this.langPrefService.preferencesSubject.subscribe(
@@ -43,6 +53,13 @@ export class PreferencesComponent implements OnInit, OnDestroy {
       }
     );
     this.langPrefService.emitPreferencesSubject();
+
+    this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
+      (newTheme: string) => {
+        this.currentTheme = newTheme;
+      }
+    );
+    this.themePrefService.emitThemePreferencesSubject();
   }
 
   checkIfCloseModal(event) {
@@ -65,7 +82,17 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     this.router.navigate(['home']);
   }
 
+  saveChangedUIPreferences() {
+    this.loading = true;
+    this.themePrefService.setThemePreference(this.currentTheme);
+    this.loading = false;
+    this.toastr.info(this.translate.instant('CHANGE_PREF_DONE'),
+        this.translate.instant('SUCCESS'));
+    this.router.navigate(['home']);
+  }
+
   ngOnDestroy() {
     this.languageSubscription.unsubscribe();
+    this.themePrefSubscription.unsubscribe();
   }
 }

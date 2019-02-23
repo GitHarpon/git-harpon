@@ -1,12 +1,12 @@
 <div class="gh-modal" [ngClass]="{'visible': visible }">
   <div class="gh-modal__overlay" (click)="closeModal()"></div>
-  <div class="gh-modal__window" [ngClass]="[(fullscreen ? 'fullscreen' : ''), (large ? 'large' : ''), (medium ? 'medium' : '')]">
+  <div class="gh-modal__window" [ngClass]="[currentTheme, (fullscreen ? 'fullscreen' : ''), (large ? 'large' : ''), (medium ? 'medium' : '')]">
       <app-loader [loading]="loading">
-        <div *ngIf="!fullscreen" class="gh-modal__title">
+        <div *ngIf="!fullscreen" class="gh-modal__title" [ngClass]="[currentTheme]" >
           {{ title | translate }}
-          <div class="gh-modal__close" (click)="closeModal()"><i class="fa fa-times"></i></div>
+          <div class="gh-modal__close" [ngClass]="[currentTheme]" (click)="closeModal()"><i class="fa fa-times"></i></div>
         </div>
-        <div class="gh-modal__content">
+        <div class="gh-modal__content" [ngClass]="[currentTheme]">
           <ng-content></ng-content>
         </div>
       </app-loader>
