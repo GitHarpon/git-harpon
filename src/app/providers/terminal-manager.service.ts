@@ -12,49 +12,43 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable()
 export class TerminalManagerService {
   currentOs: any;
-  terminalListSubscription: Subscription;
-  terminalList: any;
-  currentTerminalSubscription: Subscription;
-  terminalListSubject = new Subject<any[]>();
-  currentTerminalSubject = new Subject<any>();
-  currentTerminal: {
-    name: string,
-    cmd: string
-  };
+  preferences: { name: string, cmd: string };
+  preferencesSubject = new Subject<string>();
 
   constructor(private electronService: ElectronService,
     private translateService: TranslateService,
     private toastr: ToastrService) {
     this.currentOs = this.electronService.os.type();
-    // this.setTerminalList();
-    // this.setCurrentTerminal(this.terminalList[0]);
-    switch (this.currentOs) {
-      case 'Linux':
-        this.currentTerminal = {
-          cmd: 'terminator',
-          name: 'terminator'
-        };
-        break;
-      case 'Darwin':
-        this.currentTerminal = {
-          cmd: 'open -a Terminal',
-          name: 'Terminal'
-        };
-        break;
-      case 'Windows_NT':
-        this.currentTerminal = {
-          cmd: 'start cmd.exe',
-          name: 'cmd'
-        };
-        break;
-      default:
-        break;
+    if (localStorage.getItem('terminalName') == null
+        || localStorage.getItem('terminalCmd') == null) {
+      switch (this.currentOs) {
+        case 'Linux':
+          localStorage.setItem('terminalName', 'terminator');
+          localStorage.setItem('terminalCmd', 'terminator');
+          break;
+        case 'Darwin':
+          localStorage.setItem('terminalName', 'Terminal');
+          localStorage.setItem('terminalCmd', 'open -a Terminal');
+          break;
+        case 'Windows_NT':
+          localStorage.setItem('terminalName', 'cmd');
+          localStorage.setItem('terminalCmd', 'start cmd.exe');
+          break;
+        default:
+          break;
+      }
     }
+
+    this.preferences = {
+      name: this.getCurrentTerminalName(),
+      cmd: this.getCurrentTerminalCmd()
+    };
+    this.emitPreferencesSubject();
   }
 
   openTerminal(): Promise<ServiceResult> {
     return new Promise((resolve, reject) => {
-      this.electronService.childProcess.exec(this.currentTerminal.cmd, (err) => {
+      this.electronService.childProcess.exec(this.getCurrentTerminalCmd(), (err) => {
         if (err) {
           reject(new ServiceResult(false,
             this.translateService.instant('TERMINAL.UNKNOWN'),
@@ -66,80 +60,30 @@ export class TerminalManagerService {
     });
   }
 
-  getCurrentTerminal() {
-    return this.currentTerminal;
-  }
-
   getCurrentTerminalName() {
-    return this.currentTerminal.name;
+    return localStorage.getItem('terminalName');
   }
 
   getCurrentTerminalCmd() {
-    return this.currentTerminal.cmd;
+    return localStorage.getItem('terminalCmd');
   }
 
-  emitTerminalListSubject() {
-    // this.terminalListSubject.next(this.terminalList.slice());
+  setCurrentTerminalName(name) {
+    localStorage.setItem('terminalName', name);
   }
 
-  emitCurrentTerminalSubject() {
-    this.currentTerminalSubject.next(this.currentTerminal);
+  setCurrentTerminalCmd(cmd) {
+    localStorage.setItem('terminalCmd', cmd);
   }
 
-  setCurrentTerminal(newTerminal: any) {
-    this.currentTerminal = newTerminal;
-    this.emitCurrentTerminalSubject();
+  emitPreferencesSubject() {
+    this.preferencesSubject.next(this.preferences.name);
   }
 
-  // setTerminalList() {
-  //   let List = [];
-  //   switch (this.currentOs) {
-  //     case 'Linux':
-  //       List = [{
-  //         cmd: 'terminator',
-  //         name: 'terminator'
-  //       },
-  //       {
-  //         cmd: 'gnome-terminal',
-  //         name: 'gnome-terminal'
-  //       },
-  //       {
-  //         cmd: 'xterm',
-  //         name: 'xterm'
-  //       }];
-  //       break;
-  //     case 'Darwin':
-  //       List = [{
-  //         cmd: 'open -a Terminal',
-  //         name: 'Terminal'
-  //       },
-  //       {
-  //         cmd: 'open -a iTerm',
-  //         name: 'iTerm'
-  //       },
-  //       {
-  //         cmd: 'open -a terminator',
-  //         name: 'terminator'
-  //       }];
-  //       break;
-  //     case 'Windows_NT':
-  //       List = [{
-  //         cmd: 'start cmd.exe',
-  //         name: 'cmd'
-  //       },
-  //       {
-  //         cmd: 'start PowerShell.exe',
-  //         name: 'PowerShell'
-  //       },
-  //       {
-  //         cmd: 'start "" "%ProgramFiles%\\Git\\git-bash.exe"',
-  //         name: 'Git Bash'
-  //       }];
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   this.terminalList = List;
-  //   this.emitTerminalListSubject();
-  // }
+  setCurrentTerminal(newTerminal: { name: string, cmd: string }) {
+    this.setCurrentTerminalName(newTerminal.name);
+    this.setCurrentTerminalCmd(newTerminal.cmd);
+    this.preferences = newTerminal;
+    this.emitPreferencesSubject();
+  }
 }

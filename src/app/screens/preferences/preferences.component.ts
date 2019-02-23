@@ -58,19 +58,17 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     );
     this.langPrefService.emitPreferencesSubject();
 
-    this.currentTerminalSubscription = this.terminalPreferencesService.currentTerminalSubject.subscribe(
-      (currentTerminal: any) => {
-        this.currentTerminal = currentTerminal;
-      }
-    );
-    this.terminalPreferencesService.emitCurrentTerminalSubject();
-
-    this.terminalListSubscription = this.terminalPreferencesService.terminalListSubject.subscribe(
-      (terminalList: any[]) => {
-        this.terminalList = terminalList;
-      }
-    );
-    this.terminalPreferencesService.emitTerminalListSubject();
+    // this.currentTerminalSubscription = this.terminalPreferencesService.currentTerminalSubject.subscribe(
+    //   (currentTerminal: any) => {
+    //     this.currentTerminal = currentTerminal;
+    //   }
+    // );
+    // this.terminalPreferencesService.emitCurrentTerminalSubject();
+    // this.terminalListSubscription = this.terminalPreferencesService.terminalListSubject.subscribe(
+    //   (terminalList: any[]) => {
+    //     this.terminalList = terminalList;
+    //   }
+    // );
 
     var CurrentOs = this.electronService.os.type();
     switch (CurrentOs) {
@@ -133,7 +131,7 @@ export class PreferencesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.languageSubscription.unsubscribe();
-    this.currentTerminalSubscription.unsubscribe();
-    this.terminalListSubscription.unsubscribe();
+    // this.currentTerminalSubscription.unsubscribe();
+    // this.terminalListSubscription.unsubscribe();
   }
 }
