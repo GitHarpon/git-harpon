@@ -99,7 +99,7 @@ export class PreferencesComponent implements OnInit, OnDestroy {
         break;
     }
 
-    this.dropdownTerminalValue = this.terminalPreferencesService.getCurrentTerminal().cmd;
+    this.dropdownTerminalValue = this.terminalPreferencesService.getCurrentTerminalName();
   }
 
   setCurrentTerminal(event) {

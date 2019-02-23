@@ -26,8 +26,30 @@ export class TerminalManagerService {
     private translateService: TranslateService,
     private toastr: ToastrService) {
     this.currentOs = this.electronService.os.type();
-    this.setTerminalList();
-    this.setCurrentTerminal(this.terminalList[0]);
+    // this.setTerminalList();
+    // this.setCurrentTerminal(this.terminalList[0]);
+    switch (this.currentOs) {
+      case 'Linux':
+        this.currentTerminal = {
+          cmd: 'terminator',
+          name: 'terminator'
+        };
+        break;
+      case 'Darwin':
+        this.currentTerminal = {
+          cmd: 'open -a Terminal',
+          name: 'Terminal'
+        };
+        break;
+      case 'Windows_NT':
+        this.currentTerminal = {
+          cmd: 'start cmd.exe',
+          name: 'cmd'
+        };
+        break;
+      default:
+        break;
+    }
   }
 
   openTerminal(): Promise<ServiceResult> {
@@ -48,8 +70,16 @@ export class TerminalManagerService {
     return this.currentTerminal;
   }
 
+  getCurrentTerminalName() {
+    return this.currentTerminal.name;
+  }
+
+  getCurrentTerminalCmd() {
+    return this.currentTerminal.cmd;
+  }
+
   emitTerminalListSubject() {
-    this.terminalListSubject.next(this.terminalList.slice());
+    // this.terminalListSubject.next(this.terminalList.slice());
   }
 
   emitCurrentTerminalSubject() {
@@ -61,55 +91,55 @@ export class TerminalManagerService {
     this.emitCurrentTerminalSubject();
   }
 
-  setTerminalList() {
-    let List = [];
-    switch (this.currentOs) {
-      case 'Linux':
-        List = [{
-          cmd: 'terminator',
-          name: 'terminator'
-        },
-        {
-          cmd: 'gnome-terminal',
-          name: 'gnome-terminal'
-        },
-        {
-          cmd: 'xterm',
-          name: 'xterm'
-        }];
-        break;
-      case 'Darwin':
-        List = [{
-          cmd: 'open -a Terminal',
-          name: 'Terminal'
-        },
-        {
-          cmd: 'open -a iTerm',
-          name: 'iTerm'
-        },
-        {
-          cmd: 'open -a terminator',
-          name: 'terminator'
-        }];
-        break;
-      case 'Windows_NT':
-        List = [{
-          cmd: 'start cmd.exe',
-          name: 'cmd'
-        },
-        {
-          cmd: 'start PowerShell.exe',
-          name: 'PowerShell'
-        },
-        {
-          cmd: 'start "" "%ProgramFiles%\\Git\\git-bash.exe"',
-          name: 'Git Bash'
-        }];
-        break;
-      default:
-        break;
-    }
-    this.terminalList = List;
-    this.emitTerminalListSubject();
-  }
+  // setTerminalList() {
+  //   let List = [];
+  //   switch (this.currentOs) {
+  //     case 'Linux':
+  //       List = [{
+  //         cmd: 'terminator',
+  //         name: 'terminator'
+  //       },
+  //       {
+  //         cmd: 'gnome-terminal',
+  //         name: 'gnome-terminal'
+  //       },
+  //       {
+  //         cmd: 'xterm',
+  //         name: 'xterm'
+  //       }];
+  //       break;
+  //     case 'Darwin':
+  //       List = [{
+  //         cmd: 'open -a Terminal',
+  //         name: 'Terminal'
+  //       },
+  //       {
+  //         cmd: 'open -a iTerm',
+  //         name: 'iTerm'
+  //       },
+  //       {
+  //         cmd: 'open -a terminator',
+  //         name: 'terminator'
+  //       }];
+  //       break;
+  //     case 'Windows_NT':
+  //       List = [{
+  //         cmd: 'start cmd.exe',
+  //         name: 'cmd'
+  //       },
+  //       {
+  //         cmd: 'start PowerShell.exe',
+  //         name: 'PowerShell'
+  //       },
+  //       {
+  //         cmd: 'start "" "%ProgramFiles%\\Git\\git-bash.exe"',
+  //         name: 'Git Bash'
+  //       }];
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   this.terminalList = List;
+  //   this.emitTerminalListSubject();
+  // }
 }
