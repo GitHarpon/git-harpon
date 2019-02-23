@@ -92,19 +92,18 @@
                     </div>
                 </div>
             </div>
-                <span class="section-title">
-                    <i class="fas fa-clock fa-xs"></i>
-                    {{ 'OPEN.OPENED' | translate }}
-                </span>
-                <div *ngFor="let project of recentProject | keyvalue; first as isFirst" (click)="openRepo(project.value.path)"
-                    [class.gh-open-first]="isFirst && repoName" class="col-md-12 pt-1 pb-1 gh-open-recentProject" [ngClass]="[currentTheme]">
+            <span class="section-title">
+                <i class="fas fa-clock fa-xs"></i>
+                {{ 'OPEN.OPENED' | translate }}
+            </span>
+            <div *ngFor="let project of recentProject | keyvalue; first as isFirst" (click)="openRepo(project.value.path)"
+                [class.gh-open-first]="isFirst && repoName" class="col-md-12 pt-1 pb-1 gh-open-recentProject" [ngClass]="[currentTheme]">
+                <div class="col-md-12">
+                    {{project.value.repo}}
+                </div>
+                <div class="col-md-12 gh-open-recentPath" [ngClass]="[currentTheme]">
                     <div class="col-md-12">
-                        {{project.value.repo}}
-                    </div>
-                    <div class="col-md-12 gh-open-recentPath" [ngClass]="[currentTheme]">
-                        <div class="col-md-12">
-                            {{project.value.path}}
-                        </div>
+                        {{project.value.path}}
                     </div>
                 </div>
             </div>
