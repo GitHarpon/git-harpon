@@ -8,6 +8,7 @@ import { initNgModule } from '@angular/core/src/view/ng_module';
 import { Subscription } from 'rxjs';
 import { ServiceResult } from '../../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +32,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   recentProject: any[];
   recentProjectSubscription: Subscription;
   openFolder: string;
+  themePrefSubscription: Subscription;
+  currentTheme: string;
 
   ngOnInit() {
     this.dimensions = 20;
@@ -38,7 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
-    private translateService: TranslateService) {
+    private translateService: TranslateService, private themePrefService: ThemePreferencesService) {
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
@@ -56,6 +59,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.recentProject = recentProject;
       });
     this.gitService.emitRecentProjectSubject();
+
+    this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
+      (newTheme: string) => {
+        this.currentTheme = newTheme;
+      }
+    );
+    this.themePrefService.emitThemePreferencesSubject();
   }
 
   pullButtonClicked() {

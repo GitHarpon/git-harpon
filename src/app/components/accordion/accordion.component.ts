@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
 @Component({
   selector: 'app-accordion',
@@ -13,8 +15,17 @@ export class AccordionComponent implements OnInit {
     name: String,
     isFab: Boolean
   };
+  themePrefSubscription: Subscription;
+  currentTheme: string;
 
-  constructor() { }
+  constructor(private themePrefService: ThemePreferencesService) {
+    this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
+      (newTheme: string) => {
+        this.currentTheme = newTheme;
+      }
+    );
+    this.themePrefService.emitThemePreferencesSubject();
+  }
 
   ngOnInit() {
   }

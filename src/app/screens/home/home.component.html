@@ -1,8 +1,8 @@
-<app-container classes="dark">
+<app-container [classes]="currentTheme">
     <!-- Button-Bar -->
-    <div class="gh-button-bar">
+    <div class="gh-button-bar" [ngClass]="[currentTheme]">
         <!-- Project (à gauche) -->
-        <div class="col-4 gh-button-bar-project gh-breadcrumbs">
+        <div class="col-4 gh-button-bar-project gh-breadcrumbs" [ngClass]="[currentTheme]">
             <ul>
                 <li class="gh-folder"><a id="project-manager" (click)="openProjectModal(0)"><i class="far fa-folder fa-lg"></i></a></li>
                 <li class="gh-project" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
@@ -45,17 +45,17 @@
     </div>
 
     <!-- Main-Panel -->
-    <div class="gh-main-panel" [ngClass]="[(repoName ? 'gh-project-not-opened' : '')]">
+    <div class="gh-main-panel" [ngClass]="[currentTheme, (repoName ? 'gh-project-not-opened' : '')]">
         <div class="row gh-main-panel-not-opened text-center">
-            <div class="offset-2 col-md-2 gh-main-panel-not-opened-button" (click)="openProjectModal(0)">
+            <div class="offset-2 col-md-2 gh-main-panel-not-opened-button" [ngClass]="[currentTheme]" (click)="openProjectModal(0)">
                 <div class="mb-1">{{ 'OPEN.REPO' | translate }}</div>
                 <div><i class="fa fa-folder fa-lg"></i></div>
             </div>
-            <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" (click)="openProjectModal(2)">
+            <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" [ngClass]="[currentTheme]" (click)="openProjectModal(2)">
                 <div class="mb-1">{{ 'INIT.TAB_TITLE' | translate }}</div>
                 <div><i class="fa fa-laptop fa-lg"></i></div>
             </div>
-            <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" (click)="openProjectModal(1)">
+            <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" [ngClass]="[currentTheme]" (click)="openProjectModal(1)">
                 <div class="mb-1">{{ 'CLONE' | translate }}</div>
                 <div><i class="fa fa-globe fa-lg"></i></div>
             </div>
@@ -63,7 +63,7 @@
     </div>
 </app-container>
 
-<div class="left-panel" mwlResizable [ngStyle]="style" [validateResize]="validate" [enableGhostResize]="true" [resizeEdges]="{right: true}" (resizeEnd)="onResizeEnd($event)">
+<div class="left-panel" [ngClass]="[currentTheme]" mwlResizable [ngStyle]="style" [validateResize]="validate" [enableGhostResize]="true" [resizeEdges]="{right: true}" (resizeEnd)="onResizeEnd($event)">
     DIV TEST
 </div>
 
@@ -92,20 +92,19 @@
                     </div>
                 </div>
             </div>
-            <span class="section-title">
-                <i class="fas fa-clock fa-xs"></i>
-                {{ 'OPEN.OPENED' | translate }}
-            </span>
-            <div *ngFor="let project of recentProject | keyvalue; first as isFirst" (click)="openRecentRepo(project.value.path)"
-                [class.gh-open-first]="isFirst && repoName" class="col-md-12 pt-1 pb-1 gh-open-recentProject">
-                <div class="col-md-12">
+                <span class="section-title">
+                    <i class="fas fa-clock fa-xs"></i>
+                    {{ 'OPEN.OPENED' | translate }}
+                </span>
+                <div *ngFor="let project of recentProject | keyvalue; first as isFirst" (click)="openRepo(project.value.path)"
+                    [class.gh-open-first]="isFirst && repoName" class="col-md-12 pt-1 pb-1 gh-open-recentProject" [ngClass]="[currentTheme]">
                     <div class="col-md-12">
                         {{project.value.repo}}
                     </div>
-                </div>
-                <div class="col-md-12 gh-open-recentPath">
-                    <div class="col-md-12">
-                        {{project.value.path}}
+                    <div class="col-md-12 gh-open-recentPath" [ngClass]="[currentTheme]">
+                        <div class="col-md-12">
+                            {{project.value.path}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,7 +117,7 @@
             </span>
             <div class="col-md-12">
                 <div class="col-md-12 row mt-2">
-                    <div class="col-md-3 gh-label-input text-right">
+                    <div class="col-md-3 gh-label-input text-right" [ngClass]="[currentTheme]">
                         <label>{{ 'NAME' | translate }} </label>
                     </div>
                     <div class="col-md-9">
@@ -126,7 +125,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 row mt-2">
-                    <div class="col-md-3 gh-label-input text-right">
+                    <div class="col-md-3 gh-label-input text-right" [ngClass]="[currentTheme]">
                         <label>{{ 'INIT.WHERE' | translate }} </label>
                     </div>
                     <div class="col-md-7">
@@ -137,10 +136,10 @@
                     </div>
                 </div>
                 <div class="col-md-12 row mt-2">
-                        <div class="col-md-3 gh-label-input text-right">
+                        <div class="col-md-3 gh-label-input text-right" [ngClass]="[currentTheme]">
                            <label>{{ 'FULL_PATH' | translate }} </label>
                         </div>
-                        <div class="col-md-9 gh-label-input pl-3 text-break-word">
+                        <div class="col-md-9 gh-label-input pl-3 text-break-word" [ngClass]="[currentTheme]">
                             {{ fullPath }}
                         </div>
                     </div>

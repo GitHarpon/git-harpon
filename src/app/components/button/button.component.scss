@@ -3,12 +3,11 @@
 .gh-button {
     border-style: solid;
     border-radius: 2px;
-    color: $white;
     outline: none;
-
-    &.primary {
+    &.primary-dark {
         @include bg-color($dark-blue);
         border-color: $light-blue;
+        color: $white;
         cursor: pointer;
 
         &:hover {
@@ -27,10 +26,33 @@
         }
     }
 
-    &.success {
+    &.primary-light {
+        @include bg-color($light-blue-light);
+        border-color: $dark-blue-light;
+        cursor: pointer;
+        color: $dark;
+
+        &:hover {
+            @include bg-color($dark-blue-light);
+        }
+
+        &.disabled {
+            @include bg-color($disabled-blue-light);
+            border-color: $dark-blue-light;
+            color: $dark;
+
+            &:hover {
+                cursor: not-allowed;
+                color: $white;
+            }
+        }
+    }
+
+    &.success-dark {
         @include bg-color($dark-green);
         border-color: $light-green;
         cursor: pointer;
+        color: $white;
 
         &:hover {
             @include bg-color($light-green);
@@ -49,10 +71,34 @@
         }
     }
 
-    &.danger {
+    &.success-light {
+        @include bg-color($light-green-light);
+        border-color: $dark-green-light;
+        cursor: pointer;
+        color: $dark;
+
+        &:hover {
+            @include bg-color($dark-green-light);
+        }
+
+        &.disabled {
+            @include bg-color($disabled-green-light);
+            border-color: $dark-green-light;
+            color: $dark;
+            
+            
+            &:hover {
+                cursor: not-allowed;
+                color: $white;
+            }
+        }
+    }
+
+    &.danger-dark {
         @include bg-color($dark-red);
         border-color: $light-red;
         cursor: pointer;
+        color: $white;
 
         &:hover {
             @include bg-color($light-red);
@@ -62,6 +108,28 @@
             @include bg-color($disabled-red);
             border-color: $dark-red;
             color: $muted-white;
+            
+            &:hover {
+                cursor: not-allowed;
+                color: $white;
+            }
+        }
+    }
+
+    &.danger-light {
+        @include bg-color($light-red-light);
+        border-color: $dark-red-light;
+        cursor: pointer;
+        color: $dark;
+
+        &:hover {
+            @include bg-color($dark-red-light);
+        }
+
+        &.disabled {
+            @include bg-color($disabled-red-light);
+            border-color: $dark-red-light;
+            color: $dark;
             
             &:hover {
                 cursor: not-allowed;
