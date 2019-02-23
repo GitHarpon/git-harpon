@@ -49,7 +49,6 @@
     "SUCCESS": "Success",
     "ERROR": "Error",
     "DANGER": "Danger",
-    "ERROR": "Error",
     "PATH_NOT_FOUND": "This path doesn't exist",
     "UPDATE_VALUE": "Update value",
     "DISPLAY_VALUE": "Display value",
@@ -107,5 +106,10 @@
     },
     "FULL_PATH": "Full path",
     "BROWSE": "Browse",
-    "CREATE_REPOSITORY": "Create Repository"
+    "CREATE_REPOSITORY": "Create Repository",
+    "TERMINAL": {
+        "UNKNOWN": "Unknown terminal",
+        "MESSAGE": "It seeems not installed on the device",
+        "NAME": "Terminal"
+    }
 }

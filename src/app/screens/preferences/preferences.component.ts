@@ -4,6 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 import { ToastrService } from 'ngx-toastr';
+import { ElectronService } from '../../providers/electron.service';
+import { TerminalManagerService } from '../../providers/terminal-manager.service';
 
 @Component({
   selector: 'app-preferences',
@@ -21,8 +23,20 @@ export class PreferencesComponent implements OnInit, OnDestroy {
 
   languageSubscription: Subscription;
 
+  terminalListSubscription: Subscription;
+  terminalList: any;
+  currentTerminalSubscription: Subscription;
+  currentTerminal: {
+    name: string,
+    cmd: string
+  };
+  dataDropdownTerminal: Array<any>;
+  dropdownTerminalValue: string;
+
   constructor(public router: Router, private translate: TranslateService,
-      private langPrefService: LanguagePreferencesService, private toastr: ToastrService) {
+      private langPrefService: LanguagePreferencesService, private toastr: ToastrService,
+      private electronService: ElectronService,
+      private terminalPreferencesService: TerminalManagerService) {
   }
 
   ngOnInit() {
@@ -43,6 +57,53 @@ export class PreferencesComponent implements OnInit, OnDestroy {
       }
     );
     this.langPrefService.emitPreferencesSubject();
+
+    this.currentTerminalSubscription = this.terminalPreferencesService.currentTerminalSubject.subscribe(
+      (currentTerminal: any) => {
+        this.currentTerminal = currentTerminal;
+      }
+    );
+    this.terminalPreferencesService.emitCurrentTerminalSubject();
+
+    this.terminalListSubscription = this.terminalPreferencesService.terminalListSubject.subscribe(
+      (terminalList: any[]) => {
+        this.terminalList = terminalList;
+      }
+    );
+    this.terminalPreferencesService.emitTerminalListSubject();
+
+    var CurrentOs = this.electronService.os.type();
+    switch (CurrentOs) {
+      case 'Linux':
+        this.dataDropdownTerminal = [
+          { key: 'terminator', value: 'terminator' },
+          { key: 'gnome-terminal', value: 'gnome-terminal' },
+          { key: 'xterm', value: 'xterm' }
+        ];
+        break;
+      case 'Darwin':
+        this.dataDropdownTerminal = [
+          { key: 'open -a Terminal', value: 'Terminal' },
+          { key: 'open -a iTerm', value: 'iTerm' },
+          { key: 'open -a terminator', value: 'terminator' }
+        ];
+        break;
+      case 'Windows_NT':
+        this.dataDropdownTerminal = [
+          { key: 'start cmd.exe', value: 'cmd' },
+          { key: 'start PowerShell.exe', value: 'PowerShell' },
+          { key: 'start "" "%ProgramFiles%\\Git\\git-bash.exe"', value: 'Git Bash' }
+        ];
+        break;
+      default:
+        break;
+    }
+
+    this.dropdownTerminalValue = this.terminalPreferencesService.getCurrentTerminal().cmd;
+  }
+
+  setCurrentTerminal(event) {
+    this.terminalPreferencesService.setCurrentTerminal(event);
   }
 
   checkIfCloseModal(event) {
@@ -55,10 +116,15 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     this.langPrefService.setLanguage(this.dropdownLanguageValue);
   }
 
+  switchTerminal() {
+    this.terminalPreferencesService.setCurrentTerminal({ name: 'Terminal', cmd: this.dropdownTerminalValue });
+  }
+
   // Fonction qui regroupe toutes les fonctions applicables aux préférences
   saveChangedPreferences() {
     this.loading = true;
     this.switchLanguage();
+    this.switchTerminal();
     this.loading = false;
     this.toastr.info(this.translate.instant('CHANGE_PREF_DONE'),
         this.translate.instant('SUCCESS'));
@@ -67,5 +133,7 @@ export class PreferencesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.languageSubscription.unsubscribe();
+    this.currentTerminalSubscription.unsubscribe();
+    this.terminalListSubscription.unsubscribe();
   }
 }

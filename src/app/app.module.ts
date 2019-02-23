@@ -22,6 +22,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ElectronService } from './providers/electron.service';
 import { GitService } from './providers/git.service';
 import { LanguagePreferencesService } from './providers/language-preferences.service';
+import { TerminalManagerService } from './providers/terminal-manager.service';
 
 import { WebviewDirective } from './directives/webview.directive';
 
@@ -108,7 +109,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       useBootstrap4: true
     })
   ],
-  providers: [ElectronService, GitService, EditorPreferencesService, LanguagePreferencesService],
+  providers: [ElectronService, GitService, EditorPreferencesService, LanguagePreferencesService, TerminalManagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

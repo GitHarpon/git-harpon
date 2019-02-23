@@ -38,7 +38,7 @@
                 </div>
                 <a class="cursor-pointer mr-3" (click)="displaySearchInputValue()">
                     <i [ngClass]="[(!repoName ? 'disabled-search' : '')]" class="fa fa-search"></i></a>
-                <a class="cursor-pointer mr-3" (click)="openTerminal()"><i class="fas fa-terminal"></i></a>
+                <a class="cursor-pointer mr-3" id="terminal-opener" (click)="openTerminal()"><i class="fas fa-terminal"></i></a>
                 <a class="cursor-pointer" (click)="openPreferences()"><i class="fas fa-cog"></i></a>
             </div>
         </div>

@@ -49,7 +49,6 @@
     "SUCCESS": "Succès",
     "ERROR": "Erreur",
     "DANGER": "Danger",
-    "ERROR": "Erreur",
     "PATH_NOT_FOUND": "Ce chemin n'existe pas",
     "UPDATE_VALUE": "Changer la valeur",
     "DISPLAY_VALUE": "Afficher la valeur",
@@ -107,5 +106,10 @@
     },
     "FULL_PATH": "Chemin complet",
     "BROWSE": "Parcourir",
-    "CREATE_REPOSITORY": "Créer le répertoire"
+    "CREATE_REPOSITORY": "Créer le répertoire",
+    "TERMINAL": {
+        "UNKNOWN": "Terminal inconnu",
+        "MESSAGE": "Il ne semble pas installé sur la machine",
+        "NAME": "Terminal"
+    }
 }

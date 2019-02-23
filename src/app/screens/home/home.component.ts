@@ -8,6 +8,7 @@ import { initNgModule } from '@angular/core/src/view/ng_module';
 import { Subscription } from 'rxjs';
 import { ServiceResult } from '../../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
+import { TerminalManagerService } from '../../providers/terminal-manager.service';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +38,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
-    private translateService: TranslateService) {
+    private translateService: TranslateService,
+    private terminalService: TerminalManagerService) {
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
@@ -70,7 +72,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   openTerminal() {
-    console.log('on ouvre le terminal');
+    this.terminalService.openTerminal()
+      .catch((data) => {
+        this.toastr.error(data.message, data.title, {
+          onActivateTick: true
+        });
+      });
   }
 
   openPreferences() {

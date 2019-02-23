@@ -22,6 +22,13 @@
                     <app-dropdown [options]="dataDropdownLanguage" idKey="key" valueKey="value"
                     [(value)]="dropdownLanguageValue" [required]="true"></app-dropdown>
                 </div>
+                <div class="col-md-3 mt-1 text-right">
+                    <label>{{ 'TERMINAL.NAME' | translate }}</label>
+                </div>
+                <div class="col-md-9">
+                    <app-dropdown [options]="dataDropdownTerminal" idKey="key" valueKey="value"
+                    [(value)]="dropdownTerminalValue" [required]="true"></app-dropdown>
+                </div>
                 <div class="col-md-12 mt-2 text-right">
                     <app-button value="CHANGE_PREFERENCE" type="success" (buttonClicked)="saveChangedPreferences()"></app-button>
                 </div>
