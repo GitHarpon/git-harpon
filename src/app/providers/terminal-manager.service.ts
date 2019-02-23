@@ -38,7 +38,6 @@ export class TerminalManagerService {
           break;
       }
     }
-
     this.preferences = {
       name: this.getCurrentTerminalName(),
       cmd: this.getCurrentTerminalCmd()

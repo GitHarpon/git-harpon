@@ -23,15 +23,10 @@ export class PreferencesComponent implements OnInit, OnDestroy {
 
   languageSubscription: Subscription;
 
-  terminalListSubscription: Subscription;
-  terminalList: any;
-  currentTerminalSubscription: Subscription;
-  currentTerminal: {
-    name: string,
-    cmd: string
-  };
   dataDropdownTerminal: Array<any>;
   dropdownTerminalValue: string;
+
+  terminalSubscription: Subscription;
 
   constructor(public router: Router, private translate: TranslateService,
       private langPrefService: LanguagePreferencesService, private toastr: ToastrService,
@@ -57,18 +52,6 @@ export class PreferencesComponent implements OnInit, OnDestroy {
       }
     );
     this.langPrefService.emitPreferencesSubject();
-
-    // this.currentTerminalSubscription = this.terminalPreferencesService.currentTerminalSubject.subscribe(
-    //   (currentTerminal: any) => {
-    //     this.currentTerminal = currentTerminal;
-    //   }
-    // );
-    // this.terminalPreferencesService.emitCurrentTerminalSubject();
-    // this.terminalListSubscription = this.terminalPreferencesService.terminalListSubject.subscribe(
-    //   (terminalList: any[]) => {
-    //     this.terminalList = terminalList;
-    //   }
-    // );
 
     var CurrentOs = this.electronService.os.type();
     switch (CurrentOs) {
@@ -98,6 +81,14 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     }
 
     this.dropdownTerminalValue = this.terminalPreferencesService.getCurrentTerminalName();
+
+    this.terminalSubscription = this.terminalPreferencesService.preferencesSubject.subscribe(
+      (preference) => {
+        this.dropdownTerminalValue = preference;
+        this.terminalPreferencesService.preferences.name = preference;
+      }
+    );
+    this.terminalPreferencesService.emitPreferencesSubject();
   }
 
   setCurrentTerminal(event) {
@@ -131,7 +122,6 @@ export class PreferencesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.languageSubscription.unsubscribe();
-    // this.currentTerminalSubscription.unsubscribe();
-    // this.terminalListSubscription.unsubscribe();
+    this.terminalSubscription.unsubscribe();
   }
 }
