@@ -8,16 +8,19 @@ import { ServiceResult } from '../models/ServiceResult';
 import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorage } from 'ngx-store';
 
 @Injectable()
 export class TerminalManagerService {
+  @LocalStorage({key: 'terminalName'}) terminalName = '';
+  @LocalStorage({key: 'terminalCmd'}) terminalCmd = '';
   currentOs: any;
-  preferences: { name: string, cmd: string };
   preferencesSubject = new Subject<string>();
 
   constructor(private electronService: ElectronService,
-    private translateService: TranslateService,
-    private toastr: ToastrService) {
+      private translateService: TranslateService,
+      private toastr: ToastrService) {
+    this.preferencesSubject = new Subject<string>();
     this.currentOs = this.electronService.os.type();
     if (localStorage.getItem('terminalName') == null
         || localStorage.getItem('terminalCmd') == null) {
@@ -38,11 +41,6 @@ export class TerminalManagerService {
           break;
       }
     }
-    this.preferences = {
-      name: this.getCurrentTerminalName(),
-      cmd: this.getCurrentTerminalCmd()
-    };
-    this.emitPreferencesSubject();
   }
 
   openTerminal(): Promise<ServiceResult> {
@@ -76,13 +74,14 @@ export class TerminalManagerService {
   }
 
   emitPreferencesSubject() {
-    this.preferencesSubject.next(this.preferences.name);
+    this.preferencesSubject.next(this.terminalName);
   }
 
   setCurrentTerminal(newTerminal: { name: string, cmd: string }) {
-    this.setCurrentTerminalName(newTerminal.name);
-    this.setCurrentTerminalCmd(newTerminal.cmd);
-    this.preferences = newTerminal;
+    this.terminalName = newTerminal.name;
+    this.terminalCmd = newTerminal.cmd;
+    // this.setCurrentTerminalName(newTerminal.name);
+    // this.setCurrentTerminalCmd(newTerminal.cmd);
     this.emitPreferencesSubject();
   }
 }

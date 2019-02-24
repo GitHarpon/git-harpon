@@ -85,7 +85,7 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     this.terminalSubscription = this.terminalPreferencesService.preferencesSubject.subscribe(
       (preference) => {
         this.dropdownTerminalValue = preference;
-        this.terminalPreferencesService.preferences.name = preference;
+        this.terminalPreferencesService.terminalName = preference;
       }
     );
     this.terminalPreferencesService.emitPreferencesSubject();
