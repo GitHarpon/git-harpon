@@ -94,7 +94,9 @@
         "BROWSE": "Browse",
         "OPENED_REPO": "The repository was successfully opened",
         "NOT_GIT_REPO": "This is not a git repository",
-        "REPO_NOT_EXIST": "The repository no longer exist"
+        "REPO_NOT_EXIST": "The repository no longer exist",
+        "WHERE": "Where to clone",
+        "ALREADY": "Already opened"
     },
     "CLONE": "Clone",
     "INIT": {
@@ -111,5 +113,11 @@
         "UNKNOWN": "Unknown terminal",
         "MESSAGE": "It seeems not installed on the device",
         "NAME": "Terminal"
-    }
+    },
+    "LIGHT": "Light",
+    "DARK": "Dark",
+    "THEME": "Theme",
+    "DARK_THEME": "Dark theme",
+    "LIGHT_THEME": "Light theme",
+    "INDEPENDENT_THEME": "Independent of the theme"
 }

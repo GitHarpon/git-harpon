@@ -11,8 +11,8 @@ body {
   position: relative;
 }
 
-body {
-  color: $f-color;
+.dark-body {
+  color: $white;
   font-family: $ff-default;
   margin: 0;
   background: $dark;
@@ -48,8 +48,49 @@ body {
   }
 }
 
+.light-body {
+  color: $dark;
+  font-family: $ff-default;
+  margin: 0;
+  background: $white;
+  h1 {
+      font-size: $fs-xlarge;
+      font-weight: bold;
+      color: $dark;
+  }
+  h2 {
+      font-size: $fs-large;
+      font-weight: bold;
+      color: $dark;
+  }
+  h3 {
+      font-size: $fs-large;
+      color: $dark;
+  }
+  h4 {
+      font-size: $fs-medium;
+      font-weight: bold;
+      color: $dark;
+  }
+  h5 {
+      font-size: $fs-medium;
+      color: $dark;
+  }
+  h6 {
+      font-size: $fs-small;
+      color: $dark;
+  }
+  p {
+    font-size: $fs-large;
+  }
+}
+
 .color-white {
   color: $white;
+}
+
+.color-dark {
+  color: $dark;
 }
 
 .section-title {
@@ -60,13 +101,19 @@ body {
   color: $white;
   padding: $gap-md $gap-md 0 $gap-md;
   padding-right: 0;
+  &.dark {
+    color: $white;
+  }
+  &.light {
+    color: $dark;
+  }
 }
 
 .text-break-word {
   word-wrap: break-word;
 }
 
-.gh-scrollbar {
+.gh-scrollbar-dark {
 --scrollbar-color: rgba(55, 56, 65, 0.3) !important;
 --scrollbar-thumb-color: #373841 !important;
 --scrollbar-thumb-hover-color: #373841 !important;
@@ -74,9 +121,17 @@ body {
 --scrollbar-size: 7px !important;
 }
 
+.gh-scrollbar-light {
+  --scrollbar-color: rgba(0, 0, 0, 0.1) !important;
+  --scrollbar-thumb-color: #C6C6C6 !important;
+  --scrollbar-thumb-hover-color: #C6C6C6 !important;
+  --scrollbar-border-radius: 4px !important;
+  --scrollbar-size: 7px !important;
+  }
+
 
 /*** Tabs ***/
-.mat-tab {
+.gh-modal__content.dark .mat-tab {
   
   &-header {
     background: $light-grey;
@@ -104,6 +159,59 @@ body {
 
     &-active {
       background: rgba(76, 93, 170, 0.5) !important; /* light-grey plus clair */
+    }
+  }
+
+  &-group {
+    @include hX(100%);
+    display: flex;
+    flex-direction: row !important;
+
+  }
+
+  &-labels {
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  & md-tab-content {
+    transition:none;
+  }
+
+  & md-ink-bar {
+    transition:none;
+  }
+}
+
+.gh-modal__content.light .mat-tab {
+  
+  &-header {
+    color: $dark;
+    background: $dark-grey-light;
+    border-right: 1px solid $border-dark-grey-light;
+
+    &-pagination {
+      display:none !important;
+    }
+  }
+
+  &-body-wrapper {
+    @include wX(100%);
+    background: $light-grey-light;
+    padding:10px;
+  }
+
+  &-label {
+    font-size: 22px;
+    opacity: 1 !important;
+    justify-content: left !important;
+
+    &:hover {
+      background: $modal-tab-hover-light;
+    }
+
+    &-active {
+      background:  $modal-tab-selected-light !important; /* light-grey plus clair */
     }
   }
 

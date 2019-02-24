@@ -47,7 +47,6 @@
     "NAME": "Nom",
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
-    "ERROR": "Erreur",
     "DANGER": "Danger",
     "PATH_NOT_FOUND": "Ce chemin n'existe pas",
     "UPDATE_VALUE": "Changer la valeur",
@@ -94,7 +93,9 @@
         "BROWSE": "Parcourir",
         "OPENED_REPO": "Le dépôt a été ouvert avec succès",
         "NOT_GIT_REPO": "Ce répertoire n'est pas un répertoire git",
-        "REPO_NOT_EXIST": "Ce répertoire n'existe plus"
+        "REPO_NOT_EXIST": "Ce répertoire n'existe plus",
+        "WHERE": "Où ouvrir",
+        "ALREADY": "Déjà ouvert"
     },
     "CLONE": "Cloner",
     "INIT": {
@@ -111,5 +112,11 @@
         "UNKNOWN": "Terminal inconnu",
         "MESSAGE": "Il ne semble pas installé sur la machine",
         "NAME": "Terminal"
-    }
+    },
+    "LIGHT": "Clair",
+    "DARK": "Sombre",
+    "THEME": "Thème",
+    "DARK_THEME": "Thème sombre",
+    "LIGHT_THEME": "Thème clair",
+    "INDEPENDENT_THEME": "Indépendant du thème"
 }

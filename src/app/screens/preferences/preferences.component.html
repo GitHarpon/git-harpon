@@ -44,6 +44,18 @@
             <span class="section-title">
                 {{ 'UI' | translate }}
             </span>
+            <div class="col-md-6 row mt-3">
+                <div class="col-md-3 mt-1 text-right">
+                    <label>{{ 'THEME' | translate }}</label>
+                </div>
+                <div class="col-md-9">
+                    <app-dropdown [options]="dataDropdownTheme" idKey="key" valueKey="value"
+                    [(value)]="currentTheme" [required]="true"></app-dropdown>
+                </div>
+                <div class="col-md-12 mt-2 text-right">
+                    <app-button value="CHANGE_PREFERENCE" type="success" (buttonClicked)="saveChangedUIPreferences()"></app-button>
+                </div>
+            </div>
         </mat-tab>
     </mat-tab-group>
 </app-modal>
