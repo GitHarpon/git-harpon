@@ -51,13 +51,11 @@ describe('Test term-1', function () {
         async function lsExample() {
             var command;
             if (process.platform === 'linux') {
-                // TODO ajouter le support de Linux
-                command = 'LA COMMANDE';
+                command = 'ps -A -ww | grep [^]]' + localStorage.getItem('terminalName');
             } else if (process.platform === 'darwin') {
                 command = 'ps -A -ww | grep [^]]' + localStorage.getItem('terminalName');
             } else if (process.platform === 'win32') {
-                // TODO ajouter le support de Windows
-                command = 'LA COMMANDE';
+                command = 'Tasklist | findstr "' + localStorage.getItem('terminalName') + '"';
             }
             
             const { stdout, stderr } = await exec('command');
