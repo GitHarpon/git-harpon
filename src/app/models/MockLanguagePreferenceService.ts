@@ -7,8 +7,9 @@ export class MockLanguagePreferencesService {
     preferences: string;
     preferencesSubject = new Subject<string>();
 
-    constructor() {
-        this.preferences = 'toto';
+    constructor(private translate: TranslateService) {
+        this.preferences = this.translate.getDefaultLang();
+
         this.emitPreferencesSubject();
     }
 
