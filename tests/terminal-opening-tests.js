@@ -50,15 +50,14 @@ describe('Test term-1', function () {
 
         async function lsExample() {
             var command;
-            // TODO ajouter le support dynamique du terminal
             if (process.platform === 'linux') {
                 // TODO ajouter le support de Linux
-                command = 'ps -A -ww | grep [^]]Terminal';
+                command = 'LA COMMANDE';
             } else if (process.platform === 'darwin') {
-                command = 'ps -A -ww | grep [^]]Terminal';
+                command = 'ps -A -ww | grep [^]]' + localStorage.getItem('terminalName');
             } else if (process.platform === 'win32') {
                 // TODO ajouter le support de Windows
-                command = 'ps -A -ww | grep [^]]Terminal';
+                command = 'LA COMMANDE';
             }
             
             const { stdout, stderr } = await exec('command');
