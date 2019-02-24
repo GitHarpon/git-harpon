@@ -38,7 +38,7 @@
     "e2e": "npm run postinstall:web && ng e2e",
     "test:unit": "npm run postinstall:web && ng test",
     "test:unit:coverage": "npm run postinstall:web && ng test --watch=false --code-coverage",
-    "test:e2e": "mocha --timeout 15000 tests/test.js"
+    "test:e2e": "mocha --timeout 15000 tests/test.js && mocha --timeout 15000 tests/terminal-opening-tests.js"
   },
   "dependencies": {
     "@angular/animations": "^7.2.4",
