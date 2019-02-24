@@ -106,4 +106,15 @@ describe('PreferencesComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('test the theme switch light', () => {
+    component.currentTheme = 'light';
+    component.saveChangedUIPreferences();
+    expect(component.currentTheme).toEqual('light');
+  });
+
+  it('test the theme switch dark', () => {
+    component.currentTheme = 'dark';
+    component.saveChangedUIPreferences();
+    expect(component.currentTheme).toEqual('dark');
+  });
 });
