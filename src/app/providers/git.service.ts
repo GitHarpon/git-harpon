@@ -60,13 +60,16 @@ export class GitService {
           gitPromise(PATHTOREPO).init()
             .then(() => {
               this.setPath(PATHTOREPO);
-              resolve(new ServiceResult(true, 'SUCCESS', 'INIT.SUCCESS'));
+              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+              this.translate.instant('INIT.SUCCESS')));
             })
             .catch(() => {
-              reject(new ServiceResult(false, 'ERROR', 'INIT.FAILED'));
+              reject(new ServiceResult(false, this.translate.instant('ERROR'),
+              this.translate.instant('INIT.FAILED')));
             });
         } else {
-          reject(new ServiceResult(false, 'ERROR', 'PATH_NOT_FOUND'));
+          reject(new ServiceResult(false, this.translate.instant('ERROR'),
+          this.translate.instant('PATH_NOT_FOUND')));
         }
       });
     }

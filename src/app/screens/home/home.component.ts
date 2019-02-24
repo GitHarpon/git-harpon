@@ -127,7 +127,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.fullPath = this.initLocation;
 
       if (this.initName) {
-        this.fullPath = this.electronService.path.join(this.initLocation, this.initName).toString();
+        this.fullPath = this.electronService.pathJoin(this.initLocation, this.initName);
       }
     } else {
       this.fullPath = '';
@@ -140,7 +140,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.initLocation && this.initName) {
       await this.gitService.init(this.initLocation, this.initName)
         .then((result) => {
-          this.toastr.info(this.translateService.instant(result.message), this.translateService.instant(result.title), {
+          this.toastr.info(result.message, result.title, {
             onActivateTick: true
           });
 
@@ -148,11 +148,13 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.initName = '';
           this.initLocation = '';
           this.fullPath = '';
+          return true;
         })
         .catch((result) => {
-          this.toastr.error(this.translateService.instant(result.message), this.translateService.instant(result.title), {
+          this.toastr.error(result.message, result.title, {
             onActivateTick: true
           });
+          return false;
         });
     }
     this.projectModalLoading = false;

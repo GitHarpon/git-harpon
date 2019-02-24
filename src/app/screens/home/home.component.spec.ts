@@ -84,4 +84,25 @@ describe('HomeComponent', () => {
   it('tests the component creation', () => {
     expect(component).toBeTruthy();
   });
+
+  it('tests the update full path for init', () => {
+    component.initLocation = 'Location';
+    component.initName = 'Name';
+    component.updateFullPath();
+    expect(component.fullPath).toBe('LocationName');
+  });
+
+  it('tests the init browse', () => {
+    component.initBrowse();
+    expect(component.initLocation).toBe('path');
+  });
+
+  /*it('tests the project initialization', () => {
+    component.initLocation = 'initLocation';
+    component.initName = 'initName';
+    fixture.detectChanges();
+    component.initSubmit();
+    fixture.detectChanges();
+    expect(TmpBool).toBeTruthy();
+  });*/
 });

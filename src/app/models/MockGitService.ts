@@ -29,4 +29,17 @@ export class MockGitService {
     emitRepoNameSubject() {
         this.repoNameSubject.next('toto');
     }
+
+    init(initLocation: string, initName: string) {
+        if (initLocation && initName) {
+            return new Promise<ServiceResult>((resolve, reject) => {
+                if (initLocation === 'initLocation' && initName === 'initName') {
+                    // TODO : Ajouter this.setPath(); puis checker si c'est maintenant le bon path
+                    resolve(new ServiceResult(true, 'SUCCESS', 'INIT.SUCCESS'));
+                } else {
+                    reject(new ServiceResult(false, 'ERROR', 'PATH_NOT_FOUND'));
+                }
+            });
+        }
+    }
 }
