@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed, tick, fakeAsync} from '@angular/core/
 import { HomeComponent } from './home.component';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { MockTranslateService } from '../../models/MockTranslateService';
 import { ElectronService } from '../../providers/electron.service';
@@ -29,7 +28,6 @@ import { MockThemePreferencesService } from '../../models/MockThemePreferencesSe
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  // let inputEl: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -78,10 +76,30 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    // inputEl = fixture.debugElement.query(By.css('input.gh-input'));
   });
 
   it('tests the component creation', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('tests the openBrowse function', () => {
+    const Path = 'path';
+    component.openBrowse();
+    expect(component.openFolder).toBe(Path);
+  });
+
+  it('tests the openRepo function with valid path', () => {
+    const Path = 'path';
+    component.openBrowse();
+    component.openRepo();
+    expect(component.projectModalLoading).toBeFalsy();
+    expect(component.path).toBe(Path);
+  });
+
+  it('tests the openRepo function with invalid path', () => {
+    const Path = '';
+    component.openBrowse();
+    component.openRepo();
+    expect(component.path == Path).toBeFalsy();
   });
 });
