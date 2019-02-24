@@ -51,15 +51,18 @@ describe('Test term-1', function () {
         async function lsExample() {
             var command;
             if (process.platform === 'linux') {
-                command = 'ps -A -ww | grep [^]]' + localStorage.getItem('terminalName');
+                command = 'ps -aux | grep "[' + localStorage.getItem('terminalName').substr(0,1) + ']' 
+                  + localStorage.getItem('terminalName').substr(1) + '"';
+                console.log('ps -aux | grep "[' + test.substr(0,1) + ']' + test.substr(1) + '"');
+
+
             } else if (process.platform === 'darwin') {
                 command = 'ps -A -ww | grep [^]]' + localStorage.getItem('terminalName');
             } else if (process.platform === 'win32') {
-                command = 'Tasklist | findstr "' + localStorage.getItem('terminalName') + '"';
+                command = 'tasklist | findstr "' + localStorage.getItem('terminalName') + '"';
             }
             
             const { stdout, stderr } = await exec('command');
-            console.log('stdout:', stdout);
 
             return stdout.length;
         }
