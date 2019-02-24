@@ -56,48 +56,21 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     this.languageSubscription = this.langPrefService.preferencesSubject.subscribe(
       (preference) => {
         this.dropdownLanguageValue = preference;
-        this.langPrefService.preferences = preference;
       }
     );
     this.langPrefService.emitPreferencesSubject();
 
-    var CurrentOs = this.electronService.os.type();
-    switch (CurrentOs) {
-      case 'Linux':
-        this.dataDropdownTerminal = [
-          { key: 'terminator', value: 'terminator' },
-          { key: 'gnome-terminal', value: 'gnome-terminal' },
-          { key: 'xterm', value: 'xterm' }
-        ];
-        break;
-      case 'Darwin':
-        this.dataDropdownTerminal = [
-          { key: 'open -a Terminal', value: 'Terminal' },
-          { key: 'open -a iTerm', value: 'iTerm' },
-          { key: 'open -a terminator', value: 'terminator' }
-        ];
-        break;
-      case 'Windows_NT':
-        this.dataDropdownTerminal = [
-          { key: 'start cmd.exe', value: 'cmd' },
-          { key: 'start PowerShell.exe', value: 'PowerShell' },
-          { key: 'start "" "%ProgramFiles%\\Git\\git-bash.exe"', value: 'Git Bash' }
-        ];
-        break;
-      default:
-        break;
-    }
+    this.dataDropdownTerminal = this.terminalPreferencesService.getTerminals();
 
-    this.dropdownTerminalValue = this.terminalPreferencesService.getCurrentTerminalName();
+    this.dropdownTerminalValue = this.terminalPreferencesService.terminalCmd;
 
     this.terminalSubscription = this.terminalPreferencesService.preferencesSubject.subscribe(
       (preference) => {
         this.dropdownTerminalValue = preference;
-        this.terminalPreferencesService.terminalName = preference;
       }
     );
     this.terminalPreferencesService.emitPreferencesSubject();
-    
+
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
         this.currentTheme = newTheme;
