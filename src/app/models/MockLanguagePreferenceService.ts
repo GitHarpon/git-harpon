@@ -19,6 +19,6 @@ export class MockLanguagePreferencesService {
 
     setLanguage(newLanguage) {
         this.preferences = newLanguage;
-        this.emitPreferencesSubject();
+        return this.preferences;
     }
 }
