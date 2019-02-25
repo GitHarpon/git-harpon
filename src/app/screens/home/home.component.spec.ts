@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
 import { FormsModule } from '@angular/forms';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { MockTranslateService } from '../../models/MockTranslateService';
@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
+import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -46,13 +47,15 @@ describe('HomeComponent', () => {
       ],
       imports: [
         FormsModule,
-        TranslateModule,
+        TranslateModule.forRoot({
+          loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
+        }),
         MatTabsModule,
         ResizableModule,
         NgbModule,
         RouterTestingModule,
-        ToastrModule.forRoot(),
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ToastrModule.forRoot()
       ],
       providers: [
         {
@@ -68,8 +71,8 @@ describe('HomeComponent', () => {
           useClass: MockElectronService
         },
         {
-            provide: GitService,
-            useClass: MockGitService
+          provide: GitService,
+          useClass: MockGitService
         },
         ToastrService
       ]
@@ -80,7 +83,6 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    // inputEl = fixture.debugElement.query(By.css('input.gh-input'));
   });
 
   it('tests the component creation', () => {
@@ -107,63 +109,63 @@ describe('HomeComponent', () => {
 
   it('tests the validate resize with bad status', () => {
     const TestEvent: ResizeEvent =
+    {
+      edges:
       {
-        edges:
-        {
-          right: 2
-        },
-        rectangle:
-        {
-          top: 50,
-          bottom: 750,
-          left: 0,
-          right: 220,
-          height: 700,
-          width: 5
-        }
-      };
+        right: 2
+      },
+      rectangle:
+      {
+        top: 50,
+        bottom: 750,
+        left: 0,
+        right: 220,
+        height: 700,
+        width: 5
+      }
+    };
     component.dimensions = 20;
     expect(component.validate(TestEvent)).toBeFalsy();
   });
 
   it('tests the validate resize with good status', () => {
     const TestEvent: ResizeEvent =
+    {
+      edges:
       {
-        edges:
-        {
-          right: 2
-        },
-        rectangle:
-        {
-          top: 50,
-          bottom: 750,
-          left: 0,
-          right: 220,
-          height: 700,
-          width: 220
-        }
-      };
+        right: 2
+      },
+      rectangle:
+      {
+        top: 50,
+        bottom: 750,
+        left: 0,
+        right: 220,
+        height: 700,
+        width: 220
+      }
+    };
     component.dimensions = 20;
     expect(component.validate(TestEvent)).toBeTruthy();
   });
 
   it('tests the end of resize', () => {
     const TestEvent: ResizeEvent =
+    {
+      edges:
       {
-        edges:
-        {
-          right: 2
-        },
-        rectangle:
-        {
-          top: 50,
-          bottom: 800,
-          left: 0,
-          right: 300,
-          height: 500,
-          width: 220
-        }
-      };
+        right: 2
+      },
+      rectangle:
+      {
+        top: 50,
+        bottom: 800,
+        left: 0,
+        right: 300,
+        height: 500,
+        width: 220
+      }
+    };
     component.onResizeEnd(TestEvent);
     expect(component.style).not.toBeUndefined();
   });
@@ -182,7 +184,7 @@ describe('HomeComponent', () => {
     expect(component.initLocation).toBe('/new');
   });
 
-  it('tests the project initialization with valid path', () => {
+  it('tests the project initialization with valid path', (done) => {
     const Path = '/new';
     const RepoName = '/repo';
     const BoolModal = true;
@@ -191,17 +193,17 @@ describe('HomeComponent', () => {
     component.updateFullPath();
     component.projectModalVisible = BoolModal;
     component.projectModalLoading = BoolModal;
-    component.initSubmit().then((result) => {
-      expect(result).toBeTruthy();
+    component.initSubmit().then(() => {
       expect(component.projectModalVisible).toBeFalsy();
       expect(component.projectModalLoading).toBeFalsy();
       expect(component.initLocation).toBe('');
       expect(component.initName).toBe('');
       expect(component.fullPath).toBe('');
+      done();
     });
   });
 
-  it('tests the project initialization with invalid path', () => {
+  it('tests the project initialization with invalid path', (done) => {
     const Path = '/invalidpath';
     const RepoName = '/repo';
     const BoolModal = true;
@@ -210,12 +212,12 @@ describe('HomeComponent', () => {
     component.updateFullPath();
     component.projectModalVisible = BoolModal;
     component.projectModalLoading = BoolModal;
-    component.initSubmit().then((result) => {
-      expect(result).toBeFalsy();
+    component.initSubmit().then(() => {
       expect(component.projectModalVisible).toBeTruthy();
       expect(component.projectModalLoading).toBeFalsy();
       expect(component.initLocation).toBe(Path);
       expect(component.initName).toBe(RepoName);
+      done();
     });
   });
 });

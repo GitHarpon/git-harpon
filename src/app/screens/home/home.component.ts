@@ -15,7 +15,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnDestroy {
   projectModalTabSelectedIndex: any;
   projectModalVisible: Boolean;
   searchInputValue: String;
@@ -34,10 +34,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   openFolder: string;
   themePrefSubscription: Subscription;
   currentTheme: string;
-
-  ngOnInit() {
-    this.dimensions = 20;
-  }
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
@@ -66,6 +62,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
+
+    this.dimensions = 20;
   }
 
   pullButtonClicked() {
@@ -144,21 +142,17 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.toastr.info(result.message, result.title, {
             onActivateTick: true
           });
-
           this.projectModalLoading = false;
           this.projectModalVisible = false;
           this.initName = '';
           this.initLocation = '';
           this.fullPath = '';
-          return true;
         })
         .catch((result) => {
           this.toastr.error(result.message, result.title, {
             onActivateTick: true
           });
-
           this.projectModalLoading = false;
-          return false;
         });
     }
   }
