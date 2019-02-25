@@ -3,12 +3,18 @@ import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
 @Component({
-  selector: 'app-loader',
-  templateUrl: './loader.component.html',
-  styleUrls: ['./loader.component.scss']
+  selector: 'app-accordion',
+  templateUrl: './accordion.component.html',
+  styleUrls: ['./accordion.component.scss']
 })
-export class LoaderComponent implements OnInit {
-  @Input() loading: Boolean = false;
+export class AccordionComponent implements OnInit {
+
+  @Input() title: String;
+  @Input() disabled: Boolean = false;
+  @Input() icon: {
+    name: String,
+    isFab: Boolean
+  };
   themePrefSubscription: Subscription;
   currentTheme: string;
 

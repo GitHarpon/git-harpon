@@ -2,8 +2,16 @@
 
 .gh-button-bar {
     @include wX-hX(100%, 50px);
-    @include bg-color($light-grey);
+    
     color: $white;
+
+    &.dark {
+        @include bg-color($light-grey);
+    }
+
+    &.light {
+        @include bg-color($button-bar-light);
+    }
 
     &-project {
         @include hX(50px);
@@ -33,12 +41,50 @@
     }
 }
 
+.gh-main-panel {
+    @include wX-hX(100%, 100%);
+    position: fixed;
+    
+    font-size: $fs-large;
+
+    .dark {
+        color: $muted-white;
+    }
+    .light {
+        color: $dark;
+    }
+
+    &-not-opened {
+        top: 40%;
+        position: relative;
+
+        &-button {
+            padding: 10px 20px;
+            &.dark {
+                border: 1px solid $light-grey;
+                &:hover {
+                    @include bg-color($light-grey);
+                    cursor: pointer;
+                }
+            }
+            &.light {
+                border: 1px solid $border-light-grey-light;
+                &:hover {
+                    @include bg-color($modal-tab-hover-light);
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    
+}
+
 .gh-breadcrumbs {
     list-style: none;
     overflow: hidden;
     font-size: 16px;
 
-    & ul {
+    &.dark ul {
         padding-left: 0;
 
         & li {
@@ -96,29 +142,147 @@
             }
         }
     }
+
+    &.light ul {
+        padding-left: 0;
+        & li {
+            float: left;
+            & a {
+                color: $white;
+                text-decoration: none;
+                padding-left: 45px;
+                background: $arrow-light;
+                position: relative; 
+                display: block;
+                float: left;
+                cursor: pointer;
+
+                &::after {
+                    content: " "; 
+                    display: block;
+                    @include wX-hX(0, 0);
+                    border-top: 50px solid transparent;
+                    border-bottom: 50px solid transparent;
+                    border-left: 30px solid $arrow-light;
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -50px;
+                    left: 100%;
+                    z-index: 2;
+                }
+
+                &::before {
+                    content: " "; 
+                    display: block; 
+                    @include wX-hX(0, 0);
+                    border-top: 50px solid transparent;
+                    border-bottom: 50px solid transparent;
+                    border-left: 30px solid $button-bar-light;
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -50px;
+                    margin-left: 2px;
+                    left: 100%;
+                    z-index: 1;
+                }
+            }
+
+            &:first-child {
+                a {
+                    padding-left: 10px;
+                    @include bg-color($button-bar-light);
+
+                    &::before, &::after {
+                        border-left: 16px solid $button-bar-light;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .cursor-pointer {
     cursor: pointer;
 }
 
-.gh-open-recentProject {
+.left-panel {
+    position: fixed;
+    top: 50px;
+    height: 88%;
+    min-width: 20%;
+    max-width: 50%;
+    text-align:center;
+    padding: $gap-sm;
+    
+    &.dark {
+        background: $light-grey;
+        color: $white;
+        border: 1px solid $dark;
+    }
+
+    &.light {
+        background: $light-grey-light;
+        color: $dark;
+        border: 1px solid $border-dark-grey-light;
+    }
+
+    mwlResizable {
+        box-sizing: border-box;
+    }
+}
+.gh-open-recentProject.dark {
     &:hover {
         @include bg-color($disabled-blue);
         cursor: pointer;
     }
 }
+.gh-open-recentProject.light {
+    &:hover {
+        @include bg-color($modal-tab-hover-light);
+        cursor: pointer;
+    }
+}
 
-.gh-open-first {
+.gh-open-first.dark {
     @include bg-color($light-green-hover);
 
     &:hover {
         @include bg-color($light-green-hover);
+    }
+}
+
+.gh-open-first.light {
+    @include bg-color($light-green-hover-light);
+    &:hover {
+        @include bg-color($light-green-hover-light);
         cursor: default;
     }
 }
 
 .gh-open-recentPath {
     font-size: $fs-small;
+    
+    &.dark {
+        color: $muted-white;
+    }
+    &.light {
+        color: $muted-dark;
+    }
+}
+
+.gh-project-not-opened {
+    visibility: hidden;
+}
+
+.icon-times {
     color: $muted-white;
+
+    &:hover {
+        color: $white;
+    }
+}
+
+.disabled-search {
+    cursor: not-allowed;
+    color: $muted-white
 }

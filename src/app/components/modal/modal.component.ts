@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
 @Component({
   selector: 'app-modal',
@@ -17,6 +19,8 @@ export class ModalComponent implements OnInit {
 
   @Output()
   visibleChange = new EventEmitter<Boolean>();
+  themePrefSubscription: Subscription;
+  currentTheme: string;
 
   @Input()
   get visible() {
@@ -28,7 +32,14 @@ export class ModalComponent implements OnInit {
     this.visibleChange.emit(this.currentVisible);
   }
 
-  constructor() { }
+  constructor(private themePrefService: ThemePreferencesService) {
+    this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
+      (newTheme: string) => {
+        this.currentTheme = newTheme;
+      }
+    );
+    this.themePrefService.emitThemePreferencesSubject();
+   }
 
   ngOnInit() {
   }

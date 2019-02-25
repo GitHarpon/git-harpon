@@ -1,8 +1,8 @@
-<div class="gh-icon-button" [ngClass]="{'disabled': disabled}" [placement]="placement" [ngbTooltip]="tooltipValue ? getTooltipTranslation() : ''" (click)="execClick($event)">
+<div class="gh-icon-button" [ngClass]="[currentTheme, disabled ? 'disabled' : '']" [placement]="placement" [ngbTooltip]="tooltipValue ? getTooltipTranslation() : ''" (click)="execClick($event)">
   <div class="gh-button-div">
     <i [ngClass]="[(icon.isFab ? 'fab' : 'fa'), icon.name]" class="fa-lg"></i>
   </div>
-  <h6>
+  <h6 ngClass="[currentTheme]">
     {{ getValueTranslation() }}
   </h6>
 </div>

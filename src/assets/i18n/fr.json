@@ -4,6 +4,11 @@
     "COLORS": "Couleurs",
     "TAGS": "Balises",
     "TAG": "Balise",
+    "CHANGE_PREFERENCE": "Changer les préférences",
+    "CHANGE_PREF_DONE": "Les préférences ont été changées",
+    "LANGUE": "Langage",
+    "FRENCH": "Français",
+    "ENGLISH": "Anglais",
     "FONT_SIZES": "Tailles de texte",
     "CHECKBOX": "Case à cocher",
     "UN_CHECKBOX": "Case décochée",
@@ -95,6 +100,7 @@
     "EDITOR": "Editeur",
     "UI": "Interface Utilisateur",
     "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
+    "REMOTE": "DISTANT",
     "OPEN": {
         "TITLE": "Ouvrir",
         "REPO": "Ouvrir un Dépôt",
@@ -102,7 +108,9 @@
         "BROWSE": "Parcourir",
         "OPENED_REPO": "Le dépôt a été ouvert avec succès",
         "NOT_GIT_REPO": "Ce répertoire n'est pas un répertoire git",
-        "REPO_NOT_EXIST": "Ce répertoire n'existe plus"
+        "REPO_NOT_EXIST": "Ce répertoire n'existe plus",
+        "WHERE": "Où ouvrir",
+        "ALREADY": "Déjà ouvert"
     },
     "INIT": {
         "TITLE": "Initialiser",
@@ -120,5 +128,11 @@
     "USERNAME": "Nom d'utilisateur",
     "PASSWORD": "Mot de passe",
     "LOG_TO_CONTINUE": "Veuillez vous identifier pour continuer :",
-    "INVALID_URL": "URL invalide"
+    "INVALID_URL": "URL invalide",
+    "LIGHT": "Clair",
+    "DARK": "Sombre",
+    "THEME": "Thème",
+    "DARK_THEME": "Thème sombre",
+    "LIGHT_THEME": "Thème clair",
+    "INDEPENDENT_THEME": "Indépendant du thème"
 }

@@ -3,6 +3,8 @@ import { ElectronService } from '../../providers/electron.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { ContextMenuComponent } from 'ngx-contextmenu';
+import { Subscription } from 'rxjs';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
 @Component({
   selector: 'app-toolbox',
@@ -12,7 +14,9 @@ import { ContextMenuComponent } from 'ngx-contextmenu';
 export class ToolboxComponent implements OnInit {
   @ViewChild('userCM') userCM: ContextMenuComponent;
   @ViewChild('subjectCM') subjectCM: ContextMenuComponent;
-  colorList: Array<String>;
+  darkColorList: Array<String>;
+  lightColorList: Array<String>;
+  independentColorList: Array<String>;
   fsList: Array<String>;
   faList: Array<any>;
   cbValue: Boolean;
@@ -41,9 +45,20 @@ export class ToolboxComponent implements OnInit {
   dropdownValueTwo: String;
   passwordInput: string;
 
+  themePrefSubscription: Subscription;
+  currentTheme: string;
+
 
   constructor(private electronService: ElectronService,
-    private toastr: ToastrService, private translateService: TranslateService) { }
+    private toastr: ToastrService, private translateService: TranslateService,
+    private themePrefService: ThemePreferencesService) {
+    this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
+      (newTheme: string) => {
+        this.currentTheme = newTheme;
+      }
+    );
+    this.themePrefService.emitThemePreferencesSubject();
+  }
 
   ngOnInit() {
     this.cbValue = true;
@@ -59,12 +74,10 @@ export class ToolboxComponent implements OnInit {
     this.min = 0;
     this.dropdownValue = 'banana';
 
-    this.colorList = [
+    this.darkColorList = [
       'dark-blue',
       'light-blue',
-      'light-blue-hover',
       'disabled-blue',
-      'gh-green',
       'dark-green',
       'light-green',
       'disabled-green',
@@ -75,9 +88,39 @@ export class ToolboxComponent implements OnInit {
       'dark-grey',
       'light-grey',
       'blue-grey',
-      'white',
+      'version'
+    ];
+
+    this.lightColorList = [
+      'dark-blue-light',
+      'light-blue-light',
+      'disabled-blue-light',
+      'dark-green-light',
+      'light-green-light',
+      'disabled-green-light',
+      'light-green-hover-light',
+      'dark-red-light',
+      'light-red-light',
+      'disabled-red-light',
+      'button-bar-light',
+      'button-bar-hover-light',
+      'arrow-light',
+      'border-light-grey-light',
+      'border-dark-grey-light',
+      'dark-grey-light',
+      'light-grey-light',
+      'grey-variant-light',
+      'modal-tab-selected-light',
+      'modal-tab-hover-light'
+    ];
+
+    this.independentColorList = [
+      'light-blue-hover',
       'muted-white',
-      'dark'
+      'white',
+      'muted-dark',
+      'dark',
+      'gh-green'
     ];
 
     this.fsList = [
@@ -118,26 +161,29 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-spinner', isFab: false },
       { icon: 'fa-upload', isFab: false },
       { icon: 'fa-download', isFab: false },
-      { icon: 'fa-sign-out-alt', isFab: false},
-      { icon: 'fa-code-branch', isFab: false},
-      { icon: 'fa-cog', isFab: false},
       { icon: 'fa-globe', isFab: false},
-      {icon: 'fa-laptop', isFab: false},
-      { icon: 'fa-search', isFab: false}
+      { icon: 'fa-sign-out-alt', isFab: false },
+      { icon: 'fa-code-branch', isFab: false },
+      { icon: 'fa-laptop', isFab: false },
+      { icon: 'fa-cloud', isFab: false },
+      { icon: 'fa-cog', isFab: false },
+      { icon: 'fa-laptop', isFab: false },
+      { icon: 'fa-search', isFab: false },
+      { icon: 'fa-times', isFab: false }
     ];
 
     this.dataDropdownExample = [
-      {key: 'orange', value: 'Orange'},
-      {key: 'banana', value: 'Banane'},
-      {key: 'cherry', value: 'Cerise'},
-      {key: 'pear', value: 'Poire'},
+      { key: 'orange', value: 'Orange' },
+      { key: 'banana', value: 'Banane' },
+      { key: 'cherry', value: 'Cerise' },
+      { key: 'pear', value: 'Poire' },
     ];
 
     this.dataDropdownExampleTwo = [
-      {key: 'carrot', value: 'Carotte'},
-      {key: 'leek', value: 'Poireau'},
-      {key: 'squash', value: 'Courge'},
-      {key: 'potato', value: 'Patate'},
+      { key: 'carrot', value: 'Carotte' },
+      { key: 'leek', value: 'Poireau' },
+      { key: 'squash', value: 'Courge' },
+      { key: 'potato', value: 'Patate' },
     ];
 
     this.contextMenuFirstObject = [
@@ -150,7 +196,7 @@ export class ToolboxComponent implements OnInit {
     ];
 
     this.contextMenuSecondObject = [
-      { name: 'Prog Objet', teacher: 'M. Andary', language: 'Java'  },
+      { name: 'Prog Objet', teacher: 'M. Andary', language: 'Java' },
       { name: 'S&T', teacher: 'M. Patrou', language: 'Scala' },
       { name: 'Langage Web', teacher: 'M. Nicart', language: 'JavaScript' },
     ];
@@ -223,10 +269,10 @@ export class ToolboxComponent implements OnInit {
     this.modalLoadingVisible = true;
     this.modalLoading = true;
     new Promise(resolve => setTimeout(resolve, 3000))
-      .then( () => {
+      .then(() => {
         this.modalLoading = false;
       }
-    );
+      );
   }
 
   openInfoBar() {

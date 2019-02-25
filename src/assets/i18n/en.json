@@ -4,6 +4,11 @@
     "COLORS": "Colors",
     "TAGS": "Tags",
     "TAG": "Tag",
+    "CHANGE_PREFERENCE": "Change preferences",
+    "CHANGE_PREF_DONE": "The preferences were changed",
+    "LANGUE": "Language",
+    "FRENCH": "French",
+    "ENGLISH": "English",
     "FONT_SIZES": "Font sizes",
     "CHECKBOX": "CheckBox",
     "UN_CHECKBOX": "Unchecked checkbox",
@@ -56,7 +61,6 @@
     "INFORMATION": "Information",
     "SUCCESS": "Success",
     "DANGER": "Danger",
-    "ERROR": "Error",
     "PATH_NOT_FOUND": "This path doesn't exist",
     "UPDATE_VALUE": "Update value",
     "DISPLAY_VALUE": "Display value",
@@ -94,6 +98,7 @@
     "EDITOR": "Editor",
     "UI": "User Interface",
     "REPOSITORY_MANAGEMENT": "Repository management",
+    "REMOTE": "REMOTE",
     "OPEN": {
         "TITLE": "Open",
         "REPO": "Open a Reporitory",
@@ -101,7 +106,9 @@
         "BROWSE": "Browse",
         "OPENED_REPO": "The repository was successfully opened",
         "NOT_GIT_REPO": "This is not a git repository",
-        "REPO_NOT_EXIST": "The repository no longer exist"
+        "REPO_NOT_EXIST": "The repository no longer exist",
+        "WHERE": "Where to clone",
+        "ALREADY": "Already opened"
     },
     "INIT": {
         "TITLE": "Init",
@@ -119,5 +126,11 @@
     "USERNAME": "USERNAME",
     "PASSWORD": "PASSWORD",
     "LOG_TO_CONTINUE": "Please log to continue:",
-    "INVALID_URL": "Invalid URL"
+    "INVALID_URL": "Invalid URL",
+    "LIGHT": "Light",
+    "DARK": "Dark",
+    "THEME": "Theme",
+    "DARK_THEME": "Dark theme",
+    "LIGHT_THEME": "Light theme",
+    "INDEPENDENT_THEME": "Independent of the theme"
 }

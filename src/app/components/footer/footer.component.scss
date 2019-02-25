@@ -4,26 +4,43 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    border-top: 1px solid $dark;
-    background: $light-grey;
-    color: $white;
     text-align:center;
     padding: $gap-sm;
     height: $footer-height;
+
+    &.dark {
+        color: $white;
+        background: $light-grey;
+        border-top: 1px solid $dark;
+    }
+
+    &.light {
+        color: $button-bar-light;
+        background: $light-grey-light;
+        border-top: 1px solid $border-dark-grey-light;
+    }
 
     &__content {
         text-align: right;
         &__version {
             font-weight: bold;
-            background-color: #3E4453;
             display: inline-block;
             padding: 0 $gap-sm;
+
+            &.dark {
+                background-color: #3E4453;
+            }
+
+            &.light {
+                background-color: $button-bar-light;
+                color: $white;
+            }
         }
 
         &__toolbox {
             display: inline-block;
             margin-right: $gap-md;
-            & > a {
+            &.dark > a {
                 color: $white; 
                 text-decoration: none;
                 &:hover, &:visited, &:active, &:focus {
@@ -31,7 +48,17 @@
                     color: $white; 
                     outline: none;
                 }
-            }            
+            }  
+            
+            &.light > a {
+                color: $button-bar-light; 
+                text-decoration: none;
+                &:hover, &:visited, &:active, &:focus {
+                    text-decoration: none;
+                    color: $button-bar-light; 
+                    outline: none;
+                }
+            } 
         }
 
         &__github {

@@ -51,4 +51,8 @@ export class ElectronService {
     }
     return null;
   }
+
+  pathJoin(...paths: string[]) {
+    return this.path.join(...paths).toString();
+  }
 }

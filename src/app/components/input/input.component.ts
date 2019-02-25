@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-input',
@@ -14,6 +16,8 @@ export class InputComponent implements OnInit {
   @Input() disabled: Boolean;
   @Input() type: String = 'text';
   currentValue: String;
+  themePrefSubscription: Subscription;
+  currentTheme: string;
 
   @Output()
   valueChange = new EventEmitter<String>();
@@ -28,7 +32,14 @@ export class InputComponent implements OnInit {
     this.valueChange.emit(this.currentValue);
   }
 
-  constructor(private translateService: TranslateService) { }
+  constructor(private translateService: TranslateService, private themePrefService: ThemePreferencesService) {
+    this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
+      (newTheme: string) => {
+        this.currentTheme = newTheme;
+      }
+    );
+    this.themePrefService.emitThemePreferencesSubject();
+  }
 
   ngOnInit() {
   }

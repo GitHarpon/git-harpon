@@ -50,7 +50,12 @@ body {
 
 	h2 {
 		text-align: center;
-		color: $muted-white;
+		&.dark {
+			color: $muted-white;
+		}
+		&.dark {
+			color: $muted-dark;
+		}
 	}
 
     &_overlay {
@@ -61,10 +66,18 @@ body {
 		right: 0;
 		height: 100%;
 		width: 100%;
-		background-color: $light-grey;
 		display: block;
         z-index: 2;
-        opacity: 0.8;
+
+		&.dark {
+			background-color: $light-grey;
+			opacity: 0.8;
+		}
+		&.light {
+			background-color: $white;
+			opacity: 0.6;
+			
+		}
     }
 
     &_content {

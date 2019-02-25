@@ -1,0 +1,95 @@
+@import '../../../variables.scss';
+
+.gh-accordion {
+    & i {
+        float: left;
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    & /deep/ .card {
+        @include wX(340px);
+        margin-bottom: 76px;
+        border: 0;
+    }
+    
+    & /deep/ .card-block {
+        @include wX(340px);
+    }
+    
+    & /deep/ .card-header {
+        @include wX(340px);
+        padding: 0;
+        border-radius: 0 !important;
+    }
+    
+    & /deep/ .card-body {
+        @include wX(340px);
+        font-size: 12px;
+    }
+    
+    & /deep/ .btn-link {
+        font-size: 12px;
+        @include wX(100%);
+        text-decoration: none;
+        text-align: left;
+        
+        &:hover, &:focus {
+            text-decoration: none;
+        }
+    }
+    
+}
+
+.gh-accordion.dark {
+    & /deep/ .card {
+        border: 1px solid $light-grey;
+        background: $light-grey;
+    }
+    
+    & /deep/ .card-header {
+        background: $light-grey;
+        border: 1px solid $dark-grey;
+
+        & .icon-dark {
+            color: $muted-white;
+        }
+    }
+    
+    & /deep/ .card-body {
+        background: $dark-grey;
+        color: $white;
+        border: 1px solid $dark-grey;
+    }
+    
+    & /deep/ .btn-link {
+        color: $white;
+        &:hover, &:focus {
+            color: $white;
+        }
+    }
+}
+
+
+.gh-accordion.light {
+    & /deep/ .card-header {
+        background: $dark-grey-light;
+        border: 1px solid $border-dark-grey-light;
+        & .icon-light {
+            color: rgb(141, 141, 141);
+        }
+    }
+    
+    & /deep/ .card-body {
+        background: $light-grey-light;
+        color: $dark;
+        border: 1px solid $border-dark-grey-light;
+    }
+    
+    & /deep/ .btn-link {
+        color: $dark;
+        &:hover, &:focus {
+            color: $dark;
+        }
+    }  
+}
