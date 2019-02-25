@@ -37,6 +37,7 @@ import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { RouterModule, Router } from '@angular/router';
 import { MockRouter } from '../../models/MockRouter';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('PreferencesComponent', () => {
   let component: PreferencesComponent;
@@ -76,6 +77,7 @@ describe('PreferencesComponent', () => {
         MatIconModule,
         AppRoutingModule,
         ResizableModule,
+        BrowserAnimationsModule,
         TranslateModule.forRoot({
             loader: {provide: TranslateLoader, useClass: MockTranslateLoader},
         }),

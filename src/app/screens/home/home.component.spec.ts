@@ -20,11 +20,12 @@ import { LoaderComponent } from '../../components/loader/loader.component';
 import { RouterModule, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
+import { InfoBarComponent } from '../../components/info-bar/info-bar.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -41,7 +42,8 @@ describe('HomeComponent', () => {
         ModalComponent,
         FooterComponent,
         IconButtonComponent,
-        LoaderComponent
+        LoaderComponent,
+        InfoBarComponent
       ],
       imports: [
         FormsModule,
