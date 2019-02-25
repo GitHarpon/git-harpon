@@ -101,6 +101,13 @@ describe('HomeComponent', () => {
     expect(component.branchButtonClicked()).toBeTruthy();
   });
 
+  it('tests the open project modal', () => {
+    const TabSelectedIndex = 0;
+    component.openProjectModal(TabSelectedIndex);
+    expect(component.projectModalTabSelectedIndex).toBe(TabSelectedIndex);
+    expect(component.projectModalVisible).toBeTruthy();
+  });
+
   it('tests the display search input value', () => {
     const RepoName = '/repo';
     component.repoName = RepoName;
