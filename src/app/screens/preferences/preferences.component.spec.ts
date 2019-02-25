@@ -35,6 +35,8 @@ import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ElectronService } from '../../providers/electron.service';
+import { MockElectronService } from '../../models/MockElectronService';
 
 describe('PreferencesComponent', () => {
   let component: PreferencesComponent;
@@ -90,6 +92,10 @@ describe('PreferencesComponent', () => {
         {
           provide: LanguagePreferencesService,
           useClass: MockLanguagePreferencesService,
+        },
+        {
+          provide: ElectronService,
+          useClass: MockElectronService,
         },
         ToastrService
       ]
