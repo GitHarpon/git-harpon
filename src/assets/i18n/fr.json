@@ -32,7 +32,7 @@
         "WHERE": "Où cloner",
         "URL": "URL",
         "TITLE": "Cloner",
-        "TAB_TITLE": "Cloner un répertoire",
+        "TAB_TITLE": "Cloner un dépôt",
         "DONE": "Le répertoire a été cloné",
         "ERROR": "Problème lors du clone",
         "UNABLE_TO_UPDATE": "Impossible de mettre à jour la base de l'URL à partir d'une redirection",

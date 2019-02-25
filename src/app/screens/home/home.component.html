@@ -78,7 +78,7 @@
             </span>
             <div class="col-md-12">
                 <div class="col-md-12 row">
-                    <div class="col-md-3 gh-label-input text-right">
+                    <div class="col-md-3 gh-label-input text-right" [ngClass]="[currentTheme]">
                         <label>{{ 'OPEN.WHERE' | translate }} </label>
                     </div>
                     <div class="col-md-6">
@@ -117,7 +117,7 @@
                 </span>
                 <div class="col-md-12">
                     <div class="col-md-12 row">
-                        <div class="col-md-3 gh-label-input text-right">
+                        <div class="col-md-3 gh-label-input text-right" [ngClass]="[currentTheme]">
                             <label>{{ 'CLONE.WHERE' | translate }} </label>
                         </div>
                         <div class="col-md-6">
@@ -128,7 +128,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 row">
-                        <div class="col-md-3 gh-label-input text-right">
+                        <div class="col-md-3 gh-label-input text-right" [ngClass]="[currentTheme]">
                             <label>{{ 'CLONE.URL' | translate }} </label>
                         </div>
                         <div class="col-md-9">
