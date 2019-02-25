@@ -43,4 +43,17 @@ export class MockGitService {
             }
         });
     }
+
+    init(initLocation: string, initName: string) {
+        if (initLocation && initName) {
+            return new Promise<ServiceResult>((resolve, reject) => {
+                if (initLocation === '/new' && initName === '/repo') {
+                    this.setPath(initLocation);
+                    resolve(new ServiceResult(true, 'SUCCESS', 'INIT.SUCCESS'));
+                } else {
+                    reject(new ServiceResult(false, 'ERROR', 'PATH_NOT_FOUND'));
+                }
+            });
+        }
+    }
 }
