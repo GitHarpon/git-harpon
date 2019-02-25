@@ -39,11 +39,12 @@ import { ElectronService } from '../../providers/electron.service';
 import { MockElectronService } from '../../models/MockElectronService';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
+import { Router } from '@angular/router';
+import { MockRouter } from '../../models/MockRouter';
 
 describe('PreferencesComponent', () => {
   let component: PreferencesComponent;
   let fixture: ComponentFixture<PreferencesComponent>;
-  // let inputEl: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -84,6 +85,10 @@ describe('PreferencesComponent', () => {
       ],
       providers: [
         {
+          provide: Router,
+          useClass: MockRouter
+        },
+        {
           provide: TranslateService,
           useClass: MockTranslateService
         },
@@ -118,27 +123,37 @@ describe('PreferencesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('tests the theme switch light', () => {
+  it('tests the theme switch light', (done) => {
     component.currentTheme = 'light';
-    component.saveChangedUIPreferences();
+    component.saveChangedUIPreferences().then((result) => {
+      expect(result).toBeTruthy();
+      done();
+    });
     expect(component.currentTheme).toEqual('light');
   });
 
-  it('tests the theme switch dark', () => {
+  it('tests the theme switch dark', (done) => {
     component.currentTheme = 'dark';
-    component.saveChangedUIPreferences();
+    component.saveChangedUIPreferences().then((result) => {
+      expect(result).toBeTruthy();
+      done();
+    });
     expect(component.currentTheme).toEqual('dark');
   });
 
   it('tests the current terminal name', () => {
-    var terminal = { name: 'Terminal', cmd: 'TerminalCmd' };
-    component.terminalPreferencesService.setCurrentTerminal(terminal);
-    expect(this.termService.terminalName).toEqual(terminal.name);
+    const Terminal = { name: 'Terminal', cmd: 'TerminalCmd' };
+    component.terminalPreferencesService.setCurrentTerminal(Terminal);
+    expect(component.terminalPreferencesService.terminalName).toEqual(Terminal.name);
   });
 
   it('tests the current terminal cmd', () => {
-    var terminal = { name: 'Terminal', cmd: 'TerminalCmd' };
-    component.terminalPreferencesService.setCurrentTerminal(terminal);
-    expect(this.termService.terminalCmd).toEqual(terminal.cmd);
+    const Terminal = { name: 'Terminal', cmd: 'TerminalCmd' };
+    component.terminalPreferencesService.setCurrentTerminal(Terminal);
+    expect(component.terminalPreferencesService.terminalCmd).toEqual(Terminal.cmd);
   });
+
+  // it('tests the terminal opening', () => {
+
+  // });
 });

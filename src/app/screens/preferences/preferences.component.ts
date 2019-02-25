@@ -35,7 +35,8 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   constructor(public router: Router, private translate: TranslateService,
       private langPrefService: LanguagePreferencesService, private toastr: ToastrService,
       private electronService: ElectronService, private themePrefService: ThemePreferencesService,
-      public terminalPreferencesService: TerminalManagerService) { }
+      public terminalPreferencesService: TerminalManagerService) {
+       }
 
   ngOnInit() {
     this.preferencesVisible = true;
@@ -108,18 +109,24 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     this.router.navigate(['home']);
   }
 
-  saveChangedUIPreferences() {
+  async saveChangedUIPreferences() {
     this.loading = true;
     this.themePrefService.setThemePreference(this.currentTheme);
     this.loading = false;
     this.toastr.info(this.translate.instant('CHANGE_PREF_DONE'),
         this.translate.instant('SUCCESS'));
-    this.router.navigate(['home']);
+    return this.router.navigate(['home']);
   }
 
   ngOnDestroy() {
-    this.languageSubscription.unsubscribe();
-    this.terminalSubscription.unsubscribe();
-    this.themePrefSubscription.unsubscribe();
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
+    if (this.terminalSubscription) {
+      this.terminalSubscription.unsubscribe();
+    }
+    if (this.themePrefSubscription) {
+      this.themePrefSubscription.unsubscribe();
+    }
   }
 }
