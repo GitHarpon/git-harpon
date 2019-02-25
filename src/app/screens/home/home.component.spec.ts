@@ -111,8 +111,7 @@ describe('HomeComponent', () => {
     component.path = OldPath;
     component.openFolder = NewPath;
     component.projectModalLoading = ProjectModalBoolean;
-    component.openRepo()
-      .then(() => {
+    component.openRepo().then(() => {
       expect(component.openFolder).toBe('');
       expect(component.projectModalLoading).toBeFalsy();
       done();
@@ -126,7 +125,6 @@ describe('HomeComponent', () => {
     component.openFolder = OldPath;
     component.projectModalVisible = ProjectModalBoolean;
     component.openRepo().then((result) => {
-      console.log(result);
       expect(component.projectModalVisible).toBeTruthy();
       expect(result).toBeFalsy();
       done();

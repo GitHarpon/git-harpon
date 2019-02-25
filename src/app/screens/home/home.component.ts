@@ -175,13 +175,11 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.projectModalVisible = false;
             this.openFolder = '';
             this.toastr.info(data.message, data.title);
-            return { obj: 123};
           })
           .catch((data) => {
             this.projectModalLoading = false;
             this.openFolder = '';
             this.toastr.error(data.message, data.title);
-            return { obj: 111};
           });
       }
     } else {

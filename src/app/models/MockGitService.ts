@@ -32,7 +32,7 @@ export class MockGitService {
     }
 
     async setPath(newPath) {
-        new Promise<ServiceResult>((resolve, reject) => {
+        return new Promise<ServiceResult>((resolve, reject) => {
             if (newPath === '/new') {
                 this.emitPathSubject(newPath);
                 resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
