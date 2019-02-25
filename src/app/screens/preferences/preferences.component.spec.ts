@@ -113,10 +113,9 @@ describe('PreferencesComponent', () => {
   });
 
   it('tests if the current dropdown value is equal to french', () => {
-    let langService: MockLanguagePreferencesService;
     let lang = component.dropdownLanguageValue = 'fr';
-    langService.setLanguage(lang);
-    expect(lang).toEqual(langService.preferences);
+    this.langService.setLanguage(lang);
+    expect(lang).toEqual(this.langService.preferences);
   });
 });
 
