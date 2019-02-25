@@ -35,6 +35,7 @@ import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { RouterModule, Router } from '@angular/router';
 
 describe('PreferencesComponent', () => {
   let component: PreferencesComponent;
@@ -102,20 +103,26 @@ describe('PreferencesComponent', () => {
     component = fixture.componentInstance;
   });
 
+  // afterEach(() => {
+  //   component.ngOnDestroy();
+  // });
+
   it('tests the component creation', () => {
     expect(component).toBeTruthy();
   });
 
-  it('tests if the current dropdown value is equal to french', () => {
+  it('tests the saveChangedPreferences() function', () => {
+    const langPrefService = new MockLanguagePreferencesService;
     component.dropdownLanguageValue = 'fr';
     component.saveChangedPreferences();
-    expect(component.dropdownLanguageValue).toEqual('fr');
+    expect(component.dropdownLanguageValue).toEqual(langPrefService.preferences);
   });
 
-  it('tests if the current dropdown value is equal to french', () => {
+  it('tests tests the switchLanguage() function', () => {
+    const langPrefService = new MockLanguagePreferencesService;
     let lang = component.dropdownLanguageValue = 'fr';
-    this.langService.setLanguage(lang);
-    expect(lang).toEqual(this.langService.preferences);
+    component.switchLanguage();
+    expect(lang).toEqual(langPrefService.preferences);
   });
 });
 

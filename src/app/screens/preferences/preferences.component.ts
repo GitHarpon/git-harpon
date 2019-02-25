@@ -49,7 +49,6 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     this.languageSubscription = this.langPrefService.preferencesSubject.subscribe(
       (preference) => {
         this.dropdownLanguageValue = preference;
-        this.langPrefService.preferences = preference;
       }
     );
     this.langPrefService.emitPreferencesSubject();
@@ -92,7 +91,11 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.languageSubscription.unsubscribe();
-    this.themePrefSubscription.unsubscribe();
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
+    if (this.themePrefSubscription) {
+      this.themePrefSubscription.unsubscribe();
+    }
   }
 }
