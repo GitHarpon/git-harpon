@@ -165,26 +165,29 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  openRepo() {
+  async openRepo() {
     if (this.path !== this.openFolder) {
       this.projectModalLoading = true;
       if (this.openFolder !== null) {
-        this.gitService.setPath(this.openFolder)
+        return this.gitService.setPath(this.openFolder)
           .then((data) => {
             this.projectModalLoading = false;
             this.projectModalVisible = false;
             this.openFolder = '';
             this.toastr.info(data.message, data.title);
+            return { obj: 123};
           })
           .catch((data) => {
             this.projectModalLoading = false;
             this.openFolder = '';
             this.toastr.error(data.message, data.title);
+            return { obj: 111};
           });
       }
     } else {
       this.toastr.error(this.translateService.instant('OPEN.ALREADY'),
         this.translateService.instant('ERROR'));
+        return false;
     }
   }
 

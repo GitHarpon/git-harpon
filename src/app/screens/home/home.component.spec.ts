@@ -83,23 +83,70 @@ describe('HomeComponent', () => {
   });
 
   it('tests the openBrowse function', () => {
-    const Path = 'path';
+    const Path = '/new';
     component.openBrowse();
     expect(component.openFolder).toBe(Path);
   });
 
-  it('tests the openRepo function with valid path', () => {
-    const Path = 'path';
-    component.openBrowse();
-    component.openRepo();
-    expect(component.projectModalLoading).toBeFalsy();
-    expect(component.path).toBe(Path);
+  it('tests the openRepo function with changed and valid path', (done) => {
+    const OldPath = '/old';
+    const NewPath = '/new';
+    const ProjectModalBoolean = true;
+    component.path = OldPath;
+    component.openFolder = NewPath;
+    component.projectModalLoading = ProjectModalBoolean;
+    component.projectModalVisible = ProjectModalBoolean;
+    component.openRepo().then((result) => {
+      expect(component.openFolder).toBe('');
+      expect(component.projectModalLoading).toBeFalsy();
+      expect(component.projectModalVisible).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the openRepo function with changed and invalid path', (done) => {
+    const OldPath = '/old';
+    const NewPath = '/invalid';
+    const ProjectModalBoolean = true;
+    component.path = OldPath;
+    component.openFolder = NewPath;
+    component.projectModalLoading = ProjectModalBoolean;
+    component.openRepo()
+      .then(() => {
+      expect(component.openFolder).toBe('');
+      expect(component.projectModalLoading).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the openRepo function with unchanged path', (done) => {
+    const OldPath = '/old';
+    const ProjectModalBoolean = true;
+    component.path = OldPath;
+    component.openFolder = OldPath;
+    component.projectModalVisible = ProjectModalBoolean;
+    component.openRepo().then((result) => {
+      console.log(result);
+      expect(component.projectModalVisible).toBeTruthy();
+      expect(result).toBeFalsy();
+      done();
+    });
   });
 
   it('tests the openRepo function with invalid path', () => {
-    const Path = '';
-    component.openBrowse();
-    component.openRepo();
-    expect(component.path == Path).toBeFalsy();
+    const OldPath = '/old';
+    const NewPath = '/new';
+    component.path = OldPath;
+    component.openRecentRepo(NewPath);
+  });
+
+  it('tests the closeRepo function', () => {
+    const Path = '/new';
+    const Repo = 'new';
+    component.path = Path;
+    component.repoName = Repo;
+    component.closeRepo();
+    expect(component.path).toBeUndefined();
+    expect(component.repoName).toBeUndefined();
   });
 });

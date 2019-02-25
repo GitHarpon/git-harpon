@@ -5,7 +5,7 @@ export class MockElectronService {
   constructor() { }
 
   browse() {
-    const CHEMIN = 'path';
+    const CHEMIN = '/new';
     return CHEMIN;
   }
 }
