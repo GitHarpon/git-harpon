@@ -162,11 +162,11 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
-  openRepo() {
+  async openRepo() {
     if (this.path !== this.openFolder) {
       this.projectModalLoading = true;
       if (this.openFolder !== null) {
-        this.gitService.setPath(this.openFolder)
+        return this.gitService.setPath(this.openFolder)
           .then((data) => {
             this.projectModalLoading = false;
             this.projectModalVisible = false;
@@ -182,12 +182,13 @@ export class HomeComponent implements OnDestroy {
     } else {
       this.toastr.error(this.translateService.instant('OPEN.ALREADY'),
         this.translateService.instant('ERROR'));
+        return false;
     }
   }
 
-  openRecentRepo(recentPath: string) {
+  async openRecentRepo(recentPath: string) {
     this.openFolder = recentPath;
-    this.openRepo();
+    return this.openRepo();
   }
 
   closeRepo() {

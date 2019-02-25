@@ -27,11 +27,12 @@ import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  // let inputEl: DebugElement;
+  var originalTimeout;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -83,6 +84,12 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+  });
+
+  afterEach(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
   });
 
   it('tests the component creation', () => {
@@ -218,6 +225,43 @@ describe('HomeComponent', () => {
       expect(component.initName).toBe('');
       expect(component.fullPath).toBe('');
       expect(component.path).toBe(NewPath);
+    });
+  });
+
+  it('tests the openBrowse function', () => {
+    const Path = '/new';
+    component.openBrowse();
+    expect(component.openFolder).toBe(Path);
+  });
+
+  it('tests the openRepo function with changed and valid path', (done) => {
+    const OldPath = '/old';
+    const NewPath = '/new';
+    const ProjectModalBoolean = true;
+    component.path = OldPath;
+    component.openFolder = NewPath;
+    component.projectModalLoading = ProjectModalBoolean;
+    component.projectModalVisible = ProjectModalBoolean;
+    component.openRepo().then(() => {
+      expect(component.openFolder).toBe('');
+      expect(component.projectModalLoading).toBeFalsy();
+      expect(component.projectModalVisible).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the openRepo function with changed and invalid path', (done) => {
+    const OldPath = '/old';
+    const NewPath = '/invalid';
+    const ProjectModalBoolean = true;
+    component.path = OldPath;
+    component.openFolder = NewPath;
+    component.projectModalLoading = ProjectModalBoolean;
+    component.projectModalVisible = ProjectModalBoolean;
+    component.openRepo().then(() => {
+      expect(component.openFolder).toBe('');
+      expect(component.projectModalLoading).toBeFalsy();
+      expect(component.projectModalVisible).toBeTruthy();
       done();
     });
   });
@@ -243,5 +287,40 @@ describe('HomeComponent', () => {
       expect(component.path).toBe(OldPath);
       done();
     });
+  });
+
+  it('tests the openRepo function with unchanged path', (done) => {
+    const OldPath = '/old';
+    const ProjectModalBoolean = true;
+    component.path = OldPath;
+    component.openFolder = OldPath;
+    component.projectModalVisible = ProjectModalBoolean;
+    component.openRepo().then((result) => {
+      expect(component.projectModalVisible).toBeTruthy();
+      expect(result).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the openRecentRepo function', (done) => {
+    const OldPath = '/old';
+    const NewPath = '/new';
+    component.path = OldPath;
+    component.openRecentRepo(NewPath).then(() => {
+      expect(component.openFolder).toBe('');
+      expect(component.projectModalLoading).toBeFalsy();
+      expect(component.projectModalVisible).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the closeRepo function', () => {
+    const Path = '/new';
+    const Repo = 'new';
+    component.path = Path;
+    component.repoName = Repo;
+    component.closeRepo();
+    expect(component.path).toBeUndefined();
+    expect(component.repoName).toBeUndefined();
   });
 });
