@@ -131,7 +131,6 @@ describe('PreferencesComponent', () => {
      expect(langPrefService.preferences).toEqual(Lang);
      expect(component.loading).toBeFalsy();
   });
-});
 
   it('test the theme switch light', () => {
     component.currentTheme = 'light';
