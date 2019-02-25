@@ -69,15 +69,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   pullButtonClicked() {
-    console.log('Bouton pull cliqué');
+    return true;
   }
 
   pushButtonClicked() {
-    console.log('Bouton push cliqué');
+    return true;
   }
 
   branchButtonClicked() {
-    console.log('Bouton branche cliqué');
+    return true;
   }
 
   openTerminal() {
@@ -95,13 +95,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   displaySearchInputValue() {
     if (this.repoName) {
-      this.toastr.info(this.searchInputValue.toString());
+      return true;
     }
   }
 
   validate(event: ResizeEvent): boolean {
-    if (event.rectangle.width &&
-      (event.rectangle.width < this.dimensions)
+    if (
+      event.rectangle.width &&
+      event.rectangle.height &&
+      (event.rectangle.width < this.dimensions ||
+        event.rectangle.height < this.dimensions)
     ) {
       return false;
     }
