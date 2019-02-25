@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed, tick, fakeAsync} from '@angular/core/
 import { HomeComponent } from './home.component';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { MockTranslateService } from '../../models/MockTranslateService';
 import { ElectronService } from '../../providers/electron.service';
@@ -25,11 +24,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  // let inputEl: DebugElement;
+  var originalTimeout;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -50,6 +50,7 @@ describe('HomeComponent', () => {
         ResizableModule,
         NgbModule,
         RouterTestingModule,
+        BrowserAnimationsModule,
         ToastrModule.forRoot()
       ],
       providers: [
@@ -78,10 +79,88 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    // inputEl = fixture.debugElement.query(By.css('input.gh-input'));
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+  });
+
+  afterEach(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
   });
 
   it('tests the component creation', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('tests the openBrowse function', () => {
+    const Path = '/new';
+    component.openBrowse();
+    expect(component.openFolder).toBe(Path);
+  });
+
+  it('tests the openRepo function with changed and valid path', (done) => {
+    const OldPath = '/old';
+    const NewPath = '/new';
+    const ProjectModalBoolean = true;
+    component.path = OldPath;
+    component.openFolder = NewPath;
+    component.projectModalLoading = ProjectModalBoolean;
+    component.projectModalVisible = ProjectModalBoolean;
+    component.openRepo().then(() => {
+      expect(component.openFolder).toBe('');
+      expect(component.projectModalLoading).toBeFalsy();
+      expect(component.projectModalVisible).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the openRepo function with changed and invalid path', (done) => {
+    const OldPath = '/old';
+    const NewPath = '/invalid';
+    const ProjectModalBoolean = true;
+    component.path = OldPath;
+    component.openFolder = NewPath;
+    component.projectModalLoading = ProjectModalBoolean;
+    component.projectModalVisible = ProjectModalBoolean;
+    component.openRepo().then(() => {
+      expect(component.openFolder).toBe('');
+      expect(component.projectModalLoading).toBeFalsy();
+      expect(component.projectModalVisible).toBeTruthy();
+      done();
+    });
+  });
+
+  it('tests the openRepo function with unchanged path', (done) => {
+    const OldPath = '/old';
+    const ProjectModalBoolean = true;
+    component.path = OldPath;
+    component.openFolder = OldPath;
+    component.projectModalVisible = ProjectModalBoolean;
+    component.openRepo().then((result) => {
+      expect(component.projectModalVisible).toBeTruthy();
+      expect(result).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the openRecentRepo function', (done) => {
+    const OldPath = '/old';
+    const NewPath = '/new';
+    component.path = OldPath;
+    component.openRecentRepo(NewPath).then(() => {
+      expect(component.openFolder).toBe('');
+      expect(component.projectModalLoading).toBeFalsy();
+      expect(component.projectModalVisible).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the closeRepo function', () => {
+    const Path = '/new';
+    const Repo = 'new';
+    component.path = Path;
+    component.repoName = Repo;
+    component.closeRepo();
+    expect(component.path).toBeUndefined();
+    expect(component.repoName).toBeUndefined();
   });
 });
