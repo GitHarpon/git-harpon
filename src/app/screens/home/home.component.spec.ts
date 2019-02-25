@@ -22,6 +22,7 @@ import { LoaderComponent } from '../../components/loader/loader.component';
 import { RouterModule, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
@@ -50,7 +51,8 @@ describe('HomeComponent', () => {
         ResizableModule,
         NgbModule,
         RouterTestingModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        BrowserAnimationsModule
       ],
       providers: [
         {
@@ -98,10 +100,12 @@ describe('HomeComponent', () => {
   });
 
   it('tests the display search input value', () => {
+    const RepoName = '/repo';
+    component.repoName = RepoName;
     expect(component.displaySearchInputValue()).toBeTruthy();
   });
 
-  /*it('tests the validate resize with good status', () => {
+  it('tests the validate resize with bad status', () => {
     const TestEvent: ResizeEvent =
       {
         edges:
@@ -115,36 +119,35 @@ describe('HomeComponent', () => {
           left: 0,
           right: 220,
           height: 700,
-          width: 220
+          width: 5
         }
       };
-    expect(component.validate(TestEvent)).toBeTruthy();
-  });*/
-
-  /*it('tests the validate resize with bad status', () => {
-    const TestEvent: ResizeEvent =
-      {
-        edges:
-        {
-          right: 2
-        },
-        rectangle:
-        {
-          top: 50,
-          bottom: 750,
-          left: 0,
-          right: 220,
-          height: 700,
-          width: 220
-        }
-      };
-    TestEvent.rectangle.width = null;
     component.dimensions = 20;
     expect(component.validate(TestEvent)).toBeFalsy();
-  });*/
+  });
 
-  /*it('tests the end of resize', () => {
-    const OldStyle = component.style;
+  it('tests the validate resize with good status', () => {
+    const TestEvent: ResizeEvent =
+      {
+        edges:
+        {
+          right: 2
+        },
+        rectangle:
+        {
+          top: 50,
+          bottom: 750,
+          left: 0,
+          right: 220,
+          height: 700,
+          width: 220
+        }
+      };
+    component.dimensions = 20;
+    expect(component.validate(TestEvent)).toBeTruthy();
+  });
+
+  it('tests the end of resize', () => {
     const TestEvent: ResizeEvent =
       {
         edges:
@@ -162,29 +165,57 @@ describe('HomeComponent', () => {
         }
       };
     component.onResizeEnd(TestEvent);
-    fixture.detectChanges();
-    const NewStyle = component.style;
-    expect(NewStyle).not.toBe(OldStyle);
-  });*/
+    expect(component.style).not.toBeUndefined();
+  });
 
   it('tests the update full path for init', () => {
-    component.initLocation = 'Location';
-    component.initName = 'Name';
+    const Path = '/new';
+    const RepoName = '/repo';
+    component.initLocation = Path;
+    component.initName = RepoName;
     component.updateFullPath();
-    expect(component.fullPath).toBe('LocationName');
+    expect(component.fullPath).toBe('/new/repo');
   });
 
   it('tests the init browse', () => {
     component.initBrowse();
-    expect(component.initLocation).toBe('path');
+    expect(component.initLocation).toBe('/new');
   });
 
-  /*it('tests the project initialization', () => {
-    component.initLocation = 'initLocation';
-    component.initName = 'initName';
-    fixture.detectChanges();
-    component.initSubmit();
-    fixture.detectChanges();
-    expect(TmpBool).toBeTruthy();
-  });*/
+  it('tests the project initialization with valid path', () => {
+    const Path = '/new';
+    const RepoName = '/repo';
+    const BoolModal = true;
+    component.initLocation = Path;
+    component.initName = RepoName;
+    component.updateFullPath();
+    component.projectModalVisible = BoolModal;
+    component.projectModalLoading = BoolModal;
+    component.initSubmit().then((result) => {
+      expect(result).toBeTruthy();
+      expect(component.projectModalVisible).toBeFalsy();
+      expect(component.projectModalLoading).toBeFalsy();
+      expect(component.initLocation).toBe('');
+      expect(component.initName).toBe('');
+      expect(component.fullPath).toBe('');
+    });
+  });
+
+  it('tests the project initialization with invalid path', () => {
+    const Path = '/invalidpath';
+    const RepoName = '/repo';
+    const BoolModal = true;
+    component.initLocation = Path;
+    component.initName = RepoName;
+    component.updateFullPath();
+    component.projectModalVisible = BoolModal;
+    component.projectModalLoading = BoolModal;
+    component.initSubmit().then((result) => {
+      expect(result).toBeFalsy();
+      expect(component.projectModalVisible).toBeTruthy();
+      expect(component.projectModalLoading).toBeFalsy();
+      expect(component.initLocation).toBe(Path);
+      expect(component.initName).toBe(RepoName);
+    });
+  });
 });

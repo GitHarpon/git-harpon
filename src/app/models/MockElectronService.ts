@@ -6,8 +6,8 @@ export class MockElectronService {
   constructor() { }
 
   browse() {
-    const Path = 'path';
-    return Path;
+    const CHEMIN = '/new';
+    return CHEMIN;
   }
 
   pathJoin(...paths: string[]) {

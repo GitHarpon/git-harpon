@@ -102,9 +102,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   validate(event: ResizeEvent): boolean {
     if (
       event.rectangle.width &&
-      event.rectangle.height &&
-      (event.rectangle.width < this.dimensions ||
-        event.rectangle.height < this.dimensions)
+      (event.rectangle.width < this.dimensions)
     ) {
       return false;
     }
@@ -141,12 +139,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.projectModalLoading = true;
 
     if (this.initLocation && this.initName) {
-      await this.gitService.init(this.initLocation, this.initName)
+      return await this.gitService.init(this.initLocation, this.initName)
         .then((result) => {
           this.toastr.info(result.message, result.title, {
             onActivateTick: true
           });
 
+          this.projectModalLoading = false;
           this.projectModalVisible = false;
           this.initName = '';
           this.initLocation = '';
@@ -157,10 +156,11 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.toastr.error(result.message, result.title, {
             onActivateTick: true
           });
+
+          this.projectModalLoading = false;
           return false;
         });
     }
-    this.projectModalLoading = false;
   }
 
   openBrowse() {
