@@ -10,7 +10,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import {MatTabsModule, MatIconModule, MatExpansionModule, MatSortModule, MatFormFieldModule } from '@angular/material';
+import { MatTabsModule, MatIconModule, MatExpansionModule, MatSortModule, MatFormFieldModule } from '@angular/material';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { ClipboardModule } from 'ngx-clipboard';
 import { ResizableModule } from 'angular-resizable-element';

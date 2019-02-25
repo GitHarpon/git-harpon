@@ -1,6 +1,7 @@
 <app-container [classes]="currentTheme">
     <!-- Button-Bar -->
-    <div class="gh-button-bar" [ngClass]="[currentTheme]">
+    <app-loader [loading]="homeLoading">
+        <div class="gh-button-bar" [ngClass]="[currentTheme]">
         <!-- Project (à gauche) -->
         <div class="col-4 gh-button-bar-project gh-breadcrumbs" [ngClass]="[currentTheme]">
             <ul>
@@ -56,11 +57,12 @@
                 <div><i class="fa fa-laptop fa-lg"></i></div>
             </div>
             <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" [ngClass]="[currentTheme]" (click)="openProjectModal(1)">
-                <div class="mb-1">{{ 'CLONE' | translate }}</div>
+                <div class="mb-1">{{ 'CLONE.TAB_TITLE' | translate }}</div>
                 <div><i class="fa fa-globe fa-lg"></i></div>
             </div>
         </div>
     </div>
+    </app-loader>
 </app-container>
 
 <div class="left-panel" [ngClass]="[currentTheme]" mwlResizable [ngStyle]="style" [validateResize]="validate" [enableGhostResize]="true" [resizeEdges]="{right: true}" (resizeEnd)="onResizeEnd($event)">
@@ -76,7 +78,7 @@
             </span>
             <div class="col-md-12">
                 <div class="col-md-12 row">
-                    <div class="col-md-3 gh-label-input text-right">
+                    <div class="col-md-3 gh-label-input text-right" [ngClass]="[currentTheme]">
                         <label>{{ 'OPEN.WHERE' | translate }} </label>
                     </div>
                     <div class="col-md-6">
@@ -108,7 +110,38 @@
                 </div>
             </div>
         </mat-tab>
-        <mat-tab label="{{ 'CLONE' | translate }}" id="tab-clone">{{ 'CLONE' | translate }}</mat-tab>
+        <mat-tab label="{{ 'CLONE.TITLE' | translate }}">
+                <span class="section-title">
+                    <i class="fas fa-globe fa-xs" ></i>
+                    {{ 'CLONE.TAB_TITLE' | translate }}
+                </span>
+                <div class="col-md-12">
+                    <div class="col-md-12 row">
+                        <div class="col-md-3 gh-label-input text-right" [ngClass]="[currentTheme]">
+                            <label>{{ 'CLONE.WHERE' | translate }} </label>
+                        </div>
+                        <div class="col-md-6">
+                            <app-input [(value)]="cloneFolder"></app-input>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <app-button value="BROWSE" type="primary" (buttonClicked)="cloneBrowse()"></app-button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 row">
+                        <div class="col-md-3 gh-label-input text-right" [ngClass]="[currentTheme]">
+                            <label>{{ 'CLONE.URL' | translate }} </label>
+                        </div>
+                        <div class="col-md-9">
+                            <app-input [(value)]="cloneUrl"></app-input>
+                        </div>
+                    </div>
+                    <div class="col-md-12 row mt-3">
+                        <div class="col-md-12 text-right">
+                            <app-button value="CLONE.TITLE" type="success" [disabled]="!cloneUrl || !cloneFolder" (buttonClicked)="cloneSubmit()"></app-button>
+                        </div>
+                    </div>
+                </div>
+        </mat-tab>
         <mat-tab label="{{ 'INIT.TITLE' | translate }}" id="tab-init">
             <span class="section-title">
                 <i class="fas fa-laptop fa-xs" ></i>
@@ -153,3 +186,19 @@
 </app-modal>
 
 <app-footer [devRedirect]="{ icon: 'fa-toolbox', link: '/toolbox' }"></app-footer>
+
+<!-- Info bar credentials -->
+<app-info-bar [visible]="credInfoBarVisible">
+    <span>{{ 'LOG_TO_CONTINUE' | translate }}</span>
+    <app-input [(value)]="username" [placeholder]="'USERNAME'" class="ml-3"></app-input>
+    <app-input [(value)]="password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
+    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!username || !password" (buttonClicked)="cloneHttps()"></app-button>
+    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeCredInfoBar()"></app-button>
+</app-info-bar>
+
+<!-- Open cloned repo -->
+<app-info-bar [visible]="openClonedInfoBarVisible">
+    <app-button value="OPEN_NOW" type="success" (buttonClicked)="openClonedRepo()"></app-button>
+    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeClonedInfoBar()"></app-button>
+</app-info-bar>
+

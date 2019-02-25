@@ -14,6 +14,7 @@ export class InputComponent implements OnInit {
   @Input() placeholder: String;
   @Input() readonly: Boolean;
   @Input() disabled: Boolean;
+  @Input() type: String = 'text';
   currentValue: String;
   themePrefSubscription: Subscription;
   currentTheme: string;

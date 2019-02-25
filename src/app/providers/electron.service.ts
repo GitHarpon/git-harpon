@@ -8,6 +8,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 import * as process from 'process';
+import * as url from 'url';
 
 @Injectable()
 export class ElectronService {
@@ -21,6 +22,7 @@ export class ElectronService {
   path: typeof path;
   os: typeof os;
   shell: typeof shell;
+  url: typeof url;
 
   constructor() {
     // Conditional imports
@@ -34,6 +36,7 @@ export class ElectronService {
       this.fs = window.require('fs');
       this.path = window.require('path');
       this.process = window.require('process');
+      this.url = window.require('url');
       this.os = window.require('os');
     }
   }
@@ -50,5 +53,9 @@ export class ElectronService {
       return PATH[0];
     }
     return null;
+  }
+
+  pathJoin(...paths: string[]) {
+    return this.path.join(...paths).toString();
   }
 }

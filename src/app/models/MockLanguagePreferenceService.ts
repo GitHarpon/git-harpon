@@ -8,7 +8,8 @@ export class MockLanguagePreferencesService {
     preferencesSubject = new Subject<string>();
 
     constructor() {
-        this.preferences = 'toto';
+        this.preferences = 'fr';
+
         this.emitPreferencesSubject();
     }
 
@@ -19,5 +20,6 @@ export class MockLanguagePreferencesService {
     setLanguage(newLanguage) {
         this.preferences = newLanguage;
         this.emitPreferencesSubject();
+        return this.preferences;
     }
 }

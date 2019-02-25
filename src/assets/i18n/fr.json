@@ -28,12 +28,27 @@
         "DESACTIVATE": "Désactiver le loader",
         "INFO": "Chargement..."
     },
+    "CLONE": {
+        "WHERE": "Où cloner",
+        "URL": "URL",
+        "TITLE": "Cloner",
+        "TAB_TITLE": "Cloner un dépôt",
+        "DONE": "Le répertoire a été cloné",
+        "ERROR": "Problème lors du clone",
+        "UNABLE_TO_UPDATE": "Impossible de mettre à jour la base de l'URL à partir d'une redirection",
+        "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
+        "NOT_WORK_TREE": "Impossible de créer le repertoire de travail : permission refusé",
+        "REPO_NOT_FOUND": "Répertoire non trouvé",
+        "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",
+        "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide"
+    },
     "BUTTON": {
         "PRIMARY": "Bouton primaire",
         "SUCCESS": "Bouton succès",
         "DANGER": "Bouton danger",
         "DISABLED": "Bouton désactivé",
         "LARGE": "Bouton allongé"
+        
     },
     "ICONBUTTON": {
         "GITHUB": "GitHub",
@@ -88,7 +103,7 @@
     "REMOTE": "DISTANT",
     "OPEN": {
         "TITLE": "Ouvrir",
-        "REPO": "Ouvrir un Dépôt",
+        "REPO": "Ouvrir un dépôt",
         "OPENED": "Ouvert récemment",
         "BROWSE": "Parcourir",
         "OPENED_REPO": "Le dépôt a été ouvert avec succès",
@@ -97,7 +112,6 @@
         "WHERE": "Où ouvrir",
         "ALREADY": "Déjà ouvert"
     },
-    "CLONE": "Cloner",
     "INIT": {
         "TITLE": "Initialiser",
         "TAB_TITLE": "Initialiser un dépôt",
@@ -113,6 +127,13 @@
         "MESSAGE": "Il ne semble pas installé sur la machine",
         "NAME": "Terminal"
     },
+    "LOG_IN": "S'identifier",
+    "CANCEL": "Annuler",
+    "OPEN_NOW": "Ouvrir",
+    "USERNAME": "Nom d'utilisateur",
+    "PASSWORD": "Mot de passe",
+    "LOG_TO_CONTINUE": "Veuillez vous identifier pour continuer :",
+    "INVALID_URL": "URL invalide",
     "LIGHT": "Clair",
     "DARK": "Sombre",
     "THEME": "Thème",

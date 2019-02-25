@@ -15,7 +15,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 })
 export class PreferencesComponent implements OnInit, OnDestroy {
 
-  @Input() loading: Boolean = false;
+  loading: Boolean = false;
 
   preferencesVisible: Boolean;
   preferencesTabSelectedIndex: any;
@@ -83,11 +83,11 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   setCurrentTerminal(event) {
     this.terminalPreferencesService.setCurrentTerminal(event);
   }
-
-  checkIfCloseModal(event) {
+  async checkIfCloseModal(event) {
     if (event.index === 0) {
-      this.router.navigate(['home']);
+      return this.router.navigate(['home']);
     }
+    return false;
   }
 
   switchLanguage() {
@@ -99,14 +99,14 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   }
 
   // Fonction qui regroupe toutes les fonctions applicables aux préférences
-  saveChangedPreferences() {
+  async saveChangedPreferences() {
     this.loading = true;
     this.switchLanguage();
     this.switchTerminal();
     this.loading = false;
     this.toastr.info(this.translate.instant('CHANGE_PREF_DONE'),
         this.translate.instant('SUCCESS'));
-    this.router.navigate(['home']);
+    return this.router.navigate(['home']);
   }
 
   async saveChangedUIPreferences() {

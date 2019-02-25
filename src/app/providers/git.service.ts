@@ -60,13 +60,16 @@ export class GitService {
           gitPromise(PATHTOREPO).init()
             .then(() => {
               this.setPath(PATHTOREPO);
-              resolve(new ServiceResult(true, 'SUCCESS', 'INIT.SUCCESS'));
+              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+              this.translate.instant('INIT.SUCCESS')));
             })
             .catch(() => {
-              reject(new ServiceResult(false, 'ERROR', 'INIT.FAILED'));
+              reject(new ServiceResult(false, this.translate.instant('ERROR'),
+              this.translate.instant('INIT.FAILED')));
             });
         } else {
-          reject(new ServiceResult(false, 'ERROR', 'PATH_NOT_FOUND'));
+          reject(new ServiceResult(false, this.translate.instant('ERROR'),
+          this.translate.instant('PATH_NOT_FOUND')));
         }
       });
     }
@@ -137,5 +140,45 @@ export class GitService {
       }
     }
     this.emitRecentProjectSubject();
+  }
+
+  async cloneHttps(url: GitUrlParse, folder: string, username: string, password: string) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      const REMOTE = `https://${username}:${password}@${url.resource}${url.pathname}`;
+      gitPromise(folder)
+        .clone(REMOTE, null)
+        .then(() => {
+          const REPOPATH = this.electronService.path.join(folder, url.name);
+          gitPromise(REPOPATH)
+            .raw(['remote', 'set-url', 'origin', url])
+            .then(() => {
+              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('CLONE.DONE'), REPOPATH));
+            })
+            .catch((err) => {
+              console.log(err);
+              reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('CLONE.ERROR')));
+            });
+        })
+        .catch((err) => {
+          var ERRMSG = 'CLONE.ERROR';
+          if (err.toString().includes('unable to update url base from redirection')) {
+            ERRMSG = 'CLONE.UNABLE_TO_UPDATE';
+          } else if (err.toString().includes('HTTP Basic: Access denied')) {
+            ERRMSG = 'CLONE.HTTP_ACCESS_DENIED';
+          } else if (err.toString().includes('could not create work tree')) {
+            ERRMSG = 'CLONE.NOT_WORK_TREE';
+          } else if (err.toString().includes('Repository not found')) {
+            ERRMSG = 'CLONE.REPO_NOT_FOUND';
+          } else if (err.toString().includes('already exists and is not an empty directory')) {
+            ERRMSG = 'CLONE.ALREADY_EXISTS';
+          } else if (err.toString().includes('Invalid username or password')) {
+            ERRMSG = 'CLONE.INVALID_CRED';
+          }
+          reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant(ERRMSG)));
+        });
+    });
   }
 }

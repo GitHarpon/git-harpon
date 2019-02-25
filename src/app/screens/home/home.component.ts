@@ -8,6 +8,7 @@ import { initNgModule } from '@angular/core/src/view/ng_module';
 import { Subscription } from 'rxjs';
 import { ServiceResult } from '../../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
+import * as GitUrlParse from 'git-url-parse';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
@@ -16,29 +17,33 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnDestroy {
   projectModalTabSelectedIndex: any;
   projectModalVisible: Boolean;
+  cloneUrl: String;
+  cloneFolder: string;
   searchInputValue: String;
   dimensions: number;
   style: Object;
   initName: string;
   initLocation: string;
-  fullPath: string;
   projectModalLoading: Boolean;
+  fullPath: string;
   path: any;
   pathSubscription: Subscription;
   repoName: any;
   repoNameSubscription: Subscription;
   recentProject: any[];
   recentProjectSubscription: Subscription;
+  credInfoBarVisible: boolean;
+  openClonedInfoBarVisible: boolean;
+  newClonedRepoPath: string;
+  username: string;
+  password: string;
+  homeLoading: boolean;
   openFolder: string;
   themePrefSubscription: Subscription;
   currentTheme: string;
-
-  ngOnInit() {
-    this.dimensions = 20;
-  }
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
@@ -68,18 +73,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
+
+    this.dimensions = 20;
   }
 
   pullButtonClicked() {
-    console.log('Bouton pull cliqué');
+    return true;
   }
 
   pushButtonClicked() {
-    console.log('Bouton push cliqué');
+    return true;
   }
 
   branchButtonClicked() {
-    console.log('Bouton branche cliqué');
+    return true;
   }
 
   openTerminal() {
@@ -91,8 +98,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  openPreferences() {
-    this.router.navigate(['preferences']);
+  async openPreferences() {
+    return this.router.navigate(['preferences']);
   }
 
   openProjectModal(tabSelected: any) {
@@ -102,12 +109,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   displaySearchInputValue() {
     if (this.repoName) {
-      this.toastr.info(this.searchInputValue.toString());
+      return true;
     }
   }
 
   validate(event: ResizeEvent): boolean {
-    if (event.rectangle.width &&
+    if (
+      event.rectangle.width &&
       (event.rectangle.width < this.dimensions)
     ) {
       return false;
@@ -121,10 +129,52 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
   }
 
+  cloneBrowse() {
+    const BrowsePath = this.electronService.browse();
+    if (BrowsePath !== null) {
+      this.cloneFolder = BrowsePath;
+    }
+  }
+
+  cloneSubmit() {
+    if (this.electronService.fs.existsSync(this.cloneFolder.toString())) {
+      var Url = GitUrlParse(this.cloneUrl);
+      if (Url.protocol === 'https') {
+        this.projectModalVisible = false;
+        this.credInfoBarVisible = true;
+      } else if (Url.protocol === 'ssh') {
+        this.toastr.error('Pas de ssh pour le moment', 'Erreur');
+      } else {
+        this.toastr.error(this.translateService.instant('INVALID_URL'),
+          this.translateService.instant('ERROR'));
+      }
+    } else {
+      this.toastr.error(this.translateService.instant('PATH_NOT_FOUND'),
+        this.translateService.instant('ERROR'));
+    }
+  }
+
+  cloneHttps() {
+    this.credInfoBarVisible = false;
+    this.homeLoading = true;
+    this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.username, this.password)
+      .then((data) => {
+        this.homeLoading = false;
+        this.openClonedInfoBarVisible = true;
+        this.newClonedRepoPath = data.newData;
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.homeLoading = false;
+        this.resetCloneInputs();
+        this.toastr.error(data.message, data.title);
+      });
+  }
+
   initBrowse() {
-    const INITPATH = this.electronService.browse();
-    if (INITPATH !== null) {
-      this.initLocation = INITPATH;
+    const InitPath = this.electronService.browse();
+    if (InitPath !== null) {
+      this.initLocation = InitPath;
     }
     this.updateFullPath();
   }
@@ -134,7 +184,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.fullPath = this.initLocation;
 
       if (this.initName) {
-        this.fullPath = this.electronService.path.join(this.initLocation, this.initName).toString();
+        this.fullPath = this.electronService.pathJoin(this.initLocation, this.initName);
       }
     } else {
       this.fullPath = '';
@@ -144,39 +194,37 @@ export class HomeComponent implements OnInit, OnDestroy {
   async initSubmit() {
     this.projectModalLoading = true;
 
-    if (this.initLocation && this.initName) {
-      await this.gitService.init(this.initLocation, this.initName)
-        .then((result) => {
-          this.toastr.info(this.translateService.instant(result.message), this.translateService.instant(result.title), {
-            onActivateTick: true
-          });
-
-          this.projectModalVisible = false;
-          this.initName = '';
-          this.initLocation = '';
-          this.fullPath = '';
-        })
-        .catch((result) => {
-          this.toastr.error(this.translateService.instant(result.message), this.translateService.instant(result.title), {
-            onActivateTick: true
-          });
+    return await this.gitService.init(this.initLocation, this.initName)
+      .then((result) => {
+        this.toastr.info(result.message, result.title, {
+          onActivateTick: true
         });
-    }
-    this.projectModalLoading = false;
+        this.projectModalLoading = false;
+        this.projectModalVisible = false;
+        this.initName = '';
+        this.initLocation = '';
+        this.fullPath = '';
+      })
+      .catch((result) => {
+        this.toastr.error(result.message, result.title, {
+          onActivateTick: true
+        });
+        this.projectModalLoading = false;
+      });
   }
 
   openBrowse() {
-    const NEWPATH = this.electronService.browse();
-    if (NEWPATH !== null) {
-      this.openFolder = NEWPATH;
+    const NewPath = this.electronService.browse();
+    if (NewPath !== null) {
+      this.openFolder = NewPath;
     }
   }
 
-  openRepo() {
+  async openRepo() {
     if (this.path !== this.openFolder) {
       this.projectModalLoading = true;
       if (this.openFolder !== null) {
-        this.gitService.setPath(this.openFolder)
+        return this.gitService.setPath(this.openFolder)
           .then((data) => {
             this.projectModalLoading = false;
             this.projectModalVisible = false;
@@ -192,12 +240,36 @@ export class HomeComponent implements OnInit, OnDestroy {
     } else {
       this.toastr.error(this.translateService.instant('OPEN.ALREADY'),
         this.translateService.instant('ERROR'));
+        return false;
     }
   }
 
-  openRecentRepo(recentPath: string) {
+  closeCredInfoBar() {
+    this.credInfoBarVisible = false;
+    this.resetCloneInputs();
+  }
+
+  openClonedRepo() {
+    this.gitService.setPath(this.newClonedRepoPath);
+    this.closeClonedInfoBar();
+  }
+
+  closeClonedInfoBar() {
+    this.openClonedInfoBarVisible = false;
+    this.resetCloneInputs();
+  }
+
+  resetCloneInputs() {
+    this.username = '';
+    this.password = '';
+    this.cloneUrl = '';
+    this.cloneFolder = '';
+    this.newClonedRepoPath = '';
+  }
+
+  async openRecentRepo(recentPath: string) {
     this.openFolder = recentPath;
-    this.openRepo();
+    return this.openRepo();
   }
 
   closeRepo() {
