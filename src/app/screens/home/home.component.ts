@@ -15,7 +15,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnDestroy {
   projectModalTabSelectedIndex: any;
   projectModalVisible: Boolean;
   searchInputValue: String;
@@ -34,10 +34,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   openFolder: string;
   themePrefSubscription: Subscription;
   currentTheme: string;
-
-  ngOnInit() {
-    this.dimensions = 20;
-  }
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
@@ -66,18 +62,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
+
+    this.dimensions = 20;
   }
 
   pullButtonClicked() {
-    console.log('Bouton pull cliqué');
+    return true;
   }
 
   pushButtonClicked() {
-    console.log('Bouton push cliqué');
+    return true;
   }
 
   branchButtonClicked() {
-    console.log('Bouton branche cliqué');
+    return true;
   }
 
   openTerminal() {
@@ -95,12 +93,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   displaySearchInputValue() {
     if (this.repoName) {
-      this.toastr.info(this.searchInputValue.toString());
+      return true;
     }
   }
 
   validate(event: ResizeEvent): boolean {
-    if (event.rectangle.width &&
+    if (
+      event.rectangle.width &&
       (event.rectangle.width < this.dimensions)
     ) {
       return false;
@@ -127,7 +126,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.fullPath = this.initLocation;
 
       if (this.initName) {
-        this.fullPath = this.electronService.path.join(this.initLocation, this.initName).toString();
+        this.fullPath = this.electronService.pathJoin(this.initLocation, this.initName);
       }
     } else {
       this.fullPath = '';
@@ -137,25 +136,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   async initSubmit() {
     this.projectModalLoading = true;
 
-    if (this.initLocation && this.initName) {
-      await this.gitService.init(this.initLocation, this.initName)
-        .then((result) => {
-          this.toastr.info(this.translateService.instant(result.message), this.translateService.instant(result.title), {
-            onActivateTick: true
-          });
-
-          this.projectModalVisible = false;
-          this.initName = '';
-          this.initLocation = '';
-          this.fullPath = '';
-        })
-        .catch((result) => {
-          this.toastr.error(this.translateService.instant(result.message), this.translateService.instant(result.title), {
-            onActivateTick: true
-          });
+    return await this.gitService.init(this.initLocation, this.initName)
+      .then((result) => {
+        this.toastr.info(result.message, result.title, {
+          onActivateTick: true
         });
-    }
-    this.projectModalLoading = false;
+        this.projectModalLoading = false;
+        this.projectModalVisible = false;
+        this.initName = '';
+        this.initLocation = '';
+        this.fullPath = '';
+      })
+      .catch((result) => {
+        this.toastr.error(result.message, result.title, {
+          onActivateTick: true
+        });
+        this.projectModalLoading = false;
+      });
   }
 
   openBrowse() {
@@ -165,11 +162,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  openRepo() {
+  async openRepo() {
     if (this.path !== this.openFolder) {
       this.projectModalLoading = true;
       if (this.openFolder !== null) {
-        this.gitService.setPath(this.openFolder)
+        return this.gitService.setPath(this.openFolder)
           .then((data) => {
             this.projectModalLoading = false;
             this.projectModalVisible = false;
@@ -185,12 +182,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     } else {
       this.toastr.error(this.translateService.instant('OPEN.ALREADY'),
         this.translateService.instant('ERROR'));
+        return false;
     }
   }
 
-  openRecentRepo(recentPath: string) {
+  async openRecentRepo(recentPath: string) {
     this.openFolder = recentPath;
-    this.openRepo();
+    return this.openRepo();
   }
 
   closeRepo() {

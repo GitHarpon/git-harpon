@@ -9,9 +9,7 @@ export class LanguagePreferencesService {
     preferencesSubject = new Subject<string>();
 
     constructor(private translate: TranslateService) {
-
         this.preferences = this.translate.getDefaultLang();
-
         this.emitPreferencesSubject();
     }
 
