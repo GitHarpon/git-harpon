@@ -8,6 +8,7 @@ import { initNgModule } from '@angular/core/src/view/ng_module';
 import { Subscription } from 'rxjs';
 import { ServiceResult } from '../../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
+import * as GitUrlParse from 'git-url-parse';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
 @Component({
@@ -18,19 +19,27 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 export class HomeComponent implements OnDestroy {
   projectModalTabSelectedIndex: any;
   projectModalVisible: Boolean;
+  cloneUrl: String;
+  cloneFolder: string;
   searchInputValue: String;
   dimensions: number;
   style: Object;
   initName: string;
   initLocation: string;
-  fullPath: string;
   projectModalLoading: Boolean;
+  fullPath: string;
   path: any;
   pathSubscription: Subscription;
   repoName: any;
   repoNameSubscription: Subscription;
   recentProject: any[];
   recentProjectSubscription: Subscription;
+  credInfoBarVisible: boolean;
+  openClonedInfoBarVisible: boolean;
+  newClonedRepoPath: string;
+  username: string;
+  password: string;
+  homeLoading: boolean;
   openFolder: string;
   themePrefSubscription: Subscription;
   currentTheme: string;
@@ -113,6 +122,48 @@ export class HomeComponent implements OnDestroy {
     };
   }
 
+  cloneBrowse() {
+    const BROWSEPATH = this.electronService.browse();
+    if (BROWSEPATH !== null) {
+      this.cloneFolder = BROWSEPATH;
+    }
+  }
+
+  cloneSubmit() {
+    if (this.electronService.fs.existsSync(this.cloneFolder.toString())) {
+      var URL = GitUrlParse(this.cloneUrl);
+      if (URL.protocol === 'https') {
+        this.projectModalVisible = false;
+        this.credInfoBarVisible = true;
+      } else if (URL.protocol === 'ssh') {
+        this.toastr.error('Pas de ssh pour le moment', 'Erreur');
+      } else {
+        this.toastr.error(this.translateService.instant('INVALID_URL'),
+          this.translateService.instant('ERROR'));
+      }
+    } else {
+      this.toastr.error(this.translateService.instant('PATH_NOT_FOUND'),
+        this.translateService.instant('ERROR'));
+    }
+  }
+
+  cloneHttps() {
+    this.credInfoBarVisible = false;
+    this.homeLoading = true;
+    this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.username, this.password)
+      .then((data) => {
+        this.homeLoading = false;
+        this.openClonedInfoBarVisible = true;
+        this.newClonedRepoPath = data.newData;
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.homeLoading = false;
+        this.resetCloneInputs();
+        this.toastr.error(data.message, data.title);
+      });
+  }
+
   initBrowse() {
     const INITPATH = this.electronService.browse();
     if (INITPATH !== null) {
@@ -184,6 +235,29 @@ export class HomeComponent implements OnDestroy {
         this.translateService.instant('ERROR'));
         return false;
     }
+  }
+
+  closeCredInfoBar() {
+    this.credInfoBarVisible = false;
+    this.resetCloneInputs();
+  }
+
+  openClonedRepo() {
+    this.gitService.setPath(this.newClonedRepoPath);
+    this.closeClonedInfoBar();
+  }
+
+  closeClonedInfoBar() {
+    this.openClonedInfoBarVisible = false;
+    this.resetCloneInputs();
+  }
+
+  resetCloneInputs() {
+    this.username = '';
+    this.password = '';
+    this.cloneUrl = '';
+    this.cloneFolder = '';
+    this.newClonedRepoPath = '';
   }
 
   async openRecentRepo(recentPath: string) {

@@ -43,6 +43,7 @@ export class ToolboxComponent implements OnInit {
   value: String = 'value';
   dropdownValue: String;
   dropdownValueTwo: String;
+  passwordInput: string;
 
   themePrefSubscription: Subscription;
   currentTheme: string;
@@ -65,6 +66,7 @@ export class ToolboxComponent implements OnInit {
     this.inputEmptyValue = '';
 
     this.modalTabSelectedIndex = 1;
+    this.passwordInput = 'toto';
 
     this.inputValueNumber = 10;
     this.inputMinMaxValueNumber = 0;
@@ -159,6 +161,7 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-spinner', isFab: false },
       { icon: 'fa-upload', isFab: false },
       { icon: 'fa-download', isFab: false },
+      { icon: 'fa-globe', isFab: false},
       { icon: 'fa-sign-out-alt', isFab: false },
       { icon: 'fa-code-branch', isFab: false },
       { icon: 'fa-laptop', isFab: false },

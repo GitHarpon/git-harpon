@@ -301,6 +301,26 @@
                             </div>
                         </div>'></app-copy-button>
                 </div> 
+                <div class="col-md-8 row">
+                    <!-- Disabled -->
+                    <div class="col-md-2 gh-label-input text-right">
+                        <label>{{ 'PASSWORD' | translate }}</label>
+                    </div>
+                    <div class="col-md-10 mt-1">
+                        <app-input [(value)]="passwordInput" type="password"></app-input>
+                    </div>
+                </div>
+                <div class="col-md-1 mt-2">
+                    <app-copy-button template='<div class="col-md-8 row">
+                            <!-- Disabled -->
+                            <div class="col-md-2 gh-label-input text-right">
+                                <label>Password</label>
+                            </div>
+                            <div class="col-md-10 mt-1">
+                                <app-input [(value)]="passwordInput" type="password"></app-input>
+                            </div>
+                        </div>'></app-copy-button>
+                </div> 
                 <div class="col-md-12 text-right mt-2">
                     <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testInput()"></app-button>
                     <app-button class="ml-2" value="UPDATE_VALUE" type="primary" (buttonClicked)="changeInputValue()"></app-button>
@@ -391,7 +411,7 @@
                 </div>
                 <div class="col-md-1 mt-1">
                     <app-copy-button template='<app-info-bar [visible]="infoBarVisible">
-                        Content
+                        <app-button value="CLOSE" type="primary" (buttonClicked)="closeInfoBar()"></app-button>
                     </app-info-bar>'></app-copy-button>
                 </div>
             </div>
