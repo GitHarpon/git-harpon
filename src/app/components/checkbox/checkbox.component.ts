@@ -24,8 +24,7 @@ export class CheckboxComponent implements OnInit {
     this.valueChange.emit(this.currentValue);
   }
 
-  constructor(private electronService: ElectronService,
-    private toastr: ToastrService, private translateService: TranslateService) { }
+  constructor() { }
 
   ngOnInit() {
   }

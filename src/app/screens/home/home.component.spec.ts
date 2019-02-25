@@ -26,11 +26,12 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 import { InfoBarComponent } from '../../components/info-bar/info-bar.component';
+import { MockRouter } from '../../models/MockRouter';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  var originalTimeout;
+  let originalTimeout;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -59,6 +60,10 @@ describe('HomeComponent', () => {
       ],
       providers: [
         {
+          provide: Router,
+          useClass: MockRouter
+        },
+        {
           provide: TranslateService,
           useClass: MockTranslateService
         },
@@ -83,12 +88,6 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
-  });
-
-  afterEach(() => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
   });
 
   it('tests the component creation', () => {
@@ -105,6 +104,13 @@ describe('HomeComponent', () => {
 
   it('tests the branchButtonClicked function', () => {
     expect(component.branchButtonClicked()).toBeTruthy();
+  });
+
+  it('tests the openPreferences function', (done) => {
+    component.openPreferences().then((result) => {
+      expect(result).toBeTruthy();
+      done();
+    });
   });
 
   it('tests the openProjectModal function', () => {
@@ -265,14 +271,13 @@ describe('HomeComponent', () => {
     });
   });
 
-  it('tests the project initialization with invalid path', (done) => {
+  it('tests the initSubmit function with invalid path', (done) => {
     const OldPath = '/old';
     const NewPath = '/invalidpath';
     const RepoName = '/repo';
     const BoolModal = true;
     component.initLocation = NewPath;
     component.initName = RepoName;
-    component.updateFullPath();
     const FullPath = component.fullPath;
     component.projectModalVisible = BoolModal;
     component.projectModalLoading = BoolModal;
