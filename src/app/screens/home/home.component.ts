@@ -47,7 +47,7 @@ export class HomeComponent implements OnDestroy {
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
-    private translateService: TranslateService, private terminalService: TerminalManagerService, 
+    private translateService: TranslateService, private terminalService: TerminalManagerService,
     private themePrefService: ThemePreferencesService) {
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {

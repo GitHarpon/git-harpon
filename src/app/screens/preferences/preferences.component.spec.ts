@@ -1,11 +1,9 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PreferencesComponent } from './preferences.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { MockTranslateService } from '../../models/MockTranslateService';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
@@ -35,10 +33,9 @@ import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MockRouter } from '../../models/MockRouter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Subscription } from 'rxjs';
 import { ElectronService } from '../../providers/electron.service';
 import { MockElectronService } from '../../models/MockElectronService';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
@@ -132,6 +129,7 @@ describe('PreferencesComponent', () => {
     component.ngOnInit();
     expect(component.languageSubscription.closed).toBeFalsy();
     expect(component.themePrefSubscription.closed).toBeFalsy();
+    expect(component.terminalSubscription.closed).toBeFalsy();
   });
 
   it('tests the checkIfCloseModal function with index equals to 0', (done) => {
@@ -157,6 +155,7 @@ describe('PreferencesComponent', () => {
      expect(langPrefService.preferences).toEqual(Lang);
    });
 
+   //////////// A CHANGER
   it('tests the saveChangedPreferences function', (done) => {
      const Lang = 'fr';
      component.dropdownLanguageValue = Lang;
@@ -168,55 +167,33 @@ describe('PreferencesComponent', () => {
      expect(component.loading).toBeFalsy();
   });
 
-  it('tests the saveChangedUIPreferences function with light theme', () => {
+  it('tests the saveChangedUIPreferences function with light theme', (done) => {
     const Theme = 'light';
     component.currentTheme = Theme;
-    component.saveChangedUIPreferences();
-    expect(component.currentTheme).toEqual(Theme);
-  it('tests the theme switch light', (done) => {
-    component.currentTheme = 'light';
     component.saveChangedUIPreferences().then((result) => {
       expect(result).toBeTruthy();
       done();
     });
-    expect(component.currentTheme).toEqual('light');
+    expect(component.currentTheme).toEqual(Theme);
   });
 
-  it('tests the theme switch dark', (done) => {
-    component.currentTheme = 'dark';
+  it('tests the saveChangedUIPreferences function with dark theme', (done) => {
+    const Theme = 'dark';
+    component.currentTheme = Theme;
     component.saveChangedUIPreferences().then((result) => {
       expect(result).toBeTruthy();
       done();
     });
-    expect(component.currentTheme).toEqual('dark');
-  it('tests the saveChangedUIPreferences function with dark theme', () => {
-    const Theme = 'dark';
-    component.currentTheme = Theme;
-    component.saveChangedUIPreferences();
     expect(component.currentTheme).toEqual(Theme);
   });
+
+
 
   it('tests the ngOnDestroy function', () => {
     component.ngOnInit();
     component.ngOnDestroy();
     expect(component.languageSubscription.closed).toBeTruthy();
     expect(component.themePrefSubscription.closed).toBeTruthy();
+    expect(component.terminalSubscription.closed).toBeTruthy();
   });
-
-
-  it('tests the current terminal name', () => {
-    const Terminal = { name: 'Terminal', cmd: 'TerminalCmd' };
-    component.terminalPreferencesService.setCurrentTerminal(Terminal);
-    expect(component.terminalPreferencesService.terminalName).toEqual(Terminal.name);
-  });
-
-  it('tests the current terminal cmd', () => {
-    const Terminal = { name: 'Terminal', cmd: 'TerminalCmd' };
-    component.terminalPreferencesService.setCurrentTerminal(Terminal);
-    expect(component.terminalPreferencesService.terminalCmd).toEqual(Terminal.cmd);
-  });
-
-  // it('tests the terminal opening', () => {
-
-  // });
 });

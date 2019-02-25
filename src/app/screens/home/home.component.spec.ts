@@ -27,6 +27,8 @@ import { MockThemePreferencesService } from '../../models/MockThemePreferencesSe
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 import { InfoBarComponent } from '../../components/info-bar/info-bar.component';
 import { MockRouter } from '../../models/MockRouter';
+import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
+import { TerminalManagerService } from '../../providers/terminal-manager.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -78,6 +80,10 @@ describe('HomeComponent', () => {
         {
           provide: GitService,
           useClass: MockGitService
+        },
+        {
+          provide: TerminalManagerService,
+          useClass: MockTerminalManagerService
         },
         ToastrService
       ]
