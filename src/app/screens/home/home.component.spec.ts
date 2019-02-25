@@ -1,10 +1,8 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { MockTranslateService } from '../../models/MockTranslateService';
 import { ElectronService } from '../../providers/electron.service';
 import { MockElectronService } from '../../models/MockElectronService';
@@ -27,7 +25,6 @@ import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -96,32 +93,32 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('tests the pull button click', () => {
+  it('tests the pullButtonClicked function', () => {
     expect(component.pullButtonClicked()).toBeTruthy();
   });
 
-  it('tests the push button click', () => {
+  it('tests the pushButtonClicked function', () => {
     expect(component.pushButtonClicked()).toBeTruthy();
   });
 
-  it('tests the branch button click', () => {
+  it('tests the branchButtonClicked function', () => {
     expect(component.branchButtonClicked()).toBeTruthy();
   });
 
-  it('tests the open project modal', () => {
+  it('tests the openProjectModal function', () => {
     const TabSelectedIndex = 0;
     component.openProjectModal(TabSelectedIndex);
     expect(component.projectModalTabSelectedIndex).toBe(TabSelectedIndex);
     expect(component.projectModalVisible).toBeTruthy();
   });
 
-  it('tests the display search input value', () => {
+  it('tests the displaySearchInputValue function', () => {
     const RepoName = '/repo';
     component.repoName = RepoName;
     expect(component.displaySearchInputValue()).toBeTruthy();
   });
 
-  it('tests the validate resize with bad status', () => {
+  it('tests the validate function with bad status', () => {
     const TestEvent: ResizeEvent =
     {
       edges:
@@ -142,7 +139,7 @@ describe('HomeComponent', () => {
     expect(component.validate(TestEvent)).toBeFalsy();
   });
 
-  it('tests the validate resize with good status', () => {
+  it('tests the validate function with good status', () => {
     const TestEvent: ResizeEvent =
     {
       edges:
@@ -163,7 +160,7 @@ describe('HomeComponent', () => {
     expect(component.validate(TestEvent)).toBeTruthy();
   });
 
-  it('tests the end of resize', () => {
+  it('tests the onResizeEnd function', () => {
     const TestEvent: ResizeEvent =
     {
       edges:
@@ -184,7 +181,7 @@ describe('HomeComponent', () => {
     expect(component.style).not.toBeUndefined();
   });
 
-  it('tests the update full path for init with all fields', () => {
+  it('tests the updateFullPath function for init with all fields', () => {
     const Path = '/new';
     const RepoName = '/repo';
     component.initLocation = Path;
@@ -193,7 +190,7 @@ describe('HomeComponent', () => {
     expect(component.fullPath).toBe('/new/repo');
   });
 
-  it('tests the update full path for init without location', () => {
+  it('tests the updateFullPath for init without location', () => {
     const Path = '';
     const RepoName = '/repo';
     component.initLocation = Path;
@@ -202,19 +199,18 @@ describe('HomeComponent', () => {
     expect(component.fullPath).toBe('');
   });
 
-  it('tests the init browse', () => {
+  it('tests the initBrowse function', () => {
     component.initBrowse();
     expect(component.initLocation).toBe('/new');
   });
 
-  it('tests the project initialization with valid path', (done) => {
+  it('tests the initSubmit function with valid path', (done) => {
     const OldPath = '/old';
     const NewPath = '/new';
     const RepoName = '/repo';
     const BoolModal = true;
     component.initLocation = NewPath;
     component.initName = RepoName;
-    component.updateFullPath();
     component.projectModalVisible = BoolModal;
     component.projectModalLoading = BoolModal;
     component.path = OldPath;
@@ -225,6 +221,7 @@ describe('HomeComponent', () => {
       expect(component.initName).toBe('');
       expect(component.fullPath).toBe('');
       expect(component.path).toBe(NewPath);
+      done();
     });
   });
 
