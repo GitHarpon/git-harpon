@@ -72,22 +72,22 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   }
 
   // Fonction qui regroupe toutes les fonctions applicables aux préférences
-  saveChangedPreferences() {
+  async saveChangedPreferences() {
     this.loading = true;
     this.switchLanguage();
     this.loading = false;
     this.toastr.info(this.translate.instant('CHANGE_PREF_DONE'),
         this.translate.instant('SUCCESS'));
-    this.router.navigate(['home']);
+    return this.router.navigate(['home']);
   }
 
-  saveChangedUIPreferences() {
+  async saveChangedUIPreferences() {
     this.loading = true;
     this.themePrefService.setThemePreference(this.currentTheme);
     this.loading = false;
     this.toastr.info(this.translate.instant('CHANGE_PREF_DONE'),
         this.translate.instant('SUCCESS'));
-    this.router.navigate(['home']);
+    return this.router.navigate(['home']);
   }
 
   ngOnDestroy() {
