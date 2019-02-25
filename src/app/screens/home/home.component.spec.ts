@@ -24,10 +24,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
+  var originalTimeout;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -48,6 +50,7 @@ describe('HomeComponent', () => {
         ResizableModule,
         NgbModule,
         RouterTestingModule,
+        BrowserAnimationsModule,
         ToastrModule.forRoot()
       ],
       providers: [
@@ -76,6 +79,12 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+  });
+
+  afterEach(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
   });
 
   it('tests the component creation', () => {
@@ -96,7 +105,7 @@ describe('HomeComponent', () => {
     component.openFolder = NewPath;
     component.projectModalLoading = ProjectModalBoolean;
     component.projectModalVisible = ProjectModalBoolean;
-    component.openRepo().then((result) => {
+    component.openRepo().then(() => {
       expect(component.openFolder).toBe('');
       expect(component.projectModalLoading).toBeFalsy();
       expect(component.projectModalVisible).toBeFalsy();
@@ -111,9 +120,11 @@ describe('HomeComponent', () => {
     component.path = OldPath;
     component.openFolder = NewPath;
     component.projectModalLoading = ProjectModalBoolean;
+    component.projectModalVisible = ProjectModalBoolean;
     component.openRepo().then(() => {
       expect(component.openFolder).toBe('');
       expect(component.projectModalLoading).toBeFalsy();
+      expect(component.projectModalVisible).toBeTruthy();
       done();
     });
   });
@@ -131,11 +142,16 @@ describe('HomeComponent', () => {
     });
   });
 
-  it('tests the openRepo function with invalid path', () => {
+  it('tests the openRecentRepo function', (done) => {
     const OldPath = '/old';
     const NewPath = '/new';
     component.path = OldPath;
-    component.openRecentRepo(NewPath);
+    component.openRecentRepo(NewPath).then(() => {
+      expect(component.openFolder).toBe('');
+      expect(component.projectModalLoading).toBeFalsy();
+      expect(component.projectModalVisible).toBeFalsy();
+      done();
+    });
   });
 
   it('tests the closeRepo function', () => {

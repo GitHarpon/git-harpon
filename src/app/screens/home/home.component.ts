@@ -189,9 +189,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  openRecentRepo(recentPath: string) {
+  async openRecentRepo(recentPath: string) {
     this.openFolder = recentPath;
-    this.openRepo();
+    return this.openRepo();
   }
 
   closeRepo() {
