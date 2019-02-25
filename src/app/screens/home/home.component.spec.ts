@@ -170,7 +170,7 @@ describe('HomeComponent', () => {
     expect(component.style).not.toBeUndefined();
   });
 
-  it('tests the update full path for init', () => {
+  it('tests the update full path for init with all fields', () => {
     const Path = '/new';
     const RepoName = '/repo';
     component.initLocation = Path;
@@ -179,44 +179,61 @@ describe('HomeComponent', () => {
     expect(component.fullPath).toBe('/new/repo');
   });
 
+  it('tests the update full path for init without location', () => {
+    const Path = '';
+    const RepoName = '/repo';
+    component.initLocation = Path;
+    component.initName = RepoName;
+    component.updateFullPath();
+    expect(component.fullPath).toBe('');
+  });
+
   it('tests the init browse', () => {
     component.initBrowse();
     expect(component.initLocation).toBe('/new');
   });
 
   it('tests the project initialization with valid path', (done) => {
-    const Path = '/new';
+    const OldPath = '/old';
+    const NewPath = '/new';
     const RepoName = '/repo';
     const BoolModal = true;
-    component.initLocation = Path;
+    component.initLocation = NewPath;
     component.initName = RepoName;
     component.updateFullPath();
     component.projectModalVisible = BoolModal;
     component.projectModalLoading = BoolModal;
+    component.path = OldPath;
     component.initSubmit().then(() => {
       expect(component.projectModalVisible).toBeFalsy();
       expect(component.projectModalLoading).toBeFalsy();
       expect(component.initLocation).toBe('');
       expect(component.initName).toBe('');
       expect(component.fullPath).toBe('');
+      expect(component.path).toBe(NewPath);
       done();
     });
   });
 
   it('tests the project initialization with invalid path', (done) => {
-    const Path = '/invalidpath';
+    const OldPath = '/old';
+    const NewPath = '/invalidpath';
     const RepoName = '/repo';
     const BoolModal = true;
-    component.initLocation = Path;
+    component.initLocation = NewPath;
     component.initName = RepoName;
     component.updateFullPath();
+    const FullPath = component.fullPath;
     component.projectModalVisible = BoolModal;
     component.projectModalLoading = BoolModal;
+    component.path = OldPath;
     component.initSubmit().then(() => {
       expect(component.projectModalVisible).toBeTruthy();
       expect(component.projectModalLoading).toBeFalsy();
-      expect(component.initLocation).toBe(Path);
+      expect(component.initLocation).toBe(NewPath);
       expect(component.initName).toBe(RepoName);
+      expect(component.fullPath).toBe(FullPath);
+      expect(component.path).toBe(OldPath);
       done();
     });
   });

@@ -136,25 +136,23 @@ export class HomeComponent implements OnDestroy {
   async initSubmit() {
     this.projectModalLoading = true;
 
-    if (this.initLocation && this.initName) {
-      return await this.gitService.init(this.initLocation, this.initName)
-        .then((result) => {
-          this.toastr.info(result.message, result.title, {
-            onActivateTick: true
-          });
-          this.projectModalLoading = false;
-          this.projectModalVisible = false;
-          this.initName = '';
-          this.initLocation = '';
-          this.fullPath = '';
-        })
-        .catch((result) => {
-          this.toastr.error(result.message, result.title, {
-            onActivateTick: true
-          });
-          this.projectModalLoading = false;
+    return await this.gitService.init(this.initLocation, this.initName)
+      .then((result) => {
+        this.toastr.info(result.message, result.title, {
+          onActivateTick: true
         });
-    }
+        this.projectModalLoading = false;
+        this.projectModalVisible = false;
+        this.initName = '';
+        this.initLocation = '';
+        this.fullPath = '';
+      })
+      .catch((result) => {
+        this.toastr.error(result.message, result.title, {
+          onActivateTick: true
+        });
+        this.projectModalLoading = false;
+      });
   }
 
   openBrowse() {
