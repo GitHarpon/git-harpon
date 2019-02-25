@@ -35,10 +35,13 @@ import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { RouterModule, Router } from '@angular/router';
+import { MockRouter } from '../../models/MockRouter';
 
 describe('PreferencesComponent', () => {
   let component: PreferencesComponent;
   let fixture: ComponentFixture<PreferencesComponent>;
+  let langPrefService: LanguagePreferencesService;
   // let inputEl: DebugElement;
 
   beforeEach(async(() => {
@@ -80,6 +83,10 @@ describe('PreferencesComponent', () => {
       ],
       providers: [
         {
+          provide: Router,
+          useClass: MockRouter
+        },
+        {
           provide: TranslateService,
           useClass: MockTranslateService
         },
@@ -100,10 +107,29 @@ describe('PreferencesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PreferencesComponent);
     component = fixture.componentInstance;
+    langPrefService = TestBed.get(LanguagePreferencesService);
   });
 
   it('tests the component creation', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('tests the switchLanguage function', () => {
+     const Lang = 'fr';
+     component.dropdownLanguageValue = Lang;
+     component.switchLanguage();
+     expect(langPrefService.preferences).toEqual(Lang);
+   });
+
+  it('tests the saveChangedPreferences function', (done) => {
+     const Lang = 'fr';
+     component.dropdownLanguageValue = Lang;
+     component.saveChangedPreferences().then((result) => {
+       expect(result).toBeTruthy();
+       done();
+     });
+     expect(langPrefService.preferences).toEqual(Lang);
+     expect(component.loading).toBeFalsy();
   });
 
   it('test the theme switch light', () => {
