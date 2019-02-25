@@ -41,7 +41,6 @@ export class TerminalManagerService {
     });
   }
 
-
   getTerminals() {
     switch (this.currentOs) {
       case 'Linux':

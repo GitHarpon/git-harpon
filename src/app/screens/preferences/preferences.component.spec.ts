@@ -119,6 +119,11 @@ describe('PreferencesComponent', () => {
   });
 
   it('tests the current terminal setter', () => {
-    component.
+    let termService: MockLanguagePreferencesService;
+    let terminal = { name: 'Terminal', cmd: 'TerminalCmd' };
+    this.termService.setCurrentTerminal(terminal);
+    expect('Terminal').toEqual(this.terminalManagerService.terminalName);
   });
+
+
 });
