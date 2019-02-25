@@ -37,6 +37,8 @@ import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ElectronService } from '../../providers/electron.service';
 import { MockElectronService } from '../../models/MockElectronService';
+import { TerminalManagerService } from '../../providers/terminal-manager.service';
+import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
 
 describe('PreferencesComponent', () => {
   let component: PreferencesComponent;
@@ -97,6 +99,10 @@ describe('PreferencesComponent', () => {
           provide: ElectronService,
           useClass: MockElectronService,
         },
+        {
+          provide: TerminalManagerService,
+          useClass: MockTerminalManagerService
+        },
         ToastrService
       ]
     })
@@ -124,12 +130,15 @@ describe('PreferencesComponent', () => {
     expect(component.currentTheme).toEqual('dark');
   });
 
-  it('tests the current terminal setter', () => {
-    let termService: MockLanguagePreferencesService;
-    let terminal = { name: 'Terminal', cmd: 'TerminalCmd' };
-    this.termService.setCurrentTerminal(terminal);
-    expect('Terminal').toEqual(this.terminalManagerService.terminalName);
+  it('tests the current terminal name', () => {
+    var terminal = { name: 'Terminal', cmd: 'TerminalCmd' };
+    component.terminalPreferencesService.setCurrentTerminal(terminal);
+    expect(this.termService.terminalName).toEqual(terminal.name);
   });
 
-
+  it('tests the current terminal cmd', () => {
+    var terminal = { name: 'Terminal', cmd: 'TerminalCmd' };
+    component.terminalPreferencesService.setCurrentTerminal(terminal);
+    expect(this.termService.terminalCmd).toEqual(terminal.cmd);
+  });
 });

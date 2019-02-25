@@ -35,7 +35,7 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   constructor(public router: Router, private translate: TranslateService,
       private langPrefService: LanguagePreferencesService, private toastr: ToastrService,
       private electronService: ElectronService, private themePrefService: ThemePreferencesService,
-      private terminalPreferencesService: TerminalManagerService) { }
+      public terminalPreferencesService: TerminalManagerService) { }
 
   ngOnInit() {
     this.preferencesVisible = true;
