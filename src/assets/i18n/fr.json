@@ -32,6 +32,7 @@
         "WHERE": "Où cloner",
         "URL": "URL",
         "TITLE": "Cloner",
+        "TAB_TITLE": "Cloner un répertoire",
         "DONE": "Le répertoire a été cloné",
         "ERROR": "Problème lors du clone",
         "UNABLE_TO_UPDATE": "Impossible de mettre à jour la base de l'URL à partir d'une redirection",
@@ -103,7 +104,7 @@
     "REMOTE": "DISTANT",
     "OPEN": {
         "TITLE": "Ouvrir",
-        "REPO": "Ouvrir un Dépôt",
+        "REPO": "Ouvrir un dépôt",
         "OPENED": "Ouvert récemment",
         "BROWSE": "Parcourir",
         "OPENED_REPO": "Le dépôt a été ouvert avec succès",
