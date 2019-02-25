@@ -272,7 +272,7 @@ export class ToolboxComponent implements OnInit {
       .then(() => {
         this.modalLoading = false;
       }
-      );
+    );
   }
 
   openInfoBar() {

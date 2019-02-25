@@ -13,7 +13,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 })
 export class PreferencesComponent implements OnInit, OnDestroy {
 
-  @Input() loading: Boolean = false;
+  loading: Boolean = false;
 
   preferencesVisible: Boolean;
   preferencesTabSelectedIndex: any;
@@ -61,10 +61,11 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     this.themePrefService.emitThemePreferencesSubject();
   }
 
-  checkIfCloseModal(event) {
+  async checkIfCloseModal(event) {
     if (event.index === 0) {
-      this.router.navigate(['home']);
+      return this.router.navigate(['home']);
     }
+    return false;
   }
 
   switchLanguage() {

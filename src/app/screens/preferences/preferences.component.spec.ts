@@ -38,6 +38,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { RouterModule, Router } from '@angular/router';
 import { MockRouter } from '../../models/MockRouter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Subscription } from 'rxjs';
 
 describe('PreferencesComponent', () => {
   let component: PreferencesComponent;
@@ -116,6 +117,28 @@ describe('PreferencesComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('tests the ngOnInit function', () => {
+    component.ngOnInit();
+    expect(component.languageSubscription.closed).toBeFalsy();
+    expect(component.themePrefSubscription.closed).toBeFalsy();
+  });
+
+  it('tests the checkIfCloseModal function with index equals to 0', (done) => {
+    const Event = { index: 0 };
+    component.checkIfCloseModal(Event).then((result) => {
+      expect(result).toBeTruthy();
+      done();
+    });
+  });
+
+  it('tests the checkIfCloseModal function with index greater than 0', (done) => {
+    const Event = { index: 1 };
+    component.checkIfCloseModal(Event).then((result) => {
+      expect(result).toBeFalsy();
+      done();
+    });
+  });
+
   it('tests the switchLanguage function', () => {
      const Lang = 'fr';
      component.dropdownLanguageValue = Lang;
@@ -134,15 +157,25 @@ describe('PreferencesComponent', () => {
      expect(component.loading).toBeFalsy();
   });
 
-  it('test the theme switch light', () => {
-    component.currentTheme = 'light';
+  it('tests the saveChangedUIPreferences function with light theme', () => {
+    const Theme = 'light';
+    component.currentTheme = Theme;
     component.saveChangedUIPreferences();
-    expect(component.currentTheme).toEqual('light');
+    expect(component.currentTheme).toEqual(Theme);
   });
 
-  it('test the theme switch dark', () => {
-    component.currentTheme = 'dark';
+  it('tests the saveChangedUIPreferences function with dark theme', () => {
+    const Theme = 'dark';
+    component.currentTheme = Theme;
     component.saveChangedUIPreferences();
-    expect(component.currentTheme).toEqual('dark');
+    expect(component.currentTheme).toEqual(Theme);
   });
+
+  it('tests the ngOnDestroy function', () => {
+    component.ngOnInit();
+    component.ngOnDestroy();
+    expect(component.languageSubscription.closed).toBeTruthy();
+    expect(component.themePrefSubscription.closed).toBeTruthy();
+  });
+
 });
