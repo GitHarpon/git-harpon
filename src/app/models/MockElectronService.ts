@@ -9,7 +9,7 @@ export class MockElectronService {
     const CHEMIN = '/new';
     return CHEMIN;
   }
-  
+
   pathJoin(...paths: string[]) {
     return paths.join('').toString();
   }
