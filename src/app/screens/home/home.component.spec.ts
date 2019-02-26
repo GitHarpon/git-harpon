@@ -27,10 +27,13 @@ import { MockThemePreferencesService } from '../../models/MockThemePreferencesSe
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 import { InfoBarComponent } from '../../components/info-bar/info-bar.component';
 import { MockRouter } from '../../models/MockRouter';
+import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
+import { TerminalManagerService } from '../../providers/terminal-manager.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
+  let terminalService: TerminalManagerService;
   let originalTimeout;
 
   beforeEach(async(() => {
@@ -79,6 +82,10 @@ describe('HomeComponent', () => {
           provide: GitService,
           useClass: MockGitService
         },
+        {
+          provide: TerminalManagerService,
+          useClass: MockTerminalManagerService
+        },
         ToastrService
       ]
     })
@@ -88,6 +95,7 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
+    terminalService = TestBed.get(TerminalManagerService);
   });
 
   it('tests the component creation', () => {
@@ -104,6 +112,24 @@ describe('HomeComponent', () => {
 
   it('tests the branchButtonClicked function', () => {
     expect(component.branchButtonClicked()).toBeTruthy();
+  });
+
+  it('tests the openTerminal function with success', (done) => {
+    const TerminalName = 'terminator';
+    terminalService.terminalName = TerminalName;
+    component.openTerminal().then((result) => {
+      expect(result).toBeTruthy();
+      done();
+    });
+  });
+
+  it('tests the openTerminal function with success', (done) => {
+    const TerminalName = 'not-a-terminal';
+    terminalService.terminalName = TerminalName;
+    component.openTerminal().then((result) => {
+      expect(result).toBeFalsy();
+      done();
+    });
   });
 
   it('tests the openPreferences function', (done) => {

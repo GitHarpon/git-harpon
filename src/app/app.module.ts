@@ -22,6 +22,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ElectronService } from './providers/electron.service';
 import { GitService } from './providers/git.service';
 import { LanguagePreferencesService } from './providers/language-preferences.service';
+import { TerminalManagerService } from './providers/terminal-manager.service';
 import { ThemePreferencesService } from './providers/theme-preferences.service';
 
 import { WebviewDirective } from './directives/webview.directive';
@@ -114,7 +115,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GitService,
     EditorPreferencesService,
     LanguagePreferencesService,
-    ThemePreferencesService
+    ThemePreferencesService,
+    TerminalManagerService
   ],
   bootstrap: [AppComponent]
 })

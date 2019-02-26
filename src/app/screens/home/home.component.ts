@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { ServiceResult } from '../../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
 import * as GitUrlParse from 'git-url-parse';
+import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
 @Component({
@@ -46,7 +47,8 @@ export class HomeComponent implements OnDestroy {
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
-    private translateService: TranslateService, private themePrefService: ThemePreferencesService) {
+    private translateService: TranslateService, private terminalService: TerminalManagerService,
+    private themePrefService: ThemePreferencesService) {
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
@@ -87,8 +89,17 @@ export class HomeComponent implements OnDestroy {
     return true;
   }
 
-  openTerminal() {
-    console.log('on ouvre le terminal');
+  async openTerminal() {
+    return this.terminalService.openTerminal()
+      .then(() => {
+        return true;
+      })
+      .catch((data) => {
+        this.toastr.error(data.message, data.title, {
+          onActivateTick: true
+        });
+        return false;
+      });
   }
 
   async openPreferences() {

@@ -4,6 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 import { ToastrService } from 'ngx-toastr';
+import { ElectronService } from '../../providers/electron.service';
+import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
 @Component({
@@ -25,10 +27,16 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   languageSubscription: Subscription;
   themePrefSubscription: Subscription;
 
+  dataDropdownTerminal: Array<any>;
+  dropdownTerminalValue: string;
+
+  terminalSubscription: Subscription;
+
   constructor(public router: Router, private translate: TranslateService,
       private langPrefService: LanguagePreferencesService, private toastr: ToastrService,
-      private themePrefService: ThemePreferencesService) {
-  }
+      private electronService: ElectronService, private themePrefService: ThemePreferencesService,
+      public terminalPreferencesService: TerminalManagerService) {
+       }
 
   ngOnInit() {
     this.preferencesVisible = true;
@@ -53,6 +61,17 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     );
     this.langPrefService.emitPreferencesSubject();
 
+    this.dataDropdownTerminal = this.terminalPreferencesService.getTerminals();
+
+    this.dropdownTerminalValue = this.terminalPreferencesService.terminalCmd;
+
+    this.terminalSubscription = this.terminalPreferencesService.preferencesSubject.subscribe(
+      (preference) => {
+        this.dropdownTerminalValue = preference;
+      }
+    );
+    this.terminalPreferencesService.emitPreferencesSubject();
+
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
         this.currentTheme = newTheme;
@@ -72,10 +91,15 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     this.langPrefService.setLanguage(this.dropdownLanguageValue);
   }
 
+  switchTerminal() {
+    this.terminalPreferencesService.setCurrentTerminal(this.dropdownTerminalValue);
+  }
+
   // Fonction qui regroupe toutes les fonctions applicables aux préférences
   async saveChangedPreferences() {
     this.loading = true;
     this.switchLanguage();
+    this.switchTerminal();
     this.loading = false;
     this.toastr.info(this.translate.instant('CHANGE_PREF_DONE'),
         this.translate.instant('SUCCESS'));
@@ -94,6 +118,9 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.languageSubscription) {
       this.languageSubscription.unsubscribe();
+    }
+    if (this.terminalSubscription) {
+      this.terminalSubscription.unsubscribe();
     }
     if (this.themePrefSubscription) {
       this.themePrefSubscription.unsubscribe();

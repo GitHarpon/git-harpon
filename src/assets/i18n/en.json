@@ -129,6 +129,11 @@
     "PASSWORD": "Password",
     "LOG_TO_CONTINUE": "Please log to continue:",
     "INVALID_URL": "Invalid URL",
+    "TERMINAL": {
+        "UNKNOWN": "Unknown terminal",
+        "MESSAGE": "It seeems not installed on the device",
+        "NAME": "Terminal"
+    },
     "LIGHT": "Light",
     "DARK": "Dark",
     "THEME": "Theme",

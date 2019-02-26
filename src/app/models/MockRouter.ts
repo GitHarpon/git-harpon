@@ -4,4 +4,4 @@ export class MockRouter {
             resolve(true);
         });
     }
- }
+}
