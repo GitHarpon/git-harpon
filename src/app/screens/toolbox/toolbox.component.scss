@@ -1,0 +1,194 @@
+@import '../../../variables.scss';
+
+.big-heading {
+    @include wX(100%);
+    font-size: 36px;
+    &.dark {
+        color: $white;
+    }
+    &.light {
+        color: $dark;
+    }
+}
+
+.bb-white {
+    border-bottom: 2px solid $white;
+}
+
+.bb-dark {
+    border-bottom: 1px solid $dark;
+}
+
+.gh-div-loader {
+    width: 500px;
+    height: 500px;
+}
+
+a.link-white {
+
+    color: $white;
+    text-decoration: underline;
+    &:hover, &:focus, &:active, &:visited {
+        color: $white;
+        cursor: pointer;
+    }
+}
+
+a.link-dark {
+
+    color: $dark;
+    text-decoration: underline;
+    &:hover, &:focus, &:active, &:visited {
+        color: $dark;
+        cursor: pointer;
+    }
+}
+
+// Background colors
+.color-item {
+    @include hX(50px);
+    &.border-dark {
+        border: 1px solid $muted-white !important;
+    }
+    &.border-light {
+        border: 1px solid $dark !important;
+    }
+    // DARK THEME
+    &.dark-blue {
+        @include bg-color($dark-blue);
+    }
+    &.light-blue {
+        @include bg-color($light-blue);
+    }
+    &.disabled-blue {
+        @include bg-color($disabled-blue);
+    }
+    &.dark-green {
+        @include bg-color($dark-green);
+    }
+    &.light-green {
+        @include bg-color($light-green);
+    }
+    &.disabled-green {
+        @include bg-color($disabled-green);
+    }
+    &.light-green-hover {
+        @include bg-color($light-green-hover);
+    }
+    &.dark-red {
+        @include bg-color($dark-red);
+    }
+    &.light-red {
+        @include bg-color($light-red);
+    }
+    &.disabled-red {
+        @include bg-color($disabled-red);
+    }
+    &.dark-grey {
+        @include bg-color($dark-grey);
+    }
+    &.light-grey {
+        @include bg-color($light-grey);
+    }
+    &.blue-grey {
+        @include bg-color($blue-grey);
+    }
+
+    // LIGHT THEME
+    &.dark-blue-light {
+        @include bg-color($dark-blue-light);
+    }
+    &.light-blue-light {
+        @include bg-color($light-blue-light);
+    }
+    &.disabled-blue-light {
+        @include bg-color($disabled-blue-light);
+    }
+    &.dark-green-light {
+        @include bg-color($dark-green-light);
+    }
+    &.light-green-light {
+        @include bg-color($light-green-light);
+    }
+    &.disabled-green-light {
+        @include bg-color($disabled-green-light);
+    }
+    &.light-green-hover-light {
+        @include bg-color($light-green-hover-light);
+    }
+    &.dark-red-light {
+        @include bg-color($dark-red-light);
+    }
+    &.light-red-light {
+        @include bg-color($light-red-light);
+    }
+    &.disabled-red-light {
+        @include bg-color($disabled-red-light);
+    }
+    &.button-bar-light {
+        @include bg-color($button-bar-light);
+    }
+    &.button-bar-hover-light {
+        @include bg-color($button-bar-hover-light);
+    }
+    &.arrow-light {
+        @include bg-color($arrow-light);
+    }
+    &.border-light-grey-light {
+        @include bg-color($border-light-grey-light);
+    }
+    &.border-dark-grey-light {
+        @include bg-color($border-dark-grey-light);
+    }
+    &.dark-grey-light {
+        @include bg-color($dark-grey-light);
+    }
+    &.light-grey-light {
+        @include bg-color($light-grey-light);
+    }
+    &.grey-variant-light {
+        @include bg-color($grey-variant-light);
+    }
+    &.modal-tab-selected-light {
+        @include bg-color($modal-tab-selected-light);
+    }
+    &.modal-tab-hover-light {
+        @include bg-color($modal-tab-hover-light);
+    }
+
+    // INDEPENDANT OF THEME
+    &.light-blue-hover {
+        @include bg-color($light-blue-hover);
+    }
+    &.muted-white {
+        @include bg-color($muted-white);
+    }
+    &.white {
+        @include bg-color($white);
+    }
+    &.muted-dark {
+        @include bg-color($muted-dark);
+    }
+    &.dark {
+        @include bg-color($dark);
+    }
+    &.gh-green {
+        @include bg-color($gh-green);
+    }
+}
+// Font sizes
+.fs-xsmall {
+    @include fs($fs-xsmall);
+}
+.fs-small {
+    @include fs($fs-small);
+}
+.fs-medium {
+    @include fs($fs-medium);
+}
+.fs-large {
+    @include fs($fs-large);
+}
+.fs-xlarge {
+    @include fs($fs-xlarge);
+}

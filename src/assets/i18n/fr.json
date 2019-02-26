@@ -4,6 +4,11 @@
     "COLORS": "Couleurs",
     "TAGS": "Balises",
     "TAG": "Balise",
+    "CHANGE_PREFERENCE": "Changer les préférences",
+    "CHANGE_PREF_DONE": "Les préférences ont été changées",
+    "LANGUE": "Langage",
+    "FRENCH": "Français",
+    "ENGLISH": "Anglais",
     "FONT_SIZES": "Tailles de texte",
     "CHECKBOX": "Case à cocher",
     "UN_CHECKBOX": "Case décochée",
@@ -23,12 +28,27 @@
         "DESACTIVATE": "Désactiver le loader",
         "INFO": "Chargement..."
     },
+    "CLONE": {
+        "WHERE": "Où cloner",
+        "URL": "URL",
+        "TITLE": "Cloner",
+        "TAB_TITLE": "Cloner un dépôt",
+        "DONE": "Le répertoire a été cloné",
+        "ERROR": "Problème lors du clone",
+        "UNABLE_TO_UPDATE": "Impossible de mettre à jour la base de l'URL à partir d'une redirection",
+        "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
+        "NOT_WORK_TREE": "Impossible de créer le repertoire de travail : permission refusé",
+        "REPO_NOT_FOUND": "Répertoire non trouvé",
+        "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",
+        "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide"
+    },
     "BUTTON": {
         "PRIMARY": "Bouton primaire",
         "SUCCESS": "Bouton succès",
         "DANGER": "Bouton danger",
         "DISABLED": "Bouton désactivé",
         "LARGE": "Bouton allongé"
+        
     },
     "ICONBUTTON": {
         "GITHUB": "GitHub",
@@ -38,9 +58,12 @@
             "GITLAB": "Ceci est GitLab"
         }
     },
+    "CLOSE": "Fermer",
+    "NAME": "Nom",
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
     "DANGER": "Danger",
+    "PATH_NOT_FOUND": "Ce chemin n'existe pas",
     "UPDATE_VALUE": "Changer la valeur",
     "DISPLAY_VALUE": "Afficher la valeur",
     "LABEL": "Label",
@@ -48,7 +71,8 @@
         "WINDOW": "Fenêtre modale",
         "OPEN": {
             "REGULAR": "Ouvrir la modale normale",
-            "FULLSCREEN": "Ouvrir la modale plein écran"
+            "FULLSCREEN": "Ouvrir la modale plein écran",
+            "LOADING": "Ouvrir la modale avec chargement"
         },
         "EXIT": "Sortir",
         "FIRST_SECTION": "Première section",
@@ -58,10 +82,62 @@
         "SECOND_CONTENT": "Deuxième contenu",
         "THIRD_CONTENT": "Troisième contenu"
     },
+    "INFOBAR": {
+        "TITLE": "Barre d'informations",
+        "OPEN": "Ouvrir la barre d'informations"
+    },
     "CONTEXT_MENU": "Menu contextuel",
     "CLICK": {
         "RIGHT": "Clic droit",
         "LEFT": "Clic gauche"
     },
-    "COPY": "Copier"
+    "COPY": "Copier",
+    "BRANCH": "Branche",
+    "PULL": "Tirer",
+    "PUSH": "Pousser",
+    "EXIT_PREFERENCES": "Sortir des préferences",
+    "GENERAL": "Général",
+    "EDITOR": "Editeur",
+    "UI": "Interface Utilisateur",
+    "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
+    "REMOTE": "DISTANT",
+    "OPEN": {
+        "TITLE": "Ouvrir",
+        "REPO": "Ouvrir un dépôt",
+        "OPENED": "Ouvert récemment",
+        "BROWSE": "Parcourir",
+        "OPENED_REPO": "Le dépôt a été ouvert avec succès",
+        "NOT_GIT_REPO": "Ce répertoire n'est pas un répertoire git",
+        "REPO_NOT_EXIST": "Ce répertoire n'existe plus",
+        "WHERE": "Où ouvrir",
+        "ALREADY": "Déjà ouvert"
+    },
+    "INIT": {
+        "TITLE": "Initialiser",
+        "TAB_TITLE": "Initialiser un dépôt",
+        "WHERE": "Initialiser dans",
+        "SUCCESS": "Initialisation réussie",
+        "FAILED": "Initialisation échouée"
+    },
+    "FULL_PATH": "Chemin complet",
+    "BROWSE": "Parcourir",
+    "CREATE_REPOSITORY": "Créer le répertoire",
+    "TERMINAL": {
+        "UNKNOWN": "Terminal inconnu",
+        "MESSAGE": "Il ne semble pas installé sur la machine",
+        "NAME": "Terminal"
+    },
+    "LOG_IN": "S'identifier",
+    "CANCEL": "Annuler",
+    "OPEN_NOW": "Ouvrir",
+    "USERNAME": "Nom d'utilisateur",
+    "PASSWORD": "Mot de passe",
+    "LOG_TO_CONTINUE": "Veuillez vous identifier pour continuer :",
+    "INVALID_URL": "URL invalide",
+    "LIGHT": "Clair",
+    "DARK": "Sombre",
+    "THEME": "Thème",
+    "DARK_THEME": "Thème sombre",
+    "LIGHT_THEME": "Thème clair",
+    "INDEPENDENT_THEME": "Indépendant du thème"
 }

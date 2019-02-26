@@ -1,8 +1,8 @@
-<div class="copy-button" (click)="copyToClipboard()">
-    <div class="copy-button__button">
+<div class="copy-button"  (click)="copyToClipboard()">
+    <div class="copy-button__button" [ngClass]="[currentTheme]">
         <i class="fa fa-copy fa-lg"></i>
     </div>
-    <div class="copy-button__copy ">
+    <div class="copy-button__copy">
         <i class="fa fa-lg" [ngClass]="[copy ? 'fa-check' : '']"></i>
     </div>
     <textarea class="hidden clipboard"></textarea>

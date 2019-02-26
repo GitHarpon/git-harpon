@@ -1,0 +1,61 @@
+<app-modal [(visible)]="preferencesVisible" [fullscreen]="true" [loading]="loading">
+    <mat-tab-group [(selectedIndex)]="preferencesTabSelectedIndex" (selectedTabChange)="checkIfCloseModal($event)"
+        disableRipple [@.disabled]="true">
+        <!-- @.disabled permet de ne pas avoir de transition de changement -->
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <div>
+                    <mat-icon><i class="fa fa-sign-out-alt fa-rotate-180 mr-1"></i></mat-icon>
+                    {{ 'EXIT_PREFERENCES' | translate }}
+                </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="{{ 'GENERAL' | translate }}">
+            <span class="section-title">
+                {{ 'GENERAL' | translate }}
+            </span>
+            <div class="col-md-6 row mt-3">
+                <div class="col-md-3 mt-1 text-right">
+                    <label>{{ 'LANGUE' | translate }}</label>
+                </div>
+                <div class="col-md-9">
+                    <app-dropdown [options]="dataDropdownLanguage" idKey="key" valueKey="value"
+                    [(value)]="dropdownLanguageValue" [required]="true"></app-dropdown>
+                </div>
+                <div class="col-md-3 mt-2 text-right">
+                    <label>{{ 'TERMINAL.NAME' | translate }}</label>
+                </div>
+                <div class="col-md-9 mt-2">
+                    <app-dropdown [options]="dataDropdownTerminal" idKey="key" valueKey="value"
+                    [(value)]="dropdownTerminalValue" [required]="true"></app-dropdown>
+                </div>
+                <div class="col-md-12 mt-2 text-right">
+                    <app-button value="CHANGE_PREFERENCE" type="success" (buttonClicked)="saveChangedPreferences()"></app-button>
+                </div>
+            </div>
+
+        </mat-tab>
+        <mat-tab label="{{ 'EDITOR' | translate }}">
+            <span class="section-title">
+                {{ 'EDITOR' | translate }}
+            </span>
+        </mat-tab>
+        <mat-tab label="{{ 'UI' | translate }}">
+            <span class="section-title">
+                {{ 'UI' | translate }}
+            </span>
+            <div class="col-md-6 row mt-3">
+                <div class="col-md-3 mt-1 text-right">
+                    <label>{{ 'THEME' | translate }}</label>
+                </div>
+                <div class="col-md-9">
+                    <app-dropdown [options]="dataDropdownTheme" idKey="key" valueKey="value"
+                    [(value)]="currentTheme" [required]="true"></app-dropdown>
+                </div>
+                <div class="col-md-12 mt-2 text-right">
+                    <app-button value="CHANGE_PREFERENCE" type="success" (buttonClicked)="saveChangedUIPreferences()"></app-button>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</app-modal>

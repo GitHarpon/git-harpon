@@ -19,27 +19,42 @@
     }
 
     &__content {
-        color: $white;
         position: absolute;
         top: 50px;
         bottom: 0;
         @include wX(100%);
         overflow: auto;
+
+        .dark {
+            color: $white;
+        }
+        &.light {
+            color: $dark;
+        }
     }
 
     &__title {
-        background: $blue-grey;
         font-weight: bold;
         @include hX(50px);
         line-height: 50px;
         vertical-align: middle;
         padding-left: $gap-xl;
-        border-bottom: 1px solid $dark;
+        
+
+        &.dark {
+            border-bottom: 1px solid $dark;
+            background: $light-grey;
+        }
+
+        &.light {
+            background: $dark-grey-light;
+            border-bottom: 1px solid $border-dark-grey-light;
+        }
+
     }
 
     &__close {
         position: absolute;
-        color: $white;
         top: 15px;
         right: $gap-xl;
         @include wX-hX(20px, 20px);
@@ -50,10 +65,20 @@
         -webkit-transition: background-color 0.25s ease-out, color 0.25s ease-out;
         transition: background-color 0.25s ease-out, color 0.25s ease-out;
     
-        &:hover {
-            background: rgba(76, 93, 170, 0.2);
-
+        &.dark {
+            color: $white;
+            &:hover {
+                background: rgba(76, 93, 170, 0.2);
+            }
         }
+        &.light {
+            color: $dark;
+            &:hover {
+                background: $modal-tab-hover-light;
+            }
+        }
+
+        
     }
 
     &__window
@@ -62,12 +87,18 @@
         @include wX-hX(30%, 80%);
         top: 5%;
         left: 35%;
-        border: 1px solid $light-grey;
         z-index: 2;
 
+        &.dark {
+            border: 1px solid $light-grey;
+        }
+        &.light {
+            border: 1px solid $border-dark-grey-light;
+        }
+
         &.medium {
-            @include wX(50%);
-            left: 25%;
+            @include wX(60%);
+            left: 20%;
         }
 
         &.large {

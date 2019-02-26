@@ -6,6 +6,9 @@ import { ipcRenderer, webFrame, remote, shell } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as os from 'os';
+import * as process from 'process';
+import * as url from 'url';
 
 @Injectable()
 export class ElectronService {
@@ -14,9 +17,12 @@ export class ElectronService {
   webFrame: typeof webFrame;
   remote: typeof remote;
   childProcess: typeof childProcess;
+  process: typeof process;
   fs: typeof fs;
   path: typeof path;
+  os: typeof os;
   shell: typeof shell;
+  url: typeof url;
 
   constructor() {
     // Conditional imports
@@ -29,6 +35,9 @@ export class ElectronService {
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
       this.path = window.require('path');
+      this.process = window.require('process');
+      this.url = window.require('url');
+      this.os = window.require('os');
     }
   }
 
@@ -36,4 +45,21 @@ export class ElectronService {
     return window && window.process && window.process.type;
   }
 
+  browse() {
+    const PATH = this.remote.dialog.showOpenDialog({
+      properties: ['openDirectory']
+    });
+    if (PATH !== undefined) {
+      return PATH[0];
+    }
+    return null;
+  }
+
+  pathJoin(...paths: string[]): string {
+    return this.path.join(...paths).toString();
+  }
+
+  fsExistsSync(pathToCheck: fs.PathLike): boolean {
+    return this.fs.existsSync(pathToCheck);
+  }
 }

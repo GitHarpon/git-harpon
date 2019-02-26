@@ -13,15 +13,11 @@ export class AppComponent {
     private translate: TranslateService) {
 
     this.translate.addLangs(['fr', 'en']);
-    this.translate.setDefaultLang(this.translate.getLangs()[0]);
-    console.log('AppConfig', AppConfig);
 
-    if (electronService.isElectron()) {
-      console.log('Mode electron');
-      console.log('Electron ipcRenderer', electronService.ipcRenderer);
-      console.log('NodeJS childProcess', electronService.childProcess);
+    if (localStorage.getItem('lang') === null || localStorage.getItem('lang') === 'fr') {
+      this.translate.setDefaultLang('fr');
     } else {
-      console.log('Mode web');
+      this.translate.setDefaultLang('en');
     }
   }
 }
