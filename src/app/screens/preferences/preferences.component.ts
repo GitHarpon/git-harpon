@@ -95,7 +95,7 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   }
 
   switchTerminal() {
-    this.terminalPreferencesService.setCurrentTerminal({ name: 'Terminal', cmd: this.dropdownTerminalValue });
+    this.terminalPreferencesService.setCurrentTerminal(this.dropdownTerminalValue);
   }
 
   // Fonction qui regroupe toutes les fonctions applicables aux préférences

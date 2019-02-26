@@ -7,22 +7,19 @@ import { ServiceResult } from './ServiceResult';
 export class MockTerminalManagerService {
     languages: any[];
     preferencesSubject = new Subject<string>();
-    terminalName: string;
     terminalCmd: string;
 
     constructor() {
-        this.terminalName = '';
         this.terminalCmd = '';
         this.emitPreferencesSubject();
     }
 
     emitPreferencesSubject() {
-        this.preferencesSubject.next(this.terminalName);
+        this.preferencesSubject.next(this.terminalCmd);
     }
 
-    setCurrentTerminal(newTerminal: { name: string, cmd: string }) {
-        this.terminalName = newTerminal.name;
-        this.terminalCmd = newTerminal.cmd;
+    setCurrentTerminal(newCmd) {
+        this.terminalCmd = newCmd;
         this.emitPreferencesSubject();
     }
 

@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
-import * as gitPromise from 'simple-git/promise';
-import * as simpleGit from 'simple-git';
 import { Subject } from 'rxjs';
 import { ElectronService } from './electron.service';
-import * as  GitUrlParse from 'git-url-parse';
 import { ServiceResult } from '../models/ServiceResult';
-import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastrService } from 'ngx-toastr';
 import { LocalStorage } from 'ngx-store';
 
 @Injectable()
@@ -70,9 +65,11 @@ export class TerminalManagerService {
     this.preferencesSubject.next(this.terminalCmd);
   }
 
-  setCurrentTerminal(newTerminal: { name: string, cmd: string }) {
-    this.terminalName = newTerminal.name;
-    this.terminalCmd = newTerminal.cmd;
+  setCurrentTerminal(newCmd) {
+    this.terminalCmd = newCmd;
+    this.terminalName = this.getTerminals().filter(o => {
+      return o.key === this.terminalCmd;
+    })[0].value;
     this.emitPreferencesSubject();
   }
 }
