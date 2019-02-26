@@ -141,7 +141,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   cloneSubmit() {
-    if (this.electronService.fs.existsSync(this.cloneFolder.toString())) {
+    if (this.electronService.fsExistsSync(this.cloneFolder.toString())) {
       var Url = GitUrlParse(this.cloneUrl);
       if (Url.protocol === 'https') {
         this.projectModalVisible = false;
@@ -161,7 +161,7 @@ export class HomeComponent implements OnDestroy {
   cloneHttps() {
     this.credInfoBarVisible = false;
     this.homeLoading = true;
-    this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.username, this.password)
+    return this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.username, this.password)
       .then((data) => {
         this.homeLoading = false;
         this.openClonedInfoBarVisible = true;

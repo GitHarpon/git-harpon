@@ -353,4 +353,117 @@ describe('HomeComponent', () => {
     expect(component.path).toBeUndefined();
     expect(component.repoName).toBeUndefined();
   });
+
+  it('tests the cloneBrowse function', () => {
+    component.cloneBrowse();
+    expect(component.cloneFolder).toBe('/new');
+  });
+
+  it('tests the cloneSubmit function with https', () => {
+    const CloneFolder = 'path';
+    const CloneUrl = 'https://github.com/GitHarpon/git-harpon';
+    component.cloneFolder = CloneFolder;
+    component.cloneUrl = CloneUrl;
+    component.cloneSubmit();
+    expect(component.projectModalVisible).toBeFalsy();
+    expect(component.credInfoBarVisible).toBeTruthy();
+  });
+
+  it('tests the cloneSubmit function with ssh', () => {
+    const CloneFolder = 'path';
+    const CloneUrl = 'git@github.com:GitHarpon/git-harpon.git';
+    component.cloneFolder = CloneFolder;
+    component.cloneUrl = CloneUrl;
+    component.cloneSubmit();
+  });
+
+  it('tests the cloneSubmit function with invalid url', () => {
+    const CloneFolder = 'path';
+    const CloneUrl = 'NotAnUrl';
+    component.cloneFolder = CloneFolder;
+    component.cloneUrl = CloneUrl;
+    component.cloneSubmit();
+  });
+
+  it('tests the cloneSubmit function with invalid folder', () => {
+    const CloneFolder = 'invalid';
+    const CloneUrl = 'https://github.com/GitHarpon/git-harpon';
+    component.cloneFolder = CloneFolder;
+    component.cloneUrl = CloneUrl;
+    component.cloneSubmit();
+  });
+
+  it('tests the cloneHttps function with valid arguments', (done) => {
+    const CloneUrl = 'https://github.com/GitHarpon/git-harpon';
+    const CloneFolder = 'path';
+    const Username = 'username';
+    const Password = 'password';
+    component.cloneUrl = CloneUrl;
+    component.cloneFolder = CloneFolder;
+    component.username = Username;
+    component.password = Password;
+    component.openClonedInfoBarVisible = false;
+    component.cloneHttps().then(() => {
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.openClonedInfoBarVisible).toBeTruthy();
+      done();
+    });
+  });
+
+  it('tests the cloneHttps function with invalid url or folder', (done) => {
+    const CloneUrl = 'invalidurl';
+    const CloneFolder = 'invalidfolder';
+    const Username = 'username';
+    const Password = 'password';
+    component.cloneUrl = CloneUrl;
+    component.cloneFolder = CloneFolder;
+    component.username = Username;
+    component.password = Password;
+    component.cloneHttps().then(() => {
+      expect(component.homeLoading).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the cloneHttps function with invalid username or password', (done) => {
+    const CloneUrl = 'https://github.com/GitHarpon/git-harpon';
+    const CloneFolder = 'path';
+    const Username = 'badusername';
+    const Password = 'badpassword';
+    component.cloneUrl = CloneUrl;
+    component.cloneFolder = CloneFolder;
+    component.username = Username;
+    component.password = Password;
+    component.cloneHttps().then(() => {
+      expect(component.homeLoading).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the closeCredInfoBar function', () => {
+    component.closeCredInfoBar();
+    expect(component.credInfoBarVisible).toBeFalsy();
+  });
+
+  it('tests the openClonedRepo function', () => {
+    const NewRepo = '/new';
+    component.newClonedRepoPath = NewRepo;
+    component.openClonedRepo();
+    expect(component.path).toBe(NewRepo);
+    expect(component.openClonedInfoBarVisible).toBeFalsy();
+  });
+
+  it('tests the closeClonedInfoBar function', () => {
+    component.closeClonedInfoBar();
+    expect(component.openClonedInfoBarVisible).toBeFalsy();
+  });
+
+  it('tests the resetCloneInputs function', () => {
+    component.resetCloneInputs();
+    expect(component.username).toBe('');
+    expect(component.password).toBe('');
+    expect(component.cloneUrl).toBe('');
+    expect(component.cloneFolder).toBe('');
+    expect(component.newClonedRepoPath).toBe('');
+  });
 });

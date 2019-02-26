@@ -10,7 +10,11 @@ export class MockElectronService {
     return CHEMIN;
   }
 
-  pathJoin(...paths: string[]) {
+  pathJoin(...paths: string[]): string {
     return paths.join('').toString();
+  }
+
+  fsExistsSync(pathToCheck: string): boolean {
+    return pathToCheck === 'path';
   }
 }
