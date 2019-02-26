@@ -54,7 +54,7 @@ export class TerminalManagerService {
         return [
           { key: 'start cmd.exe', value: 'cmd' },
           { key: 'start PowerShell.exe', value: 'PowerShell' },
-          { key: 'start "" "%ProgramFiles%\\Git\\git-bash.exe"', value: 'Git Bash' }
+          { key: 'start "" "%ProgramFiles%\\Git\\git-bash.exe"', value: 'git-bash' }
         ];
       default:
         return [];
