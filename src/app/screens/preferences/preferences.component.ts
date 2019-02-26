@@ -80,9 +80,6 @@ export class PreferencesComponent implements OnInit, OnDestroy {
     this.themePrefService.emitThemePreferencesSubject();
   }
 
-  setCurrentTerminal(event) {
-    this.terminalPreferencesService.setCurrentTerminal(event);
-  }
   async checkIfCloseModal(event) {
     if (event.index === 0) {
       return this.router.navigate(['home']);

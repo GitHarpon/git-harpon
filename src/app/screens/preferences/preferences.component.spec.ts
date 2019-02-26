@@ -45,6 +45,7 @@ describe('PreferencesComponent', () => {
   let component: PreferencesComponent;
   let fixture: ComponentFixture<PreferencesComponent>;
   let langPrefService: LanguagePreferencesService;
+  let terminalService: TerminalManagerService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -119,6 +120,7 @@ describe('PreferencesComponent', () => {
     fixture = TestBed.createComponent(PreferencesComponent);
     component = fixture.componentInstance;
     langPrefService = TestBed.get(LanguagePreferencesService);
+    terminalService = TestBed.get(TerminalManagerService);
   });
 
   it('tests the component creation', () => {
@@ -153,17 +155,26 @@ describe('PreferencesComponent', () => {
      component.dropdownLanguageValue = Lang;
      component.switchLanguage();
      expect(langPrefService.preferences).toEqual(Lang);
-   });
+  });
 
-   //////////// A CHANGER
+  it('tests the switchTerminal function', () => {
+    const TerminalCmd = 'terminator';
+    component.dropdownTerminalValue = TerminalCmd;
+    component.switchTerminal();
+    expect(terminalService.terminalCmd).toBe(TerminalCmd);
+  });
+
   it('tests the saveChangedPreferences function', (done) => {
      const Lang = 'fr';
+     const TerminalCmd = 'terminator';
      component.dropdownLanguageValue = Lang;
+     component.dropdownTerminalValue = TerminalCmd;
      component.saveChangedPreferences().then((result) => {
        expect(result).toBeTruthy();
        done();
      });
      expect(langPrefService.preferences).toEqual(Lang);
+     expect(terminalService.terminalName).toEqual(TerminalCmd);
      expect(component.loading).toBeFalsy();
   });
 

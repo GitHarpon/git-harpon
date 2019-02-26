@@ -89,12 +89,16 @@ export class HomeComponent implements OnDestroy {
     return true;
   }
 
-  openTerminal() {
-    this.terminalService.openTerminal()
+  async openTerminal() {
+    return this.terminalService.openTerminal()
+      .then(() => {
+        return true;
+      })
       .catch((data) => {
         this.toastr.error(data.message, data.title, {
           onActivateTick: true
         });
+        return false;
       });
   }
 

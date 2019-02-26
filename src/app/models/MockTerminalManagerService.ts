@@ -1,17 +1,15 @@
-import { Injectable, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
-import { TerminalManagerService } from '../providers/terminal-manager.service';
 import { ServiceResult } from './ServiceResult';
 
 export class MockTerminalManagerService {
     languages: any[];
     preferencesSubject = new Subject<string>();
     terminalCmd: string;
+    terminalName: string;
 
     constructor() {
         this.terminalCmd = '';
-        this.emitPreferencesSubject();
+        this.terminalName = '';
     }
 
     emitPreferencesSubject() {
@@ -20,6 +18,7 @@ export class MockTerminalManagerService {
 
     setCurrentTerminal(newCmd) {
         this.terminalCmd = newCmd;
+        this.terminalName = 'terminator';
         this.emitPreferencesSubject();
     }
 
@@ -29,7 +28,11 @@ export class MockTerminalManagerService {
 
     openTerminal() {
         return new Promise((resolve, reject) => {
-            resolve(new ServiceResult(true, '', ''));
+            if (this.terminalName === 'terminator') {
+                resolve(new ServiceResult(true, '', ''));
+            } else {
+                reject(new ServiceResult(false, '', ''));
+            }
         });
     }
 }
