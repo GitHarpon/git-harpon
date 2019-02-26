@@ -52,7 +52,11 @@ export class ElectronService {
     return null;
   }
 
-  pathJoin(...paths: string[]) {
+  pathJoin(...paths: string[]): string {
     return this.path.join(...paths).toString();
+  }
+
+  fsExistsSync(pathToCheck: fs.PathLike): boolean {
+    return this.fs.existsSync(pathToCheck);
   }
 }

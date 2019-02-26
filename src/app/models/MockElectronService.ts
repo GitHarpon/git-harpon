@@ -9,8 +9,12 @@ export class MockElectronService {
     const CHEMIN = '/new';
     return CHEMIN;
   }
-  
-  pathJoin(...paths: string[]) {
+
+  pathJoin(...paths: string[]): string {
     return paths.join('').toString();
+  }
+
+  fsExistsSync(pathToCheck: string): boolean {
+    return pathToCheck === 'path';
   }
 }

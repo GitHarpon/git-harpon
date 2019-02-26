@@ -56,4 +56,22 @@ export class MockGitService {
             });
         }
     }
+
+    async cloneHttps(url: GitUrlParse, folder: string, username: string, password: string) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (url && folder === 'path') {
+                if (username === 'username' && password === 'password') {
+                    const REPOPATH = '/path';
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                        this.translate.instant('CLONE.DONE'), REPOPATH));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('CLONE.ERROR')));
+                }
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('CLONE.ERROR')));
+            }
+        });
+    }
 }
