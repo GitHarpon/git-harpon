@@ -91,8 +91,8 @@ export class HomeComponent implements OnDestroy {
     console.log('on ouvre le terminal');
   }
 
-  openPreferences() {
-    this.router.navigate(['preferences']);
+  async openPreferences() {
+    return this.router.navigate(['preferences']);
   }
 
   openProjectModal(tabSelected: any) {
@@ -123,19 +123,19 @@ export class HomeComponent implements OnDestroy {
   }
 
   cloneBrowse() {
-    const BROWSEPATH = this.electronService.browse();
-    if (BROWSEPATH !== null) {
-      this.cloneFolder = BROWSEPATH;
+    const BrowsePath = this.electronService.browse();
+    if (BrowsePath !== null) {
+      this.cloneFolder = BrowsePath;
     }
   }
 
   cloneSubmit() {
     if (this.electronService.fsExistsSync(this.cloneFolder.toString())) {
-      var URL = GitUrlParse(this.cloneUrl);
-      if (URL.protocol === 'https') {
+      var Url = GitUrlParse(this.cloneUrl);
+      if (Url.protocol === 'https') {
         this.projectModalVisible = false;
         this.credInfoBarVisible = true;
-      } else if (URL.protocol === 'ssh') {
+      } else if (Url.protocol === 'ssh') {
         this.toastr.error('Pas de ssh pour le moment', 'Erreur');
       } else {
         this.toastr.error(this.translateService.instant('INVALID_URL'),
@@ -165,9 +165,9 @@ export class HomeComponent implements OnDestroy {
   }
 
   initBrowse() {
-    const INITPATH = this.electronService.browse();
-    if (INITPATH !== null) {
-      this.initLocation = INITPATH;
+    const InitPath = this.electronService.browse();
+    if (InitPath !== null) {
+      this.initLocation = InitPath;
     }
     this.updateFullPath();
   }
@@ -207,9 +207,9 @@ export class HomeComponent implements OnDestroy {
   }
 
   openBrowse() {
-    const NEWPATH = this.electronService.browse();
-    if (NEWPATH !== null) {
-      this.openFolder = NEWPATH;
+    const NewPath = this.electronService.browse();
+    if (NewPath !== null) {
+      this.openFolder = NewPath;
     }
   }
 
