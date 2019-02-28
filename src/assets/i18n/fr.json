@@ -42,6 +42,20 @@
         "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",
         "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide"
     },
+    "PUSH": {
+        "WHERE": "Where to clone",
+        "URL": "URL",
+        "TITLE": "Push",
+        "TAB_TITLE": "Clone a repository",
+        "DONE": "The repository was clone",
+        "ERROR": "Problem during the clone",
+        "UNABLE_TO_UPDATE": "Unable to update url base from redirection",
+        "HTTP_ACCESS_DENIED": "HTTP basic: Access denied",
+        "NOT_WORK_TREE": "Could not create work tree : permission denied",
+        "REPO_NOT_FOUND": "Repository not found",
+        "ALREADY_EXISTS": "This repository already exists and is not an empty directory",
+        "INVALID_CRED": "Invalid username or password"
+    },
     "BUTTON": {
         "PRIMARY": "Bouton primaire",
         "SUCCESS": "Bouton succès",
@@ -94,7 +108,6 @@
     "COPY": "Copier",
     "BRANCH": "Branche",
     "PULL": "Tirer",
-    "PUSH": "Pousser",
     "EXIT_PREFERENCES": "Sortir des préferences",
     "GENERAL": "Général",
     "EDITOR": "Editeur",

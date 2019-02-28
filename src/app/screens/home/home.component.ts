@@ -183,6 +183,22 @@ export class HomeComponent implements OnDestroy {
     this.updateFullPath();
   }
 
+
+  pushHttps() {
+    this.credInfoBarVisible = false;
+    this.homeLoading = true;
+    return this.gitService.pushHttps(GitUrlParse(this.cloneUrl), this.fullPath, this.username, this.password, 'master')
+      .then((data) => {
+        this.homeLoading = false;
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.homeLoading = false;
+        this.resetPushInputs();
+        this.toastr.error(data.message, data.title);
+      });
+  }
+
   updateFullPath() {
     if (this.initLocation) {
       this.fullPath = this.initLocation;
@@ -269,6 +285,11 @@ export class HomeComponent implements OnDestroy {
     this.cloneUrl = '';
     this.cloneFolder = '';
     this.newClonedRepoPath = '';
+  }
+
+  resetPushInputs() {
+    this.username = '';
+    this.password = '';
   }
 
   async openRecentRepo(recentPath: string) {

@@ -181,4 +181,34 @@ export class GitService {
         });
     });
   }
+
+  async pushHttps(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      const Remote = `https://${username}:${password}@${url.resource}${url.pathname}`;
+      gitPromise(folder).push(Remote, branch, [])
+      .then(() => {
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+          this.translate.instant('PUSH.DONE')));
+        }).catch((err) => {
+        var ERRMSG = 'PUSH.ERROR';
+        if (err.toString().includes('unable to update url base from redirection')) {
+          ERRMSG = 'PUSH.UNABLE_TO_UPDATE';
+        } else if (err.toString().includes('HTTP Basic: Access denied')) {
+          ERRMSG = 'PUSH.HTTP_ACCESS_DENIED';
+        } else if (err.toString().includes('could not create work tree')) {
+          ERRMSG = 'PUSH.NOT_WORK_TREE';
+        } else if (err.toString().includes('Repository not found')) {
+          ERRMSG = 'PUSH.REPO_NOT_FOUND';
+        } else if (err.toString().includes('Invalid username or password')) {
+          ERRMSG = 'PUSH.INVALID_CRED';
+        }
+      });
+    });
+  }
+
+  async pushSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
+      console.log('Ssh non pris en charge pour le moment');
+      return new Promise<ServiceResult>(() => {});
+  }
+
 }
