@@ -28,14 +28,6 @@ Pour assurer le fonctionnement de cette application depuis n'importe quel OS, il
 
 Nous utiliserons aussi yarn.
 
-Pour la gestion des mots de passes, il est nécessaire d'avoir installé le package `libsecret` sur Linux.
-Selon la distribution, il faut lancer les commandes suivantes :
-
-- Debian/Ubuntu: `sudo apt-get install libsecret-1-dev`
-- Red Hat-based: `sudo yum install libsecret-devel`
-- Arch Linux: `sudo pacman -S libsecret`
-
-
 ### Installation de Node.js
 **Windows et macOS**
 
@@ -90,7 +82,6 @@ Installer les dépendances
 |`electron-builder.json`| Fichier contenant toutes les informations pour la création d'une release. |
 |`node_modules/`| Dossier contenant les modules natifs et installés. |
 |`release/`| Dossier contenant la release après génération. |
-|`tests/`| Dossier contenant les fichiers de test. |
 |`coverage/`| Dossier contenant le résultat de la couverture de code. |
 |`units/units.html`| Fichier de rapport des tests unitaires. |
 |`src/styles.scss`| Feuille de style globale. |
@@ -118,7 +109,6 @@ Comme expliqué plus haut, nous avons utilisé le kit de démarrage. Le fichier 
 |`yarn electron:mac`|  Sous macOS, build l'application et crée un `.dmg` contenant le `.app`. |
 |`yarn test:unit`| Lance les tests unitaires |
 |`yarn test:unit:coverage`| Lance les tests unitaires et le couvrage de code |
-|`yarn test:e2e`| Lance les tests end-to-end (e2e) |
 
 ⚠️ Il faut supprimer le dossier release avant d'en regénérer un autre ⚠️
 
@@ -126,24 +116,6 @@ Comme expliqué plus haut, nous avons utilisé le kit de démarrage. Le fichier 
 
 Il est nécessaire d'avoir installé chrome auparavant sur son ordinateur pour lancer les tests unitaires.
 Une fois cette condition réalisée, il suffit de lancé `yarn test:unit`. Le rapport est alors disponible dans `units/units.html`.
-
-## Lancer les tests end-to-end
-
-Comme expliqué ci-dessus, la commande `yarn test:e2e` lance les tests end-to-end. Cependant, il est nécessaire de créer une release avant de lancer cette commande. 
-
-### Sur macOS
-
-`yarn electron:mac` puis cliquer sur le .dmg généré et mettre le .app dans le dossier release. On peut alors lancer la commande `yarn test:e2e`.
-
-### Sur Linux
-
-`yarn electron:linux` et s'assurer d'avoir lancer une fois le .AppImage pour que la fenêtre de dialogue ne s'affiche plus par la suite. On peut alors lancer la commande `yarn test:e2e`.
-
-
-### Sur Windows 
-
-`yarn electron:windows` puis lancer la commande `yarn test:e2e`.
-
 
 ## Ajouter un package
 
