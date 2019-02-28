@@ -20,7 +20,6 @@ export class TerminalManagerService {
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
-        console.log('toto : ', this.path);
       });
     this.gitService.emitPathSubject();
 
