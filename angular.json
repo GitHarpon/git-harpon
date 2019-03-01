@@ -98,11 +98,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "codeCoverageExclude": [
-              "src/app/providers/*", 
-              "src/app/components/**",
-              "src/app/screens/toolbox/**",
-              "src/app/models/**",
-              "src/environments/**"
+              "src/app/providers/*"
             ],
             "scripts": [],
             "styles": [
