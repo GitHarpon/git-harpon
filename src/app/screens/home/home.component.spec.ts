@@ -146,10 +146,14 @@ describe('HomeComponent', () => {
     expect(component.projectModalVisible).toBeTruthy();
   });
 
-  it('tests the displaySearchInputValue function', () => {
+  it('tests the displaySearchInputValue function with valid repo name', () => {
     const RepoName = '/repo';
     component.repoName = RepoName;
     expect(component.displaySearchInputValue()).toBeTruthy();
+  });
+
+  it('tests the displaySearchInputValue function with invalid repo name', () => {
+    expect(component.displaySearchInputValue()).toBeFalsy();
   });
 
   it('tests the validate function with bad status', () => {

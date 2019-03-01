@@ -63,6 +63,7 @@
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
     "DANGER": "Danger",
+    "ERROR": "Erreur",
     "PATH_NOT_FOUND": "Ce chemin n'existe pas",
     "UPDATE_VALUE": "Changer la valeur",
     "DISPLAY_VALUE": "Afficher la valeur",
