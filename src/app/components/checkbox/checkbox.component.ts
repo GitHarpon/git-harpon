@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss']
 })
-export class CheckboxComponent implements OnInit {
+export class CheckboxComponent {
 
   @Input() name: String;
   @Input() disabled: Boolean = false;
@@ -25,7 +25,4 @@ export class CheckboxComponent implements OnInit {
   }
 
   constructor() { }
-
-  ngOnInit() {
-  }
 }
