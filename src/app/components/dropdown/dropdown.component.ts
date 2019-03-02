@@ -7,7 +7,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })
-export class DropdownComponent implements OnInit {
+export class DropdownComponent {
 
   @Input() disabled: Boolean = false;
   @Input() required: Boolean = false;
@@ -23,10 +23,10 @@ export class DropdownComponent implements OnInit {
   @Input()
   options: Array<string>;
   @Input()
-  get value() {
+  get value(): any {
     return this.currentValue;
   }
-  set value(val) {
+  set value(val: any) {
     if ( !(val == '' && this.required)) {
       this.currentValue = val;
       this.valueChange.emit(val);
@@ -63,16 +63,4 @@ export class DropdownComponent implements OnInit {
       return option[this.valueKey.toString()];
     }
   }
-
-  ngOnInit() {
-    if (this.required) {
-      this.options[this.valueKey.toString()];
-    }
-  }
-
-  triggerChange(evt) {
-    this.currentValue = evt;
-    this.valueChange.emit(this.currentValue);
-  }
-
 }
