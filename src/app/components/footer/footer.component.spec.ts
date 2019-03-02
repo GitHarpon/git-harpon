@@ -18,7 +18,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 describe('FooterComponent', () => {
   let component: FooterComponent;
   let fixture: ComponentFixture<FooterComponent>;
-  let footerEl: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -51,7 +50,6 @@ describe('FooterComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FooterComponent);
     component = fixture.componentInstance;
-    footerEl = fixture.debugElement.query(By.css('div.footer'));
   });
 
   it('tests the component creation', () => {
@@ -60,8 +58,8 @@ describe('FooterComponent', () => {
 
   it('tests the ngOnInit function', () => {
     component.ngOnInit();
-    expect(component.version).toBeTruthy();
-    expect(component.production).toBeFalsy();
+    expect(component.version).toBeDefined();
+    expect(component.production).toBeDefined();
   });
 
   it('tests the openGithub function', () => {
