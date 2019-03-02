@@ -45,7 +45,9 @@ describe('DropdownComponent', () => {
 
   it('tests the component setter and getter', fakeAsync(() => {
     const Content = 'axuluphrum';
+
     component.value = Content;
+
     expect(component.value).toEqual(Content);
   }));
 
@@ -63,8 +65,9 @@ describe('DropdownComponent', () => {
   it('tests the getOptKey function with valid idKey', fakeAsync( () => {
     const Opt = { key: 'test1key', value: 'test1val' };
     const Expected = Opt.key;
+    const Key = 'key';
 
-    component.idKey = 'key';
+    component.idKey = Key;
 
     const Result = component.getOptKey(Opt);
 
@@ -79,8 +82,6 @@ describe('DropdownComponent', () => {
 
     expect(Result).toEqual(Expected);
   }));
-
-  // tester cas else optKey et optValue
 
   it('tests the getOptValue function with valid valueKey', fakeAsync( () => {
     const Opt = { key: 'test1key', value: 'test1val' };
@@ -105,9 +106,11 @@ describe('DropdownComponent', () => {
   it('tests the isSelected function with valid currentValue', fakeAsync( () => {
     const Opt = { key: 'test1key', value: 'test1val' };
     const Expected = 'selected';
+    const Key = 'key';
+    const Value = 'value';
 
-    component.idKey = 'key';
-    component.valueKey = 'value';
+    component.idKey = Key;
+    component.valueKey = Value;
     component.value = Opt.key;
 
     expect(component.isSelected(Opt)).toEqual(Expected);
@@ -118,9 +121,11 @@ describe('DropdownComponent', () => {
     const Opt = { key: 'test1key', value: 'test1val' };
     const BadOpt = { key: 'badkey', value: 'badval' };
     const Expected = '';
+    const Key = 'key';
+    const Value = 'value';
 
-    component.idKey = 'key';
-    component.valueKey = 'value';
+    component.idKey = Key;
+    component.valueKey = Value;
     component.value = BadOpt.key ;
 
     expect(component.isSelected(Opt)).toEqual(Expected);
