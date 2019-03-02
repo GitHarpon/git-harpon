@@ -46,6 +46,7 @@ export class DropdownComponent {
     if (this.idKey) {
       return option[this.idKey.toString()];
     }
+    return null;
   }
 
   isSelected(opt) {
@@ -62,5 +63,6 @@ export class DropdownComponent {
     if (this.valueKey) {
       return option[this.valueKey.toString()];
     }
+    return null;
   }
 }

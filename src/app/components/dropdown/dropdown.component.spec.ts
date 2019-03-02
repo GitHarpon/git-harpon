@@ -37,7 +37,6 @@ describe('DropdownComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DropdownComponent);
     component = fixture.componentInstance;
-    inputEl = fixture.debugElement.query(By.css('input.gh-dropdown'));
   });
 
   it('tests the component creation', () => {
@@ -50,39 +49,57 @@ describe('DropdownComponent', () => {
     component.value = Content;
     fixture.detectChanges();
     expect(component.value).toEqual(Content);
+    // faire deux fonction ici en changeant nom a cahque fois
     component.value = Empty;
     fixture.detectChanges();
     expect(component.value).toEqual(Empty);
   }));
 
-  it('tests the optkey', fakeAsync( () => {
-    const Opts: Array<any> = [
-      { key: 'test1key', value: 'test1val' },
-      { key: 'test2key', value: 'test2val' }
-    ];
-    component.options = Opts;
+  it('tests the getOptKey function with valid idKey', fakeAsync( () => {
+    const Opt = { key: 'test1key', value: 'test1val' };
+    const Expected = Opt.key;
+
     component.idKey = 'key';
-    component.valueKey = 'value';
-    component.currentValue = 'test1val';
-    fixture.detectChanges();
-    expect(component.getOptKey(Opts)).toEqual('test1key');
-    expect(component.getOptValue(Opts)).toEqual('test1val');
+
+    const Result = component.getOptKey(Opt);
+
+    expect(Result).toEqual(Expected);
   }));
 
-  it('tests isSelected', fakeAsync( () => {
-    const Opts: Array<any> = [
-      { key: 'test1key', value: 'test1val' },
-      { key: 'test2key', value: 'test2val' }
-    ];
-    const OptSel1: any = { key: 'test1key', value: 'test1val'};
-    const OptSel2: any = { key: 'test2key', value: 'test2val'};
-    component.idKey = 'key';
+  // tester cas else optKey et optValue
+
+  it('tests the getOptValue function with valid valueKey', fakeAsync( () => {
+    const Opt = { key: 'test1key', value: 'test1val' };
+    const Expected = Opt.value;
+
     component.valueKey = 'value';
-    component.currentValue = 'test1val';
-    component.options = Opts;
-    fixture.detectChanges();
-    expect(component.isSelected(OptSel1)).toEqual('selected');
-    expect(component.isSelected(OptSel2)).toEqual('');
+
+    const Result = component.getOptValue(Opt);
+
+    expect(Result).toEqual(Expected);
   }));
 
+  it('tests the isSelected function with valid currentValue', fakeAsync( () => {
+    const Opt = { key: 'test1key', value: 'test1val' };
+    const Expected = 'selected';
+
+    component.idKey = 'key';
+    component.valueKey = 'value';
+    component.value = Opt.key;
+
+    expect(component.isSelected(Opt)).toEqual(Expected);
+
+  }));
+
+  it('tests the isSelected function with valid currentValue', fakeAsync( () => {
+    const Opt = { key: 'test1key', value: 'test1val' };
+    const BadOpt = { key: 'badkey', value: 'badval' };
+    const Expected = '';
+
+    component.idKey = 'key';
+    component.valueKey = 'value';
+    component.value = BadOpt.key ;
+
+    expect(component.isSelected(Opt)).toEqual(Expected);
+  }));
 });
