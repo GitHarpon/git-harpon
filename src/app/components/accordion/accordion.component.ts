@@ -7,7 +7,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './accordion.component.html',
   styleUrls: ['./accordion.component.scss']
 })
-export class AccordionComponent implements OnInit {
+export class AccordionComponent {
 
   @Input() title: String;
   @Input() disabled: Boolean = false;
@@ -25,9 +25,6 @@ export class AccordionComponent implements OnInit {
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
-  }
-
-  ngOnInit() {
   }
 
 }
