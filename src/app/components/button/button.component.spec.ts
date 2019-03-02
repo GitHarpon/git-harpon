@@ -77,8 +77,16 @@ describe('ButtonComponent', () => {
   });
 
   it('tests the execClick function', () => {
-    /*buttonEl.nativeElement.dispatchEvent(new Event('click'));
+    const Evt = new Event('click');
+    spyOn(component.buttonClicked, 'emit');
+    buttonEl.nativeElement.dispatchEvent(Evt);
     fixture.detectChanges();
-    expect(component)*/
+    expect(component.buttonClicked.emit).toHaveBeenCalledWith(Evt);
+  });
+
+  it('tests the getValueTranslation function', () => {
+    const Text = 'TRANSLATE';
+    component.value = Text;
+    expect(component.getValueTranslation()).toBe(Text);
   });
 });
