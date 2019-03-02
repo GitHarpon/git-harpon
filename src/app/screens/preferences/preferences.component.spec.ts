@@ -42,10 +42,12 @@ import { TerminalManagerService } from '../../providers/terminal-manager.service
 import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
 
 describe('PreferencesComponent', () => {
+  /* tslint:disable */
   let component: PreferencesComponent;
   let fixture: ComponentFixture<PreferencesComponent>;
   let langPrefService: LanguagePreferencesService;
   let terminalService: TerminalManagerService;
+  /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

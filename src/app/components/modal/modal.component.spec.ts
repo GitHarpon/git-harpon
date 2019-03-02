@@ -10,9 +10,11 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 
 describe('ModalComponent', () => {
+  /* tslint:disable */
   let component: ModalComponent;
   let fixture: ComponentFixture<ModalComponent>;
   let modalEl: DebugElement;
+  /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

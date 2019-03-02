@@ -10,9 +10,10 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 
 describe('DropdownComponent', () => {
+  /* tslint:disable */
   let component: DropdownComponent;
   let fixture: ComponentFixture<DropdownComponent>;
-  let inputEl: DebugElement;
+  /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
