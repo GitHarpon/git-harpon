@@ -24,9 +24,11 @@ import { CheckboxComponent } from './checkbox.component';
 import { By } from '@angular/platform-browser';
 
 describe('CheckboxComponent', () => {
+  /* tslint:disable */
   let component: CheckboxComponent;
   let fixture: ComponentFixture<CheckboxComponent>;
   let checkboxEl: DebugElement;
+  /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
