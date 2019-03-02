@@ -86,8 +86,9 @@ describe('DropdownComponent', () => {
   it('tests the getOptValue function with valid valueKey', fakeAsync( () => {
     const Opt = { key: 'test1key', value: 'test1val' };
     const Expected = Opt.value;
+    const Value = 'value';
 
-    component.valueKey = 'value';
+    component.valueKey = Value;
 
     const Result = component.getOptValue(Opt);
 
