@@ -32,8 +32,10 @@ import { TerminalManagerService } from '../../providers/terminal-manager.service
 import { MockAlternativeElectronService } from '../../models/MockAlternativeElectronService';
 
 describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+    /* tslint:disable */
+    let component: HomeComponent;
+    let fixture: ComponentFixture<HomeComponent>;
+    /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

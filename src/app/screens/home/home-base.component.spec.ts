@@ -31,10 +31,11 @@ import { MockTerminalManagerService } from '../../models/MockTerminalManagerServ
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 
 describe('HomeComponent', () => {
+  /* tslint:disable */
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let terminalService: TerminalManagerService;
-  let originalTimeout;
+  /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

@@ -16,8 +16,10 @@ import { MockRouter } from '../../models/MockRouter';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('FooterComponent', () => {
+  /* tslint:disable */
   let component: FooterComponent;
   let fixture: ComponentFixture<FooterComponent>;
+  /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

@@ -10,9 +10,11 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 
 describe('InputComponent', () => {
+   /* tslint:disable */
   let component: InputComponent;
   let fixture: ComponentFixture<InputComponent>;
   let inputEl: DebugElement;
+   /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
