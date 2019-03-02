@@ -8,41 +8,41 @@ import { MockTranslateService } from '../../models/MockTranslateService';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 
 describe('AccordionComponent', () => {
-let component: AccordionComponent;
-let fixture: ComponentFixture<AccordionComponent>;
-// let accordionEl: DebugElement;
+    /* tslint:disable */
+    let component: AccordionComponent;
+    let fixture: ComponentFixture<AccordionComponent>;
+    /* tslint:enable */
 
-beforeEach(async(() => {
-  TestBed.configureTestingModule({
-    declarations: [AccordionComponent],
-    imports: [
-        NgbModule
-    ],
-    providers: [
-        {
-        provide: TranslateService,
-        useClass: MockTranslateService
-        },
-        {
-        provide: ThemePreferencesService,
-        useClass: MockThemePreferencesService
-        }
-    ]
-  })
-  .compileComponents();
-}));
+    beforeEach(async(() => {
+    TestBed.configureTestingModule({
+        declarations: [AccordionComponent],
+        imports: [
+            NgbModule
+        ],
+        providers: [
+            {
+            provide: TranslateService,
+            useClass: MockTranslateService
+            },
+            {
+            provide: ThemePreferencesService,
+            useClass: MockThemePreferencesService
+            }
+        ]
+    })
+    .compileComponents();
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(AccordionComponent);
         component = fixture.componentInstance;
-        // accordionEl = fixture.debugElement.query(By.css('.gh-accordion'));
     });
 
     it('tests the component creation', () => {
         expect(component).toBeTruthy();
     });
 
-    it('tests if the component detect the disabled change', () => {
+    it('tests the component disabled change', () => {
         component.icon = {name: 'fa-laptop', isFab: false};
         fixture.detectChanges();
         component.disabled = true;
