@@ -17,4 +17,8 @@ export class MockElectronService {
   fsExistsSync(pathToCheck: string): boolean {
     return pathToCheck === 'path';
   }
+
+  ShellOpenExternal(link: string): boolean {
+    return true;
+  }
 }
