@@ -24,9 +24,11 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 describe('ButtonComponent', () => {
+  /* tslint:disable */
   let component: ButtonComponent;
   let fixture: ComponentFixture<ButtonComponent>;
   let buttonEl: DebugElement;
+  /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
