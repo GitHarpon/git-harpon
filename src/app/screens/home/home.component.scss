@@ -1,5 +1,9 @@
 @import '../../../variables.scss';
 
+.color-red {
+    color: $light-red;
+}
+
 .gh-button-bar {
     @include wX-hX(100%, 50px);
     

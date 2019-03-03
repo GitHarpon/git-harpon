@@ -4,13 +4,12 @@ import { ToastrService } from 'ngx-toastr';
 import { ResizeEvent } from 'angular-resizable-element';
 import { GitService } from '../../providers/git.service';
 import { ElectronService } from '../../providers/electron.service';
-import { initNgModule } from '@angular/core/src/view/ng_module';
 import { Subscription } from 'rxjs';
-import { ServiceResult } from '../../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
 import * as GitUrlParse from 'git-url-parse';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
+import { HttpsUser } from '../../models/HttpsUser';
 
 @Component({
   selector: 'app-home',
@@ -38,8 +37,7 @@ export class HomeComponent implements OnDestroy {
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
   newClonedRepoPath: string;
-  username: string;
-  password: string;
+  cloneHttpsUser: HttpsUser;
   homeLoading: boolean;
   openFolder: string;
   themePrefSubscription: Subscription;
@@ -48,6 +46,9 @@ export class HomeComponent implements OnDestroy {
   leftPanelVisible: boolean;
   graphVisible: boolean;
   rightPanelVisible: boolean;
+  cloneAuthErrored: boolean;
+  currentHttpsUserSubscription: Subscription;
+  currentHttpsUser: HttpsUser;
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
@@ -78,10 +79,22 @@ export class HomeComponent implements OnDestroy {
     );
     this.themePrefService.emitThemePreferencesSubject();
 
+    this.currentHttpsUserSubscription = this.gitService.httpsUserSubject.subscribe(
+      (newUser: HttpsUser) => {
+        this.currentHttpsUser = newUser;
+      }
+    );
+    this.gitService.emitHttpsUserSubject();
+
     this.dimensions = 20;
 
     this.openHomeView();
 
+
+    this.cloneHttpsUser = {
+      username: '',
+      password: ''
+    };
   }
 
   pullButtonClicked() {
@@ -137,7 +150,8 @@ export class HomeComponent implements OnDestroy {
       var Url = GitUrlParse(this.cloneUrl);
       if (Url.protocol === 'https') {
         this.projectModalVisible = false;
-        this.credInfoBarVisible = true;
+        this.homeLoading = true;
+        this.cloneHttps();
       } else if (Url.protocol === 'ssh') {
         this.toastr.error('Pas de ssh pour le moment', 'Erreur');
       } else {
@@ -151,9 +165,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   cloneHttps() {
-    this.credInfoBarVisible = false;
-    this.homeLoading = true;
-    return this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.username, this.password)
+    return this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.cloneHttpsUser)
       .then((data) => {
         this.homeLoading = false;
         this.openClonedInfoBarVisible = true;
@@ -161,9 +173,15 @@ export class HomeComponent implements OnDestroy {
         this.toastr.info(data.message, data.title);
       })
       .catch((data) => {
-        this.homeLoading = false;
-        this.resetCloneInputs();
-        this.toastr.error(data.message, data.title);
+        if (data.newData) {
+          this.cloneAuthErrored = this.credInfoBarVisible;
+          this.credInfoBarVisible = true;
+        } else {
+          this.projectModalLoading = false;
+          this.homeLoading = false;
+          this.resetCloneInputs();
+          this.toastr.error(data.message, data.title);
+        }
       });
   }
 
@@ -228,6 +246,7 @@ export class HomeComponent implements OnDestroy {
             this.openFolder = '';
             this.openHomeView();
             this.toastr.info(data.message, data.title);
+            this.gitService.setHttpsUser({ username: null, password: null });
           })
           .catch((data) => {
             this.projectModalLoading = false;
@@ -248,6 +267,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   openClonedRepo() {
+    this.gitService.setHttpsUser(this.cloneHttpsUser);
     this.gitService.setPath(this.newClonedRepoPath);
     this.closeClonedInfoBar();
   }
@@ -258,11 +278,16 @@ export class HomeComponent implements OnDestroy {
   }
 
   resetCloneInputs() {
-    this.username = '';
-    this.password = '';
+    this.cloneHttpsUser = {
+      username: '',
+      password: ''
+    };
     this.cloneUrl = '';
     this.cloneFolder = '';
     this.newClonedRepoPath = '';
+    this.cloneAuthErrored = false;
+    this.credInfoBarVisible = false;
+    this.homeLoading = false;
   }
 
   async openRecentRepo(recentPath: string) {
@@ -296,5 +321,6 @@ export class HomeComponent implements OnDestroy {
     this.pathSubscription.unsubscribe();
     this.repoNameSubscription.unsubscribe();
     this.recentProjectSubscription.unsubscribe();
+    this.currentHttpsUserSubscription.unsubscribe();
   }
 }

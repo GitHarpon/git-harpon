@@ -140,5 +140,6 @@
     "THEME": "Thème",
     "DARK_THEME": "Thème sombre",
     "LIGHT_THEME": "Thème clair",
-    "INDEPENDENT_THEME": "Indépendant du thème"
+    "INDEPENDENT_THEME": "Indépendant du thème",
+    "WRONG_CRED": "Informations erronées"
 }
