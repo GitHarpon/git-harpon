@@ -163,18 +163,32 @@ describe('HomeComponent', () => {
     expect(component.displaySearchInputValue()).toBeFalsy();
   });
 
-  it('tests the openHomeView function', () => {
-    const Path = '/path';
+  it('tests the openHomeView function with valid repoName', () => {
+    const RepoName = '/path';
     const HomeViewVisible = false;
-    component.path = Path;
+    component.repoName = RepoName;
     component.mainPanelVisible = !HomeViewVisible;
     component.leftPanelVisible = HomeViewVisible;
     component.graphVisible = HomeViewVisible;
     component.rightPanelVisible = HomeViewVisible;
     component.openHomeView();
+    expect(component.mainPanelVisible).toBeFalsy();
     expect(component.leftPanelVisible).toBeTruthy();
     expect(component.graphVisible).toBeTruthy();
     expect(component.rightPanelVisible).toBeTruthy();
+  });
+
+  it('tests the openHomeView function without repoName', () => {
+    const HomeViewVisible = false;
+    component.mainPanelVisible = !HomeViewVisible;
+    component.leftPanelVisible = HomeViewVisible;
+    component.graphVisible = HomeViewVisible;
+    component.rightPanelVisible = HomeViewVisible;
+    component.openHomeView();
+    expect(component.mainPanelVisible).toBeTruthy();
+    expect(component.leftPanelVisible).toBeFalsy();
+    expect(component.graphVisible).toBeFalsy();
+    expect(component.rightPanelVisible).toBeFalsy();
   });
 
   it('tests the closeHomeView function', () => {

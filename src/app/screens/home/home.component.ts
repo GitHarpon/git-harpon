@@ -63,6 +63,7 @@ export class HomeComponent implements OnDestroy {
     this.repoNameSubscription = this.gitService.repoNameSubject.subscribe(
       (repoName: any) => {
         this.repoName = repoName;
+        this.openHomeView();
       });
     this.gitService.emitRepoNameSubject();
 
@@ -87,9 +88,6 @@ export class HomeComponent implements OnDestroy {
     this.gitService.emitHttpsUserSubject();
 
     this.dimensions = 20;
-
-    this.openHomeView();
-
 
     this.cloneHttpsUser = {
       username: '',
@@ -270,6 +268,7 @@ export class HomeComponent implements OnDestroy {
     this.gitService.setHttpsUser(this.cloneHttpsUser);
     this.gitService.setPath(this.newClonedRepoPath);
     this.closeClonedInfoBar();
+    this.openHomeView();
   }
 
   closeClonedInfoBar() {
@@ -302,11 +301,13 @@ export class HomeComponent implements OnDestroy {
   }
 
   openHomeView() {
-    if (this.path) {
+    if (this.repoName) {
       this.mainPanelVisible = false;
       this.leftPanelVisible = true;
       this.graphVisible = true;
       this.rightPanelVisible = true;
+    } else {
+      this.mainPanelVisible = true;
     }
   }
 

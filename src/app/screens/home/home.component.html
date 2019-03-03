@@ -46,7 +46,7 @@
         </div>
 
         <!-- Main-Panel -->
-        <div class="gh-main-panel" [ngClass]="[currentTheme, (repoName ? 'gh-project-not-opened' : '')]">
+        <div *ngIf="mainPanelVisible" class="gh-main-panel" [ngClass]="[currentTheme, (repoName ? 'gh-project-not-opened' : '')]">
             <div class="row gh-main-panel-not-opened text-center">
                 <div class="offset-2 col-md-2 gh-main-panel-not-opened-button" [ngClass]="[currentTheme]" (click)="openProjectModal(0)">
                     <div class="mb-1">{{ 'OPEN.REPO' | translate }}</div>
