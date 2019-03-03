@@ -44,9 +44,7 @@ describe('AccordionComponent', () => {
 
     it('tests the component disabled change', () => {
         component.icon = {name: 'fa-laptop', isFab: false};
-        fixture.detectChanges();
         component.disabled = true;
-        fixture.detectChanges();
         expect(component.disabled).toBe(true);
     });
 
