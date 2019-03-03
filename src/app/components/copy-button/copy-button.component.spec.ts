@@ -10,7 +10,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { ClipboardService, ClipboardModule } from 'ngx-clipboard';
 
-describe('InputComponent', () => {
+describe('CopyButtonComponent', () => {
   let component: CopyButtonComponent;
   let fixture: ComponentFixture<CopyButtonComponent>;
   let inputEl: DebugElement;
@@ -47,18 +47,19 @@ describe('InputComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('tests the switchcopy function immediatly', fakeAsync(() => {
-    component.switchCopy();
-    expect(component.copy).toBeTruthy();
-    tick(600);
-  }));
+  it('tests the switchcopy function immediatly', (done) => {
+    component.switchCopy().then(() => {
+      expect(component.copy).toBeTruthy();
+      done();
+    });
+  });
 
-  it('test the copy function', fakeAsync(() => {
+  it('test the copy function', (done) => {
     const Content = true;
-    const Template = 'Salut';
+    const Template = 'Hello world';
 
     component.template = Template;
     expect(component.copyToClipboard()).toBeTruthy();
-    tick(600);
-  }));
+    done();
+  });
 });

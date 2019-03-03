@@ -25,17 +25,17 @@ export class CopyButtonComponent {
     this.themePrefService.emitThemePreferencesSubject();
   }
 
-  copyToClipboard() {
+  async copyToClipboard() {
     this.clipboardService.copyFromContent(this.template);
-    this.switchCopy();
-    return true;
+    return await this.switchCopy();
   }
 
-  switchCopy() {
+  async switchCopy() {
     this.copy = true;
-    setTimeout(time => {
+    await setTimeout(time => {
       this.copy = false;
     }, 500);
+    return true;
   }
 
 }
