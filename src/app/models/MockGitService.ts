@@ -6,17 +6,22 @@ import * as  GitUrlParse from 'git-url-parse';
 import { ServiceResult } from '../models/ServiceResult';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { HttpsUser } from './HttpsUser';
 
 @Injectable()
 export class MockGitService {
     pathSubject: Subject<any>;
     repoNameSubject: Subject<any>;
     recentProjectSubject: Subject<any>;
+    httpsUserSubject: Subject<HttpsUser>;
+    httpsUser: HttpsUser;
 
     constructor(private translate: TranslateService) {
         this.pathSubject = new Subject<any>();
         this.repoNameSubject = new Subject<any>();
         this.recentProjectSubject = new Subject<any[]>();
+        this.httpsUserSubject = new Subject<HttpsUser>();
+        this.setHttpsUser({ username: null, password: null});
     }
 
     emitPathSubject(path) {
@@ -29,6 +34,15 @@ export class MockGitService {
 
     emitRepoNameSubject(repo) {
         this.repoNameSubject.next(repo);
+    }
+
+    emitHttpsUserSubject() {
+        this.httpsUserSubject.next(this.httpsUser);
+    }
+
+    setHttpsUser(newUser: HttpsUser) {
+        this.httpsUser = newUser;
+        this.emitHttpsUserSubject();
     }
 
     async setPath(newPath) {
@@ -57,10 +71,10 @@ export class MockGitService {
         }
     }
 
-    async cloneHttps(url: GitUrlParse, folder: string, username: string, password: string) {
+    async cloneHttps(url: GitUrlParse, folder: string, httpsUser: HttpsUser) {
         return new Promise<ServiceResult>((resolve, reject) => {
             if (url && folder === 'path') {
-                if (username === 'username' && password === 'password') {
+                if (httpsUser.username === 'username' && httpsUser.password === 'password') {
                     const REPOPATH = '/path';
                     resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                         this.translate.instant('CLONE.DONE'), REPOPATH));
@@ -69,8 +83,13 @@ export class MockGitService {
                     this.translate.instant('CLONE.ERROR')));
                 }
             } else {
-                reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                    this.translate.instant('CLONE.ERROR')));
+                if (httpsUser.username === 'username' && httpsUser.password === 'password') {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('CLONE.ERROR'), false));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('CLONE.ERROR'), true));
+                }
             }
         });
     }
