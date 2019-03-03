@@ -40,6 +40,9 @@ import { ElectronService } from '../../providers/electron.service';
 import { MockElectronService } from '../../models/MockElectronService';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
+import { LeftPanelComponent } from '../left-panel/left-panel.component';
+import { GraphComponent } from '../graph/graph.component';
+import { RightPanelComponent } from '../right-panel/right-panel.component';
 
 describe('PreferencesComponent', () => {
   /* tslint:disable */
@@ -68,6 +71,9 @@ describe('PreferencesComponent', () => {
         InputComponent,
         CopyButtonComponent,
         InputNumberComponent,
+        LeftPanelComponent,
+        GraphComponent,
+        RightPanelComponent
       ],
       imports: [
         FormsModule,

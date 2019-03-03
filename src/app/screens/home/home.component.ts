@@ -44,6 +44,10 @@ export class HomeComponent implements OnDestroy {
   openFolder: string;
   themePrefSubscription: Subscription;
   currentTheme: string;
+  mainPanelVisible: boolean;
+  leftPanelVisible: boolean;
+  graphVisible: boolean;
+  rightPanelVisible: boolean;
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
@@ -75,6 +79,9 @@ export class HomeComponent implements OnDestroy {
     this.themePrefService.emitThemePreferencesSubject();
 
     this.dimensions = 20;
+
+    this.openHomeView();
+
   }
 
   pullButtonClicked() {
@@ -116,22 +123,6 @@ export class HomeComponent implements OnDestroy {
       return true;
     }
     return false;
-  }
-
-  validate(event: ResizeEvent): boolean {
-    if (
-      event.rectangle.width &&
-      (event.rectangle.width < this.dimensions)
-    ) {
-      return false;
-    }
-    return true;
-  }
-
-  onResizeEnd(event: ResizeEvent): void {
-    this.style = {
-      width: `${event.rectangle.width}px`
-    };
   }
 
   cloneBrowse() {
@@ -209,6 +200,7 @@ export class HomeComponent implements OnDestroy {
         this.initName = '';
         this.initLocation = '';
         this.fullPath = '';
+        this.openHomeView();
       })
       .catch((result) => {
         this.toastr.error(result.message, result.title, {
@@ -234,6 +226,7 @@ export class HomeComponent implements OnDestroy {
             this.projectModalLoading = false;
             this.projectModalVisible = false;
             this.openFolder = '';
+            this.openHomeView();
             this.toastr.info(data.message, data.title);
           })
           .catch((data) => {
@@ -280,6 +273,23 @@ export class HomeComponent implements OnDestroy {
   closeRepo() {
     this.path = undefined;
     this.repoName = undefined;
+    this.closeHomeView();
+  }
+
+  openHomeView() {
+    if (this.path) {
+      this.mainPanelVisible = false;
+      this.leftPanelVisible = true;
+      this.graphVisible = true;
+      this.rightPanelVisible = true;
+    }
+  }
+
+  closeHomeView() {
+    this.mainPanelVisible = true;
+    this.leftPanelVisible = false;
+    this.graphVisible = false;
+    this.rightPanelVisible = false;
   }
 
   ngOnDestroy() {

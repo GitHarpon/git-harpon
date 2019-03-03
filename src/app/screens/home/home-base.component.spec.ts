@@ -29,6 +29,9 @@ import { InfoBarComponent } from '../../components/info-bar/info-bar.component';
 import { MockRouter } from '../../models/MockRouter';
 import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
+import { LeftPanelComponent } from '../left-panel/left-panel.component';
+import { GraphComponent } from '../graph/graph.component';
+import { RightPanelComponent } from '../right-panel/right-panel.component';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -48,7 +51,10 @@ describe('HomeComponent', () => {
         FooterComponent,
         IconButtonComponent,
         LoaderComponent,
-        InfoBarComponent
+        InfoBarComponent,
+        LeftPanelComponent,
+        GraphComponent,
+        RightPanelComponent
       ],
       imports: [
         FormsModule,
@@ -157,66 +163,30 @@ describe('HomeComponent', () => {
     expect(component.displaySearchInputValue()).toBeFalsy();
   });
 
-  it('tests the validate function with bad status', () => {
-    const TestEvent: ResizeEvent =
-    {
-      edges:
-      {
-        right: 2
-      },
-      rectangle:
-      {
-        top: 50,
-        bottom: 750,
-        left: 0,
-        right: 220,
-        height: 700,
-        width: 5
-      }
-    };
-    component.dimensions = 20;
-    expect(component.validate(TestEvent)).toBeFalsy();
+  it('tests the openHomeView function', () => {
+    const Path = '/path';
+    const HomeViewVisible = false;
+    component.path = Path;
+    component.mainPanelVisible = !HomeViewVisible;
+    component.leftPanelVisible = HomeViewVisible;
+    component.graphVisible = HomeViewVisible;
+    component.rightPanelVisible = HomeViewVisible;
+    component.openHomeView();
+    expect(component.leftPanelVisible).toBeTruthy();
+    expect(component.graphVisible).toBeTruthy();
+    expect(component.rightPanelVisible).toBeTruthy();
   });
 
-  it('tests the validate function with good status', () => {
-    const TestEvent: ResizeEvent =
-    {
-      edges:
-      {
-        right: 2
-      },
-      rectangle:
-      {
-        top: 50,
-        bottom: 750,
-        left: 0,
-        right: 220,
-        height: 700,
-        width: 220
-      }
-    };
-    component.dimensions = 20;
-    expect(component.validate(TestEvent)).toBeTruthy();
-  });
-
-  it('tests the onResizeEnd function', () => {
-    const TestEvent: ResizeEvent =
-    {
-      edges:
-      {
-        right: 2
-      },
-      rectangle:
-      {
-        top: 50,
-        bottom: 800,
-        left: 0,
-        right: 300,
-        height: 500,
-        width: 220
-      }
-    };
-    component.onResizeEnd(TestEvent);
-    expect(component.style).not.toBeUndefined();
+  it('tests the closeHomeView function', () => {
+    const HomeViewVisible = true;
+    component.mainPanelVisible = !HomeViewVisible;
+    component.leftPanelVisible = HomeViewVisible;
+    component.graphVisible = HomeViewVisible;
+    component.rightPanelVisible = HomeViewVisible;
+    component.closeHomeView();
+    expect(component.mainPanelVisible).toBeTruthy();
+    expect(component.leftPanelVisible).toBeFalsy();
+    expect(component.graphVisible).toBeFalsy();
+    expect(component.rightPanelVisible).toBeFalsy();
   });
 });

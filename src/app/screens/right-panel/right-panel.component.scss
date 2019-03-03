@@ -1,0 +1,21 @@
+@import '../../../variables.scss';
+
+.right-panel {
+    display:inline-block;
+    height: calc(100% - 50px);
+    width: 20%;
+    text-align:center;
+    padding: $gap-sm;
+    
+    &.dark {
+        background: $light-grey;
+        color: $white;
+        border-top: 1px solid $dark;
+    }
+
+    &.light {
+        background: $light-grey-light;
+        color: $dark;
+        border-top: 1px solid $border-dark-grey-light;
+    }
+}
