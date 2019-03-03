@@ -28,6 +28,7 @@ describe('IconButtonComponent', () => {
   let fixture: ComponentFixture<IconButtonComponent>;
   let inputEl: DebugElement;
   let buttonEl: DebugElement;
+  let icon: { name: String, isFab: Boolean };
   /* tslint:enable */
 
   beforeEach(async(() => {
@@ -80,6 +81,8 @@ describe('IconButtonComponent', () => {
   });
 
   it('tests the execClick function', () => {
+    icon =  { name: 'fa-github', isFab: false };
+    component.icon = icon;
     const Evt = new Event('click');
     spyOn(component.buttonClicked, 'emit');
     buttonEl.nativeElement.dispatchEvent(Evt);
