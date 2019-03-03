@@ -11,8 +11,10 @@ import { MockThemePreferencesService } from '../../models/MockThemePreferencesSe
 import { ClipboardService, ClipboardModule } from 'ngx-clipboard';
 
 describe('CopyButtonComponent', () => {
+  /* tslint:disable */
   let component: CopyButtonComponent;
   let fixture: ComponentFixture<CopyButtonComponent>;
+  /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
