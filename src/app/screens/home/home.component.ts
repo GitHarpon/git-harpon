@@ -115,6 +115,7 @@ export class HomeComponent implements OnDestroy {
     if (this.repoName) {
       return true;
     }
+    return false;
   }
 
   validate(event: ResizeEvent): boolean {
