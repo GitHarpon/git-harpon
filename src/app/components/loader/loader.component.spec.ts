@@ -46,7 +46,6 @@ describe('LoaderComponent', () => {
 
     it('tests the component loading value', () => {
       component.loading = true;
-      fixture.detectChanges();
       expect(component.loading).toBe(true);
     });
 
