@@ -7,7 +7,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './right-panel.component.html',
   styleUrls: ['./right-panel.component.scss']
 })
-export class RightPanelComponent implements OnInit {
+export class RightPanelComponent {
   themePrefSubscription: Subscription;
   currentTheme: string;
 
@@ -19,8 +19,5 @@ export class RightPanelComponent implements OnInit {
     );
     this.themePrefService.emitThemePreferencesSubject();
    }
-
-  ngOnInit() {
-  }
-
+   
 }

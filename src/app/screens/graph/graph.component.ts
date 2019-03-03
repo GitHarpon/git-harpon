@@ -7,7 +7,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.scss']
 })
-export class GraphComponent implements OnInit {
+export class GraphComponent {
   themePrefSubscription: Subscription;
   currentTheme: string;
 
@@ -19,8 +19,5 @@ export class GraphComponent implements OnInit {
     );
     this.themePrefService.emitThemePreferencesSubject();
    }
-
-  ngOnInit() {
-  }
 
 }
