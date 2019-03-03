@@ -13,7 +13,6 @@ import { ClipboardService, ClipboardModule } from 'ngx-clipboard';
 describe('CopyButtonComponent', () => {
   let component: CopyButtonComponent;
   let fixture: ComponentFixture<CopyButtonComponent>;
-  let inputEl: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,7 +39,6 @@ describe('CopyButtonComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CopyButtonComponent);
     component = fixture.componentInstance;
-    inputEl = fixture.debugElement.query(By.css('input.gh-copy-button'));
   });
 
   it('tests the component creation', () => {
@@ -54,12 +52,15 @@ describe('CopyButtonComponent', () => {
     });
   });
 
-  it('test the copy function', (done) => {
+  it('test the copyToClipboard function', (done) => {
     const Content = true;
     const Template = 'Hello world';
 
     component.template = Template;
-    expect(component.copyToClipboard()).toBeTruthy();
-    done();
+    component.copyToClipboard().then(() => {
+      expect(component.copy).toBeTruthy();
+      expect(component.template).toEqual(Template);
+      done();
+    });
   });
 });
