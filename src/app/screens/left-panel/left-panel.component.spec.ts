@@ -39,4 +39,15 @@ describe('LeftPanelComponent', () => {
   it('tests the component creation', () => {
     expect(component).toBeTruthy();
   });
+
+  it('tests the ngOnInit function', () => {
+    component.ngOnInit();
+    expect(component.themePrefSubscription.closed).toBeFalsy();
+  });
+
+  it('tests the ngOnDestroy function', () => {
+    component.ngOnInit();
+    component.ngOnDestroy();
+    expect(component.themePrefSubscription.closed).toBeTruthy();
+  });
 });
