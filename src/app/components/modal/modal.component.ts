@@ -8,7 +8,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent {
 
   @Input() large: Boolean;
   @Input() medium: Boolean;
@@ -40,9 +40,6 @@ export class ModalComponent implements OnInit {
     );
     this.themePrefService.emitThemePreferencesSubject();
    }
-
-  ngOnInit() {
-  }
 
   closeModal() {
     if (!this.loading) {

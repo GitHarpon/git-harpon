@@ -58,8 +58,23 @@ describe('ModalComponent', () => {
     expect(ClassList.contains('visible')).toBeFalsy();
   });
 
-  it('tests the openModal function', () => {
+  it('tests the closeModal function with loading set as false', () => {
+    const Visible = false;
+    const Loading = false;
+    component.visible = Visible;
+    component.loading = Loading;
     component.closeModal();
     expect(component.visible).toBeFalsy();
+    expect(component.loading).toBeFalsy();
+  });
+
+  it('tests the closeModal function with loading set as true', () => {
+    const Visible = true;
+    const Loading = true;
+    component.visible = Visible;
+    component.loading = Loading;
+    component.closeModal();
+    expect(component.visible).toBeTruthy();
+    expect(component.visible).toBeTruthy();
   });
 });
