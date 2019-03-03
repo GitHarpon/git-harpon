@@ -42,6 +42,10 @@ export class HomeComponent implements OnDestroy {
   openFolder: string;
   themePrefSubscription: Subscription;
   currentTheme: string;
+  mainPanelVisible: boolean;
+  leftPanelVisible: boolean;
+  graphVisible: boolean;
+  rightPanelVisible: boolean;
   cloneAuthErrored: boolean;
   currentHttpsUserSubscription: Subscription;
   currentHttpsUser: HttpsUser;
@@ -59,6 +63,7 @@ export class HomeComponent implements OnDestroy {
     this.repoNameSubscription = this.gitService.repoNameSubject.subscribe(
       (repoName: any) => {
         this.repoName = repoName;
+        this.openHomeView();
       });
     this.gitService.emitRepoNameSubject();
 
@@ -129,22 +134,6 @@ export class HomeComponent implements OnDestroy {
       return true;
     }
     return false;
-  }
-
-  validate(event: ResizeEvent): boolean {
-    if (
-      event.rectangle.width &&
-      (event.rectangle.width < this.dimensions)
-    ) {
-      return false;
-    }
-    return true;
-  }
-
-  onResizeEnd(event: ResizeEvent): void {
-    this.style = {
-      width: `${event.rectangle.width}px`
-    };
   }
 
   cloneBrowse() {
@@ -228,6 +217,7 @@ export class HomeComponent implements OnDestroy {
         this.initName = '';
         this.initLocation = '';
         this.fullPath = '';
+        this.openHomeView();
       })
       .catch((result) => {
         this.toastr.error(result.message, result.title, {
@@ -253,6 +243,7 @@ export class HomeComponent implements OnDestroy {
             this.projectModalLoading = false;
             this.projectModalVisible = false;
             this.openFolder = '';
+            this.openHomeView();
             this.toastr.info(data.message, data.title);
             this.gitService.setHttpsUser({ username: null, password: null });
           })
@@ -278,6 +269,7 @@ export class HomeComponent implements OnDestroy {
     this.gitService.setHttpsUser(this.cloneHttpsUser);
     this.gitService.setPath(this.newClonedRepoPath);
     this.closeClonedInfoBar();
+    this.openHomeView();
   }
 
   closeClonedInfoBar() {
@@ -306,6 +298,25 @@ export class HomeComponent implements OnDestroy {
   closeRepo() {
     this.path = undefined;
     this.repoName = undefined;
+    this.closeHomeView();
+  }
+
+  openHomeView() {
+    if (this.repoName) {
+      this.mainPanelVisible = false;
+      this.leftPanelVisible = true;
+      this.graphVisible = true;
+      this.rightPanelVisible = true;
+    } else {
+      this.mainPanelVisible = true;
+    }
+  }
+
+  closeHomeView() {
+    this.mainPanelVisible = true;
+    this.leftPanelVisible = false;
+    this.graphVisible = false;
+    this.rightPanelVisible = false;
   }
 
   ngOnDestroy() {

@@ -29,6 +29,9 @@ import { InfoBarComponent } from '../../components/info-bar/info-bar.component';
 import { MockRouter } from '../../models/MockRouter';
 import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
+import { LeftPanelComponent } from '../left-panel/left-panel.component';
+import { GraphComponent } from '../graph/graph.component';
+import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { HttpsUser } from '../../models/HttpsUser';
 
 describe('HomeComponent', () => {
@@ -49,7 +52,10 @@ describe('HomeComponent', () => {
         FooterComponent,
         IconButtonComponent,
         LoaderComponent,
-        InfoBarComponent
+        InfoBarComponent,
+        LeftPanelComponent,
+        GraphComponent,
+        RightPanelComponent
       ],
       imports: [
         FormsModule,

@@ -30,6 +30,9 @@ import { MockRouter } from '../../models/MockRouter';
 import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { MockAlternativeElectronService } from '../../models/MockAlternativeElectronService';
+import { LeftPanelComponent } from '../left-panel/left-panel.component';
+import { GraphComponent } from '../graph/graph.component';
+import { RightPanelComponent } from '../right-panel/right-panel.component';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -48,7 +51,10 @@ describe('HomeComponent', () => {
         FooterComponent,
         IconButtonComponent,
         LoaderComponent,
-        InfoBarComponent
+        InfoBarComponent,
+        LeftPanelComponent,
+        GraphComponent,
+        RightPanelComponent
       ],
       imports: [
         FormsModule,

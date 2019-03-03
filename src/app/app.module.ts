@@ -51,6 +51,9 @@ import { CopyButtonComponent } from './components/copy-button/copy-button.compon
 import { PreferencesComponent } from './screens/preferences/preferences.component';
 import { AccordionComponent } from './components/accordion/accordion.component';
 import { InfoBarComponent } from './components/info-bar/info-bar.component';
+import { LeftPanelComponent } from './screens/left-panel/left-panel.component';
+import { RightPanelComponent } from './screens/right-panel/right-panel.component';
+import { GraphComponent } from './screens/graph/graph.component';
 
 
 // AoT requires an exported function for factories
@@ -78,7 +81,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     CopyButtonComponent,
     PreferencesComponent,
     AccordionComponent,
-    InfoBarComponent
+    InfoBarComponent,
+    LeftPanelComponent,
+    RightPanelComponent,
+    GraphComponent
   ],
   imports: [
     ReactiveFormsModule,
