@@ -187,7 +187,7 @@
 
 <app-footer [devRedirect]="{ icon: 'fa-toolbox', link: '/toolbox' }"></app-footer>
 
-<!-- Info bar credentials -->
+<!-- Clone Info bar credentials -->
 <app-info-bar [visible]="credInfoBarVisible">
     <span *ngIf="!cloneAuthErrored">{{ 'LOG_TO_CONTINUE' | translate }}</span>
     <span *ngIf="cloneAuthErrored" class="color-red">{{ 'WRONG_CRED' | translate }}</span>

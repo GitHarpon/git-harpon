@@ -173,7 +173,7 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
-  cloneHttps() {
+  async cloneHttps() {
     return this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.cloneHttpsUser)
       .then((data) => {
         this.homeLoading = false;
@@ -184,6 +184,7 @@ export class HomeComponent implements OnDestroy {
       .catch((data) => {
         if (data.newData) {
           this.cloneAuthErrored = this.credInfoBarVisible;
+          this.cloneHttpsUser.password = '';
           this.credInfoBarVisible = true;
         } else {
           this.projectModalLoading = false;
