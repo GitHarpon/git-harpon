@@ -88,6 +88,7 @@ export class ToolboxComponent implements OnInit {
       'dark-grey',
       'light-grey',
       'blue-grey',
+      'low-dark',
       'version'
     ];
 

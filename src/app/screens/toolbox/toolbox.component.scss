@@ -93,6 +93,9 @@ a.link-dark {
     &.blue-grey {
         @include bg-color($blue-grey);
     }
+    &.low-dark {
+        @include bg-color($low-dark);
+    }
 
     // LIGHT THEME
     &.dark-blue-light {

@@ -240,14 +240,6 @@ describe('ToolboxComponent', () => {
     });
   });
 
-
-
-
-
-
-
-
-
   it('tests the openInfoBar function', () => {
     component.infoBarVisible = false;
     component.openInfoBar();
