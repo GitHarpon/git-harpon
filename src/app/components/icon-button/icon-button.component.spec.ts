@@ -26,7 +26,6 @@ describe('IconButtonComponent', () => {
   /* tslint:disable */
   let component: IconButtonComponent;
   let fixture: ComponentFixture<IconButtonComponent>;
-  let inputEl: DebugElement;
   let buttonEl: DebugElement;
   let icon: { name: String, isFab: Boolean };
   /* tslint:enable */
