@@ -40,8 +40,6 @@ describe('ToolboxComponent', () => {
   /* tslint:disable */
   let component: ToolboxComponent;
   let fixture: ComponentFixture<ToolboxComponent>;
-  let inputEl: DebugElement;
-  let buttonEl: DebugElement;
   /* tslint:enable */
 
   beforeEach(async(() => {
@@ -62,8 +60,6 @@ describe('ToolboxComponent', () => {
         DropdownComponent,
         IconButtonComponent,
         MonacoEditorWrapperComponent,
-        // NgScrollbarModule
-        // ContextMenuComponent
       ],
       imports: [
         FormsModule,
@@ -113,29 +109,91 @@ describe('ToolboxComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('tests the ngOnInit function', () => {
-  //   component.ngOnInit();
-  //   expect(component.cbValue).toBeDefined();
-  //   expect(component.inputValue).toBeDefined();
-  //   expect(component.inputEmptyValue).toBeDefined();
+  it('tests the ngOnInit function', () => {
+    component.ngOnInit();
+    expect(component.cbValue).toBeDefined();
+    expect(component.inputValue).toBeDefined();
+    expect(component.inputEmptyValue).toBeDefined();
 
-  //   expect(component.modalTabSelectedIndex).toBeDefined();
-  //   expect(component.passwordInput).toBeDefined();
+    expect(component.modalTabSelectedIndex).toBeDefined();
+    expect(component.passwordInput).toBeDefined();
 
-  //   expect(component.inputValueNumber).toBeDefined();
-  //   expect(component.inputMinMaxValueNumber).toBeDefined();
-  //   expect(component.max).toBeDefined();
-  //   expect(component.min).toBeDefined();
-  //   expect(component.dropdownValue).toBeDefined();
+    expect(component.inputValueNumber).toBeDefined();
+    expect(component.inputMinMaxValueNumber).toBeDefined();
+    expect(component.max).toBeDefined();
+    expect(component.min).toBeDefined();
+    expect(component.dropdownValue).toBeDefined();
 
-  //   expect(component.darkColorList).toBeDefined();
-  //   expect(component.lightColorList).toBeDefined();
-  //   expect(component.independentColorList).toBeDefined();
-  //   expect(component.fsList).toBeDefined();
-  //   expect(component.faList).toBeDefined();
-  //   expect(component.dataDropdownExample).toBeDefined();
-  //   expect(component.dataDropdownExampleTwo).toBeDefined();
-  //   expect(component.dataDropdownExampleTwo).toBeDefined();
-  //   expect(component.dataDropdownExampleTwo).toBeDefined();
-  // });
+    expect(component.darkColorList).toBeDefined();
+    expect(component.lightColorList).toBeDefined();
+    expect(component.independentColorList).toBeDefined();
+    expect(component.fsList).toBeDefined();
+    expect(component.faList).toBeDefined();
+    expect(component.dataDropdownExample).toBeDefined();
+    expect(component.dataDropdownExampleTwo).toBeDefined();
+    expect(component.dataDropdownExampleTwo).toBeDefined();
+    expect(component.dataDropdownExampleTwo).toBeDefined();
+  });
+
+  it('tests the openFontAwesome function', () => {
+    const Result = component.openFontAwesome();
+
+    expect(Result).toBeTruthy();
+  });
+
+  it('tests the setCheckValue function', () => {
+    component.cbValue = false;
+
+    component.setCheckValue();
+
+    expect(component.cbValue).toBeTruthy();
+  });
+
+  it('tests the displayCbValue function', () => {
+    const Result = component.displayCbValue();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the primary function', () => {
+    const Result = component.primary();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the success function', () => {
+    const Result = component.success();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the danger function', () => {
+    const Result = component.danger();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the menubar function', () => {
+    const Result = component.menubar();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the githubButtonClicked function', () => {
+    const Result = component.githubButtonClicked();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the gitlabButtonClicked function', () => {
+    const Result = component.gitlabButtonClicked();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the testInput function', () => {
+    const Result = component.testInput();
+
+    expect(Result).toBeDefined();
+  });
 });
