@@ -81,8 +81,10 @@ describe('IconButtonComponent', () => {
   });
 
   it('tests the execClick function', () => {
+    const Value = 'ICON-BUTTON-TEST';
     icon =  { name: 'fa-github', isFab: false };
     component.icon = icon;
+    component.value = Value;
     const Evt = new Event('click');
     spyOn(component.buttonClicked, 'emit');
     buttonEl.nativeElement.dispatchEvent(Evt);
