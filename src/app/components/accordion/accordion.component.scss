@@ -8,24 +8,24 @@
     }
 
     & /deep/ .card {
-        @include wX(340px);
-        margin-bottom: 76px;
+        @include wX(100%);
         border: 0;
     }
     
-    & /deep/ .card-block {
+    /*& /deep/ .card-block {
         @include wX(340px);
-    }
+    }*/
     
     & /deep/ .card-header {
-        @include wX(340px);
+        //@include wX(340px);
         padding: 0;
         border-radius: 0 !important;
     }
     
     & /deep/ .card-body {
-        @include wX(340px);
+        //@include wX(340px);
         font-size: 12px;
+        padding: 0;
     }
     
     & /deep/ .btn-link {
@@ -43,13 +43,14 @@
 
 .gh-accordion.dark {
     & /deep/ .card {
-        border: 1px solid $light-grey;
+        border: 0;
         background: $light-grey;
     }
     
     & /deep/ .card-header {
         background: $light-grey;
-        border: 1px solid $dark-grey;
+        padding: 0;
+        border-radius: 0 !important;
 
         & .icon-dark {
             color: $muted-white;
@@ -57,7 +58,7 @@
     }
     
     & /deep/ .card-body {
-        background: $dark-grey;
+        background: #272A31;
         color: $white;
         border: 1px solid $dark-grey;
     }

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { Subscription } from 'rxjs';
+import { GitService } from '../../providers/git.service';
 
 @Component({
   selector: 'app-left-panel',
@@ -10,8 +11,10 @@ import { Subscription } from 'rxjs';
 export class LeftPanelComponent implements OnInit, OnDestroy {
   themePrefSubscription: Subscription;
   currentTheme: string;
+  localBranches: any;
+  remoteBranches: any;
 
-  constructor(private themePrefService: ThemePreferencesService) { }
+  constructor(private themePrefService: ThemePreferencesService, private gitService: GitService) { }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -20,6 +23,14 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
+
+    this.gitService.getLocalBranches().then((localBranches) => {
+      this.localBranches = localBranches;
+    });
+
+    this.gitService.getRemoteBranches().then((remoteBranches) => {
+      this.remoteBranches = remoteBranches;
+    });
   }
 
   ngOnDestroy() {
