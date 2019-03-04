@@ -34,7 +34,7 @@ export class FooterComponent implements OnInit {
   }
 
   openGithub() {
-    return this.electronService.ShellOpenExternal('https://github.com/GitHarpon/git-harpon');
+    return this.electronService.shellOpenExternal('https://github.com/GitHarpon/git-harpon');
   }
 
   getHomeTranslation() {
