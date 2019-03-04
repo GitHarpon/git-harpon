@@ -18,7 +18,7 @@ export class MockElectronService {
     return pathToCheck === 'path';
   }
 
-  ShellOpenExternal(link: string): boolean {
+  shellOpenExternal(link: string): boolean {
     return true;
   }
 }

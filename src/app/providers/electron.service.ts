@@ -63,7 +63,7 @@ export class ElectronService {
     return this.fs.existsSync(pathToCheck);
   }
 
-  ShellOpenExternal(link: string, options?: OpenExternalOptions, callback?: (error: Error) => void): boolean {
+  shellOpenExternal(link: string, options?: OpenExternalOptions, callback?: (error: Error) => void): boolean {
     return this.shell.openExternal(link);
   }
 }
