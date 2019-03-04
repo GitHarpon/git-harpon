@@ -15,7 +15,7 @@ import { DropdownComponent } from '../../components/dropdown/dropdown.component'
 import { CheckboxComponent } from '../../components/checkbox/checkbox.component';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { MatTabsModule } from '@angular/material';
+import { MatTabsModule, MatIconModule } from '@angular/material';
 import { ResizableModule } from 'angular-resizable-element';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -28,8 +28,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { ToolboxComponent } from './toolbox.component';
 import { DebugElement } from '@angular/core';
-import { ContextMenuModule} from 'ngx-contextmenu';
+import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 import { By } from '@angular/platform-browser';
+import { ElectronService } from '../../providers/electron.service';
+import { MockElectronService } from '../../models/MockElectronService';
+import { ClipboardService, ClipboardModule } from 'ngx-clipboard';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 describe('ToolboxComponent', () => {
   /* tslint:disable */
@@ -56,7 +61,8 @@ describe('ToolboxComponent', () => {
         CheckboxComponent,
         DropdownComponent,
         IconButtonComponent,
-        MonacoEditorWrapperComponent
+        MonacoEditorWrapperComponent,
+        // NgScrollbarModule
         // ContextMenuComponent
       ],
       imports: [
@@ -71,7 +77,12 @@ describe('ToolboxComponent', () => {
         NgbModule,
         RouterTestingModule,
         BrowserAnimationsModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        NgScrollbarModule,
+        MatIconModule,
+        ClipboardModule,
+        ContextMenuModule,
+        BrowserDynamicTestingModule
       ],
       providers: [
         {
@@ -81,7 +92,13 @@ describe('ToolboxComponent', () => {
         {
           provide: TranslateService,
           useClass: MockTranslateService
-        }
+        },
+        {
+          provide: ElectronService,
+          useClass: MockElectronService
+        },
+        ClipboardService,
+        ContextMenuService
       ]
     })
       .compileComponents();
