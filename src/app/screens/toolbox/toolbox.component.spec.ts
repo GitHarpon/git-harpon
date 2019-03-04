@@ -142,14 +142,19 @@ describe('ToolboxComponent', () => {
   });
 
   it('tests the setCheckValue function', () => {
-    component.cbValue = false;
-
     component.setCheckValue();
 
     expect(component.cbValue).toBeTruthy();
   });
 
-  it('tests the displayCbValue function', () => {
+  it('tests the displayCbValue function with cbValue', () => {
+    component.cbValue = true;
+    const Result = component.displayCbValue();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the displayCbValue function without cbValue', () => {
     const Result = component.displayCbValue();
 
     expect(Result).toBeDefined();
@@ -195,6 +200,138 @@ describe('ToolboxComponent', () => {
     const Value = 'axuluphrum';
     component.inputValue = Value;
     const Result = component.testInput();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the changeInputValue function', () => {
+    const Value = 'texteto';
+    component.inputValue = Value;
+    component.changeInputValue();
+
+    expect(component.inputValue).toEqual('textetoadd');
+  });
+
+  it('tests the setLoading function', () => {
+    component.loading = true;
+    component.setLoading();
+
+    expect(component.loading).toEqual(false);
+  });
+
+  it('tests the openRegularModal function', () => {
+    component.modalRegularVisible = false;
+    component.openRegularModal();
+
+    expect(component.modalRegularVisible).toEqual(true);
+  });
+
+  it('tests the openFullscreenModal function', () => {
+    component.modalFullscreenVisible = false;
+    component.openFullscreenModal();
+
+    expect(component.modalFullscreenVisible).toEqual(true);
+  });
+
+  it('tests the openLoadingModal function with success', (done) => {
+    component.openLoadingModal().then((result) => {
+      expect(result).toBeFalsy();
+      done();
+    });
+  });
+
+
+
+
+
+
+
+
+
+  it('tests the openInfoBar function', () => {
+    component.infoBarVisible = false;
+    component.openInfoBar();
+
+    expect(component.infoBarVisible).toEqual(true);
+  });
+
+  it('tests the closeInfoBar function', () => {
+    component.infoBarVisible = true;
+    component.closeInfoBar();
+
+    expect(component.infoBarVisible).toEqual(false);
+  });
+
+  it('tests the displayModalInputValue function', () => {
+    const Value = 'axuluphrum';
+    component.modalInputValue = Value;
+    const Result = component.displayModalInputValue();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the checkIfCloseModal function zero case', () => {
+    const Value = { index: 0 };
+    component.checkIfCloseModal(Value);
+
+    expect(component.modalTabSelectedIndex).toEqual(1);
+    expect(component.modalFullscreenVisible).toEqual(false);
+  });
+
+  it('tests the checkIfCloseModal function not zero case', () => {
+    const Value = { index: 1 };
+    const MTSI = component.modalTabSelectedIndex;
+    const MFV = component.modalFullscreenVisible;
+    component.checkIfCloseModal(Value);
+
+    expect(component.modalTabSelectedIndex).toEqual(MTSI);
+    expect(component.modalFullscreenVisible).toEqual(MFV);
+  });
+
+  it('tests the testInputNumber function', () => {
+    component.inputValueNumber = 1;
+    const Result = component.testInputNumber();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the setInputNumber function', () => {
+    component.setInputNumber();
+
+    expect(component.inputValueNumber).toEqual(1000);
+  });
+
+  it('tests the testDropdown function', () => {
+    const Value = 'axuluphrum';
+    component.dropdownValue = Value;
+    const Result = component.testDropdown();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the testCopyButton function', () => {
+    const Value = 'Contenu copié';
+    const Result = component.testCopyButton();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the testAleatDropdown function', () => {
+    const DataDropdownExample = [
+      { key: 'orange', value: 'Orange' },
+      { key: 'banana', value: 'Banane' },
+      { key: 'cherry', value: 'Cerise' },
+      { key: 'pear', value: 'Poire' },
+    ];
+    component.dataDropdownExample = DataDropdownExample;
+    const Result = component.testAleatDropdown();
+
+    expect(component.dropdownValue).toBe(component.dataDropdownExample[Result].key);
+  });
+
+  it('tests the testDropdown function', () => {
+    const Value = 'axuluphrum';
+    const Result = component.showMessage(Value);
 
     expect(Result).toBeDefined();
   });

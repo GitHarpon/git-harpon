@@ -250,7 +250,7 @@ export class ToolboxComponent implements OnInit {
   }
 
   changeInputValue() {
-    this.inputValue += 'daa';
+    this.inputValue += 'add';
   }
 
   setLoading() {
@@ -311,7 +311,9 @@ export class ToolboxComponent implements OnInit {
   }
 
   testAleatDropdown() {
-    this.dropdownValue = this.dataDropdownExample[Math.floor(Math.random() * 4)].key;
+    const Random = Math.floor(Math.random() * 4);
+    this.dropdownValue = this.dataDropdownExample[Random].key;
+    return Random;
   }
 
   showMessage(message: string) {
