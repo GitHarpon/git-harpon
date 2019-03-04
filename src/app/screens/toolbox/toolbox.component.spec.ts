@@ -192,6 +192,8 @@ describe('ToolboxComponent', () => {
   });
 
   it('tests the testInput function', () => {
+    const Value = 'axuluphrum';
+    component.inputValue = Value;
     const Result = component.testInput();
 
     expect(Result).toBeDefined();
