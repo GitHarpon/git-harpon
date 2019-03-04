@@ -28,6 +28,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { ToolboxComponent } from './toolbox.component';
 import { DebugElement } from '@angular/core';
+import { ContextMenuModule} from 'ngx-contextmenu';
 import { By } from '@angular/platform-browser';
 
 describe('ToolboxComponent', () => {
@@ -56,9 +57,11 @@ describe('ToolboxComponent', () => {
         DropdownComponent,
         IconButtonComponent,
         MonacoEditorWrapperComponent
+        // ContextMenuComponent
       ],
       imports: [
         FormsModule,
+        ContextMenuModule,
         ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
