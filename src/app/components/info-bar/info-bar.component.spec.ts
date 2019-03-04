@@ -25,8 +25,6 @@ describe('InfoBarComponent', () => {
   /* tslint:disable */
   let component: InfoBarComponent;
   let fixture: ComponentFixture<InfoBarComponent>;
-  let inputEl: DebugElement;
-  let buttonEl: DebugElement;
   /* tslint:enable */
 
   beforeEach(async(() => {
