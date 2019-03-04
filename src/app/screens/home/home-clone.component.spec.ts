@@ -33,6 +33,7 @@ import { LeftPanelComponent } from '../left-panel/left-panel.component';
 import { GraphComponent } from '../graph/graph.component';
 import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { HttpsUser } from '../../models/HttpsUser';
+import { AccordionComponent } from '../../components/accordion/accordion.component';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -53,6 +54,7 @@ describe('HomeComponent', () => {
         IconButtonComponent,
         LoaderComponent,
         InfoBarComponent,
+        AccordionComponent,
         LeftPanelComponent,
         GraphComponent,
         RightPanelComponent
