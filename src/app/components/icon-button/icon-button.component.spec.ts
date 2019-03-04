@@ -92,6 +92,19 @@ describe('IconButtonComponent', () => {
     expect(component.buttonClicked.emit).toHaveBeenCalledWith(Evt);
   });
 
+  it('tests the execClick function alternative', () => {
+    const Value = 'ICON-BUTTON-TEST';
+    icon =  { name: 'fa-github', isFab: false };
+    component.icon = icon;
+    component.value = Value;
+    component.disabled = true;
+    const Evt = new Event('click');
+    spyOn(component.buttonClicked, 'emit');
+    buttonEl.nativeElement.dispatchEvent(Evt);
+    fixture.detectChanges();
+    expect(component.buttonClicked.emit).not.toHaveBeenCalledWith(Evt);
+  });
+
   it('tests the getValueTranslation function', () => {
     const Content = 'something';
     component.value = Content;
