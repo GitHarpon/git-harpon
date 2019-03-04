@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomeComponent } from './home.component';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -29,6 +28,9 @@ import { InfoBarComponent } from '../../components/info-bar/info-bar.component';
 import { MockRouter } from '../../models/MockRouter';
 import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
+import { LeftPanelComponent } from '../left-panel/left-panel.component';
+import { GraphComponent } from '../graph/graph.component';
+import { RightPanelComponent } from '../right-panel/right-panel.component';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -47,7 +49,10 @@ describe('HomeComponent', () => {
         FooterComponent,
         IconButtonComponent,
         LoaderComponent,
-        InfoBarComponent
+        InfoBarComponent,
+        LeftPanelComponent,
+        GraphComponent,
+        RightPanelComponent
       ],
       imports: [
         FormsModule,

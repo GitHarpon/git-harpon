@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss']
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent {
 
   @Input() disabled: Boolean = false;
   @Input() value: String;
@@ -26,9 +26,6 @@ export class ButtonComponent implements OnInit {
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
-  }
-
-  ngOnInit() {
   }
 
   execClick(evt) {
