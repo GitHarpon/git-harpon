@@ -1,0 +1,17 @@
+@import '../../../variables.scss';
+
+.send-commit {
+    height: 100%;
+        
+    &.dark {
+        background: $light-grey;
+        color: $white;
+        border-top: 1px solid $dark;
+    }
+
+    &.light {
+        background: $light-grey-light;
+        color: $dark;
+        border-top: 1px solid $border-dark-grey-light;
+    }
+}

@@ -1,3 +1,4 @@
-<div class="right-panel" [ngClass]="[currentTheme]">
-  Right panel
+<div class="right-panel">
+  <app-view-commit *ngIf="isView"></app-view-commit>
+  <app-send-commit *ngIf="!isView"></app-send-commit>
 </div>
