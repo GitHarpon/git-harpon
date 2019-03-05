@@ -1,53 +1,61 @@
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { RightPanelComponent } from './right-panel.component';
-// import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-// import { MockTranslateLoader } from '../../models/MockTranslateLoader';
-// import { ThemePreferencesService } from '../../providers/theme-preferences.service';
-// import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
+import { RightPanelComponent } from './right-panel.component';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
+import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
+import { ViewCommitComponent } from '../view-commit/view-commit.component';
+import { SendCommitComponent } from '../send-commit/send-commit.component';
+import { MockRightPanelService } from '../../models/MockRightPanelService';
+import { RightPanelService } from '../../providers/right-panel.service';
 
-// describe('RightPanelComponent', () => {
-//   /* tslint:disable */
-//   let component: RightPanelComponent;
-//   let fixture: ComponentFixture<RightPanelComponent>;
-//   /* tslint:enable */
+describe('RightPanelComponent', () => {
+  /* tslint:disable */
+  let component: RightPanelComponent;
+  let fixture: ComponentFixture<RightPanelComponent>;
+  /* tslint:enable */
 
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [ RightPanelComponent ],
-//       imports: [
-//         TranslateModule.forRoot({
-//           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
-//         })
-//       ],
-//       providers: [
-//         {
-//           provide: ThemePreferencesService,
-//           useClass: MockThemePreferencesService
-//         }
-//       ]
-//     })
-//     .compileComponents();
-//   }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        RightPanelComponent,
+        ViewCommitComponent,
+        SendCommitComponent
+      ],
+      providers: [
+        {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
+        },
+      ]
+    })
+      .compileComponents();
+  }));
 
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(RightPanelComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(RightPanelComponent);
+    component = fixture.componentInstance;
+  });
 
-//   it('tests the component creation', () => {
-//     expect(component).toBeTruthy();
-//   });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-//   it('tests the ngOnInit function', () => {
-//     component.ngOnInit();
-//     expect(component.themePrefSubscription.closed).toBeFalsy();
-//   });
+  it ('test the ngOnInit function', () => {
+    component.ngOnInit();
 
-//   it('tests the ngOnDestroy function', () => {
-//     component.ngOnInit();
-//     component.ngOnDestroy();
-//     expect(component.themePrefSubscription.closed).toBeTruthy();
-//   });
-// });
+    expect(component.isViewSubscription).toBeDefined();
+  });
+
+  it ('test the ngOnDestroy function with defined isViewSubscription', () => {
+    component.ngOnInit();
+    component.ngOnDestroy();
+
+    expect(component.isViewSubscription.closed).toBeTruthy();
+  });
+
+  it ('test the ngOnDestroy function with undefined isViewSubscription', () => {
+    component.ngOnDestroy();
+
+    expect(component.isViewSubscription).toBeUndefined();
+  });
+});

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ThemePreferencesService } from '../../providers/theme-preferences.service';
+import { RightPanelService } from '../../providers/right-panel.service';
 
 @Component({
   selector: 'app-right-panel',
@@ -8,21 +8,23 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   styleUrls: ['./right-panel.component.scss']
 })
 export class RightPanelComponent implements OnInit, OnDestroy {
-  themePrefSubscription: Subscription;
-  currentTheme: string;
+  isViewSubscription: Subscription;
+  isView: Boolean;
 
-  constructor(private themePrefService: ThemePreferencesService) { }
+  constructor(private rightPanelService: RightPanelService) { }
 
   ngOnInit() {
-    this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
-      (newTheme: string) => {
-        this.currentTheme = newTheme;
+    this.isViewSubscription = this.rightPanelService.isViewSubject.subscribe(
+      (view: Boolean) => {
+        this.isView = view;
       }
     );
-    this.themePrefService.emitThemePreferencesSubject();
+    this.rightPanelService.emitIsViewSubject();
   }
 
   ngOnDestroy() {
-    this.themePrefSubscription.unsubscribe();
+    if (this.isViewSubscription) {
+      this.isViewSubscription.unsubscribe();
+    }
   }
 }

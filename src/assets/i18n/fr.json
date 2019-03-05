@@ -128,6 +128,8 @@
         "MESSAGE": "Il ne semble pas installé sur la machine",
         "NAME": "Terminal"
     },
+    "SEND_COMMIT": "Commit",
+    "VIEW_COMMIT": "Visualiser le commit",
     "LOG_IN": "S'identifier",
     "CANCEL": "Annuler",
     "OPEN_NOW": "Ouvrir",
