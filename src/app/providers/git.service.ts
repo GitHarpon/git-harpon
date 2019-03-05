@@ -19,6 +19,10 @@ export class GitService {
   pathSubject: Subject<any>;
   repoName: any;
   repoNameSubject: Subject<any>;
+  listUnstagedFiles: any[];
+  listUnstagedFilesSubject: Subject<any[]>;
+  listStagedFiles: any[];
+  listStagedFilesSubject: Subject<any[]>;
   gitP: any;
   git: any;
 
@@ -29,6 +33,8 @@ export class GitService {
     this.repoNameSubject = new Subject<any>();
     this.recentProjectSubject = new Subject<any[]>();
     this.httpsUserSubject = new Subject<HttpsUser>();
+    this.listUnstagedFilesSubject = new Subject<any[]>();
+    this.listStagedFilesSubject = new Subject<any[]>();
     this.setHttpsUser({ username: null, password: null});
     if (this.recentProject[0]) {
       if (this.recentProject[0].path) {
@@ -39,6 +45,7 @@ export class GitService {
     } else {
       this.path = this.electronService.process.cwd();
     }
+    this.updateFilesDiff();
   }
 
   emitPathSubject() {
@@ -55,6 +62,14 @@ export class GitService {
 
   emitHttpsUserSubject() {
     this.httpsUserSubject.next(this.httpsUser);
+  }
+
+  emitListUnstagedFilesSubject() {
+    this.listUnstagedFilesSubject.next(this.listUnstagedFiles);
+  }
+
+  emitListStagedFilesSubject() {
+    this.listStagedFilesSubject.next(this.listStagedFiles);
   }
 
   setHttpsUser(newUser: HttpsUser) {
@@ -197,6 +212,28 @@ export class GitService {
           reject(new ServiceResult(false, this.translate.instant('ERROR'),
             this.translate.instant(ErrMsg), AccessDenied));
         });
+    });
+  }
+
+  updateFilesDiff() {
+    this.listUnstagedFiles = [];
+    this.listStagedFiles = [];
+    this.gitP.diff(['--name-only']).then((data) => {
+      const ListFiles = data.split('\n');
+      ListFiles.forEach(file => {
+        if (file != '') {
+          this.listUnstagedFiles.push(file);
+        }
+      });
+    });
+
+    this.gitP.diff(['--name-only', '--cached']).then((data) => {
+      const ListFiles = data.split('\n');
+      ListFiles.forEach(file => {
+        if (file != '') {
+          this.listStagedFiles.push(file);
+        }
+      });
     });
   }
 }
