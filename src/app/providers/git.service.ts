@@ -7,11 +7,14 @@ import * as  GitUrlParse from 'git-url-parse';
 import { ServiceResult } from '../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-store';
+import { HttpsUser } from '../models/HttpsUser';
 
 @Injectable()
 export class GitService {
   @LocalStorage({ key: 'recentProject' }) recentProject = [];
   recentProjectSubject: Subject<any[]>;
+  httpsUserSubject: Subject<HttpsUser>;
+  httpsUser: HttpsUser;
   path: any;
   pathSubject: Subject<any>;
   repoName: any;
@@ -25,6 +28,8 @@ export class GitService {
     this.pathSubject = new Subject<any>();
     this.repoNameSubject = new Subject<any>();
     this.recentProjectSubject = new Subject<any[]>();
+    this.httpsUserSubject = new Subject<HttpsUser>();
+    this.setHttpsUser({ username: null, password: null});
     if (this.recentProject[0]) {
       if (this.recentProject[0].path) {
         this.setPath(this.recentProject[0].path);
@@ -48,18 +53,26 @@ export class GitService {
     this.recentProjectSubject.next(this.recentProject.slice());
   }
 
+  emitHttpsUserSubject() {
+    this.httpsUserSubject.next(this.httpsUser);
+  }
+
+  setHttpsUser(newUser: HttpsUser) {
+    this.httpsUser = newUser;
+    this.emitHttpsUserSubject();
+  }
+
   init(initLocation: string, initName: string) {
     if (initLocation && initName) {
-      const PATHTOREPO = this.electronService.path.join(initLocation, initName);
+      const PathToRepo = this.electronService.path.join(initLocation, initName);
       return new Promise<ServiceResult>((resolve, reject) => {
         if (this.electronService.fs.existsSync(initLocation)) {
-          if (!this.electronService.fs.existsSync(PATHTOREPO)) {
-            this.electronService.fs.mkdirSync(PATHTOREPO);
+          if (!this.electronService.fs.existsSync(PathToRepo)) {
+            this.electronService.fs.mkdirSync(PathToRepo);
           }
-
-          gitPromise(PATHTOREPO).init()
+          gitPromise(PathToRepo).init()
             .then(() => {
-              this.setPath(PATHTOREPO);
+              this.setPath(PathToRepo);
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
               this.translate.instant('INIT.SUCCESS')));
             })
@@ -109,18 +122,18 @@ export class GitService {
   }
 
   registerProject(repo: any, path: any) {
-    const PROJECT = {
+    const Project = {
       repo: repo,
       path: path
     };
-    for (let INDEX = 0; INDEX < this.recentProject.length; INDEX++) {
-      if (this.recentProject[INDEX].repo === PROJECT.repo
-        && this.recentProject[INDEX].path === PROJECT.path) {
-        this.recentProject.splice(INDEX, 1);
-        INDEX--;
+    for (let Index = 0; Index < this.recentProject.length; Index++) {
+      if (this.recentProject[Index].repo === Project.repo
+        && this.recentProject[Index].path === Project.path) {
+        this.recentProject.splice(Index, 1);
+        Index--;
       }
     }
-    this.recentProject.splice(0, 0, PROJECT);
+    this.recentProject.splice(0, 0, Project);
     if (this.recentProject.length >= 5) {
       this.recentProject.splice(5, 1);
     }
@@ -133,27 +146,27 @@ export class GitService {
   }
 
   deleteProjetWithPath(path: any) {
-    for (let INDEX = 0; INDEX < this.recentProject.length; INDEX++) {
-      if (this.recentProject[INDEX].path === path) {
-        this.recentProject.splice(INDEX, 1);
-        INDEX--;
+    for (let Index = 0; Index < this.recentProject.length; Index++) {
+      if (this.recentProject[Index].path === path) {
+        this.recentProject.splice(Index, 1);
+        Index--;
       }
     }
     this.emitRecentProjectSubject();
   }
 
-  async cloneHttps(url: GitUrlParse, folder: string, username: string, password: string) {
+  async cloneHttps(url: GitUrlParse, folder: string, httpsUser: HttpsUser) {
     return new Promise<ServiceResult>((resolve, reject) => {
-      const REMOTE = `https://${username}:${password}@${url.resource}${url.pathname}`;
+      let Remote = `https://${httpsUser.username}:${httpsUser.password}@${url.resource}${url.pathname}`;
       gitPromise(folder)
-        .clone(REMOTE, null)
+        .clone(Remote, null)
         .then(() => {
-          const REPOPATH = this.electronService.path.join(folder, url.name);
-          gitPromise(REPOPATH)
+          const RepoPath = this.electronService.path.join(folder, url.name);
+          gitPromise(RepoPath)
             .raw(['remote', 'set-url', 'origin', url])
             .then(() => {
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-                this.translate.instant('CLONE.DONE'), REPOPATH));
+                this.translate.instant('CLONE.DONE'), RepoPath));
             })
             .catch((err) => {
               console.log(err);
@@ -162,22 +175,27 @@ export class GitService {
             });
         })
         .catch((err) => {
-          var ERRMSG = 'CLONE.ERROR';
+          var ErrMsg = 'CLONE.ERROR';
+          var AccessDenied = false;
           if (err.toString().includes('unable to update url base from redirection')) {
-            ERRMSG = 'CLONE.UNABLE_TO_UPDATE';
-          } else if (err.toString().includes('HTTP Basic: Access denied')) {
-            ERRMSG = 'CLONE.HTTP_ACCESS_DENIED';
+            ErrMsg = 'CLONE.UNABLE_TO_UPDATE';
+          } else if (err.toString().includes('HTTP Basic: Access denied') ||
+              err.toString().includes('Authentication failed for')) {
+            ErrMsg = 'CLONE.HTTP_ACCESS_DENIED';
+            AccessDenied = true;
           } else if (err.toString().includes('could not create work tree')) {
-            ERRMSG = 'CLONE.NOT_WORK_TREE';
+            ErrMsg = 'CLONE.NOT_WORK_TREE';
           } else if (err.toString().includes('Repository not found')) {
-            ERRMSG = 'CLONE.REPO_NOT_FOUND';
+            ErrMsg = 'CLONE.REPO_NOT_FOUND';
           } else if (err.toString().includes('already exists and is not an empty directory')) {
-            ERRMSG = 'CLONE.ALREADY_EXISTS';
+            ErrMsg = 'CLONE.ALREADY_EXISTS';
           } else if (err.toString().includes('Invalid username or password')) {
-            ERRMSG = 'CLONE.INVALID_CRED';
+            ErrMsg = 'CLONE.INVALID_CRED';
+          } else if (err.toString().includes('The project you were looking for could not be found.')) {
+            ErrMsg = 'CLONE.REPO_NOT_FOUND';
           }
           reject(new ServiceResult(false, this.translate.instant('ERROR'),
-            this.translate.instant(ERRMSG)));
+            this.translate.instant(ErrMsg), AccessDenied));
         });
     });
   }

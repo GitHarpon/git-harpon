@@ -77,6 +77,7 @@
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
     "DANGER": "Danger",
+    "ERROR": "Erreur",
     "PATH_NOT_FOUND": "Ce chemin n'existe pas",
     "UPDATE_VALUE": "Changer la valeur",
     "DISPLAY_VALUE": "Afficher la valeur",
@@ -140,6 +141,8 @@
         "MESSAGE": "Il ne semble pas installé sur la machine",
         "NAME": "Terminal"
     },
+    "SEND_COMMIT": "Commit",
+    "VIEW_COMMIT": "Visualiser le commit",
     "LOG_IN": "S'identifier",
     "CANCEL": "Annuler",
     "OPEN_NOW": "Ouvrir",
@@ -152,5 +155,6 @@
     "THEME": "Thème",
     "DARK_THEME": "Thème sombre",
     "LIGHT_THEME": "Thème clair",
-    "INDEPENDENT_THEME": "Indépendant du thème"
+    "INDEPENDENT_THEME": "Indépendant du thème",
+    "WRONG_CRED": "Informations erronées"
 }

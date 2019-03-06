@@ -40,12 +40,19 @@ import { ElectronService } from '../../providers/electron.service';
 import { MockElectronService } from '../../models/MockElectronService';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
+import { LeftPanelComponent } from '../left-panel/left-panel.component';
+import { GraphComponent } from '../graph/graph.component';
+import { RightPanelComponent } from '../right-panel/right-panel.component';
+import { ViewCommitComponent } from '../view-commit/view-commit.component';
+import { SendCommitComponent } from '../send-commit/send-commit.component';
 
 describe('PreferencesComponent', () => {
+  /* tslint:disable */
   let component: PreferencesComponent;
   let fixture: ComponentFixture<PreferencesComponent>;
   let langPrefService: LanguagePreferencesService;
   let terminalService: TerminalManagerService;
+  /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -66,6 +73,11 @@ describe('PreferencesComponent', () => {
         InputComponent,
         CopyButtonComponent,
         InputNumberComponent,
+        LeftPanelComponent,
+        GraphComponent,
+        RightPanelComponent,
+        SendCommitComponent,
+        ViewCommitComponent
       ],
       imports: [
         FormsModule,

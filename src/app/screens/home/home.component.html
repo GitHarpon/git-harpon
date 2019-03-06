@@ -3,71 +3,72 @@
     <app-loader [loading]="homeLoading">
         <div class="gh-button-bar" [ngClass]="[currentTheme]">
         <!-- Project (à gauche) -->
-        <div class="col-4 gh-button-bar-project gh-breadcrumbs" [ngClass]="[currentTheme]">
-            <ul>
-                <li class="gh-folder"><a id="project-manager" (click)="openProjectModal(0)"><i class="far fa-folder fa-lg"></i></a></li>
-                <li class="gh-project" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
-                    <a data-toggle="tooltip" title="{{ path }}">
-                        <i class="fa fa-times fa-xs mr-2 icon-times" (click)="closeRepo()"></i>{{ repoName }}</a></li>
-                <li class="gh-branch" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
-                    <a>Branch</a></li>
-            </ul>
-        </div>
-        <!-- Actions (au milieu) -->
-        <div class="col-4 gh-button-bar-actions">
-            <div class="d-inline-block">
-                <app-icon-button value="PULL" tooltipValue="PULL" placement="bottom" [disabled]="!repoName"
-                    [icon]="{name:'fa-download', isFab:false}" (buttonClicked)="pullButtonClicked()">
-                </app-icon-button>
+            <div class="col-4 gh-button-bar-project gh-breadcrumbs" [ngClass]="[currentTheme]">
+                <ul>
+                    <li class="gh-folder"><a id="project-manager" (click)="openProjectModal(0)"><i class="far fa-folder fa-lg"></i></a></li>
+                    <li class="gh-project" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
+                        <a data-toggle="tooltip" title="{{ path }}">
+                            <i class="fa fa-times fa-xs mr-2 icon-times" (click)="closeRepo()"></i>{{ repoName }}</a></li>
+                    <li class="gh-branch" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
+                        <a>Branch</a></li>
+                </ul>
             </div>
-            <div class="d-inline-block">
-                <app-icon-button value="PUSH.TITLE" tooltipValue="PUSH.TITLE" placement="bottom" [disabled]="!repoName"
-                    [icon]="{name:'fa-upload', isFab:false}" (buttonClicked)="pushButtonClicked()">
-                </app-icon-button>
-            </div>
-            <div class="d-inline-block">
-                <app-icon-button value="BRANCH" tooltipValue="BRANCH" placement="bottom" [disabled]="!repoName"
-                    [icon]="{name:'fa-code-branch', isFab:false}" (buttonClicked)="branchButtonClicked()">
-                </app-icon-button>
-            </div>
-        </div>
-        <!-- Plus (à droite) -->
-        <div class="col-4 gh-button-bar-more">
-            <div>
-                <div class="searchInput mr-3">
-                    <app-input [(value)]="searchInputValue" [disabled]="!repoName"></app-input>
+            <!-- Actions (au milieu) -->
+            <div class="col-4 gh-button-bar-actions">
+                <div class="d-inline-block">
+                    <app-icon-button value="PULL" tooltipValue="PULL" placement="bottom" [disabled]="!repoName"
+                        [icon]="{name:'fa-download', isFab:false}" (buttonClicked)="pullButtonClicked()">
+                    </app-icon-button>
                 </div>
-                <a class="cursor-pointer mr-3" (click)="displaySearchInputValue()">
-                    <i [ngClass]="[(!repoName ? 'disabled-search' : '')]" class="fa fa-search"></i></a>
-                <a class="cursor-pointer mr-3" id="terminal-opener" (click)="openTerminal()"><i class="fas fa-terminal"></i></a>
-                <a class="cursor-pointer" (click)="openPreferences()"><i class="fas fa-cog"></i></a>
+                <div class="d-inline-block">
+                    <app-icon-button value="PUSH" tooltipValue="PUSH" placement="bottom" [disabled]="!repoName"
+                        [icon]="{name:'fa-upload', isFab:false}" (buttonClicked)="pushButtonClicked()">
+                    </app-icon-button>
+                </div>
+                <div class="d-inline-block">
+                    <app-icon-button value="BRANCH" tooltipValue="BRANCH" placement="bottom" [disabled]="!repoName"
+                        [icon]="{name:'fa-code-branch', isFab:false}" (buttonClicked)="branchButtonClicked()">
+                    </app-icon-button>
+                </div>
+            </div>
+            <!-- Plus (à droite) -->
+            <div class="col-4 gh-button-bar-more">
+                <div>
+                    <div class="searchInput mr-3">
+                        <app-input [(value)]="searchInputValue" [disabled]="!repoName"></app-input>
+                    </div>
+                    <a class="cursor-pointer mr-3" (click)="displaySearchInputValue()">
+                        <i [ngClass]="[(!repoName ? 'disabled-search' : '')]" class="fa fa-search"></i></a>
+                    <a class="cursor-pointer mr-3" id="terminal-opener" (click)="openTerminal()"><i class="fas fa-terminal"></i></a>
+                    <a class="cursor-pointer" (click)="openPreferences()"><i class="fas fa-cog"></i></a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Main-Panel -->
-    <div class="gh-main-panel" [ngClass]="[currentTheme, (repoName ? 'gh-project-not-opened' : '')]">
-        <div class="row gh-main-panel-not-opened text-center">
-            <div class="offset-2 col-md-2 gh-main-panel-not-opened-button" [ngClass]="[currentTheme]" (click)="openProjectModal(0)">
-                <div class="mb-1">{{ 'OPEN.REPO' | translate }}</div>
-                <div><i class="fa fa-folder fa-lg"></i></div>
-            </div>
-            <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" [ngClass]="[currentTheme]" (click)="openProjectModal(2)">
-                <div class="mb-1">{{ 'INIT.TAB_TITLE' | translate }}</div>
-                <div><i class="fa fa-laptop fa-lg"></i></div>
-            </div>
-            <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" [ngClass]="[currentTheme]" (click)="openProjectModal(1)">
-                <div class="mb-1">{{ 'CLONE.TAB_TITLE' | translate }}</div>
-                <div><i class="fa fa-globe fa-lg"></i></div>
+        <!-- Main-Panel -->
+        <div *ngIf="mainPanelVisible" class="gh-main-panel" [ngClass]="[currentTheme, (repoName ? 'gh-project-not-opened' : '')]">
+            <div class="row gh-main-panel-not-opened text-center">
+                <div class="offset-2 col-md-2 gh-main-panel-not-opened-button" [ngClass]="[currentTheme]" (click)="openProjectModal(0)">
+                    <div class="mb-1">{{ 'OPEN.REPO' | translate }}</div>
+                    <div><i class="fa fa-folder fa-lg"></i></div>
+                </div>
+                <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" [ngClass]="[currentTheme]" (click)="openProjectModal(2)">
+                    <div class="mb-1">{{ 'INIT.TAB_TITLE' | translate }}</div>
+                    <div><i class="fa fa-laptop fa-lg"></i></div>
+                </div>
+                <div class="offset-1 col-md-2 gh-main-panel-not-opened-button" [ngClass]="[currentTheme]" (click)="openProjectModal(1)">
+                    <div class="mb-1">{{ 'CLONE.TAB_TITLE' | translate }}</div>
+                    <div><i class="fa fa-globe fa-lg"></i></div>
+                </div>
             </div>
         </div>
-    </div>
+
+    <app-left-panel *ngIf="leftPanelVisible"></app-left-panel>
+    <app-graph *ngIf="graphVisible"></app-graph>
+    <app-right-panel *ngIf="rightPanelVisible"></app-right-panel>
+    
     </app-loader>
 </app-container>
-
-<div class="left-panel" [ngClass]="[currentTheme]" mwlResizable [ngStyle]="style" [validateResize]="validate" [enableGhostResize]="true" [resizeEdges]="{right: true}" (resizeEnd)="onResizeEnd($event)">
-    DIV TEST
-</div>
 
 <app-modal [(visible)]="projectModalVisible" [medium]="true" title="{{ 'REPOSITORY_MANAGEMENT' | translate }}" [loading]="projectModalLoading">
     <mat-tab-group disableRipple [(selectedIndex)]="projectModalTabSelectedIndex" [@.disabled]="true">
@@ -187,12 +188,13 @@
 
 <app-footer [devRedirect]="{ icon: 'fa-toolbox', link: '/toolbox' }"></app-footer>
 
-<!-- Info bar credentials -->
+<!-- Clone Info bar credentials -->
 <app-info-bar [visible]="credInfoBarVisible">
-    <span>{{ 'LOG_TO_CONTINUE' | translate }}</span>
-    <app-input [(value)]="username" [placeholder]="'USERNAME'" class="ml-3"></app-input>
-    <app-input [(value)]="password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
-    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!username || !password" (buttonClicked)="cloneHttps()"></app-button>
+    <span *ngIf="!cloneAuthErrored">{{ 'LOG_TO_CONTINUE' | translate }}</span>
+    <span *ngIf="cloneAuthErrored" class="color-red">{{ 'WRONG_CRED' | translate }}</span>
+    <app-input [(value)]="cloneHttpsUser.username" [placeholder]="'USERNAME'" class="ml-3"></app-input>
+    <app-input [(value)]="cloneHttpsUser.password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
+    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!cloneHttpsUser.username || !cloneHttpsUser.password" (buttonClicked)="cloneHttps()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeCredInfoBar()"></app-button>
 </app-info-bar>
 

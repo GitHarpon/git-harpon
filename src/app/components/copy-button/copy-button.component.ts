@@ -8,7 +8,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './copy-button.component.html',
   styleUrls: ['./copy-button.component.scss']
 })
-export class CopyButtonComponent implements OnInit {
+export class CopyButtonComponent {
 
   @Input() template: string;
   copy: Boolean;
@@ -25,20 +25,17 @@ export class CopyButtonComponent implements OnInit {
     this.themePrefService.emitThemePreferencesSubject();
   }
 
-
-  ngOnInit() {
-  }
-
-  copyToClipboard() {
+  async copyToClipboard() {
     this.clipboardService.copyFromContent(this.template);
-    this.switchCopy();
+    return await this.switchCopy();
   }
 
-  switchCopy() {
+  async switchCopy() {
     this.copy = true;
-    setTimeout(time => {
+    await setTimeout(time => {
       this.copy = false;
     }, 500);
+    return true;
   }
 
 }

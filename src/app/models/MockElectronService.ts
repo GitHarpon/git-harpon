@@ -6,8 +6,8 @@ export class MockElectronService {
   constructor() { }
 
   browse() {
-    const CHEMIN = '/new';
-    return CHEMIN;
+    const Path = '/new';
+    return Path;
   }
 
   pathJoin(...paths: string[]): string {
@@ -16,5 +16,9 @@ export class MockElectronService {
 
   fsExistsSync(pathToCheck: string): boolean {
     return pathToCheck === 'path';
+  }
+
+  shellOpenExternal(link: string): boolean {
+    return true;
   }
 }

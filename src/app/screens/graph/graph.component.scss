@@ -1,0 +1,24 @@
+@import '../../../variables.scss';
+
+.gh-graph {
+    display:inline-block;
+    height: calc(100% - 50px);
+    width: 65%;
+    text-align:center;
+    padding: $gap-sm;
+    vertical-align: top;
+    
+    &.dark {
+        background: $dark;
+        color: $white;
+        border: 1px solid $dark;
+        border-bottom: 0;
+    }
+
+    &.light {
+        background: $white;
+        color: $dark;
+        border: 1px solid $border-dark-grey-light;
+        border-bottom: 0;
+    }
+}

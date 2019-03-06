@@ -51,6 +51,12 @@ import { CopyButtonComponent } from './components/copy-button/copy-button.compon
 import { PreferencesComponent } from './screens/preferences/preferences.component';
 import { AccordionComponent } from './components/accordion/accordion.component';
 import { InfoBarComponent } from './components/info-bar/info-bar.component';
+import { LeftPanelComponent } from './screens/left-panel/left-panel.component';
+import { RightPanelComponent } from './screens/right-panel/right-panel.component';
+import { GraphComponent } from './screens/graph/graph.component';
+import { ViewCommitComponent } from './screens/view-commit/view-commit.component';
+import { SendCommitComponent } from './screens/send-commit/send-commit.component';
+import { RightPanelService } from './providers/right-panel.service';
 
 
 // AoT requires an exported function for factories
@@ -78,7 +84,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     CopyButtonComponent,
     PreferencesComponent,
     AccordionComponent,
-    InfoBarComponent
+    InfoBarComponent,
+    LeftPanelComponent,
+    RightPanelComponent,
+    GraphComponent,
+    ViewCommitComponent,
+    SendCommitComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -116,7 +127,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorPreferencesService,
     LanguagePreferencesService,
     ThemePreferencesService,
-    TerminalManagerService
+    TerminalManagerService,
+    RightPanelService
   ],
   bootstrap: [AppComponent]
 })
