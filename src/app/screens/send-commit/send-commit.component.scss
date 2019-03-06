@@ -14,4 +14,21 @@
         color: $dark;
         border-top: 1px solid $border-dark-grey-light;
     }
+
+    &_block {
+        @include hX(25%);
+        @include bg-color($white);
+        border: 1px solid $muted-white;
+        overflow: scroll;
+        white-space: nowrap;
+
+
+        &_file {
+            padding: $gap-sm;
+
+            &:hover {
+                @include bg-color($light-green-light);
+            }
+        }
+    }
 }

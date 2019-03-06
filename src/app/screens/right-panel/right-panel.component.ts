@@ -21,11 +21,6 @@ export class RightPanelComponent implements OnInit, OnDestroy {
     );
     this.rightPanelService.emitIsViewSubject();
   }
-  
-  display() {
-    console.log(this.listUnstagedFiles);
-    console.log(this.listStagedFiles);
-  }
 
   ngOnDestroy() {
     if (this.isViewSubscription) {

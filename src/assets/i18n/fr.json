@@ -143,5 +143,7 @@
     "DARK_THEME": "Thème sombre",
     "LIGHT_THEME": "Thème clair",
     "INDEPENDENT_THEME": "Indépendant du thème",
-    "WRONG_CRED": "Informations erronées"
+    "WRONG_CRED": "Informations erronées",
+    "UNSTAGED_FILES": "Fichiers pas ajoutés",
+    "STAGED_FILES": "Fichiers ajoutés"
 }

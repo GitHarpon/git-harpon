@@ -45,7 +45,6 @@ export class GitService {
     } else {
       this.path = this.electronService.process.cwd();
     }
-    this.updateFilesDiff();
   }
 
   emitPathSubject() {
@@ -117,6 +116,7 @@ export class GitService {
               this.gitP.cwd(this.path);
               this.emitPathSubject();
               this.registerProject(this.repoName, this.path);
+              this.updateFilesDiff();
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                 this.translate.instant('OPEN.OPENED_REPO')));
             } else {
@@ -226,6 +226,7 @@ export class GitService {
         }
       });
     });
+    this.emitListUnstagedFilesSubject();
 
     this.gitP.diff(['--name-only', '--cached']).then((data) => {
       const ListFiles = data.split('\n');
@@ -235,5 +236,6 @@ export class GitService {
         }
       });
     });
+    this.emitListStagedFilesSubject();
   }
 }

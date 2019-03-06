@@ -1,3 +1,20 @@
-<div class="send-commit" [ngClass]="currentTheme">
-  SEND COMMIT 
+<div class="send-commit container" [ngClass]="currentTheme">
+  <div class="text-left">
+    {{ 'UNSTAGED_FILES' | translate }} ({{ listUnstagedFiles.length }})
+    <div class="send-commit_block">
+        <div *ngFor="let file of listUnstagedFiles" class="send-commit_block_file">
+          <a data-toggle="tooltip" title="{{ file }}">{{ getFileNameFromPath(file) }}</a>
+        </div>
+    </div>
+  </div>
+
+  <div class="text-left">
+      {{ 'STAGED_FILES' | translate }} ({{ listStagedFiles.length }})
+      <div class="send-commit_block">
+          <div *ngFor="let file of listStagedFiles" class="send-commit_block_file">
+            <a data-toggle="tooltip" title="{{ file }}">{{ getFileNameFromPath(file) }}</a>
+          </div>
+      </div>
+  </div>
+  <app-button value="Test" type="primary" (buttonClicked)="display()"></app-button>
 </div>
