@@ -1,4 +1,4 @@
-<div class="right-panel" [ngClass]="[currentTheme]">
-  Right panel
-  <app-button value="BROWSE" type="primary" (buttonClicked)="display()"></app-button>
+<div class="right-panel">
+  <app-view-commit *ngIf="isView"></app-view-commit>
+  <app-send-commit *ngIf="!isView"></app-send-commit>
 </div>
