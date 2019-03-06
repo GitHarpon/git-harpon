@@ -200,27 +200,39 @@ export class GitService {
     });
   }
 
-  async pushHttps(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
+  async pushHttps(folder: string, httpsUser: HttpsUser, branch: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
-      const Remote = `https://${username}:${password}@${url.resource}${url.pathname}`;
-      gitPromise(folder).push(Remote, branch, [])
+      var Remote;
+      gitPromise(folder).raw(['remote', 'get-url', 'origin']).then((data) => {
+          const Credentials = httpsUser.username + ':' + httpsUser.password + '@';
+          var RemoteArray = [];
+          RemoteArray = data.split('://');
+          Remote = RemoteArray[0] + '://' + Credentials + RemoteArray[1];
+          console.log(Remote);
+      }).catch(() => { console.log('err'); });
+
+      /*gitPromise(folder).push(Remote, branch, [])
       .then(() => {
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
           this.translate.instant('PUSH.DONE')));
         }).catch((err) => {
-        var ERRMSG = 'PUSH.ERROR';
+        var ErrMsg = 'PUSH.ERROR';
+        var AccessDenied = false;
         if (err.toString().includes('unable to update url base from redirection')) {
-          ERRMSG = 'PUSH.UNABLE_TO_UPDATE';
+          ErrMsg = 'PUSH.UNABLE_TO_UPDATE';
         } else if (err.toString().includes('HTTP Basic: Access denied')) {
-          ERRMSG = 'PUSH.HTTP_ACCESS_DENIED';
+          ErrMsg = 'PUSH.HTTP_ACCESS_DENIED';
         } else if (err.toString().includes('could not create work tree')) {
-          ERRMSG = 'PUSH.NOT_WORK_TREE';
+          ErrMsg = 'PUSH.NOT_WORK_TREE';
         } else if (err.toString().includes('Repository not found')) {
-          ERRMSG = 'PUSH.REPO_NOT_FOUND';
+          ErrMsg = 'PUSH.REPO_NOT_FOUND';
         } else if (err.toString().includes('Invalid username or password')) {
-          ERRMSG = 'PUSH.INVALID_CRED';
+          ErrMsg = 'PUSH.INVALID_CRED';
         }
-      });
+        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+        this.translate.instant(ErrMsg), AccessDenied));
+      });*/
+      console.log(Remote);
     });
   }
 

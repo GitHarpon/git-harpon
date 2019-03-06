@@ -100,7 +100,19 @@ export class HomeComponent implements OnDestroy {
   }
 
   pushButtonClicked() {
-    return true;
+    // TODO 1. Verifier qu'il existe des commits. Disable le button
+    // Si commit -> push
+    /*var Url = GitUrlParse('https://github.com/antoineguillory/private');
+    if (Url.protocol === 'https') {
+      this.homeLoading = true;
+      this.pushHttps();
+    } else if (Url.protocol === 'ssh') {
+      this.toastr.error('Pas de ssh pour le moment', 'Erreur');
+    } else {
+      this.toastr.error(this.translateService.instant('INVALID_URL'),
+        this.translateService.instant('ERROR'));
+    }*/
+    this.pushHttps();
   }
 
   branchButtonClicked() {
@@ -196,8 +208,7 @@ export class HomeComponent implements OnDestroy {
   pushHttps() {
     this.credInfoBarVisible = false;
     this.homeLoading = true;
-    return this.gitService.pushHttps(GitUrlParse(this.cloneUrl), this.fullPath,
-                   this.currentHttpsUser.username, this.currentHttpsUser.password, 'master')
+    return this.gitService.pushHttps(this.fullPath, this.currentHttpsUser, 'master')
       // TODO préciser la branche dynamiquement quand la donnée membre sera présente.
       .then((data) => {
         this.homeLoading = false;
