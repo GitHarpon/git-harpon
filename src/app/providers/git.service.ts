@@ -21,6 +21,8 @@ export class GitService {
   repoNameSubject: Subject<any>;
   branchName: any;
   branchNameSubject: Subject<any>;
+  localBranchesName: any;
+  localBranchesNameSubject: Subject<any[]>;
   branches: String[];
   gitP: any;
   git: any;
@@ -32,6 +34,7 @@ export class GitService {
     this.repoNameSubject = new Subject<any>();
     this.recentProjectSubject = new Subject<any[]>();
     this.branchNameSubject = new Subject<any>();
+    this.localBranchesNameSubject = new Subject<any[]>();
     this.httpsUserSubject = new Subject<HttpsUser>();
     this.setHttpsUser({ username: null, password: null});
     if (this.recentProject[0]) {
@@ -59,6 +62,10 @@ export class GitService {
 
   emitBranchNameSubject() {
     this.branchNameSubject.next(this.branchName);
+  }
+
+  emitLocalBranchesNameSubject() {
+    this.localBranchesNameSubject.next(this.localBranchesName);
   }
 
   emitHttpsUserSubject() {
@@ -151,7 +158,9 @@ export class GitService {
                   // Problème : la branche créée n'est pas ajoutée directement
                   // à la liste des branches locales
                   result.all.push(newBranchName);
-                  // Gérer le cas ou la branche reférence n'a pas été commit
+                  this.localBranchesName = newBranchName;
+                  this.emitLocalBranchesNameSubject();
+
                   gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
                   .then(() => {
                     this.branchName = newBranchName;

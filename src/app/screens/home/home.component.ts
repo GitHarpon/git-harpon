@@ -36,6 +36,8 @@ export class HomeComponent implements OnDestroy {
   recentProjectSubscription: Subscription;
   branchName: any;
   branchNameSubscription: Subscription;
+  localBranchesName: any;
+  localBranchesNameSubscription: Subscription;
   newBranchInfoBarVisible: boolean;
   newBranchName: string;
   referenceBranchName: string;
@@ -83,6 +85,12 @@ export class HomeComponent implements OnDestroy {
         this.branchName = branchName;
       });
     this.gitService.emitBranchNameSubject();
+
+    this.localBranchesNameSubscription = this.gitService.localBranchesNameSubject.subscribe(
+      (localBranchesName: any) => {
+        this.localBranchesName = localBranchesName;
+      });
+    this.gitService.emitLocalBranchesNameSubject();
 
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {

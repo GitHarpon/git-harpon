@@ -1,6 +1,6 @@
 {
     "HOME": "Accueil",
-    "VERSION": "Version",
+    "VERSIONS": "Version",
     "COLORS": "Couleurs",
     "TAGS": "Balises",
     "TAG": "Balise",
@@ -49,7 +49,6 @@
         "DANGER": "Bouton danger",
         "DISABLED": "Bouton désactivé",
         "LARGE": "Bouton allongé"
-        
     },
     "ICONBUTTON": {
         "GITHUB": "GitHub",
@@ -98,6 +97,7 @@
     "BRANCH": {
         "TITLE": "Branche",
         "NAME": "Nom des branches",
+        "UNCOMMIT": "Commits manquant sur branche de référence",
         "CREATED": "Branche créée",
         "NOT_CREATED": "Branche non créée"
     },

@@ -97,6 +97,7 @@
     "BRANCH": {
         "TITLE": "Branch",
         "NAME": "Branches name",
+        "UNCOMMIT": "Missing commits on reference branch",
         "CREATED": "Branch created",
         "NOT_CREATED": "Branch not created"
     },
