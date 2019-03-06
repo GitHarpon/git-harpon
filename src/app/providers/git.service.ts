@@ -21,8 +21,6 @@ export class GitService {
   repoNameSubject: Subject<any>;
   branchName: any;
   branchNameSubject: Subject<any>;
-  localBranchesName: any;
-  localBranchesNameSubject: Subject<any[]>;
   branches: String[];
   gitP: any;
   git: any;
@@ -34,7 +32,6 @@ export class GitService {
     this.repoNameSubject = new Subject<any>();
     this.recentProjectSubject = new Subject<any[]>();
     this.branchNameSubject = new Subject<any>();
-    this.localBranchesNameSubject = new Subject<any[]>();
     this.httpsUserSubject = new Subject<HttpsUser>();
     this.setHttpsUser({ username: null, password: null});
     if (this.recentProject[0]) {
@@ -62,10 +59,6 @@ export class GitService {
 
   emitBranchNameSubject() {
     this.branchNameSubject.next(this.branchName);
-  }
-
-  emitLocalBranchesNameSubject() {
-    this.localBranchesNameSubject.next(this.localBranchesName);
   }
 
   emitHttpsUserSubject() {
@@ -158,9 +151,6 @@ export class GitService {
                   // Problème : la branche créée n'est pas ajoutée directement
                   // à la liste des branches locales
                   result.all.push(newBranchName);
-                  this.localBranchesName = newBranchName;
-                  this.emitLocalBranchesNameSubject();
-
                   gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
                   .then(() => {
                     this.branchName = newBranchName;
@@ -179,6 +169,9 @@ export class GitService {
                   console.log(resultbis);
                   if (resultbis.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
                     result.all.push(newBranchName);
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CREATED')));
+                    /* JLA *
                     gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
                     .then(() => {
                       this.branchName = newBranchName;
@@ -190,6 +183,7 @@ export class GitService {
                       reject(new ServiceResult(false, this.translate.instant('ERROR'),
                       this.translate.instant('BRANCH.UNCOMMIT')));
                     });
+                    */
                   } else {
                     reject(new ServiceResult(false, this.translate.instant('ERROR'),
                     this.translate.instant('BRANCH.NOT_CREATED')));

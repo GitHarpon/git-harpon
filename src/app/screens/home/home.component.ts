@@ -86,11 +86,13 @@ export class HomeComponent implements OnDestroy {
       });
     this.gitService.emitBranchNameSubject();
 
-    this.localBranchesNameSubscription = this.gitService.localBranchesNameSubject.subscribe(
-      (localBranchesName: any) => {
-        this.localBranchesName = localBranchesName;
-      });
-    this.gitService.emitLocalBranchesNameSubject();
+    /* ajouter dans constructeur "leftPanelService: LeftPanelService"
+     * utiliser le emit... de leftPanelService  */
+    // this.localBranchesNameSubscription = this.gitService.localBranchesNameSubject.subscribe(
+    //   (localBranchesName: any) => {
+    //     this.localBranchesName = localBranchesName;
+    //   });
+    // this.gitService.emitLocalBranchesNameSubject();
 
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
