@@ -33,6 +33,7 @@ import { MockAlternativeElectronService } from '../../models/MockAlternativeElec
 import { LeftPanelComponent } from '../left-panel/left-panel.component';
 import { GraphComponent } from '../graph/graph.component';
 import { RightPanelComponent } from '../right-panel/right-panel.component';
+import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
 
@@ -54,6 +55,7 @@ describe('HomeComponent', () => {
         IconButtonComponent,
         LoaderComponent,
         InfoBarComponent,
+        AccordionComponent,
         LeftPanelComponent,
         GraphComponent,
         RightPanelComponent,

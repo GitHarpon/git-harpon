@@ -4,9 +4,7 @@
         <span><i [ngClass]="[(icon.isFab ? 'fab' : 'fa'), icon.name, 'icon-' + currentTheme]" class="fa-lg"></i>{{ title }}</span>
     </ng-template>
     <ng-template ngbPanelContent>
-      <ul>
-        <li>branche test</li>
-      </ul>
+      <ng-content></ng-content>
     </ng-template>
   </ngb-panel>
 </ngb-accordion>

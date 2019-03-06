@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { Subscription } from 'rxjs';
+import { GitService } from '../../providers/git.service';
+import { LeftPanelService } from '../../providers/left-panel.service';
 
 @Component({
   selector: 'app-left-panel',
@@ -8,10 +10,16 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./left-panel.component.scss']
 })
 export class LeftPanelComponent implements OnInit, OnDestroy {
-  themePrefSubscription: Subscription;
   currentTheme: string;
+  themePrefSubscription: Subscription;
+  localBranches: any;
+  localBranchesSubscription: Subscription;
+  remoteBranches: any;
+  currentBranch: any;
+  branchNameSubscription: Subscription;
 
-  constructor(private themePrefService: ThemePreferencesService) { }
+  constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
+    private leftPanelService: LeftPanelService) { }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -20,9 +28,37 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
+
+    this.branchNameSubscription = this.gitService.branchNameSubject.subscribe(
+      (currentBranch: any) => {
+        this.currentBranch = currentBranch;
+      });
+    this.gitService.emitBranchNameSubject();
+
+    this.localBranchesSubscription = this.leftPanelService.localBranchesSubject.subscribe(
+      (localBranches: any) => {
+        this.localBranches = localBranches;
+      });
+
+    this.gitService.getLocalBranches().then((localBranches) => {
+      this.localBranches = localBranches;
+      this.leftPanelService.setLocalBranches(localBranches);
+    });
+
+    this.gitService.getRemoteBranches().then((remoteBranches) => {
+      this.remoteBranches = remoteBranches;
+    });
   }
 
   ngOnDestroy() {
-    this.themePrefSubscription.unsubscribe();
+    if (this.themePrefSubscription) {
+      this.themePrefSubscription.unsubscribe();
+    }
+    if (this.localBranchesSubscription) {
+      this.localBranchesSubscription.unsubscribe();
+    }
+    if (this.branchNameSubscription) {
+      this.branchNameSubscription.unsubscribe();
+    }
   }
 }
