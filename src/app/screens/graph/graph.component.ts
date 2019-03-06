@@ -13,7 +13,7 @@ export class GraphComponent implements OnInit, OnDestroy {
   currentTheme: string;
   commitHash: string;
 
-  constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService) { }
+  constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,) { }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -25,6 +25,7 @@ export class GraphComponent implements OnInit, OnDestroy {
   }
 
   openViewCommit() {
+    this.rightPanelService.setCommitHash(this.commitHash);
     this.rightPanelService.setView(true);
   }
 

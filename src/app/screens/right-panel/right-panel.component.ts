@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { RightPanelService } from '../../providers/right-panel.service';
+import { GitService } from '../../providers/git.service';
 
 @Component({
   selector: 'app-right-panel',

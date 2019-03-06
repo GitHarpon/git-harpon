@@ -199,4 +199,14 @@ export class GitService {
         });
     });
   }
+
+  async revParseHEAD(): Promise<String> {
+    return this.gitP.raw(['rev-parse', '--short', 'HEAD']);
+  }
+
+  async commitInformation(hash: String) {
+    return this.gitP.log({
+      from: hash
+    });
+  }
 }

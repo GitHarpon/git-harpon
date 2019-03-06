@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { GitService } from '../../providers/git.service';
 
 @Component({
   selector: 'app-view-commit',
@@ -10,8 +12,10 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 export class ViewCommitComponent implements OnInit, OnDestroy {
   themePrefSubscription: Subscription;
   currentTheme: string;
-
-  constructor(private themePrefService: ThemePreferencesService) {
+  commitHashSubscription: Subscription;
+  commitHash: String;
+  constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
+    private gitService: GitService) {
   }
 
   ngOnInit() {
@@ -21,6 +25,22 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
+
+    this.commitHashSubscription = this.rightPanelService.commitHashSubject.subscribe(
+      (hash: String) => {
+        this.commitHash = hash;
+      }
+    );
+
+    this.gitService.revParseHEAD()
+      .then((data) => this.commitHash = data)
+      .catch((data) => {
+        // GERER CAS AUCUN COMMIT
+      });
+  }
+
+  test() {
+    this.gitService.commitInformation(this.commitHash).then((data) => console.log(data));
   }
 
   ngOnDestroy() {
