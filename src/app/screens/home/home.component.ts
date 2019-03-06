@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ResizeEvent } from 'angular-resizable-element';
 import { GitService } from '../../providers/git.service';
 import { ElectronService } from '../../providers/electron.service';
 import { Subscription } from 'rxjs';
@@ -332,6 +331,7 @@ export class HomeComponent implements OnDestroy {
     this.pathSubscription.unsubscribe();
     this.repoNameSubscription.unsubscribe();
     this.recentProjectSubscription.unsubscribe();
+    this.branchNameSubscription.unsubscribe();
     this.currentHttpsUserSubscription.unsubscribe();
   }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable()
-export class LeftPanelService {
+export class MockLeftPanelService {
     localBranches: any;
     localBranchesSubject: Subject<any>;
 

@@ -15,7 +15,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   localBranches: any;
   localBranchesSubscription: Subscription;
   remoteBranches: any;
-  currentBranch: any;
+  branchName: any;
   branchNameSubscription: Subscription;
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
@@ -30,8 +30,8 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     this.themePrefService.emitThemePreferencesSubject();
 
     this.branchNameSubscription = this.gitService.branchNameSubject.subscribe(
-      (currentBranch: any) => {
-        this.currentBranch = currentBranch;
+      (branchName: any) => {
+        this.branchName = branchName;
       });
     this.gitService.emitBranchNameSubject();
 
@@ -42,6 +42,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
 
     this.gitService.getLocalBranches().then((localBranches) => {
       this.localBranches = localBranches;
+      this.leftPanelService.setLocalBranches(localBranches);
     });
 
     this.gitService.getRemoteBranches().then((remoteBranches) => {
@@ -50,6 +51,14 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.themePrefSubscription.unsubscribe();
+    if (this.themePrefSubscription) {
+      this.themePrefSubscription.unsubscribe();
+    }
+    if (this.localBranchesSubscription) {
+      this.localBranchesSubscription.unsubscribe();
+    }
+    if (this.branchNameSubscription) {
+      this.branchNameSubscription.unsubscribe();
+    }
   }
 }
