@@ -138,6 +138,41 @@ export class GitService {
     });
   }
 
+  async setNewBranch(newBranchName, referenceBranchName) {
+    return new Promise<any>((resolve, reject) => {
+      if (this.repoName) {
+        gitPromise(this.path).branch([])
+          .then((result) => {
+            if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
+              gitPromise(this.path).branchLocal()
+                .then((result) => {
+                  result.all.push(newBranchName);
+
+                  gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
+                  .then(() => {
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CREATED')));
+                  })
+                  .catch(() => {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.NOT_CREATED')));
+                  });
+
+                });
+
+            } else {
+              reject(new ServiceResult(false, this.translate.instant('ERROR'),
+              this.translate.instant('BRANCH.NOT_CREATED')));
+            }
+          })
+          .catch(() => {
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+              this.translate.instant('BRANCH.NOT_CREATED')));
+          });
+      }
+    });
+  }
+
   async getLocalBranches() {
     return new Promise<any>((resolve, reject) => {
       if (this.repoName) {

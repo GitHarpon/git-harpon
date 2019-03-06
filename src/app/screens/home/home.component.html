@@ -212,3 +212,11 @@
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeClonedInfoBar()"></app-button>
 </app-info-bar>
 
+<!-- New branch Info bar -->
+<app-info-bar [visible]="newBranchInfoBarVisible">
+    <span>{{ 'BRANCHES_NAME' | translate }}</span>
+    <app-input [(value)]="newBranchName" class="ml-3"></app-input>
+    <app-input [(value)]="referenceBranchName" [placeholder]="branchName" class="ml-3"></app-input>
+    <app-button class="ml-3" value="CREATE_BRANCH" type="success" [disabled]="mainPanelVisible" (buttonClicked)="createBranch()"></app-button>
+    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeNewBranchInfoBar()"></app-button>
+</app-info-bar>

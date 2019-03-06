@@ -36,6 +36,9 @@ export class HomeComponent implements OnDestroy {
   recentProjectSubscription: Subscription;
   branchName: any;
   branchNameSubscription: Subscription;
+  newBranchInfoBarVisible: boolean;
+  newBranchName: string;
+  referenceBranchName: string;
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
   newClonedRepoPath: string;
@@ -112,7 +115,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   branchButtonClicked() {
-    return true;
+    this.newBranchInfoBarVisible = true;
   }
 
   async openTerminal() {
@@ -326,6 +329,22 @@ export class HomeComponent implements OnDestroy {
     this.leftPanelVisible = false;
     this.graphVisible = false;
     this.rightPanelVisible = false;
+  }
+
+  async createBranch() {
+    this.gitService.setNewBranch(this.newBranchName, this.referenceBranchName)
+      .then((data) => {
+        this.newBranchInfoBarVisible = false;
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.newBranchInfoBarVisible = false;
+        this.toastr.error(data.message, data.title);
+      });
+  }
+
+  closeNewBranchInfoBar() {
+    this.newBranchInfoBarVisible = false;
   }
 
   ngOnDestroy() {
