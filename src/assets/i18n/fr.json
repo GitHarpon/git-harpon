@@ -94,7 +94,13 @@
         "LEFT": "Clic gauche"
     },
     "COPY": "Copier",
-    "BRANCH": "Branche",
+    "CREATE_BRANCH": "Créer une branche ici",
+    "BRANCH": {
+        "TITLE": "Branche",
+        "NAME": "Nom des branches",
+        "CREATED": "Branche créée",
+        "NOT_CREATED": "Branche non créée"
+    },
     "PULL": "Tirer",
     "PUSH": "Pousser",
     "EXIT_PREFERENCES": "Sortir des préferences",

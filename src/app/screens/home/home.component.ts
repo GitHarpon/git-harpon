@@ -332,7 +332,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   async createBranch() {
-    this.gitService.setNewBranch(this.newBranchName, this.referenceBranchName)
+    return this.gitService.setNewBranch(this.newBranchName, this.referenceBranchName)
       .then((data) => {
         this.newBranchInfoBarVisible = false;
         this.toastr.info(data.message, data.title);

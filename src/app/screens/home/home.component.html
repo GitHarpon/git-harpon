@@ -34,7 +34,7 @@
                     </app-icon-button>
                 </div>
                 <div class="d-inline-block">
-                    <app-icon-button value="BRANCH" tooltipValue="BRANCH" placement="bottom" [disabled]="!repoName"
+                    <app-icon-button value="BRANCH.TITLE" tooltipValue="BRANCH.TITLE" placement="bottom" [disabled]="!repoName"
                         [icon]="{name:'fa-code-branch', isFab:false}" (buttonClicked)="branchButtonClicked()">
                     </app-icon-button>
                 </div>
@@ -214,7 +214,7 @@
 
 <!-- New branch Info bar -->
 <app-info-bar [visible]="newBranchInfoBarVisible">
-    <span>{{ 'BRANCHES_NAME' | translate }}</span>
+    <span>{{ 'BRANCH.NAME' | translate }}</span>
     <app-input [(value)]="newBranchName" class="ml-3"></app-input>
     <app-input [(value)]="referenceBranchName" [placeholder]="branchName" class="ml-3"></app-input>
     <app-button class="ml-3" value="CREATE_BRANCH" type="success" [disabled]="mainPanelVisible" (buttonClicked)="createBranch()"></app-button>

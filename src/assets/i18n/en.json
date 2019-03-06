@@ -93,7 +93,13 @@
         "LEFT": "Left click"
     },
     "COPY": "Copy",
-    "BRANCH": "Branch",
+    "CREATE_BRANCH": "Create branch here",
+    "BRANCH": {
+        "TITLE": "Branch",
+        "NAME": "Branches name",
+        "CREATED": "Branch created",
+        "NOT_CREATED": "Branch not created"
+    },
     "PULL": "Pull",
     "PUSH": "Push",
     "EXIT_PREFERENCES": "Exit preferences",

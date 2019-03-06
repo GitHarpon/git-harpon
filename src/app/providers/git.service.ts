@@ -146,8 +146,10 @@ export class GitService {
             if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
               gitPromise(this.path).branchLocal()
                 .then((result) => {
+                  // Problème : la branche créée n'est pas ajoutée directement
+                  // à la liste des branches locales
                   result.all.push(newBranchName);
-
+                  // Gérer le cas ou la branche reférence n'a pas été commit
                   gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
                   .then(() => {
                     resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
@@ -157,9 +159,7 @@ export class GitService {
                     reject(new ServiceResult(false, this.translate.instant('ERROR'),
                     this.translate.instant('BRANCH.NOT_CREATED')));
                   });
-
                 });
-
             } else {
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
               this.translate.instant('BRANCH.NOT_CREATED')));
