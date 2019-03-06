@@ -21,6 +21,7 @@ export class GitService {
   repoNameSubject: Subject<any>;
   branchName: any;
   branchNameSubject: Subject<any>;
+  branches: String[];
   gitP: any;
   git: any;
 
@@ -141,6 +142,7 @@ export class GitService {
   async setNewBranch(newBranchName, referenceBranchName) {
     return new Promise<any>((resolve, reject) => {
       if (this.repoName) {
+
         gitPromise(this.path).branch([])
           .then((result) => {
             if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
@@ -152,6 +154,8 @@ export class GitService {
                   // Gérer le cas ou la branche reférence n'a pas été commit
                   gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
                   .then(() => {
+                    this.branchName = newBranchName;
+                    this.emitBranchNameSubject();
                     resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                     this.translate.instant('BRANCH.CREATED')));
                   })
@@ -161,8 +165,31 @@ export class GitService {
                   });
                 });
             } else {
-              reject(new ServiceResult(false, this.translate.instant('ERROR'),
-              this.translate.instant('BRANCH.NOT_CREATED')));
+              gitPromise(this.path).branch(['-r'])
+                .then((resultbis) => {
+                  console.log(resultbis);
+                  if (resultbis.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
+                    result.all.push(newBranchName);
+                    gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
+                    .then(() => {
+                      this.branchName = newBranchName;
+                      this.emitBranchNameSubject();
+                      resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                      this.translate.instant('BRANCH.CREATED')));
+                    })
+                    .catch(() => {
+                      reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                      this.translate.instant('BRANCH.UNCOMMIT')));
+                    });
+                  } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.NOT_CREATED')));
+                  }
+                })
+                .catch(() => {
+                  reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                  this.translate.instant('BRANCH.NOT_CREATED')));
+                });
             }
           })
           .catch(() => {
