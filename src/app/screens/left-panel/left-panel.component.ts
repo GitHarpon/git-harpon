@@ -15,7 +15,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   localBranches: any;
   localBranchesSubscription: Subscription;
   remoteBranches: any;
-  branchName: any;
+  currentBranch: any;
   branchNameSubscription: Subscription;
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
@@ -30,8 +30,8 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     this.themePrefService.emitThemePreferencesSubject();
 
     this.branchNameSubscription = this.gitService.branchNameSubject.subscribe(
-      (branchName: any) => {
-        this.branchName = branchName;
+      (currentBranch: any) => {
+        this.currentBranch = currentBranch;
       });
     this.gitService.emitBranchNameSubject();
 
