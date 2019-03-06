@@ -18,8 +18,8 @@ export class LeftPanelService {
         this.localBranchesSubject = new Subject<any>();
     }
 
-    updateLocalBranches(updatedLocalBranches) {
-        this.localBranches = updatedLocalBranches;
+    setLocalBranches(localBranches) {
+        this.localBranches = localBranches;
         this.localBranchesSubject.next(this.localBranches);
     }
 }

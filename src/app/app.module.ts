@@ -57,6 +57,7 @@ import { GraphComponent } from './screens/graph/graph.component';
 import { ViewCommitComponent } from './screens/view-commit/view-commit.component';
 import { SendCommitComponent } from './screens/send-commit/send-commit.component';
 import { RightPanelService } from './providers/right-panel.service';
+import { LeftPanelService } from './providers/left-panel.service';
 
 
 // AoT requires an exported function for factories
@@ -128,7 +129,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LanguagePreferencesService,
     ThemePreferencesService,
     TerminalManagerService,
-    RightPanelService
+    RightPanelService,
+    LeftPanelService
   ],
   bootstrap: [AppComponent]
 })
