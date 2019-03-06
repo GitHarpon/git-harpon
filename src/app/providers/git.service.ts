@@ -8,6 +8,8 @@ import { ServiceResult } from '../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-store';
 import { HttpsUser } from '../models/HttpsUser';
+import * as isomorphic from 'isomorphic-git';
+import { CommitDescription } from '../models/CommitInformations';
 
 @Injectable()
 export class GitService {
@@ -29,7 +31,7 @@ export class GitService {
     this.repoNameSubject = new Subject<any>();
     this.recentProjectSubject = new Subject<any[]>();
     this.httpsUserSubject = new Subject<HttpsUser>();
-    this.setHttpsUser({ username: null, password: null});
+    this.setHttpsUser({ username: null, password: null });
     if (this.recentProject[0]) {
       if (this.recentProject[0].path) {
         this.setPath(this.recentProject[0].path);
@@ -74,15 +76,15 @@ export class GitService {
             .then(() => {
               this.setPath(PathToRepo);
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-              this.translate.instant('INIT.SUCCESS')));
+                this.translate.instant('INIT.SUCCESS')));
             })
             .catch(() => {
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
-              this.translate.instant('INIT.FAILED')));
+                this.translate.instant('INIT.FAILED')));
             });
         } else {
           reject(new ServiceResult(false, this.translate.instant('ERROR'),
-          this.translate.instant('PATH_NOT_FOUND')));
+            this.translate.instant('PATH_NOT_FOUND')));
         }
       });
     }
@@ -106,7 +108,7 @@ export class GitService {
                 this.translate.instant('OPEN.OPENED_REPO')));
             } else {
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
-              this.translate.instant('OPEN.NOT_GIT_REPO')));
+                this.translate.instant('OPEN.NOT_GIT_REPO')));
             }
           })
           .catch(() => {
@@ -180,7 +182,7 @@ export class GitService {
           if (err.toString().includes('unable to update url base from redirection')) {
             ErrMsg = 'CLONE.UNABLE_TO_UPDATE';
           } else if (err.toString().includes('HTTP Basic: Access denied') ||
-              err.toString().includes('Authentication failed for')) {
+            err.toString().includes('Authentication failed for')) {
             ErrMsg = 'CLONE.HTTP_ACCESS_DENIED';
             AccessDenied = true;
           } else if (err.toString().includes('could not create work tree')) {
@@ -201,12 +203,24 @@ export class GitService {
   }
 
   async revParseHEAD(): Promise<String> {
-    return this.gitP.raw(['rev-parse', '--short', 'HEAD']);
+    return this.gitP.raw(['rev-parse', 'HEAD']);
   }
 
-  async commitInformation(hash: String) {
-    return this.gitP.log({
-      from: hash
+  async commitDescription(hash: String) {
+
+    return new Promise<CommitDescription>((resolve, reject) => {
+      isomorphic.log(
+        {
+          fs: this.electronService.fs,
+          dir: this.electronService.process.cwd(),
+          depth: 1,
+          ref: hash.toString()
+        })
+        .then((commitInfo) => {
+          const Args = hash + '^!';
+          this.gitP.diffSummary([Args])
+            .then((files) => resolve({...commitInfo, ...files}));
+        });
     });
   }
 }

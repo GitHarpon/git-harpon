@@ -33,14 +33,14 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     );
 
     this.gitService.revParseHEAD()
-      .then((data) => this.commitHash = data)
+      .then((data) => this.commitHash = data.replace('\n', ''))
       .catch((data) => {
         // GERER CAS AUCUN COMMIT
       });
   }
 
   test() {
-    this.gitService.commitInformation(this.commitHash).then((data) => console.log(data));
+    this.gitService.commitDescription(this.commitHash).then((data) => console.log(data));
   }
 
   ngOnDestroy() {
