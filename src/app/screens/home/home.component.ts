@@ -96,7 +96,32 @@ export class HomeComponent implements OnDestroy {
   }
 
   pullButtonClicked() {
-    return true;
+    if (this.electronService.fsExistsSync(this.cloneFolder.toString())) {
+      var Url = GitUrlParse(this.cloneUrl);
+      if (Url.protocol === 'https') {
+        this.homeLoading = true;
+        this.pullHttps();
+      } else if (Url.protocol === 'ssh') {
+        // this.homeLoading = true;
+        this.toastr.error('Pas de ssh pour le moment', 'Erreur');
+        this.pullSsh();
+      } else {
+        this.toastr.error(this.translateService.instant('INVALID_URL'),
+          this.translateService.instant('ERROR'));
+      }
+    } else {
+      this.toastr.error(this.translateService.instant('PATH_NOT_FOUND'),
+        this.translateService.instant('ERROR'));
+    }
+  }
+
+  async pullHttps() {
+    // ici on fera le pull cas HTTPS
+  }
+
+  async pullSsh() {
+    // ici on fera le pull cas HTTPS
+    this.toastr.error('Pas de ssh pour le moment', 'Erreur');
   }
 
   pushButtonClicked() {
