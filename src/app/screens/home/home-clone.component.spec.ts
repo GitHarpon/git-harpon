@@ -34,6 +34,8 @@ import { GraphComponent } from '../graph/graph.component';
 import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { HttpsUser } from '../../models/HttpsUser';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
+import { SendCommitComponent } from '../send-commit/send-commit.component';
+import { ViewCommitComponent } from '../view-commit/view-commit.component';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -57,7 +59,9 @@ describe('HomeComponent', () => {
         AccordionComponent,
         LeftPanelComponent,
         GraphComponent,
-        RightPanelComponent
+        RightPanelComponent,
+        SendCommitComponent,
+        ViewCommitComponent
       ],
       imports: [
         FormsModule,

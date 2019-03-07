@@ -54,6 +54,10 @@ import { InfoBarComponent } from './components/info-bar/info-bar.component';
 import { LeftPanelComponent } from './screens/left-panel/left-panel.component';
 import { RightPanelComponent } from './screens/right-panel/right-panel.component';
 import { GraphComponent } from './screens/graph/graph.component';
+import { ViewCommitComponent } from './screens/view-commit/view-commit.component';
+import { SendCommitComponent } from './screens/send-commit/send-commit.component';
+import { RightPanelService } from './providers/right-panel.service';
+import { LeftPanelService } from './providers/left-panel.service';
 
 
 // AoT requires an exported function for factories
@@ -84,7 +88,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     InfoBarComponent,
     LeftPanelComponent,
     RightPanelComponent,
-    GraphComponent
+    GraphComponent,
+    ViewCommitComponent,
+    SendCommitComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -122,7 +128,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorPreferencesService,
     LanguagePreferencesService,
     ThemePreferencesService,
-    TerminalManagerService
+    TerminalManagerService,
+    RightPanelService,
+    LeftPanelService
   ],
   bootstrap: [AppComponent]
 })

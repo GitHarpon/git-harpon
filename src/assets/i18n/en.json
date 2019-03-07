@@ -142,6 +142,8 @@
         "MESSAGE": "It seeems not installed on the device",
         "NAME": "Terminal"
     },
+    "SEND_COMMIT": "Commit",
+    "VIEW_COMMIT": "View commit",
     "LIGHT": "Light",
     "DARK": "Dark",
     "THEME": "Theme",

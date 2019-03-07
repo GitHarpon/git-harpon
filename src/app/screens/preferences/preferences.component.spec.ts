@@ -43,6 +43,8 @@ import { MockTerminalManagerService } from '../../models/MockTerminalManagerServ
 import { LeftPanelComponent } from '../left-panel/left-panel.component';
 import { GraphComponent } from '../graph/graph.component';
 import { RightPanelComponent } from '../right-panel/right-panel.component';
+import { ViewCommitComponent } from '../view-commit/view-commit.component';
+import { SendCommitComponent } from '../send-commit/send-commit.component';
 
 describe('PreferencesComponent', () => {
   /* tslint:disable */
@@ -73,7 +75,9 @@ describe('PreferencesComponent', () => {
         InputNumberComponent,
         LeftPanelComponent,
         GraphComponent,
-        RightPanelComponent
+        RightPanelComponent,
+        SendCommitComponent,
+        ViewCommitComponent
       ],
       imports: [
         FormsModule,
