@@ -15,12 +15,16 @@ export class MockGitService {
     recentProjectSubject: Subject<any>;
     httpsUserSubject: Subject<HttpsUser>;
     httpsUser: HttpsUser;
+    listUnstagedFilesSubject: Subject<any[]>;
+    listStagedFilesSubject: Subject<any[]>;
 
     constructor(private translate: TranslateService) {
         this.pathSubject = new Subject<any>();
         this.repoNameSubject = new Subject<any>();
         this.recentProjectSubject = new Subject<any[]>();
         this.httpsUserSubject = new Subject<HttpsUser>();
+        this.listUnstagedFilesSubject = new Subject<any[]>();
+        this.listStagedFilesSubject = new Subject<any[]>();
         this.setHttpsUser({ username: null, password: null});
     }
 
@@ -38,6 +42,14 @@ export class MockGitService {
 
     emitHttpsUserSubject() {
         this.httpsUserSubject.next(this.httpsUser);
+    }
+
+    emitListUnstagedFilesSubject(listUnstagedFiles) {
+        this.listUnstagedFilesSubject.next(listUnstagedFiles);
+    }
+
+    emitListStagedFilesSubject(listStagedFiles) {
+        this.listStagedFilesSubject.next(listStagedFiles);
     }
 
     setHttpsUser(newUser: HttpsUser) {
