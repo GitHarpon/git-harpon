@@ -34,7 +34,9 @@ export class HomeComponent implements OnDestroy {
   repoNameSubscription: Subscription;
   recentProject: any[];
   recentProjectSubscription: Subscription;
-  credInfoBarVisible: boolean;
+  cloneCredInfoBarVisible: boolean;
+  pushCredInfoBarVisible: boolean;
+
   openClonedInfoBarVisible: boolean;
   newClonedRepoPath: string;
   cloneHttpsUser: HttpsUser;
@@ -47,6 +49,7 @@ export class HomeComponent implements OnDestroy {
   graphVisible: boolean;
   rightPanelVisible: boolean;
   cloneAuthErrored: boolean;
+  pushAuthErrored: boolean;
   currentHttpsUserSubscription: Subscription;
   currentHttpsUser: HttpsUser;
 
@@ -112,7 +115,7 @@ export class HomeComponent implements OnDestroy {
       this.toastr.error(this.translateService.instant('INVALID_URL'),
         this.translateService.instant('ERROR'));
     }*/
-    this.pushHttps();
+    this.pushCredInfoBarVisible = true;
   }
 
   branchButtonClicked() {
@@ -184,9 +187,9 @@ export class HomeComponent implements OnDestroy {
       })
       .catch((data) => {
         if (data.newData) {
-          this.cloneAuthErrored = this.credInfoBarVisible;
+          this.cloneAuthErrored = this.cloneCredInfoBarVisible;
           this.cloneHttpsUser.password = '';
-          this.credInfoBarVisible = true;
+          this.cloneCredInfoBarVisible = true;
         } else {
           this.projectModalLoading = false;
           this.homeLoading = false;
@@ -205,19 +208,25 @@ export class HomeComponent implements OnDestroy {
   }
 
 
-  pushHttps() {
-    this.credInfoBarVisible = false;
+  async pushHttps() {
     this.homeLoading = true;
     return this.gitService.pushHttps(this.fullPath, this.currentHttpsUser, 'master')
       // TODO préciser la branche dynamiquement quand la donnée membre sera présente.
       .then((data) => {
         this.homeLoading = false;
+        this.pushCredInfoBarVisible = false;
         this.toastr.info(data.message, data.title);
       })
       .catch((data) => {
-        this.homeLoading = false;
-        this.resetPushInputs();
-        this.toastr.error(data.message, data.title);
+        if (data.newData) {
+          this.pushAuthErrored = this.pushCredInfoBarVisible;
+          this.currentHttpsUser.password = '';
+          this.pushCredInfoBarVisible = true;
+        } else {
+          this.homeLoading = false;
+          this.resetCloneInputs();
+          this.toastr.error(data.message, data.title);
+        }
       });
   }
 
@@ -289,9 +298,14 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
-  closeCredInfoBar() {
-    this.credInfoBarVisible = false;
+  closeCloneCredInfoBar() {
+    this.cloneCredInfoBarVisible = false;
     this.resetCloneInputs();
+  }
+
+  closePushCredInfoBar() {
+    this.pushCredInfoBarVisible = false;
+    this.resetPushInputs();
   }
 
   openClonedRepo() {
@@ -315,7 +329,7 @@ export class HomeComponent implements OnDestroy {
     this.cloneFolder = '';
     this.newClonedRepoPath = '';
     this.cloneAuthErrored = false;
-    this.credInfoBarVisible = false;
+    this.cloneCredInfoBarVisible = false;
     this.homeLoading = false;
   }
 
@@ -324,6 +338,8 @@ export class HomeComponent implements OnDestroy {
       username: '',
       password: ''
     };
+    this.pushCredInfoBarVisible = false;
+    this.homeLoading = false;
   }
 
   async openRecentRepo(recentPath: string) {

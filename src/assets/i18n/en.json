@@ -43,12 +43,12 @@
         "INVALID_CRED": "Invalid username or password"
     },
     "PUSH": {
-        "WHERE": "Where to clone",
+        "WHERE": "Where to push",
         "URL": "URL",
         "TITLE": "Push",
-        "TAB_TITLE": "Clone a repository",
-        "DONE": "The repository was clone",
-        "ERROR": "Problem during the clone",
+        "TAB_TITLE": "Push a repository",
+        "DONE": "The push was successful",
+        "ERROR": "Problem during the push",
         "UNABLE_TO_UPDATE": "Unable to update url base from redirection",
         "HTTP_ACCESS_DENIED": "HTTP basic: Access denied",
         "NOT_WORK_TREE": "Could not create work tree : permission denied",

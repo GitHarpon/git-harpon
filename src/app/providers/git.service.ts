@@ -204,14 +204,13 @@ export class GitService {
     return new Promise<ServiceResult>((resolve, reject) => {
       var Remote;
       gitPromise(folder).raw(['remote', 'get-url', 'origin']).then((data) => {
-          const Credentials = httpsUser.username + ':' + httpsUser.password + '@';
-          var RemoteArray = [];
-          RemoteArray = data.split('://');
-          Remote = RemoteArray[0] + '://' + Credentials + RemoteArray[1];
-          console.log(Remote);
-      }).catch(() => { console.log('err'); });
+        const Credentials = httpsUser.username + ':' + httpsUser.password + '@';
+        var RemoteArray = [];
+        RemoteArray = data.split('://');
+        Remote = RemoteArray[0] + '://' + Credentials + RemoteArray[1];
+      }).catch((err) => { console.error(err); });
 
-      /*gitPromise(folder).push(Remote, branch, [])
+      gitPromise(folder).push(Remote, branch, [])
       .then(() => {
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
           this.translate.instant('PUSH.DONE')));
@@ -231,8 +230,7 @@ export class GitService {
         }
         reject(new ServiceResult(false, this.translate.instant('ERROR'),
         this.translate.instant(ErrMsg), AccessDenied));
-      });*/
-      console.log(Remote);
+      });
     });
   }
 
