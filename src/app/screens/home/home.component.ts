@@ -104,18 +104,8 @@ export class HomeComponent implements OnDestroy {
 
   pushButtonClicked() {
     // TODO 1. Verifier qu'il existe des commits. Disable le button
-    // Si commit -> push
-    /*var Url = GitUrlParse('https://github.com/antoineguillory/private');
-    if (Url.protocol === 'https') {
-      this.homeLoading = true;
-      this.pushHttps();
-    } else if (Url.protocol === 'ssh') {
-      this.toastr.error('Pas de ssh pour le moment', 'Erreur');
-    } else {
-      this.toastr.error(this.translateService.instant('INVALID_URL'),
-        this.translateService.instant('ERROR'));
-    }*/
     this.pushCredInfoBarVisible = true;
+    return true;
   }
 
   branchButtonClicked() {

@@ -210,7 +210,7 @@ describe('HomeComponent', () => {
   });
 
   it('tests the closeCredInfoBar function', () => {
-    component.closeCredInfoBar();
+    component.closeCloneCredInfoBar();
     expect(component.cloneCredInfoBarVisible).toBeFalsy();
   });
 
