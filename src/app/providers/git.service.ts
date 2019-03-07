@@ -218,24 +218,29 @@ export class GitService {
   updateFilesDiff() {
     this.listUnstagedFiles = [];
     this.listStagedFiles = [];
-    this.gitP.diff(['--name-only']).then((data) => {
-      const ListFiles = data.split('\n');
-      ListFiles.forEach(file => {
-        if (file != '') {
-          this.listUnstagedFiles.push(file);
+    this.gitP.status().then((statusSummary) => {
+      const ListFile = statusSummary.files;
+      ListFile.forEach(file => {
+        if (file.working_dir == 'M' || file.working_dir == 'D') {
+          this.listUnstagedFiles.push({
+            path: file.path,
+            status: file.working_dir
+          });
+        } else if (file.working_dir == '?') {
+          this.listUnstagedFiles.push({
+            path: file.path,
+            status: 'A'
+          });
+        }
+        if (file.index == 'M' || file.index == 'D' || file.index == 'A') {
+          this.listStagedFiles.push({
+            path: file.path,
+            status: file.index
+          });
         }
       });
     });
     this.emitListUnstagedFilesSubject();
-
-    this.gitP.diff(['--name-only', '--cached']).then((data) => {
-      const ListFiles = data.split('\n');
-      ListFiles.forEach(file => {
-        if (file != '') {
-          this.listStagedFiles.push(file);
-        }
-      });
-    });
     this.emitListStagedFilesSubject();
   }
 }

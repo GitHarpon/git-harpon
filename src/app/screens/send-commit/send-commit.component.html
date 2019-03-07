@@ -3,7 +3,11 @@
     {{ 'UNSTAGED_FILES' | translate }} ({{ listUnstagedFiles.length }})
     <div class="send-commit_block">
         <div *ngFor="let file of listUnstagedFiles" class="send-commit_block_file">
-          <a data-toggle="tooltip" title="{{ file }}">{{ getFileNameFromPath(file) }}</a>
+          <a data-toggle="tooltip" title="{{ file.path }}">
+            <i class="fa" [ngClass]="[(file.status == 'M' ? 'fa-file-signature' : ''), 
+              (file.status == 'A' ? 'fa-file-medical' : ''), (file.status == 'D' ? 'fa-file-excel' : '')]"></i>
+            {{ getFileNameFromPath(file.path) }}
+          </a>
         </div>
     </div>
   </div>
@@ -12,7 +16,11 @@
       {{ 'STAGED_FILES' | translate }} ({{ listStagedFiles.length }})
       <div class="send-commit_block">
           <div *ngFor="let file of listStagedFiles" class="send-commit_block_file">
-            <a data-toggle="tooltip" title="{{ file }}">{{ getFileNameFromPath(file) }}</a>
+            <a data-toggle="tooltip" title="{{ file.path }}">
+              <i class="fa" [ngClass]="[(file.status == 'M' ? 'fa-file-signature' : ''), 
+                (file.status == 'A' ? 'fa-file-medical' : ''), (file.status == 'M' ? 'fa-file-excel' : '')]"></i>
+              {{ getFileNameFromPath(file.path) }}
+            </a>
           </div>
       </div>
   </div>
