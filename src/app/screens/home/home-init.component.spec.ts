@@ -32,6 +32,7 @@ import { TerminalManagerService } from '../../providers/terminal-manager.service
 import { LeftPanelComponent } from '../left-panel/left-panel.component';
 import { GraphComponent } from '../graph/graph.component';
 import { RightPanelComponent } from '../right-panel/right-panel.component';
+import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 
@@ -53,6 +54,7 @@ describe('HomeComponent', () => {
         IconButtonComponent,
         LoaderComponent,
         InfoBarComponent,
+        AccordionComponent,
         LeftPanelComponent,
         GraphComponent,
         RightPanelComponent,
