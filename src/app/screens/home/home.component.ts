@@ -214,7 +214,7 @@ export class HomeComponent implements OnDestroy {
           this.pushCredInfoBarVisible = true;
         } else {
           this.homeLoading = false;
-          this.resetCloneInputs();
+          this.resetPushInputs();
           this.toastr.error(data.message, data.title);
         }
       });
