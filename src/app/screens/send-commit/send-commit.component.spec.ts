@@ -34,20 +34,20 @@ describe('SendCommitComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it ('test the ngOnInit function', () => {
+  it ('tests the ngOnInit function', () => {
     component.ngOnInit();
 
     expect(component.themePrefSubscription).toBeDefined();
   });
 
-  it ('test the ngOnDestroy function with defined themePrefSubscription', () => {
+  it ('tests the ngOnDestroy function with defined themePrefSubscription', () => {
     component.ngOnInit();
     component.ngOnDestroy();
 
     expect(component.themePrefSubscription.closed).toBeTruthy();
   });
 
-  it ('test the ngOnDestroy function with undefined themePrefSubscription', () => {
+  it ('tests the ngOnDestroy function with undefined themePrefSubscription', () => {
     component.ngOnDestroy();
 
     expect(component.themePrefSubscription).toBeUndefined();

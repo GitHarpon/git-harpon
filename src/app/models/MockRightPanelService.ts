@@ -5,9 +5,12 @@ import { Subject } from 'rxjs';
 export class MockRightPanelService {
     isView: Boolean;
     isViewSubject = new Subject<Boolean>();
+    commitHash: String;
+    commitHashSubject: Subject<String>;
 
     constructor() {
         this.isViewSubject = new Subject<Boolean>();
+        this.commitHashSubject = new Subject<String>();
         this.isView = true;
         this.emitIsViewSubject();
     }
@@ -16,8 +19,17 @@ export class MockRightPanelService {
         this.isViewSubject.next(this.isView);
     }
 
+    emitCommitHashSubject() {
+        this.commitHashSubject.next(this.commitHash);
+    }
+
     setView(view: boolean) {
         this.isView = view;
         this.emitIsViewSubject();
+    }
+
+    setCommitHash(hash: String) {
+        this.commitHash = hash;
+        this.emitCommitHashSubject();
     }
 }

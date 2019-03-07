@@ -8,6 +8,8 @@ import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { GitService } from '../../providers/git.service';
 import { MockGitService } from '../../models/MockGitService';
 import { ButtonComponent } from '../../components/button/button.component';
+import { TranslateService } from '@ngx-translate/core';
+import { MockTranslateService } from '../../models/MockTranslateService';
 
 describe('ViewCommitComponent', () => {
   /* tslint:disable */
@@ -33,7 +35,11 @@ describe('ViewCommitComponent', () => {
         {
           provide: GitService,
           useClass: MockGitService
-        }
+        },
+        {
+          provide: TranslateService,
+          useClass: MockTranslateService
+        },
       ]
     })
       .compileComponents();
@@ -48,22 +54,36 @@ describe('ViewCommitComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it ('test the ngOnInit function', () => {
+  it ('tests the ngOnInit function', () => {
     component.ngOnInit();
 
     expect(component.themePrefSubscription).toBeDefined();
+    expect(component.commitHashSubscription).toBeDefined();
   });
 
-  it ('test the ngOnDestroy function with defined themePrefSubscription', () => {
+  it('tests the setDescription function', (done) => {
+    const Hash = '72267b6ad64858f2db2d597f67004b59e543928b';
+    component.commitHash = Hash;
+
+    component.setDescription().then(() => {
+      expect(component.currentDescription).toBeDefined();
+      expect(component.currentDescription.oid).toBe(Hash);
+      done();
+    });
+  });
+
+  it ('tests the ngOnDestroy function with defined themePrefSubscription', () => {
     component.ngOnInit();
     component.ngOnDestroy();
 
     expect(component.themePrefSubscription.closed).toBeTruthy();
+    expect(component.commitHashSubscription.closed).toBeTruthy();
   });
 
-  it ('test the ngOnDestroy function with undefined themePrefSubscription', () => {
+  it ('tests the ngOnDestroy function with undefined themePrefSubscription', () => {
     component.ngOnDestroy();
 
     expect(component.themePrefSubscription).toBeUndefined();
+    expect(component.commitHashSubscription).toBeUndefined();
   });
 });

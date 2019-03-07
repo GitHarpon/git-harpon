@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { GitService } from '../../providers/git.service';
+import { CommitDescription } from '../../models/CommitInformations';
 
 @Component({
   selector: 'app-view-commit',
@@ -14,6 +15,8 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   currentTheme: string;
   commitHashSubscription: Subscription;
   commitHash: String;
+  currentDescription: CommitDescription;
+
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
     private gitService: GitService) {
   }
@@ -31,21 +34,24 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
         this.commitHash = hash;
       }
     );
+    this.rightPanelService.emitCommitHashSubject();
 
-    this.gitService.revParseHEAD()
-      .then((data) => this.commitHash = data.replace('\n', ''))
-      .catch((data) => {
-        // GERER CAS AUCUN COMMIT
-      });
+    this.gitService.revParseHEAD().then((data) => this.commitHash = data.replace('\n', ''));
+    // gérer cas dans open ou pas de commit
   }
 
-  test() {
-    this.gitService.commitDescription(this.commitHash).then((data) => console.log(data));
+  async setDescription() {
+    return this.gitService.commitDescription(this.commitHash).then((data) => {
+      this.currentDescription = data;
+    });
   }
 
   ngOnDestroy() {
     if (this.themePrefSubscription) {
       this.themePrefSubscription.unsubscribe();
+    }
+    if (this.commitHashSubscription) {
+      this.commitHashSubscription.unsubscribe();
     }
   }
 }

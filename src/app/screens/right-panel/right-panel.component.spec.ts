@@ -42,20 +42,20 @@ describe('RightPanelComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it ('test the ngOnInit function', () => {
+  it ('tests the ngOnInit function', () => {
     component.ngOnInit();
 
     expect(component.isViewSubscription).toBeDefined();
   });
 
-  it ('test the ngOnDestroy function with defined isViewSubscription', () => {
+  it ('tests the ngOnDestroy function with defined isViewSubscription', () => {
     component.ngOnInit();
     component.ngOnDestroy();
 
     expect(component.isViewSubscription.closed).toBeTruthy();
   });
 
-  it ('test the ngOnDestroy function with undefined isViewSubscription', () => {
+  it ('tests the ngOnDestroy function with undefined isViewSubscription', () => {
     component.ngOnDestroy();
 
     expect(component.isViewSubscription).toBeUndefined();

@@ -207,7 +207,6 @@ export class GitService {
   }
 
   async commitDescription(hash: String) {
-
     return new Promise<CommitDescription>((resolve, reject) => {
       isomorphic.log(
         {
