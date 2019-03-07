@@ -33,15 +33,10 @@ export class HomeComponent implements OnDestroy {
   repoNameSubscription: Subscription;
   recentProject: any[];
   recentProjectSubscription: Subscription;
-<<<<<<< HEAD
   cloneCredInfoBarVisible: boolean;
   pushCredInfoBarVisible: boolean;
-
-=======
   branchName: any;
   branchNameSubscription: Subscription;
-  credInfoBarVisible: boolean;
->>>>>>> develop
   openClonedInfoBarVisible: boolean;
   newClonedRepoPath: string;
   cloneHttpsUser: HttpsUser;
