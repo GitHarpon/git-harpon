@@ -9,6 +9,7 @@ import * as GitUrlParse from 'git-url-parse';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { HttpsUser } from '../../models/HttpsUser';
+import { LeftPanelService } from '../../providers/left-panel.service';
 
 @Component({
   selector: 'app-home',
@@ -35,8 +36,6 @@ export class HomeComponent implements OnDestroy {
   recentProjectSubscription: Subscription;
   branchName: any;
   branchNameSubscription: Subscription;
-  localBranchesName: any;
-  localBranchesNameSubscription: Subscription;
   newBranchInfoBarVisible: boolean;
   newBranchName: string;
   referenceBranchName: string;
@@ -59,7 +58,7 @@ export class HomeComponent implements OnDestroy {
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
     private translateService: TranslateService, private terminalService: TerminalManagerService,
-    private themePrefService: ThemePreferencesService) {
+    private themePrefService: ThemePreferencesService, private leftPanelService: LeftPanelService) {
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
@@ -84,14 +83,6 @@ export class HomeComponent implements OnDestroy {
         this.branchName = branchName;
       });
     this.gitService.emitBranchNameSubject();
-
-    /* ajouter dans constructeur "leftPanelService: LeftPanelService"
-     * utiliser le emit... de leftPanelService  */
-    // this.localBranchesNameSubscription = this.gitService.localBranchesNameSubject.subscribe(
-    //   (localBranchesName: any) => {
-    //     this.localBranchesName = localBranchesName;
-    //   });
-    // this.gitService.emitLocalBranchesNameSubject();
 
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
@@ -341,13 +332,16 @@ export class HomeComponent implements OnDestroy {
   }
 
   async createBranch() {
+    this.homeLoading = true;
     return this.gitService.setNewBranch(this.newBranchName, this.referenceBranchName)
       .then((data) => {
         this.newBranchInfoBarVisible = false;
+        this.homeLoading = false;
         this.toastr.info(data.message, data.title);
       })
       .catch((data) => {
         this.newBranchInfoBarVisible = false;
+        this.homeLoading = false;
         this.toastr.error(data.message, data.title);
       });
   }

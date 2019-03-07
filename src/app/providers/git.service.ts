@@ -8,6 +8,7 @@ import { ServiceResult } from '../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-store';
 import { HttpsUser } from '../models/HttpsUser';
+import { LeftPanelService } from './left-panel.service';
 
 @Injectable()
 export class GitService {
@@ -25,7 +26,8 @@ export class GitService {
   gitP: any;
   git: any;
 
-  constructor(private electronService: ElectronService, private translate: TranslateService) {
+  constructor(private electronService: ElectronService, private translate: TranslateService,
+    private leftPanelService: LeftPanelService) {
     this.gitP = gitPromise();
     this.git = simpleGit();
     this.pathSubject = new Subject<any>();
@@ -148,14 +150,13 @@ export class GitService {
             if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
               gitPromise(this.path).branchLocal()
                 .then((result) => {
-                  // Problème : la branche créée n'est pas ajoutée directement
-                  // à la liste des branches locales
-
-                  // result.all.push(newBranchName);
                   gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
                   .then(() => {
                     this.branchName = newBranchName;
                     this.emitBranchNameSubject();
+                    let UpdatedLocalBranches = result.all;
+                    UpdatedLocalBranches.push(newBranchName);
+                    this.leftPanelService.setLocalBranches(UpdatedLocalBranches);
                     resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                     this.translate.instant('BRANCH.CREATED')));
                   })
@@ -169,12 +170,13 @@ export class GitService {
                 .then((resultbis) => {
                   console.log(resultbis);
                   if (resultbis.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
-                    // result.all.push(newBranchName);
-                    /* JLA */
                     gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
                     .then(() => {
                       this.branchName = newBranchName;
                       this.emitBranchNameSubject();
+                      let UpdatedLocalBranches = result.all;
+                      UpdatedLocalBranches.push(newBranchName);
+                      this.leftPanelService.setLocalBranches(UpdatedLocalBranches);
                       resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                       this.translate.instant('BRANCH.CREATED')));
                     })
