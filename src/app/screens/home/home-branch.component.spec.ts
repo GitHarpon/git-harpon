@@ -42,7 +42,6 @@ describe('HomeComponent', () => {
   /* tslint:disable */
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  let terminalService: TerminalManagerService;
   /* tslint:enable */
 
   beforeEach(async(() => {
@@ -114,105 +113,5 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    terminalService = TestBed.get(TerminalManagerService);
-  });
-
-  it('tests the component creation', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('tests the pullButtonClicked function', () => {
-    expect(component.pullButtonClicked()).toBeTruthy();
-  });
-
-  it('tests the pushButtonClicked function', () => {
-    expect(component.pushButtonClicked()).toBeTruthy();
-  });
-
-  it('tests the branchButtonClicked function', () => {
-    expect(component.branchButtonClicked()).toBeTruthy();
-  });
-
-  it('tests the openTerminal function with success', (done) => {
-    const TerminalName = 'terminator';
-    terminalService.terminalName = TerminalName;
-    component.openTerminal().then((result) => {
-      expect(result).toBeTruthy();
-      done();
-    });
-  });
-
-  it('tests the openTerminal function with success', (done) => {
-    const TerminalName = 'not-a-terminal';
-    terminalService.terminalName = TerminalName;
-    component.openTerminal().then((result) => {
-      expect(result).toBeFalsy();
-      done();
-    });
-  });
-
-  it('tests the openPreferences function', (done) => {
-    component.openPreferences().then((result) => {
-      expect(result).toBeTruthy();
-      done();
-    });
-  });
-
-  it('tests the openProjectModal function', () => {
-    const TabSelectedIndex = 0;
-    component.openProjectModal(TabSelectedIndex);
-    expect(component.projectModalTabSelectedIndex).toBe(TabSelectedIndex);
-    expect(component.projectModalVisible).toBeTruthy();
-  });
-
-  it('tests the displaySearchInputValue function with valid repo name', () => {
-    const RepoName = '/repo';
-    component.repoName = RepoName;
-    expect(component.displaySearchInputValue()).toBeTruthy();
-  });
-
-  it('tests the displaySearchInputValue function with invalid repo name', () => {
-    expect(component.displaySearchInputValue()).toBeFalsy();
-  });
-
-  it('tests the openHomeView function with valid repoName', () => {
-    const RepoName = '/path';
-    const HomeViewVisible = false;
-    component.repoName = RepoName;
-    component.mainPanelVisible = !HomeViewVisible;
-    component.leftPanelVisible = HomeViewVisible;
-    component.graphVisible = HomeViewVisible;
-    component.rightPanelVisible = HomeViewVisible;
-    component.openHomeView();
-    expect(component.mainPanelVisible).toBeFalsy();
-    expect(component.leftPanelVisible).toBeTruthy();
-    expect(component.graphVisible).toBeTruthy();
-    expect(component.rightPanelVisible).toBeTruthy();
-  });
-
-  it('tests the openHomeView function without repoName', () => {
-    const HomeViewVisible = false;
-    component.mainPanelVisible = !HomeViewVisible;
-    component.leftPanelVisible = HomeViewVisible;
-    component.graphVisible = HomeViewVisible;
-    component.rightPanelVisible = HomeViewVisible;
-    component.openHomeView();
-    expect(component.mainPanelVisible).toBeTruthy();
-    expect(component.leftPanelVisible).toBeFalsy();
-    expect(component.graphVisible).toBeFalsy();
-    expect(component.rightPanelVisible).toBeFalsy();
-  });
-
-  it('tests the closeHomeView function', () => {
-    const HomeViewVisible = true;
-    component.mainPanelVisible = !HomeViewVisible;
-    component.leftPanelVisible = HomeViewVisible;
-    component.graphVisible = HomeViewVisible;
-    component.rightPanelVisible = HomeViewVisible;
-    component.closeHomeView();
-    expect(component.mainPanelVisible).toBeTruthy();
-    expect(component.leftPanelVisible).toBeFalsy();
-    expect(component.graphVisible).toBeFalsy();
-    expect(component.rightPanelVisible).toBeFalsy();
   });
 });

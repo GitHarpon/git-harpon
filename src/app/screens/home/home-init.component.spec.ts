@@ -22,6 +22,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
@@ -85,6 +87,10 @@ describe('HomeComponent', () => {
         {
           provide: ThemePreferencesService,
           useClass: MockThemePreferencesService
+        },
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
         },
         {
           provide: ElectronService,

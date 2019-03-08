@@ -6,6 +6,8 @@ import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-transla
 import { MockTranslateService } from '../../models/MockTranslateService';
 import { ElectronService } from '../../providers/electron.service';
 import { MockElectronService } from '../../models/MockElectronService';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { GitService } from '../../providers/git.service';
 import { MockGitService } from '../../models/MockGitService';
 import { ContainerComponent } from '../../components/container/container.component';
@@ -87,6 +89,10 @@ describe('HomeComponent', () => {
         {
           provide: ThemePreferencesService,
           useClass: MockThemePreferencesService
+        },
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
         },
         {
           provide: ElectronService,

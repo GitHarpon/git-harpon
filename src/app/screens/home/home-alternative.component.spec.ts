@@ -26,6 +26,8 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 import { InfoBarComponent } from '../../components/info-bar/info-bar.component';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { MockRouter } from '../../models/MockRouter';
 import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
@@ -86,6 +88,10 @@ describe('HomeComponent', () => {
         {
           provide: ThemePreferencesService,
           useClass: MockThemePreferencesService
+        },
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
         },
         {
           provide: ElectronService,
