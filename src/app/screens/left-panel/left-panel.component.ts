@@ -15,8 +15,10 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   localBranches: any;
   localBranchesSubscription: Subscription;
   remoteBranches: any;
+  remoteBranchesSubscription: Subscription;
   currentBranch: any;
   branchNameSubscription: Subscription;
+  objectKeys = Object.keys;
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
     private leftPanelService: LeftPanelService) { }
@@ -40,14 +42,26 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
         this.localBranches = localBranches;
       });
 
+    this.remoteBranchesSubscription = this.leftPanelService.remoteBranchesSubject.subscribe(
+      (remoteBranches: any) => {
+        this.remoteBranches = remoteBranches;
+      });
+
     this.gitService.getLocalBranches().then((localBranches) => {
-      this.localBranches = localBranches;
       this.leftPanelService.setLocalBranches(localBranches);
     });
 
     this.gitService.getRemoteBranches().then((remoteBranches) => {
-      this.remoteBranches = remoteBranches;
+      this.leftPanelService.setRemoteBranches(remoteBranches);
     });
+  }
+
+  checkoutLocalBranch(localBranch) {
+    console.log(localBranch);
+  }
+
+  checkoutRemoteBranch(remoteBranch) {
+    console.log(remoteBranch);
   }
 
   ngOnDestroy() {
@@ -56,6 +70,9 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     }
     if (this.localBranchesSubscription) {
       this.localBranchesSubscription.unsubscribe();
+    }
+    if (this.remoteBranchesSubscription) {
+      this.remoteBranchesSubscription.unsubscribe();
     }
     if (this.branchNameSubscription) {
       this.branchNameSubscription.unsubscribe();

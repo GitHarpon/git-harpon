@@ -18,3 +18,32 @@
         border-top: 1px solid $border-dark-grey-light;
     }
 }
+
+.gh-current-branch.light {
+    @include bg-color($light-green-hover-light);
+    &:hover {
+        @include bg-color($light-green-hover-light);
+        cursor: default;
+    }
+}
+
+.gh-current-branch.dark {
+    @include bg-color($light-green-hover);
+
+    &:hover {
+        @include bg-color($light-green-hover);
+    }
+}
+
+.gh-branch.dark {
+    &:hover {
+        @include bg-color($disabled-blue);
+        cursor: pointer;
+    }
+}
+.gh-branch.light {
+    &:hover {
+        @include bg-color($modal-tab-hover-light);
+        cursor: pointer;
+    }
+}
