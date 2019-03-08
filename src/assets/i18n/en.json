@@ -93,7 +93,11 @@
         "LEFT": "Left click"
     },
     "COPY": "Copy",
-    "BRANCH": "Branch",
+    "BRANCH": {
+        "TITLE": "Branch",
+        "CHECKED_OUT": "Branch checked out",
+        "CHECKED_OUT_CONFLICTS": "Conflicts prevent checkout"
+    },
     "PULL": "Pull",
     "PUSH": "Push",
     "EXIT_PREFERENCES": "Exit preferences",

@@ -94,7 +94,11 @@
         "LEFT": "Clic gauche"
     },
     "COPY": "Copier",
-    "BRANCH": "Branche",
+    "BRANCH": {
+        "TITLE": "Branche",
+        "CHECKED_OUT": "Branche changée",
+        "CHECKED_OUT_CONFLICTS": "Les conflits empêchent le changement de branche"
+    },
     "PULL": "Tirer",
     "PUSH": "Pousser",
     "EXIT_PREFERENCES": "Sortir des préferences",

@@ -110,13 +110,7 @@ export class GitService {
               this.emitPathSubject();
               this.registerProject(this.repoName, this.path);
 
-              gitPromise(this.path).branch([])
-                .then((result) => {
-                  if (result.current) {
-                    this.branchName = result.current;
-                    this.emitBranchNameSubject();
-                  }
-                });
+              this.getCurrentBranch();
 
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                 this.translate.instant('OPEN.OPENED_REPO')));
@@ -136,6 +130,16 @@ export class GitService {
           this.translate.instant('OPEN.REPO_NOT_EXIST')));
       }
     });
+  }
+
+  getCurrentBranch() {
+    gitPromise(this.path).branch([])
+      .then((result) => {
+        if (result.current) {
+          this.branchName = result.current;
+          this.emitBranchNameSubject();
+        }
+      });
   }
 
   async getLocalBranches() {
@@ -162,6 +166,25 @@ export class GitService {
         reject(null);
       }
     });
+  }
+
+  checkoutLocalBranch(newBranch) {
+    if (newBranch !== this.branchName) {
+      return new Promise<ServiceResult>((resolve, reject) => {
+        gitPromise(this.path).checkout(newBranch).then(() => {
+          this.getCurrentBranch();
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.CHECKED_OUT')));
+        }).catch((err) => {
+          let ErrMsg = 'BRANCH.ERROR';
+          if (err.toString().includes('local changes to the following files would be overwritten by checkout')) {
+            ErrMsg = 'BRANCH.CHECKED_OUT_CONFLICTS';
+          }
+          reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant(ErrMsg)));
+        });
+      });
+    }
   }
 
   registerProject(repo: any, path: any) {

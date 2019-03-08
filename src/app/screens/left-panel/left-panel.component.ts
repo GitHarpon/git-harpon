@@ -3,6 +3,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { Subscription } from 'rxjs';
 import { GitService } from '../../providers/git.service';
 import { LeftPanelService } from '../../providers/left-panel.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-left-panel',
@@ -21,7 +22,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   objectKeys = Object.keys;
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
-    private leftPanelService: LeftPanelService) { }
+    private leftPanelService: LeftPanelService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -47,17 +48,25 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
         this.remoteBranches = remoteBranches;
       });
 
-    this.gitService.getLocalBranches().then((localBranches) => {
-      this.leftPanelService.setLocalBranches(localBranches);
-    });
-
-    this.gitService.getRemoteBranches().then((remoteBranches) => {
-      this.leftPanelService.setRemoteBranches(remoteBranches);
-    });
+    this.leftPanelService.setLocalBranches();
+    this.leftPanelService.setRemoteBranches();
   }
 
   checkoutLocalBranch(localBranch) {
     console.log(localBranch);
+    if (localBranch !== this.currentBranch) {
+      this.gitService.checkoutLocalBranch(localBranch).then((result) => {
+        this.toastr.info(result.message, result.title, {
+          onActivateTick: true
+        });
+
+        this.leftPanelService.setLocalBranches();
+      }).catch((result) => {
+        this.toastr.error(result.message, result.title, {
+          onActivateTick: true
+        });
+      });
+    }
   }
 
   checkoutRemoteBranch(remoteBranch) {
