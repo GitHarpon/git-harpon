@@ -144,5 +144,6 @@
     "INDEPENDENT_THEME": "Independent of the theme",
     "WRONG_CRED": "Wrong informations",
     "UNSTAGED_FILES": "Unstaged Files",
-    "STAGED_FILES": "Staged Files"
+    "STAGED_FILES": "Staged Files",
+    "STAGE_FILE": "Stage file"
 }

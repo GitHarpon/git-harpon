@@ -1,28 +1,12 @@
 <div class="send-commit container" [ngClass]="currentTheme">
   <div class="text-left">
     {{ 'UNSTAGED_FILES' | translate }} ({{ listUnstagedFiles.length }})
-    <div class="send-commit_block">
-        <div *ngFor="let file of listUnstagedFiles" class="send-commit_block_file">
-          <a data-toggle="tooltip" title="{{ file.path }}">
-            <i class="fa" [ngClass]="[(file.status == 'M' ? 'fa-file-signature' : ''), 
-              (file.status == 'A' ? 'fa-file-medical' : ''), (file.status == 'D' ? 'fa-file-excel' : '')]"></i>
-            {{ getFileNameFromPath(file.path) }}
-          </a>
-        </div>
-    </div>
+    <app-file-diff-commit [listFiles]="listUnstagedFiles" componentType="unstage"></app-file-diff-commit>
   </div>
 
   <div class="text-left">
       {{ 'STAGED_FILES' | translate }} ({{ listStagedFiles.length }})
-      <div class="send-commit_block">
-          <div *ngFor="let file of listStagedFiles" class="send-commit_block_file">
-            <a data-toggle="tooltip" title="{{ file.path }}">
-              <i class="fa" [ngClass]="[(file.status == 'M' ? 'fa-file-signature' : ''), 
-                (file.status == 'A' ? 'fa-file-medical' : ''), (file.status == 'M' ? 'fa-file-excel' : '')]"></i>
-              {{ getFileNameFromPath(file.path) }}
-            </a>
-          </div>
-      </div>
+      <app-file-diff-commit [listFiles]="listStagedFiles" componentType="stage"></app-file-diff-commit>
   </div>
   <app-button value="Test" type="primary" (buttonClicked)="display()"></app-button>
 </div>

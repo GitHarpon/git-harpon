@@ -45,11 +45,6 @@ export class SendCommitComponent implements OnInit, OnDestroy {
     console.log(this.listStagedFiles);
   }
 
-  getFileNameFromPath(path: string): string {
-    const TabString = path.split('/');
-    return  TabString[TabString.length - 1];
-  }
-
   ngOnDestroy() {
     if (this.themePrefSubscription) {
       this.themePrefSubscription.unsubscribe();

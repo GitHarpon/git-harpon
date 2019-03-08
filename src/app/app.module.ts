@@ -57,6 +57,7 @@ import { GraphComponent } from './screens/graph/graph.component';
 import { ViewCommitComponent } from './screens/view-commit/view-commit.component';
 import { SendCommitComponent } from './screens/send-commit/send-commit.component';
 import { RightPanelService } from './providers/right-panel.service';
+import { FileDiffCommitComponent } from './components/file-diff-commit/file-diff-commit.component';
 
 
 // AoT requires an exported function for factories
@@ -89,7 +90,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RightPanelComponent,
     GraphComponent,
     ViewCommitComponent,
-    SendCommitComponent
+    SendCommitComponent,
+    FileDiffCommitComponent
   ],
   imports: [
     ReactiveFormsModule,
