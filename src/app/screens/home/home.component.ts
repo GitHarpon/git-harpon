@@ -206,8 +206,7 @@ export class HomeComponent implements OnDestroy {
 
   async pushHttps() {
     this.homeLoading = true;
-    return this.gitService.pushHttps(this.fullPath, this.currentHttpsUser, 'master')
-      // TODO préciser la branche dynamiquement quand la donnée membre sera présente.
+    return this.gitService.pushHttps(this.fullPath, this.currentHttpsUser, this.branchName)
       .then((data) => {
         this.homeLoading = false;
         this.pushCredInfoBarVisible = false;

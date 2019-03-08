@@ -252,9 +252,8 @@ export class GitService {
         RemoteArray = data.split('://');
         Remote = RemoteArray[0] + '://' + Credentials + RemoteArray[1];
       }).catch((err) => { console.error(err); });
-
-      gitPromise(folder).push(Remote, branch, [])
-      .then(() => {
+      gitPromise(folder).push(Remote, branch, {'-u': null, 'origin': null})
+      .then((data) => {
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
           this.translate.instant('PUSH.DONE')));
         }).catch((err) => {
