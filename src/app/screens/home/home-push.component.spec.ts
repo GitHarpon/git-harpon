@@ -35,6 +35,7 @@ import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { HttpsUser } from '../../models/HttpsUser';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
+import { AccordionComponent } from '../../components/accordion/accordion.component';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -55,6 +56,7 @@ describe('HomeComponent', () => {
         IconButtonComponent,
         LoaderComponent,
         InfoBarComponent,
+        AccordionComponent,
         LeftPanelComponent,
         GraphComponent,
         RightPanelComponent,
@@ -110,11 +112,12 @@ describe('HomeComponent', () => {
   });
 
   it('tests the pushHttps function and valid arguments', (done) => {
-    const User = { username: 'username', password: 'password' };
     const Visible = true;
-    component.currentHttpsUser = User;
-    component.homeLoading = true;
-    component.pushCredInfoBarVisible = true;
+    component.currentHttpsUser.password = 'password';
+    component.currentHttpsUser.username = 'username';
+    component.fullPath = 'folder';
+    component.homeLoading = Visible;
+    component.pushCredInfoBarVisible = Visible;
     component.pushHttps().then(() => {
       expect(component.pushCredInfoBarVisible).toBeFalsy();
       expect(component.homeLoading).toBeFalsy();
@@ -126,11 +129,11 @@ describe('HomeComponent', () => {
     const User = { username: '', password: '' };
     const Visible = true;
     component.currentHttpsUser = User;
-    component.homeLoading = true;
+    component.homeLoading = Visible;
     component.pushAuthErrored = false;
-    component.pushCredInfoBarVisible = true;
+    component.pushCredInfoBarVisible = Visible;
     component.pushHttps().then(() => {
-      expect(component.pushAuthErrored).toBeFalsy();
+      expect(component.pushAuthErrored).toBeTruthy();
       expect(component.homeLoading).toBeFalsy();
       done();
     });

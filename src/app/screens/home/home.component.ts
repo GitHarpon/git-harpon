@@ -217,6 +217,7 @@ export class HomeComponent implements OnDestroy {
           this.pushAuthErrored = this.pushCredInfoBarVisible;
           this.currentHttpsUser.password = '';
           this.pushCredInfoBarVisible = true;
+          this.homeLoading = false;
         } else {
           this.homeLoading = false;
           this.resetPushInputs();
