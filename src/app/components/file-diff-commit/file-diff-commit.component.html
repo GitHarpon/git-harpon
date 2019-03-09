@@ -1,11 +1,13 @@
-<div class="file-diff-commit">
+<div class="file-diff-commit" [ngClass]="[componentType]">
   <div *ngFor="let file of listFiles" class="file-diff-commit_file" (mouseenter)="mouseEnter(file.path)"  (mouseleave) ="mouseLeave(file.path)">
     <a data-toggle="tooltip" title="{{ file.path }}" >
       <i class="fa" [ngClass]="[(file.status == 'M' ? 'fa-file-signature' : ''), 
         (file.status == 'A' ? 'fa-file-medical' : ''), (file.status == 'D' ? 'fa-file-excel' : '')]"></i>
       {{ getFileNameFromPath(file.path) }}
-      <app-button class="file-diff-commit_file_button" [ngClass]="[(file.path == componentHovered ? 'visible' : '')]"
+      <app-button class="file-diff-commit_file_button" [ngClass]="[(file.path == componentHovered && componentType == 'unstage' ? 'visible' : '')]"
         value="STAGE_FILE" type="success" (buttonClicked)="addFile(file.path)"></app-button>
+      <app-button class="file-diff-commit_file_button" [ngClass]="[(file.path == componentHovered && componentType == 'stage' ? 'visible' : '')]"
+        value="UNSTAGE_FILE" type="danger" (buttonClicked)="removeFile(file.path)"></app-button>
     </a>
   </div>
 </div>

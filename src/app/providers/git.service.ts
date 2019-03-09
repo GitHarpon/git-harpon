@@ -243,4 +243,16 @@ export class GitService {
     this.emitListUnstagedFilesSubject();
     this.emitListStagedFilesSubject();
   }
+
+  addFile(path: any) {
+    this.gitP.add(path).then(() => {
+      this.updateFilesDiff();
+    });
+  }
+
+  removeFile(path: any) {
+    this.gitP.reset(['--mixed', '--', path]).then(() => {
+      this.updateFilesDiff();
+    });
+  }
 }

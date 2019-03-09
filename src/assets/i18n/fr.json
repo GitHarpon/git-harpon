@@ -146,5 +146,6 @@
     "WRONG_CRED": "Informations erronées",
     "UNSTAGED_FILES": "Fichiers pas ajoutés",
     "STAGED_FILES": "Fichiers ajoutés",
-    "STAGE_FILE": "Ajouter fichier"
+    "STAGE_FILE": "Ajouter fichier",
+    "UNSTAGE_FILE": "Retirer fichier"
 }

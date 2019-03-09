@@ -1,12 +1,26 @@
 @import '../../../variables.scss';
 
 .file-diff-commit {
-    @include hX(25%);
     @include bg-color($white);
     border: 1px solid $muted-white;
     overflow: scroll;
     white-space: nowrap;
 
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.stage {
+        @include hX(120px);
+    }
+
+    &.unstage {
+        @include hX(120px);
+    }
+
+    &.view {
+        @include hX(100%);
+    }
 
     &_file {
         padding: $gap-sm;

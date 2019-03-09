@@ -145,5 +145,6 @@
     "WRONG_CRED": "Wrong informations",
     "UNSTAGED_FILES": "Unstaged Files",
     "STAGED_FILES": "Staged Files",
-    "STAGE_FILE": "Stage file"
+    "STAGE_FILE": "Stage file",
+    "UNSTAGE_FILE": "Unstage file"
 }

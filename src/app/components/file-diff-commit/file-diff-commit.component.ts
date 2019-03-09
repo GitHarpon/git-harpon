@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { GitService } from '../../providers/git.service';
 
 @Component({
   selector: 'app-file-diff-commit',
@@ -10,7 +11,7 @@ export class FileDiffCommitComponent implements OnInit {
   @Input() componentType: string;
   componentHovered: any;
 
-  constructor() { }
+  constructor(private gitService: GitService) { }
 
   ngOnInit() {
   }
@@ -20,20 +21,29 @@ export class FileDiffCommitComponent implements OnInit {
     return  TabString[TabString.length - 1];
   }
 
-  addFile(truc: any) {
-    console.log(this.componentType);
+  addFile(path: any) {
     if (this.componentType == 'unstage') {
-      console.log(truc);
-    } else if (this.componentType == 'unstage') {
+      this.gitService.addFile(path);
+      this.componentHovered = '';
+    }
+  }
 
+  removeFile(path: any) {
+    if (this.componentType == 'stage') {
+      this.gitService.removeFile(path);
+      this.componentHovered = '';
     }
   }
 
   mouseEnter(filePath: any) {
-    this.componentHovered = filePath;
+    if (this.componentType == 'unstage' || this.componentType == 'stage') {
+      this.componentHovered = filePath;
+    }
   }
 
   mouseLeave() {
-    this.componentHovered = '';
+    if (this.componentType == 'unstage' || this.componentType == 'stage') {
+      this.componentHovered = '';
+    }
   }
 }
