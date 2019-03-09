@@ -36,7 +36,10 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     );
     this.rightPanelService.emitCommitHashSubject();
 
-    this.gitService.revParseHEAD().then((data) => this.commitHash = data.replace('\n', ''));
+    this.gitService.revParseHEAD().then((data) => {
+      this.commitHash = data.replace('\n', '');
+      this.setDescription();
+    });
     // gérer cas dans open ou pas de commit
   }
 
