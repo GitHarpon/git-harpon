@@ -35,6 +35,7 @@ import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -59,7 +60,8 @@ describe('HomeComponent', () => {
         GraphComponent,
         RightPanelComponent,
         SendCommitComponent,
-        ViewCommitComponent
+        ViewCommitComponent,
+        TextAreaComponent
       ],
       imports: [
         FormsModule,

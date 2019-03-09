@@ -38,6 +38,7 @@ export class ToolboxComponent implements OnInit {
   contextMenuSecondObject: Array<Object>;
   dataDropdownExample: Array<any>;
   dataDropdownExampleTwo: Array<any>;
+  textareaValue: String;
 
   key: String = 'key';
   value: String = 'value';
@@ -64,7 +65,7 @@ export class ToolboxComponent implements OnInit {
     this.cbValue = true;
     this.inputValue = 'Test';
     this.inputEmptyValue = '';
-
+    this.textareaValue = '';
     this.modalTabSelectedIndex = 1;
     this.passwordInput = 'toto';
 
@@ -89,7 +90,8 @@ export class ToolboxComponent implements OnInit {
       'light-grey',
       'blue-grey',
       'low-dark',
-      'version'
+      'version',
+      'textarea-bg'
     ];
 
     this.lightColorList = [
@@ -319,5 +321,13 @@ export class ToolboxComponent implements OnInit {
 
   showMessage(message: string) {
     return this.toastr.info(message);
+  }
+
+  testTextarea() {
+    return this.toastr.info(this.textareaValue.toString());
+  }
+
+  setTextareaValue() {
+    this.textareaValue += 'Lorem ipsum...';
   }
 }

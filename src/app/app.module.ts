@@ -58,6 +58,7 @@ import { ViewCommitComponent } from './screens/view-commit/view-commit.component
 import { SendCommitComponent } from './screens/send-commit/send-commit.component';
 import { RightPanelService } from './providers/right-panel.service';
 import { LeftPanelService } from './providers/left-panel.service';
+import { TextAreaComponent } from './components/text-area/text-area.component';
 
 
 // AoT requires an exported function for factories
@@ -90,7 +91,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RightPanelComponent,
     GraphComponent,
     ViewCommitComponent,
-    SendCommitComponent
+    SendCommitComponent,
+    TextAreaComponent
   ],
   imports: [
     ReactiveFormsModule,

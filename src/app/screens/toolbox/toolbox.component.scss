@@ -158,6 +158,12 @@ a.link-dark {
     &.modal-tab-hover-light {
         @include bg-color($modal-tab-hover-light);
     }
+    &.version {
+        @include bg-color($version);
+    }
+    &.textarea-bg {
+        @include bg-color($textarea-bg);
+    }
 
     // INDEPENDANT OF THEME
     &.light-blue-hover {
