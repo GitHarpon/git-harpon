@@ -114,8 +114,8 @@ describe('HomeComponent', () => {
   it('tests the pushHttps function and valid arguments', (done) => {
     const User: HttpsUser = { username: 'username', password: 'password' };
     const Branch = 'master';
-    const Path = 'folder';
-    component.fullPath = Path;
+    const Folder = 'path';
+    component.fullPath = Folder;
     component.branchName = Branch;
     component.currentHttpsUser = User;
     component.homeLoading = false;
@@ -140,6 +140,27 @@ describe('HomeComponent', () => {
       done();
     });
   });
+
+  it('tests the pushHttps function and invalid arguments alternative', (done) => {
+    const User = { username: 'username', password: 'password' };
+    const InvalidPath = 'invalid';
+    const Visible = true;
+    const InvalidBranch = 'not_master';
+
+    component.fullPath = InvalidPath;
+    component.currentHttpsUser = User;
+    component.homeLoading = Visible;
+    component.pushAuthErrored = false;
+    component.branchName = InvalidBranch;
+    component.pushCredInfoBarVisible = Visible;
+    component.pushHttps().then(() => {
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.currentHttpsUser.password).toBeFalsy();
+      expect(component.currentHttpsUser.username).toBeFalsy();
+      done();
+    });
+  });
+
 
   it('tests the resetPushInputs function', () => {
     const Expected: HttpsUser = { username: '', password: '' };
