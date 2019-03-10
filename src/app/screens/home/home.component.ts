@@ -34,7 +34,7 @@ export class HomeComponent implements OnDestroy {
   repoNameSubscription: Subscription;
   recentProject: any[];
   recentProjectSubscription: Subscription;
-  branchName: any;
+  branchName: string;
   branchNameSubscription: Subscription;
   newBranchInfoBarVisible: boolean;
   newBranchName: string;
@@ -340,7 +340,7 @@ export class HomeComponent implements OnDestroy {
         this.toastr.info(data.message, data.title);
       })
       .catch((data) => {
-        this.newBranchInfoBarVisible = false;
+        this.newBranchInfoBarVisible = true;
         this.homeLoading = false;
         this.toastr.error(data.message, data.title);
       });

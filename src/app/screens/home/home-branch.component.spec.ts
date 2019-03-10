@@ -42,6 +42,7 @@ describe('HomeComponent', () => {
   /* tslint:disable */
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
+  let leftPanelService: LeftPanelService;
   /* tslint:enable */
 
   beforeEach(async(() => {
@@ -113,5 +114,67 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
+    leftPanelService = TestBed.get(LeftPanelService);
   });
+
+  it('tests the createBranch function', (done) => {
+    const NewBranchName = 'newBranch';
+    const CurrentBranchName = 'currentBranchName';
+    const RefBranchName = CurrentBranchName;
+    component.branchName = RefBranchName;
+    component.newBranchName = NewBranchName;
+    component.referenceBranchName = RefBranchName;
+    component.newBranchInfoBarVisible = true;
+
+    component.createBranch().then(() => {
+      // ici probleme : expect(component.branchName).toEqual(NewBranchName);
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.newBranchInfoBarVisible).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the createBranch function with an existing new branch name', (done) => {
+    const LocalBranches = {1: 'branch', 2: 'currentBranchName'};
+    const CurrentBranchName = 'currentBranchName';
+    const RefBranchName = CurrentBranchName;
+    const NewBranchName = CurrentBranchName;
+    component.branchName = CurrentBranchName;
+    component.newBranchName = NewBranchName;
+    component.referenceBranchName = RefBranchName;
+    leftPanelService.localBranches = LocalBranches;
+    component.newBranchInfoBarVisible = true;
+
+    component.createBranch().then(() => {
+      expect(leftPanelService.localBranches).not.toContain(NewBranchName);
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.newBranchInfoBarVisible).toBeTruthy();
+      done();
+    });
+  });
+
+  it('tests the createBranch function with a wrong reference branch name', (done) => {
+    const NewBranchName = 'newBranch';
+    const RefBranchName = 'wrong';
+    const CurrentBranchName = 'currentBranchName';
+    component.branchName = CurrentBranchName;
+    component.newBranchName = NewBranchName;
+    component.referenceBranchName = RefBranchName;
+    component.newBranchInfoBarVisible = true;
+
+    component.createBranch().then(() => {
+      expect(component.branchName).not.toBe(NewBranchName);
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.newBranchInfoBarVisible).toBeTruthy();
+      done();
+    });
+  });
+
+  it('tests the closeNewBranchInfoBar function', () => {
+    const NewBranchInfoBarVisible = true;
+    component.newBranchInfoBarVisible = NewBranchInfoBarVisible;
+    component.closeNewBranchInfoBar();
+    expect(component.newBranchInfoBarVisible).toBeFalsy();
+  });
+
 });

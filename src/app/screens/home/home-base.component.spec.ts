@@ -130,7 +130,10 @@ describe('HomeComponent', () => {
   });
 
   it('tests the branchButtonClicked function', () => {
-    expect(component.branchButtonClicked()).toBeTruthy();
+    const NewBranchInfoBarVisible = false;
+    component.newBranchInfoBarVisible = NewBranchInfoBarVisible;
+    component.branchButtonClicked();
+    expect(component.newBranchInfoBarVisible).toBeTruthy();
   });
 
   it('tests the openTerminal function with success', (done) => {
