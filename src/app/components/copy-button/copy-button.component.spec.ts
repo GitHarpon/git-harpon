@@ -41,21 +41,26 @@ describe('CopyButtonComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CopyButtonComponent);
     component = fixture.componentInstance;
+    jasmine.clock().install();
+  });
+
+  afterEach(function() {
+    jasmine.clock().uninstall();
   });
 
   it('tests the component creation', () => {
     expect(component).toBeTruthy();
   });
 
-  it('tests the switchcopy function immediatly', (done) => {
-    component.switchCopy().then(() => {
-      expect(component.copy).toBeTruthy();
-      done();
-    });
+  it('tests the switchcopy function immediatly', () => {
+    component.switchCopy();
+
+    jasmine.clock().tick(501);
+
+    expect(component.copy).toBeFalsy();
   });
 
   it('test the copyToClipboard function', (done) => {
-    const Content = true;
     const Template = 'Hello world';
 
     component.template = Template;
