@@ -2,6 +2,7 @@
 .gh-commit-textarea textarea {
     resize: none;
     outline: none;
+    width: 100%;
     
     &.gh-commit-textarea-summary {
         &.dark {
