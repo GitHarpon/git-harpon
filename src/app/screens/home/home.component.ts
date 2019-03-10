@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ResizeEvent } from 'angular-resizable-element';
 import { GitService } from '../../providers/git.service';
 import { ElectronService } from '../../providers/electron.service';
 import { Subscription } from 'rxjs';
@@ -34,6 +33,8 @@ export class HomeComponent implements OnDestroy {
   repoNameSubscription: Subscription;
   recentProject: any[];
   recentProjectSubscription: Subscription;
+  branchName: any;
+  branchNameSubscription: Subscription;
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
   newClonedRepoPath: string;
@@ -77,6 +78,12 @@ export class HomeComponent implements OnDestroy {
         this.recentProject = recentProject;
       });
     this.gitService.emitRecentProjectSubject();
+
+    this.branchNameSubscription = this.gitService.branchNameSubject.subscribe(
+      (branchName: any) => {
+        this.branchName = branchName;
+      });
+    this.gitService.emitBranchNameSubject();
 
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
@@ -341,6 +348,7 @@ export class HomeComponent implements OnDestroy {
   closeRepo() {
     this.path = undefined;
     this.repoName = undefined;
+    this.branchName = undefined;
     this.closeHomeView();
   }
 
@@ -366,6 +374,7 @@ export class HomeComponent implements OnDestroy {
     this.pathSubscription.unsubscribe();
     this.repoNameSubscription.unsubscribe();
     this.recentProjectSubscription.unsubscribe();
+    this.branchNameSubscription.unsubscribe();
     this.currentHttpsUserSubscription.unsubscribe();
   }
 }

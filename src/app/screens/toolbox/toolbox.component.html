@@ -658,20 +658,104 @@
             </div>
         </div>
         <div class="container mt-5">
+            <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
+                <h2>Text Area</h2>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-10">
+                    <div class="col-md-12">
+                        <app-text-area rows="5" cols="50" placeholder="PLACEHOLDER" [name]="first-text-area" [(value)]="textareaValue"></app-text-area>
+                    </div>
+                </div>
+                <div class="col-md-2 mt-1">
+                    <app-copy-button template='<app-text-area rows="5" cols="50" placeholder="PLACEHOLDER" [name]="first-text-area" [(value)]="textareaValue"></app-text-area>
+                        '></app-copy-button>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 row">
+                <div class="col-md-10">
+                    <div class="col-md-12">
+                        <app-text-area rows="5" cols="50" placeholder="PLACEHOLDER" [name]="first-text-area"  [readonly]="true" [(value)]="textareaValue"></app-text-area>
+                    </div>
+                </div>
+                <div class="col-md-2 mt-1">
+                    <app-copy-button template='<app-text-area rows="5" cols="50" placeholder="PLACEHOLDER" [name]="first-text-area"  [readonly]="true" [(value)]="textareaValue"></app-text-area>
+                        '></app-copy-button>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 text-right">
+                <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testTextarea()"></app-button>
+                <app-button class="ml-2" value="UPDATE_VALUE" type="primary" (buttonClicked)="setTextareaValue()"></app-button>
+            </div>
+        </div>
+        <div class="container mt-5">
+                <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
+                    <h2>Commit Text Area</h2>
+                </div>
+                <div class="col-md-12 mt-2 row">
+                    <div class="col-md-10">
+                        <div class="col-md-12">
+                            <app-commit-text-area rows="3" cols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
+                                [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mt-1">
+                        <app-copy-button template='<app-commit-text-area rows="3" cols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
+                                [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>'></app-copy-button>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-2 row">
+                    <div class="col-md-10">
+                        <div class="col-md-12">
+                            <app-commit-text-area rows="3" cols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
+                                [readonly]="true" [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>                        
+                        </div>
+                    </div>
+                    <div class="col-md-2 mt-1">
+                        <app-copy-button template='<app-commit-text-area rows="3" cols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
+                                [readonly]="true" [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary">'></app-copy-button>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-2 row">
+                    <div class="col-md-10">
+                        <div class="col-md-12">
+                            <app-commit-text-area rows="3" cols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
+                                [descView]="true" [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>                        
+                        </div>
+                    </div>
+                    <div class="col-md-2 mt-1">
+                        <app-copy-button template='<app-commit-text-area rows="3" cols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
+                                [descView]="true" [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>'></app-copy-button>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-2 text-right">
+                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testCommitTextarea()"></app-button>
+                    <app-button class="ml-2" value="UPDATE_VALUE" type="primary" (buttonClicked)="setCommitTextareaValue()"></app-button>
+                </div>
+            </div>
+        <div class="container mt-5">
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
                     <h2>Accordion</h2>
                 </div>
                 <div class="col-md-12 mt-2 row">
                     <div class="col-md-4 mt-1">
-                        <app-accordion title="LOCAL" [icon]="{name:'fa-laptop', isFab:false}"></app-accordion>
+                        <app-accordion title="LOCAL" [icon]="{name:'fa-laptop', isFab:false}">
+                            <div class="ml-2 mt-2 mb-2">
+                                {{ 'TEST' | translate }}
+                            </div>
+                        </app-accordion>
                     </div>
                     <div class="col-md-1 mt-1">
                         <app-copy-button template='<app-accordion title="LOCAL" [icon]="{name:"fa-laptop", isFab:false}">
                             </app-accordion>'></app-copy-button>
                     </div>
                     <div class="col-md-4 mt-1">
-                        <app-accordion title="{{ 'REMOTE' | translate }}" [icon]="{name:'fa-cloud', isFab:false}" [disabled]="true"></app-accordion>
+                        <app-accordion title="{{ 'REMOTE' | translate }}" [icon]="{name:'fa-cloud', isFab:false}" [disabled]="true">
+                            <div class="ml-2 mt-2 mb-2">
+                                {{ 'TEST' | translate }}
+                            </div>
+                        </app-accordion>
                     </div>
                     <div class="col-md-1 mt-1">
                         <app-copy-button template='<app-accordion title="{{ "REMOTE" | translate }}" [icon]="{name:"fa-cloud", isFab:false}" 

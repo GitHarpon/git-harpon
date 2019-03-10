@@ -19,6 +19,8 @@ export class GitService {
   pathSubject: Subject<any>;
   repoName: any;
   repoNameSubject: Subject<any>;
+  branchName: any;
+  branchNameSubject: Subject<any>;
   gitP: any;
   git: any;
 
@@ -28,6 +30,7 @@ export class GitService {
     this.pathSubject = new Subject<any>();
     this.repoNameSubject = new Subject<any>();
     this.recentProjectSubject = new Subject<any[]>();
+    this.branchNameSubject = new Subject<any>();
     this.httpsUserSubject = new Subject<HttpsUser>();
     this.setHttpsUser({ username: null, password: null});
     if (this.recentProject[0]) {
@@ -51,6 +54,10 @@ export class GitService {
 
   emitRecentProjectSubject() {
     this.recentProjectSubject.next(this.recentProject.slice());
+  }
+
+  emitBranchNameSubject() {
+    this.branchNameSubject.next(this.branchName);
   }
 
   emitHttpsUserSubject() {
@@ -102,8 +109,18 @@ export class GitService {
               this.gitP.cwd(this.path);
               this.emitPathSubject();
               this.registerProject(this.repoName, this.path);
+
+              gitPromise(this.path).branch([])
+                .then((result) => {
+                  if (result.current) {
+                    this.branchName = result.current;
+                    this.emitBranchNameSubject();
+                  }
+                });
+
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                 this.translate.instant('OPEN.OPENED_REPO')));
+
             } else {
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
               this.translate.instant('OPEN.NOT_GIT_REPO')));
@@ -117,6 +134,32 @@ export class GitService {
         this.deleteProjetWithPath(newPath);
         reject(new ServiceResult(false, this.translate.instant('ERROR'),
           this.translate.instant('OPEN.REPO_NOT_EXIST')));
+      }
+    });
+  }
+
+  async getLocalBranches() {
+    return new Promise<any>((resolve, reject) => {
+      if (this.repoName) {
+        gitPromise(this.path).branchLocal()
+          .then((result) => {
+            resolve(result.all);
+        });
+      } else {
+        reject(null);
+      }
+    });
+  }
+
+  async getRemoteBranches() {
+    return new Promise<any>((resolve, reject) => {
+      if (this.repoName) {
+        gitPromise(this.path).branch(['-r'])
+          .then((result) => {
+            resolve(result.all);
+        });
+      } else {
+        reject(null);
       }
     });
   }

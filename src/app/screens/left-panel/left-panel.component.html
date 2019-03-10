@@ -1,3 +1,12 @@
 <div class="left-panel" [ngClass]="[currentTheme]">
-  Left panel
+  <app-accordion title="LOCAL" [icon]="{name:'fa-laptop', isFab:false}">
+    <div *ngFor="let localBranch of localBranches">
+      {{ localBranch }}
+    </div>
+  </app-accordion>
+  <app-accordion title="REMOTE" [icon]="{name:'fa-cloud', isFab:false}">
+    <div *ngFor="let remoteBranch of remoteBranches">
+      {{ remoteBranch }}
+    </div>
+  </app-accordion>
 </div>
