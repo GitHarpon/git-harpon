@@ -35,6 +35,8 @@ import { ElectronService } from '../../providers/electron.service';
 import { MockElectronService } from '../../models/MockElectronService';
 import { ClipboardService, ClipboardModule } from 'ngx-clipboard';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 
 describe('ToolboxComponent', () => {
   /* tslint:disable */
@@ -60,6 +62,8 @@ describe('ToolboxComponent', () => {
         DropdownComponent,
         IconButtonComponent,
         MonacoEditorWrapperComponent,
+        TextAreaComponent,
+        CommitTextAreaComponent
       ],
       imports: [
         FormsModule,
@@ -326,5 +330,41 @@ describe('ToolboxComponent', () => {
     const Result = component.showMessage(Value);
 
     expect(Result).toBeDefined();
+  });
+
+  it('tests the testTextarea function', () => {
+    const Value = 'axuluphrum';
+    component.textareaValue = Value;
+    const Result = component.testTextarea();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the setTextareaValue function', () => {
+    const Value = 'axuluphrum';
+    const Expected = Value + 'Lorem ipsum...';
+    component.textareaValue = Value;
+    component.setTextareaValue();
+
+    expect(component.textareaValue).toBe(Expected);
+  });
+
+  it('tests the testCommitTextarea function', () => {
+    const Value = { summary: 'sum', desc: 'desc' };
+    component.commitTextAreaValue = Value;
+    const Result = component.testCommitTextarea();
+
+    expect(Result).toBeDefined();
+  });
+
+  it('tests the setCommitTextareaValue function', () => {
+    const Value = { summary: 'sum', desc: 'desc' };
+    const ExpectedSummary = Value.summary + 'Lorem ipsum...';
+    const ExpectedDesc = Value.desc + 'dolor sit amet...';
+    component.commitTextAreaValue = Value;
+    component.setCommitTextareaValue();
+
+    expect(component.commitTextAreaValue.summary).toBe(ExpectedSummary);
+    expect(component.commitTextAreaValue.desc).toBe(ExpectedDesc);
   });
 });

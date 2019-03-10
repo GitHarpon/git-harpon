@@ -9,6 +9,7 @@
     "LANGUE": "Langage",
     "FRENCH": "Français",
     "ENGLISH": "Anglais",
+    "TEST": "Test",
     "FONT_SIZES": "Tailles de texte",
     "CHECKBOX": "Case à cocher",
     "UN_CHECKBOX": "Case décochée",
@@ -143,6 +144,9 @@
     "DARK_THEME": "Thème sombre",
     "LIGHT_THEME": "Thème clair",
     "INDEPENDENT_THEME": "Indépendant du thème",
+    "WRONG_CRED": "Informations erronées",
+    "SUMMARY": "Résumé",
+    "DESCRIPTION": "Description"
     "WRONG_CRED": "Informations erronées",
     "UNSTAGED_FILES": "Fichiers pas ajoutés",
     "STAGED_FILES": "Fichiers ajoutés",
