@@ -127,7 +127,6 @@ describe('HomeComponent', () => {
     component.newBranchInfoBarVisible = true;
 
     component.createBranch().then(() => {
-      // ici probleme : expect(component.branchName).toEqual(NewBranchName);
       expect(component.homeLoading).toBeFalsy();
       expect(component.newBranchInfoBarVisible).toBeFalsy();
       done();
