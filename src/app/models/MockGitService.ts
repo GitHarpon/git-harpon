@@ -115,7 +115,7 @@ export class MockGitService {
     async pullrebaseHttps(folder: string, httpsUser: HttpsUser, branch: string) {
         return new Promise<ServiceResult>((resolve, reject) => {
             if (folder === 'path') {
-                if (httpsUser.username === 'username' && httpsUser.password === 'password' && branch === 'master') {
+                if (httpsUser.username === 'username' && httpsUser.password === 'password') {
                     resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                         this.translate.instant('PULL.DONE')));
                 } else {

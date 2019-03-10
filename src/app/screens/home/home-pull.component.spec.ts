@@ -115,7 +115,6 @@ describe('HomeComponent', () => {
 
   it('tests the pullrebaseHttps function and valid arguments', (done) => {
     const User: HttpsUser = { username: 'username', password: 'password' };
-    const Branch = 'master';
     const Folder = 'path';
     component.fullPath = Folder;
     component.currentHttpsUser = User;
