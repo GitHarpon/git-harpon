@@ -212,7 +212,7 @@
     <span *ngIf="pushAuthErrored" class="color-red">{{ 'WRONG_CRED' | translate }}</span>
     <app-input [(value)]="currentHttpsUser.username" [placeholder]="'USERNAME'" class="ml-3"></app-input>
     <app-input [(value)]="currentHttpsUser.password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
-    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!currentHttpsUser.username || !currentHttpsUser.password" (buttonClicked)="beforePush()"></app-button>
+    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!currentHttpsUser.username || !currentHttpsUser.password" (buttonClicked)="pushHttps()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closePushCredInfoBar()"></app-button>
 </app-info-bar>
 
