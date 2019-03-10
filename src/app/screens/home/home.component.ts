@@ -38,6 +38,11 @@ export class HomeComponent implements OnDestroy {
   openClonedInfoBarVisible: boolean;
   newClonedRepoPath: string;
   cloneHttpsUser: HttpsUser;
+
+  pullrebaseInfoBarVisible: boolean;
+  pullrebaseAuthErrored: boolean;
+  pullrebaseCredInfoBarVisible: boolean;
+
   homeLoading: boolean;
   openFolder: string;
   themePrefSubscription: Subscription;
@@ -95,16 +100,16 @@ export class HomeComponent implements OnDestroy {
     };
   }
 
-  pullButtonClicked() {
+  pullrebaseButtonClicked() {
     if (this.electronService.fsExistsSync(this.cloneFolder.toString())) {
       var Url = GitUrlParse(this.cloneUrl);
       if (Url.protocol === 'https') {
         this.homeLoading = true;
-        this.pullHttps();
+        this.pullrebaseHttps();
       } else if (Url.protocol === 'ssh') {
         // this.homeLoading = true;
         this.toastr.error('Pas de ssh pour le moment', 'Erreur');
-        this.pullSsh();
+        this.pullrebaseSsh();
       } else {
         this.toastr.error(this.translateService.instant('INVALID_URL'),
           this.translateService.instant('ERROR'));
@@ -115,16 +120,39 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
-  async pullHttps() {
-    // ici on fera le pull cas HTTPS
+  async pullrebaseHttps() {
+    this.homeLoading = true;
+    return this.gitService.pullrebaseHttps(this.fullPath, this.currentHttpsUser, 'Master')
+      .then((data) => {
+        this.homeLoading = false;
+        this.pullrebaseCredInfoBarVisible = false;
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        if (data.newData) {
+          this.pullrebaseAuthErrored = this.pullrebaseCredInfoBarVisible;
+          this.currentHttpsUser.password = '';
+          this.pullrebaseCredInfoBarVisible = true;
+          this.homeLoading = false;
+        } else {
+          this.homeLoading = false;
+          this.resetPullrebaseInputs();
+          this.toastr.error(data.message, data.title);
+        }
+      });
   }
 
-  async pullSsh() {
-    // ici on fera le pull cas HTTPS
+  async pullrebaseSsh() {
+    // ici nous gérerons le pull-rebase via ssh
     this.toastr.error('Pas de ssh pour le moment', 'Erreur');
   }
 
   pushButtonClicked() {
+    return true;
+  }
+
+  pullButtonClicked() {
+    this.pullrebaseCredInfoBarVisible = true;
     return true;
   }
 
@@ -312,6 +340,26 @@ export class HomeComponent implements OnDestroy {
     this.newClonedRepoPath = '';
     this.cloneAuthErrored = false;
     this.credInfoBarVisible = false;
+    this.homeLoading = false;
+  }
+
+  closePullrebaseCredInfoBar() {
+    this.pullrebaseCredInfoBarVisible = false;
+    this.resetPullrebaseInputs();
+  }
+
+  closePullrebaseInfoBar() {
+    this.pullrebaseInfoBarVisible = false;
+    this.resetPullrebaseInputs();
+  }
+
+  resetPullrebaseInputs() {
+    this.currentHttpsUser = {
+      username: '',
+      password: ''
+    };
+    this.pullrebaseAuthErrored = false;
+    this.pullrebaseCredInfoBarVisible = false;
     this.homeLoading = false;
   }
 
