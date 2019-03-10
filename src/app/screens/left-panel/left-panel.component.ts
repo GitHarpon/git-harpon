@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { Subscription } from 'rxjs';
 import { GitService } from '../../providers/git.service';
@@ -20,6 +20,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   currentBranch: any;
   branchNameSubscription: Subscription;
   objectKeys = Object.keys;
+  @Input() loadingVisible: Boolean;
   @Output() checkoutInfoBarChange = new EventEmitter<any>();
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
@@ -53,17 +54,19 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     this.leftPanelService.setRemoteBranches();
   }
 
-  checkoutLocalBranch(localBranch) {
-    console.log(localBranch);
+  async checkoutLocalBranch(localBranch) {
     if (localBranch !== this.currentBranch) {
-      this.gitService.checkoutLocalBranch(localBranch).then((result) => {
+      this.loadingVisible = true;
+      return this.gitService.checkoutLocalBranch(localBranch).then((result) => {
         this.toastr.info(result.message, result.title, {
           onActivateTick: true
         });
 
+        this.loadingVisible = false;
         this.leftPanelService.setLocalBranches();
         this.leftPanelService.setRemoteBranches();
       }).catch((result) => {
+        this.loadingVisible = false;
         this.toastr.error(result.message, result.title, {
           onActivateTick: true
         });
@@ -72,15 +75,18 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   }
 
   checkoutRemoteBranch(remoteBranch) {
+    this.loadingVisible = true;
     const IsInLocal = this.localBranches.includes(remoteBranch.split('/')[1]);
-    this.gitService.checkoutRemoteBranch(remoteBranch, this.currentBranch, IsInLocal).then((result) => {
+    return this.gitService.checkoutRemoteBranch(remoteBranch, this.currentBranch, IsInLocal).then((result) => {
       this.toastr.info(result.message, result.title, {
         onActivateTick: true
       });
+      this.loadingVisible = false;
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
     }).catch((result) => {
       if (!result.newData) {
+        this.loadingVisible = false;
         this.toastr.error(result.message, result.title, {
           onActivateTick: true
         });

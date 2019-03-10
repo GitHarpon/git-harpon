@@ -54,6 +54,7 @@ export class HomeComponent implements OnDestroy {
   currentHttpsUser: HttpsUser;
   remoteBranch: string;
   newCheckedoutBranchName: string;
+  leftPanelLoadingVisible: Boolean;
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
@@ -337,10 +338,9 @@ export class HomeComponent implements OnDestroy {
   }
 
   createBranchHere() {
-    console.log('create branch here');
-    this.gitService.createBranchHere(this.newCheckedoutBranchName, this.remoteBranch).then((data) => {
+    return this.gitService.createBranchHere(this.newCheckedoutBranchName, this.remoteBranch).then((data) => {
       this.leftPanelService.setLocalBranches();
-        this.leftPanelService.setRemoteBranches();
+      this.leftPanelService.setRemoteBranches();
       this.closeCheckoutInfoBar();
       this.toastr.info(data.message, data.title);
     })
@@ -351,8 +351,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   resetLocalHere() {
-    console.log('reset local here');
-    this.gitService.resetLocalHere(this.remoteBranch).then((data) => {
+    return this.gitService.resetLocalHere(this.remoteBranch).then((data) => {
       this.leftPanelService.setLocalBranches();
         this.leftPanelService.setRemoteBranches();
       this.closeCheckoutInfoBar();
@@ -366,6 +365,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   closeCheckoutInfoBar() {
+    this.leftPanelLoadingVisible = false;
     this.remoteBranch = '';
     this.newCheckedoutBranchName = '';
     this.checkoutInfoBarVisible = false;

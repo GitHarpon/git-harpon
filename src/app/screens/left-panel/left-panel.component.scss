@@ -6,6 +6,7 @@
     width: 15%;
     vertical-align: top;
     overflow: auto;
+    overflow-x: hidden;
     
     &.dark {
         background: $low-dark;

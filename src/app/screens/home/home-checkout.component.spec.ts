@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomeComponent } from './home.component';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -29,7 +28,6 @@ import { InfoBarComponent } from '../../components/info-bar/info-bar.component';
 import { MockRouter } from '../../models/MockRouter';
 import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
-import { MockAlternativeElectronService } from '../../models/MockAlternativeElectronService';
 import { LeftPanelComponent } from '../left-panel/left-panel.component';
 import { GraphComponent } from '../graph/graph.component';
 import { RightPanelComponent } from '../right-panel/right-panel.component';
@@ -40,10 +38,10 @@ import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 
 describe('HomeComponent', () => {
-    /* tslint:disable */
-    let component: HomeComponent;
-    let fixture: ComponentFixture<HomeComponent>;
-    /* tslint:enable */
+  /* tslint:disable */
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+  /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -91,7 +89,7 @@ describe('HomeComponent', () => {
         },
         {
           provide: ElectronService,
-          useClass: MockAlternativeElectronService
+          useClass: MockElectronService
         },
         {
           provide: GitService,
@@ -116,27 +114,84 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('tests the cloneBrowse function with invalid BrowsePath', () => {
-    const Expected = null;
-    component.cloneFolder = Expected;
-    component.cloneBrowse();
-
-    expect(component.cloneFolder).toBe(Expected);
+  it('tests the openCheckoutInfoBar function', () => {
+    const OldRemote = 'old';
+    const NewRemote = 'new';
+    const InfobarVisibility = false;
+    component.remoteBranch = OldRemote;
+    component.checkoutInfoBarVisible = InfobarVisibility;
+    component.openCheckoutInfoBar(NewRemote);
+    expect(component.remoteBranch).toBe(NewRemote);
+    expect(component.checkoutInfoBarVisible).toBeTruthy();
   });
 
-  it('tests the initBrowse function with invalid BrowsePath', () => {
-    const Expected = null;
-    component.initLocation = Expected;
-    component.initBrowse();
-
-    expect(component.initLocation).toBe(Expected);
+  
+  it('tests the closeCheckoutInfoBar function', () => {
+    const Visibility = true;
+    const RemoteName = 'origin/toto';
+    const NewBranchName = 'new';
+    component.leftPanelLoadingVisible = Visibility;
+    component.remoteBranch = RemoteName;
+    component.newCheckedoutBranchName = NewBranchName;
+    component.checkoutInfoBarVisible = Visibility;
+    component.closeCheckoutInfoBar();
+    expect(component.leftPanelLoadingVisible).toBeFalsy();
+    expect(component.remoteBranch).toBeFalsy();
+    expect(component.newCheckedoutBranchName).toBeFalsy();
+    expect(component.checkoutInfoBarVisible).toBeFalsy();
   });
 
-  it('tests the openBrowse function with invalid BrowsePath', () => {
-    const Expected = null;
-    component.openFolder = Expected;
-    component.openBrowse();
-
-    expect(component.openFolder).toBe(Expected);
+  it('tests the createBranchHere function with valid parameters', (done) => {
+    const NewBranchName = 'new';
+    const RemoteBranch = 'origin/toto';
+    component.newCheckedoutBranchName = NewBranchName;
+    component.remoteBranch = RemoteBranch;
+    component.createBranchHere().then(() => {
+      expect(component.leftPanelLoadingVisible).toBeFalsy();
+      expect(component.remoteBranch).toBeFalsy();
+      expect(component.newCheckedoutBranchName).toBeFalsy();
+      expect(component.checkoutInfoBarVisible).toBeFalsy();
+      done();
+    });
   });
+
+  it('tests the createBranchHere function with invalid parameters', (done) => {
+    const NewBranchName = 'another';
+    const RemoteBranch = 'origin/branch';
+    component.newCheckedoutBranchName = NewBranchName;
+    component.remoteBranch = RemoteBranch;
+    component.createBranchHere().then(() => {
+      expect(component.leftPanelLoadingVisible).toBeFalsy();
+      expect(component.remoteBranch).toBeFalsy();
+      expect(component.newCheckedoutBranchName).toBeFalsy();
+      expect(component.checkoutInfoBarVisible).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the resetLocalHere function with valid parameters', (done) => {
+    const RemoteBranch = 'origin/toto';
+    component.remoteBranch = RemoteBranch;
+    component.resetLocalHere().then(() => {
+      expect(component.leftPanelLoadingVisible).toBeFalsy();
+      expect(component.remoteBranch).toBeFalsy();
+      expect(component.newCheckedoutBranchName).toBeFalsy();
+      expect(component.checkoutInfoBarVisible).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the resetLocalHere function with invalid parameters', (done) => {
+    const RemoteBranch = 'origin/test';
+    component.remoteBranch = RemoteBranch;
+    component.resetLocalHere().then(() => {
+      expect(component.leftPanelLoadingVisible).toBeFalsy();
+      expect(component.remoteBranch).toBeFalsy();
+      expect(component.newCheckedoutBranchName).toBeFalsy();
+      expect(component.checkoutInfoBarVisible).toBeFalsy();
+      done();
+    });
+  });
+
+
 });

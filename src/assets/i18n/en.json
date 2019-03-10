@@ -101,7 +101,8 @@
         "CREATE_HERE": "Create branch here",
         "RESET_HERE": "Reset local to here",
         "A_LOCAL": "A local",
-        "ALREADY_EXISTS": "already exists"
+        "ALREADY_EXISTS": "already exists",
+        "ERROR": "Error during the checkout branch"
     },
     "PULL": "Pull",
     "PUSH": "Push",

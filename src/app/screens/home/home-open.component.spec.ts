@@ -34,6 +34,8 @@ import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -92,6 +94,10 @@ describe('HomeComponent', () => {
         {
           provide: GitService,
           useClass: MockGitService
+        },
+        {
+            provide: LeftPanelService,
+            useClass: MockLeftPanelService
         },
         {
           provide: TerminalManagerService,

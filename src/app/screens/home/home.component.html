@@ -71,7 +71,7 @@
             </div>
         </div>
 
-    <app-left-panel *ngIf="leftPanelVisible" (checkoutInfoBarChange)="openCheckoutInfoBar($event)"></app-left-panel>
+    <app-left-panel *ngIf="leftPanelVisible" (checkoutInfoBarChange)="openCheckoutInfoBar($event)" [(loadingVisible)]="leftPanelLoadingVisible"></app-left-panel>
     <app-graph *ngIf="graphVisible"></app-graph>
     <app-right-panel *ngIf="rightPanelVisible"></app-right-panel>
     
