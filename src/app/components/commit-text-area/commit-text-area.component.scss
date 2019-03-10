@@ -5,6 +5,7 @@
     width: 100%;
     
     &.gh-commit-textarea-summary {
+        font-size: $fs-medium;
         &.dark {
             border: 1px solid $dark-grey;
             border-bottom: 0;
@@ -17,6 +18,7 @@
     }
 
     &.gh-commit-textarea-desc {
+        font-size: $fs-xsmall;
         &.dark {
             border: 1px solid $dark-grey;
             border-top: 0;
