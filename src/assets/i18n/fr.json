@@ -146,8 +146,7 @@
     "INDEPENDENT_THEME": "Indépendant du thème",
     "WRONG_CRED": "Informations erronées",
     "SUMMARY": "Résumé",
-    "DESCRIPTION": "Description"
-    "WRONG_CRED": "Informations erronées",
+    "DESCRIPTION": "Description",
     "COMMIT": {
         "DESCRIPTION": "Description d'un commit"
     }

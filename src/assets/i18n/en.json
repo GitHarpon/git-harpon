@@ -145,8 +145,7 @@
     "INDEPENDENT_THEME": "Independent of the theme",
     "WRONG_CRED": "Wrong informations",
     "SUMMARY": "Summary",
-    "DESCRIPTION": "Description"
-    "WRONG_CRED": "Wrong informations",
+    "DESCRIPTION": "Description",
     "COMMIT": {
         "DESCRIPTION": "Commit description"
     }
