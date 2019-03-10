@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { Subscription } from 'rxjs';
 import { GitService } from '../../providers/git.service';
@@ -20,6 +20,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   currentBranch: any;
   branchNameSubscription: Subscription;
   objectKeys = Object.keys;
+  @Output() checkoutInfoBarChange = new EventEmitter<any>();
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
     private leftPanelService: LeftPanelService, private toastr: ToastrService) { }
@@ -61,6 +62,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
         });
 
         this.leftPanelService.setLocalBranches();
+        this.leftPanelService.setRemoteBranches();
       }).catch((result) => {
         this.toastr.error(result.message, result.title, {
           onActivateTick: true
@@ -70,19 +72,21 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   }
 
   checkoutRemoteBranch(remoteBranch) {
-    console.log(remoteBranch);
     const IsInLocal = this.localBranches.includes(remoteBranch.split('/')[1]);
-    console.log('contains this remote in local');
-    this.gitService.checkoutRemoteBranch(remoteBranch, IsInLocal).then((result) => {
+    this.gitService.checkoutRemoteBranch(remoteBranch, this.currentBranch, IsInLocal).then((result) => {
       this.toastr.info(result.message, result.title, {
         onActivateTick: true
       });
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
     }).catch((result) => {
-      this.toastr.error(result.message, result.title, {
-        onActivateTick: true
-      });
+      if (!result.newData) {
+        this.toastr.error(result.message, result.title, {
+          onActivateTick: true
+        });
+      } else {
+        this.checkoutInfoBarChange.emit(remoteBranch);
+      }
     });
   }
 

@@ -9,6 +9,7 @@ import * as GitUrlParse from 'git-url-parse';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { HttpsUser } from '../../models/HttpsUser';
+import { LeftPanelService } from '../../providers/left-panel.service';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +38,7 @@ export class HomeComponent implements OnDestroy {
   branchNameSubscription: Subscription;
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
+  checkoutInfoBarVisible: boolean;
   newClonedRepoPath: string;
   cloneHttpsUser: HttpsUser;
   homeLoading: boolean;
@@ -50,11 +52,13 @@ export class HomeComponent implements OnDestroy {
   cloneAuthErrored: boolean;
   currentHttpsUserSubscription: Subscription;
   currentHttpsUser: HttpsUser;
+  remoteBranch: string;
+  newCheckedoutBranchName: string;
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
     private translateService: TranslateService, private terminalService: TerminalManagerService,
-    private themePrefService: ThemePreferencesService) {
+    private themePrefService: ThemePreferencesService, private leftPanelService: LeftPanelService) {
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
@@ -325,6 +329,46 @@ export class HomeComponent implements OnDestroy {
     this.leftPanelVisible = false;
     this.graphVisible = false;
     this.rightPanelVisible = false;
+  }
+
+  openCheckoutInfoBar(remoteBranch) {
+    this.remoteBranch = remoteBranch;
+    this.checkoutInfoBarVisible = true;
+  }
+
+  createBranchHere() {
+    console.log('create branch here');
+    this.gitService.createBranchHere(this.newCheckedoutBranchName, this.remoteBranch).then((data) => {
+      this.leftPanelService.setLocalBranches();
+        this.leftPanelService.setRemoteBranches();
+      this.closeCheckoutInfoBar();
+      this.toastr.info(data.message, data.title);
+    })
+    .catch((data) => {
+      this.closeCheckoutInfoBar();
+      this.toastr.error(data.message, data.title);
+    });
+  }
+
+  resetLocalHere() {
+    console.log('reset local here');
+    this.gitService.resetLocalHere(this.remoteBranch).then((data) => {
+      this.leftPanelService.setLocalBranches();
+        this.leftPanelService.setRemoteBranches();
+      this.closeCheckoutInfoBar();
+      this.toastr.info(data.message, data.title);
+    })
+    .catch((data) => {
+      this.closeCheckoutInfoBar();
+      this.toastr.error(data.message, data.title);
+    });
+
+  }
+
+  closeCheckoutInfoBar() {
+    this.remoteBranch = '';
+    this.newCheckedoutBranchName = '';
+    this.checkoutInfoBarVisible = false;
   }
 
   ngOnDestroy() {

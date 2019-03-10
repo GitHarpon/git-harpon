@@ -96,7 +96,12 @@
     "BRANCH": {
         "TITLE": "Branch",
         "CHECKED_OUT": "Branch checked out",
-        "CHECKED_OUT_CONFLICTS": "Conflicts prevent checkout"
+        "CHECKED_OUT_CONFLICTS": "Conflicts prevent checkout",
+        "NAME": "Branch name",
+        "CREATE_HERE": "Create branch here",
+        "RESET_HERE": "Reset local to here",
+        "A_LOCAL": "A local",
+        "ALREADY_EXISTS": "already exists"
     },
     "PULL": "Pull",
     "PUSH": "Push",
@@ -105,6 +110,7 @@
     "EDITOR": "Editor",
     "UI": "User Interface",
     "REPOSITORY_MANAGEMENT": "Repository management",
+    "LOCAL": "LOCAL",
     "REMOTE": "REMOTE",
     "OPEN": {
         "TITLE": "Open",

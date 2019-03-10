@@ -97,7 +97,12 @@
     "BRANCH": {
         "TITLE": "Branche",
         "CHECKED_OUT": "Branche changée",
-        "CHECKED_OUT_CONFLICTS": "Les conflits empêchent le changement de branche"
+        "CHECKED_OUT_CONFLICTS": "Les conflits empêchent le changement de branche",
+        "NAME": "Nom de la branche",
+        "CREATE_HERE": "Créer une branche ici",
+        "RESET_HERE": "Réinitialiser le local à ici",
+        "A_LOCAL": "Une locale",
+        "ALREADY_EXISTS": "existe déjà"
     },
     "PULL": "Tirer",
     "PUSH": "Pousser",
@@ -106,6 +111,7 @@
     "EDITOR": "Editeur",
     "UI": "Interface Utilisateur",
     "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
+    "LOCAL": "LOCAL",
     "REMOTE": "DISTANT",
     "OPEN": {
         "TITLE": "Ouvrir",
