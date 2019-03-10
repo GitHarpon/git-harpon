@@ -109,7 +109,7 @@ export class HomeComponent implements OnDestroy {
 
   async pullrebaseHttps() {
     this.homeLoading = true;
-    return this.gitService.pullrebaseHttps(this.fullPath, this.currentHttpsUser, 'Master')
+    return this.gitService.pullrebaseHttps(this.fullPath, this.currentHttpsUser, 'master')
       .then((data) => {
         this.homeLoading = false;
         this.pullrebaseCredInfoBarVisible = false;

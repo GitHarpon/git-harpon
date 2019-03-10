@@ -119,7 +119,7 @@ describe('HomeComponent', () => {
     const Folder = 'path';
     component.fullPath = Folder;
     component.currentHttpsUser = User;
-    component.homeLoading = false;
+    component.homeLoading = true;
     component.pullrebaseCredInfoBarVisible = true;
     component.pullrebaseHttps().then(() => {
       expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
