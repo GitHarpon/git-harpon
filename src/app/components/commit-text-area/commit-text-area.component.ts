@@ -13,8 +13,9 @@ export class CommitTextAreaComponent {
   @Input() descPlaceholder: String;
   @Input() summaryPlaceholder: String;
   @Input() readonly: Boolean;
-  @Input() descRows: Number;
-  @Input() descCols: Number;
+  @Input() rows: Number;
+  @Input() cols: Number;
+  @Input() descView: Boolean;
   currentDescValue: String;
   currentSummaryValue: String;
   themePrefSubscription: Subscription;

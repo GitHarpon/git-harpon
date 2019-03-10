@@ -46,6 +46,7 @@ import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 
 describe('PreferencesComponent', () => {
   /* tslint:disable */
@@ -79,7 +80,8 @@ describe('PreferencesComponent', () => {
         RightPanelComponent,
         SendCommitComponent,
         ViewCommitComponent,
-        TextAreaComponent
+        TextAreaComponent,
+        CommitTextAreaComponent
       ],
       imports: [
         FormsModule,

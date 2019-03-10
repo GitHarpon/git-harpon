@@ -684,8 +684,8 @@
                 </div>
             </div>
             <div class="col-md-12 mt-2 text-right">
-                <app-button class="ml-2" value="DISPLAY_VALUE" type="primary" (buttonClicked)="testTextarea()"></app-button>
-                <app-button value="UPDATE_VALUE" type="primary" (buttonClicked)="setTextareaValue()"></app-button>
+                <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testTextarea()"></app-button>
+                <app-button class="ml-2" value="UPDATE_VALUE" type="primary" (buttonClicked)="setTextareaValue()"></app-button>
             </div>
         </div>
         <div class="container mt-5">
@@ -695,28 +695,42 @@
                 <div class="col-md-12 mt-2 row">
                     <div class="col-md-10">
                         <div class="col-md-12">
-                            <app-commit-text-area descRows="5" descCols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="DESCRIPTION"
+                            <app-commit-text-area rows="3" cols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
                                 [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>
                         </div>
                     </div>
                     <div class="col-md-2 mt-1">
-                        <app-copy-button template=''></app-copy-button>
+                        <app-copy-button template='<app-commit-text-area rows="3" cols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
+                                [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>'></app-copy-button>
                     </div>
                 </div>
                 <div class="col-md-12 mt-2 row">
                     <div class="col-md-10">
                         <div class="col-md-12">
-                            <app-commit-text-area descRows="5" descCols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="DESCRIPTION"
+                            <app-commit-text-area rows="3" cols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
                                 [readonly]="true" [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>                        
                         </div>
                     </div>
                     <div class="col-md-2 mt-1">
-                        <app-copy-button template=''></app-copy-button>
+                        <app-copy-button template='<app-commit-text-area rows="3" cols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
+                                [readonly]="true" [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary">'></app-copy-button>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-2 row">
+                    <div class="col-md-10">
+                        <div class="col-md-12">
+                            <app-commit-text-area rows="3" cols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
+                                [descView]="true" [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>                        
+                        </div>
+                    </div>
+                    <div class="col-md-2 mt-1">
+                        <app-copy-button template='<app-commit-text-area rows="3" cols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
+                                [descView]="true" [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>'></app-copy-button>
                     </div>
                 </div>
                 <div class="col-md-12 mt-2 text-right">
-                    <app-button class="ml-2" value="DISPLAY_VALUE" type="primary" (buttonClicked)="testTextarea()"></app-button>
-                    <app-button value="UPDATE_VALUE" type="primary" (buttonClicked)="setTextareaValue()"></app-button>
+                    <app-button value="DISPLAY_VALUE" type="primary" (buttonClicked)="testCommitTextarea()"></app-button>
+                    <app-button class="ml-2" value="UPDATE_VALUE" type="primary" (buttonClicked)="setCommitTextareaValue()"></app-button>
                 </div>
             </div>
         <div class="container mt-5">

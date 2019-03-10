@@ -335,4 +335,14 @@ export class ToolboxComponent implements OnInit {
   setTextareaValue() {
     this.textareaValue += 'Lorem ipsum...';
   }
+
+  testCommitTextarea() {
+    return this.toastr.info(this.translateService.instant('SUMMARY') + ' : ' + this.commitTextAreaValue.summary.toString()
+      + '\n' + this.translateService.instant('DESCRIPTION') + ' : ' + this.commitTextAreaValue.desc.toString());
+  }
+
+  setCommitTextareaValue() {
+    this.commitTextAreaValue.summary += 'Lorem ipsum...';
+    this.commitTextAreaValue.desc += 'dolor sit amet...';
+  }
 }

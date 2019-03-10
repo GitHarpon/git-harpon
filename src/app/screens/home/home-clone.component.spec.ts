@@ -37,6 +37,7 @@ import { AccordionComponent } from '../../components/accordion/accordion.compone
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
 import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -63,7 +64,8 @@ describe('HomeComponent', () => {
         RightPanelComponent,
         SendCommitComponent,
         ViewCommitComponent,
-        TextAreaComponent
+        TextAreaComponent,
+        CommitTextAreaComponent
       ],
       imports: [
         FormsModule,
