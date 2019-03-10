@@ -33,8 +33,11 @@ import { LeftPanelComponent } from '../left-panel/left-panel.component';
 import { GraphComponent } from '../graph/graph.component';
 import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { HttpsUser } from '../../models/HttpsUser';
+import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -55,11 +58,14 @@ describe('HomeComponent', () => {
         IconButtonComponent,
         LoaderComponent,
         InfoBarComponent,
+        AccordionComponent,
         LeftPanelComponent,
         GraphComponent,
         RightPanelComponent,
         SendCommitComponent,
-        ViewCommitComponent
+        ViewCommitComponent,
+        TextAreaComponent,
+        CommitTextAreaComponent
       ],
       imports: [
         FormsModule,

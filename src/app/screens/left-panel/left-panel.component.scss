@@ -4,12 +4,10 @@
     display:inline-block;
     height: calc(100% - 50px);
     width: 15%;
-    text-align:center;
-    padding: $gap-sm;
     vertical-align: top;
     
     &.dark {
-        background: $light-grey;
+        background: #272A31;
         color: $white;
         border-top: 1px solid $dark;
     }

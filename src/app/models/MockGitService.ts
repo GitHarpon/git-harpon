@@ -14,6 +14,7 @@ export class MockGitService {
     pathSubject: Subject<any>;
     repoNameSubject: Subject<any>;
     recentProjectSubject: Subject<any>;
+    branchNameSubject: Subject<any>;
     httpsUserSubject: Subject<HttpsUser>;
     httpsUser: HttpsUser;
 
@@ -21,6 +22,7 @@ export class MockGitService {
         this.pathSubject = new Subject<any>();
         this.repoNameSubject = new Subject<any>();
         this.recentProjectSubject = new Subject<any[]>();
+        this.branchNameSubject = new Subject<any>();
         this.httpsUserSubject = new Subject<HttpsUser>();
         this.setHttpsUser({ username: null, password: null });
     }
@@ -37,6 +39,10 @@ export class MockGitService {
         this.repoNameSubject.next(repo);
     }
 
+    emitBranchNameSubject(branchName) {
+        this.branchNameSubject.next(branchName);
+    }
+
     emitHttpsUserSubject() {
         this.httpsUserSubject.next(this.httpsUser);
     }
@@ -44,6 +50,18 @@ export class MockGitService {
     setHttpsUser(newUser: HttpsUser) {
         this.httpsUser = newUser;
         this.emitHttpsUserSubject();
+    }
+
+    getLocalBranches() {
+        return new Promise<any>((resolve, reject) => {
+            resolve(['hello', 'world']);
+        });
+    }
+
+    getRemoteBranches() {
+        return new Promise<any>((resolve, reject) => {
+            resolve(['hello', 'world']);
+        });
     }
 
     async setPath(newPath) {
