@@ -112,12 +112,14 @@ describe('HomeComponent', () => {
   });
 
   it('tests the pushHttps function and valid arguments', (done) => {
-    const Visible = true;
-    component.currentHttpsUser.password = 'password';
-    component.currentHttpsUser.username = 'username';
-    component.fullPath = 'folder';
-    component.homeLoading = Visible;
-    component.pushCredInfoBarVisible = Visible;
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const Branch = 'master';
+    const Path = 'folder';
+    component.fullPath = Path;
+    component.branchName = Branch;
+    component.currentHttpsUser = User;
+    component.homeLoading = false;
+    component.pushCredInfoBarVisible = true;
     component.pushHttps().then(() => {
       expect(component.pushCredInfoBarVisible).toBeFalsy();
       expect(component.homeLoading).toBeFalsy();
