@@ -22,7 +22,6 @@ export class GitService {
   repoNameSubject: Subject<any>;
   branchName: any;
   branchNameSubject: Subject<any>;
-  branches: String[];
   gitP: any;
   git: any;
 
@@ -144,7 +143,6 @@ export class GitService {
   async setNewBranch(newBranchName, referenceBranchName) {
     return new Promise<any>((resolve, reject) => {
       if (this.repoName) {
-
         gitPromise(this.path).branch([])
           .then((result) => {
             if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {

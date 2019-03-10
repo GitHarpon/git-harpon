@@ -7,6 +7,7 @@ import { ServiceResult } from '../models/ServiceResult';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpsUser } from './HttpsUser';
+import { LeftPanelService } from '../providers/left-panel.service';
 
 @Injectable()
 export class MockGitService {
@@ -17,7 +18,7 @@ export class MockGitService {
     httpsUserSubject: Subject<HttpsUser>;
     httpsUser: HttpsUser;
 
-    constructor(private translate: TranslateService) {
+    constructor(private translate: TranslateService, private leftPanelService: LeftPanelService) {
         this.pathSubject = new Subject<any>();
         this.repoNameSubject = new Subject<any>();
         this.recentProjectSubject = new Subject<any[]>();
@@ -72,6 +73,19 @@ export class MockGitService {
             } else {
                 reject(new ServiceResult(false, this.translate.instant('ERROR'),
                     this.translate.instant('OPEN.NOT_GIT_REPO')));
+            }
+        });
+    }
+
+    async setNewBranch(newBranchName, referenceBranchName) {
+        return new Promise<any>((resolve, reject) => {
+            if (newBranchName === 'newBranch' && newBranchName !== referenceBranchName
+                && referenceBranchName !== 'wrong') {
+                this.setNewBranch(newBranchName, referenceBranchName);
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'), this.translate.instant('BRANCH.CREATED')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.NOT_CREATED')));
             }
         });
     }
