@@ -261,7 +261,7 @@ export class GitService {
         .then((commitInfo) => {
           const Args = hash + '^!';
           this.gitP.diffSummary([Args])
-            .then((files) => resolve({...commitInfo, ...files}));
+            .then((files) => resolve({...commitInfo[0], ...files}));
         });
     });
   }

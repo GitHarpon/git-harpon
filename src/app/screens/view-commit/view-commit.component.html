@@ -1,3 +1,14 @@
 <div class="view-commit" [ngClass]="currentTheme">
-  <app-button type="primary" value="COMMIT.DESCRIPTION" (buttonClicked)="setDescription()"></app-button>
+  <div class="col-md-12 view-commit__hash">
+    <span class="view-commit__hash__label">
+      commit: 
+      <span placement="top" ngbTooltip="{{ 'COPY' | translate }}" (click)="copyCommitHash()" class="view-commit__hash__hash">
+        {{ currentDescription?.oid | slice:0:6 }}
+        <i class="fa fa-lg copied" [ngClass]="[hashCopied ? 'fa-check' : '']"></i>
+      </span> 
+    </span>
+  </div>
+  <div class="col-md-12" *ngIf="currentDescription?.message">
+    <app-text-area rows="4" [readonly]="true" [(value)]="currentDescription.message"></app-text-area> 
+  </div>
 </div>

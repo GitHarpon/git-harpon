@@ -2,11 +2,10 @@
 
 .view-commit {
     height: 100%;
-    
     &.dark {
         background: $light-grey;
         color: $white;
-        border-top: 1px solid $light-grey;
+        border-top: 1px solid $dark;
     }
 
     &.light {
@@ -14,4 +13,21 @@
         color: $dark;
         border-top: 1px solid $border-dark-grey-light;
     }
+
+    &__hash {
+        background: $textarea-bg;
+        padding: $gap-md 0 $gap-md 0;
+
+        &__label {
+            color: $muted-white;
+        }
+
+        &__hash {
+            color: $white;
+        }
+    }
+}
+
+.copied {
+    color: #00CB17;
 }

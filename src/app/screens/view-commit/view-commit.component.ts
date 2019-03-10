@@ -4,6 +4,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { RightPanelService } from '../../providers/right-panel.service';
 import { GitService } from '../../providers/git.service';
 import { CommitDescription } from '../../models/CommitInformations';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-view-commit',
@@ -16,9 +17,10 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   commitHashSubscription: Subscription;
   commitHash: String;
   currentDescription: CommitDescription;
+  hashCopied: Boolean;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
-    private gitService: GitService) {
+    private gitService: GitService, private clipboardService: ClipboardService) {
   }
 
   ngOnInit() {
@@ -32,6 +34,11 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     this.commitHashSubscription = this.rightPanelService.commitHashSubject.subscribe(
       (hash: String) => {
         this.commitHash = hash;
+        console.log('toto');
+        if (this.commitHash && this.commitHash !== '') {
+          console.log('tata');
+          this.setDescription();
+        }
       }
     );
     this.rightPanelService.emitCommitHashSubject();
@@ -47,6 +54,18 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     return this.gitService.commitDescription(this.commitHash).then((data) => {
       this.currentDescription = data;
     });
+  }
+
+  async copyCommitHash() {
+    this.clipboardService.copyFromContent(this.currentDescription.oid);
+    return this.switchCopyCommitHash();
+  }
+
+  async switchCopyCommitHash() {
+    this.hashCopied = true;
+    return setTimeout(time => {
+      this.hashCopied = false;
+    }, 500);
   }
 
   ngOnDestroy() {
