@@ -187,6 +187,52 @@ export class GitService {
     }
   }
 
+  checkoutRemoteBranch(remoteBranch, isInLocal) {
+    // Si remote est en local
+    // check diff
+    // Si pas diff checkout basique
+    // Si diff
+
+    // Si pas en local
+    // checkout -t origin/test
+    return new Promise<ServiceResult>((resolve, reject) => {
+      if (isInLocal) {
+        let LocalBranch;
+        if (remoteBranch.split('/')[1]) {
+          LocalBranch = remoteBranch.split('/')[1];
+        }
+        gitPromise(this.path).diff([LocalBranch, remoteBranch]).then((isDifferent) => {
+          console.log('isDifferent : ', isDifferent);
+          if (isDifferent) {
+            // En local + diff = demander ce qu'il veut
+            console.log('local + diff');
+          } else {
+            // En local + pas de diff = revient à checkout local
+            console.log('local + pas de diff');
+            gitPromise(this.path).checkout(LocalBranch).then((result) => {
+              console.log('checkout local');
+              console.log(result);
+              this.getCurrentBranch();
+              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('BRANCH.CHECKED_OUT')));
+            });
+          }
+        });
+      } else {
+        // Pas en local = créer la branche à partir du remote
+        console.log('pas en local');
+        gitPromise(this.path)
+          .raw(['checkout', '-t', remoteBranch]).then((result) => {
+          console.log('raw');
+          console.log(result);
+          this.getCurrentBranch();
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.CHECKED_OUT')));
+        });
+      }
+    });
+  }
+
   registerProject(repo: any, path: any) {
     const Project = {
       repo: repo,

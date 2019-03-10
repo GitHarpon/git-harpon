@@ -5,9 +5,10 @@
     height: calc(100% - 50px);
     width: 15%;
     vertical-align: top;
+    overflow: auto;
     
     &.dark {
-        background: #272A31;
+        background: $low-dark;
         color: $white;
         border-top: 1px solid $dark;
     }

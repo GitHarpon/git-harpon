@@ -71,6 +71,19 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
 
   checkoutRemoteBranch(remoteBranch) {
     console.log(remoteBranch);
+    const IsInLocal = this.localBranches.includes(remoteBranch.split('/')[1]);
+    console.log('contains this remote in local');
+    this.gitService.checkoutRemoteBranch(remoteBranch, IsInLocal).then((result) => {
+      this.toastr.info(result.message, result.title, {
+        onActivateTick: true
+      });
+      this.leftPanelService.setLocalBranches();
+      this.leftPanelService.setRemoteBranches();
+    }).catch((result) => {
+      this.toastr.error(result.message, result.title, {
+        onActivateTick: true
+      });
+    });
   }
 
   ngOnDestroy() {

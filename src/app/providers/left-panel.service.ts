@@ -37,7 +37,6 @@ export class LeftPanelService {
                 return r;
               }, {}
             );
-    
             this.remoteBranchesSubject.next(this.remoteBranches);
         });
 
