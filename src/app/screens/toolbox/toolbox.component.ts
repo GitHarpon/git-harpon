@@ -39,6 +39,7 @@ export class ToolboxComponent implements OnInit {
   dataDropdownExample: Array<any>;
   dataDropdownExampleTwo: Array<any>;
   textareaValue: String;
+  commitTextAreaValue: any;
 
   key: String = 'key';
   value: String = 'value';
@@ -66,6 +67,10 @@ export class ToolboxComponent implements OnInit {
     this.inputValue = 'Test';
     this.inputEmptyValue = '';
     this.textareaValue = '';
+    this.commitTextAreaValue = {
+      summary: '',
+      desc: ''
+    };
     this.modalTabSelectedIndex = 1;
     this.passwordInput = 'toto';
 

@@ -668,7 +668,8 @@
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <app-copy-button template=''></app-copy-button>
+                    <app-copy-button template='<app-text-area rows="5" cols="50" placeholder="PLACEHOLDER" [name]="first-text-area" [(value)]="textareaValue"></app-text-area>
+                        '></app-copy-button>
                 </div>
             </div>
             <div class="col-md-12 mt-2 row">
@@ -678,7 +679,8 @@
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <app-copy-button template=''></app-copy-button>
+                    <app-copy-button template='<app-text-area rows="5" cols="50" placeholder="PLACEHOLDER" [name]="first-text-area"  [readonly]="true" [(value)]="textareaValue"></app-text-area>
+                        '></app-copy-button>
                 </div>
             </div>
             <div class="col-md-12 mt-2 text-right">
@@ -686,6 +688,37 @@
                 <app-button value="UPDATE_VALUE" type="primary" (buttonClicked)="setTextareaValue()"></app-button>
             </div>
         </div>
+        <div class="container mt-5">
+                <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
+                    <h2>Commit Text Area</h2>
+                </div>
+                <div class="col-md-12 mt-2 row">
+                    <div class="col-md-10">
+                        <div class="col-md-12">
+                            <app-commit-text-area descRows="5" descCols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="DESCRIPTION"
+                                [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mt-1">
+                        <app-copy-button template=''></app-copy-button>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-2 row">
+                    <div class="col-md-10">
+                        <div class="col-md-12">
+                            <app-commit-text-area descRows="5" descCols="50" descPlaceholder="DESCRIPTION" summaryPlaceholder="DESCRIPTION"
+                                [readonly]="true" [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>                        
+                        </div>
+                    </div>
+                    <div class="col-md-2 mt-1">
+                        <app-copy-button template=''></app-copy-button>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-2 text-right">
+                    <app-button class="ml-2" value="DISPLAY_VALUE" type="primary" (buttonClicked)="testTextarea()"></app-button>
+                    <app-button value="UPDATE_VALUE" type="primary" (buttonClicked)="setTextareaValue()"></app-button>
+                </div>
+            </div>
         <div class="container mt-5">
             <div class="col-md-12 mt-2 row">
                 <div class="col-md-12" [ngClass]="[currentTheme === 'light' ? 'bb-dark' : 'bb-white']">
