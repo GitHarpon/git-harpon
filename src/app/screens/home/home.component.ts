@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ResizeEvent } from 'angular-resizable-element';
@@ -93,6 +93,11 @@ export class HomeComponent implements OnDestroy {
       username: '',
       password: ''
     };
+  }
+
+  @HostListener('window:focus', ['$event'])
+  onfocus(event: any): void {
+    this.gitService.updateFilesDiff();
   }
 
   pullButtonClicked() {
