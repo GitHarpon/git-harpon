@@ -14,6 +14,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { IconButtonComponent } from '../../components/icon-button/icon-button.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { MatTabsModule, TooltipComponent } from '@angular/material';
 import { ResizableModule, ResizeEvent } from 'angular-resizable-element';
 import { LoaderComponent } from '../../components/loader/loader.component';
@@ -54,6 +55,7 @@ describe('HomeComponent', () => {
         ModalComponent,
         FooterComponent,
         IconButtonComponent,
+        CommitTextAreaComponent,
         LoaderComponent,
         InfoBarComponent,
         AccordionComponent,
