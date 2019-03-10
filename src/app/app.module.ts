@@ -95,7 +95,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ViewCommitComponent,
     SendCommitComponent,
     TextAreaComponent,
-    CommitTextAreaComponent
+    CommitTextAreaComponent,
     FileDiffCommitComponent
   ],
   imports: [
