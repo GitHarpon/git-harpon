@@ -100,26 +100,6 @@ export class HomeComponent implements OnDestroy {
     };
   }
 
-  pullrebaseButtonClicked() {
-    if (this.electronService.fsExistsSync(this.cloneFolder.toString())) {
-      var Url = GitUrlParse(this.cloneUrl);
-      if (Url.protocol === 'https') {
-        this.homeLoading = true;
-        this.pullrebaseHttps();
-      } else if (Url.protocol === 'ssh') {
-        // this.homeLoading = true;
-        this.toastr.error('Pas de ssh pour le moment', 'Erreur');
-        this.pullrebaseSsh();
-      } else {
-        this.toastr.error(this.translateService.instant('INVALID_URL'),
-          this.translateService.instant('ERROR'));
-      }
-    } else {
-      this.toastr.error(this.translateService.instant('PATH_NOT_FOUND'),
-        this.translateService.instant('ERROR'));
-    }
-  }
-
   async pullrebaseHttps() {
     this.homeLoading = true;
     return this.gitService.pullrebaseHttps(this.fullPath, this.currentHttpsUser, 'Master')
@@ -140,11 +120,6 @@ export class HomeComponent implements OnDestroy {
           this.toastr.error(data.message, data.title);
         }
       });
-  }
-
-  async pullrebaseSsh() {
-    // ici nous gérerons le pull-rebase via ssh
-    this.toastr.error('Pas de ssh pour le moment', 'Erreur');
   }
 
   pushButtonClicked() {
@@ -345,11 +320,6 @@ export class HomeComponent implements OnDestroy {
 
   closePullrebaseCredInfoBar() {
     this.pullrebaseCredInfoBarVisible = false;
-    this.resetPullrebaseInputs();
-  }
-
-  closePullrebaseInfoBar() {
-    this.pullrebaseInfoBarVisible = false;
     this.resetPullrebaseInputs();
   }
 
