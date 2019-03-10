@@ -27,15 +27,14 @@ export class CopyButtonComponent {
 
   async copyToClipboard() {
     this.clipboardService.copyFromContent(this.template);
-    return await this.switchCopy();
+    return this.switchCopy();
   }
 
   async switchCopy() {
     this.copy = true;
-    await setTimeout(time => {
+    return setTimeout(time => {
       this.copy = false;
     }, 500);
-    return true;
   }
 
 }
