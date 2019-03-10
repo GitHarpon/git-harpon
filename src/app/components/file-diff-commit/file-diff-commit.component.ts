@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GitService } from '../../providers/git.service';
+import { Subscription } from 'rxjs';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 
 @Component({
   selector: 'app-file-diff-commit',
@@ -10,8 +12,17 @@ export class FileDiffCommitComponent implements OnInit {
   @Input() listFiles: any[];
   @Input() componentType: string;
   componentHovered: any;
+  themePrefSubscription: Subscription;
+  currentTheme: string;
 
-  constructor(private gitService: GitService) { }
+  constructor(private gitService: GitService, private themePrefService: ThemePreferencesService) {
+    this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
+      (newTheme: string) => {
+        this.currentTheme = newTheme;
+      }
+    );
+    this.themePrefService.emitThemePreferencesSubject();
+  }
 
   ngOnInit() {
   }

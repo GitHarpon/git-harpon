@@ -1,4 +1,7 @@
 <div class="send-commit container" [ngClass]="currentTheme">
+  <div class="send-commit_header">
+      {{ listUnstagedFiles.length + listStagedFiles }} {{ 'NB_FILE_COMMIT' }}
+  </div>
   <div class="text-left">
     {{ 'UNSTAGED_FILES' | translate }} ({{ listUnstagedFiles.length }})
     <app-file-diff-commit [listFiles]="listUnstagedFiles" componentType="unstage"></app-file-diff-commit>
@@ -8,5 +11,4 @@
       {{ 'STAGED_FILES' | translate }} ({{ listStagedFiles.length }})
       <app-file-diff-commit [listFiles]="listStagedFiles" componentType="stage"></app-file-diff-commit>
   </div>
-  <app-button value="Test" type="primary" (buttonClicked)="display()"></app-button>
 </div>

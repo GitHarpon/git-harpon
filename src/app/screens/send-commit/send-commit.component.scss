@@ -6,12 +6,17 @@
     &.dark {
         background: $light-grey;
         color: $white;
-        border-top: 1px solid $dark;
+        border-top: 1px solid $light-grey;
     }
 
     &.light {
-        background: $light-grey-light;
+        background: $dark-grey-light;
         color: $dark;
         border-top: 1px solid $border-dark-grey-light;
+    }
+
+    &_header {
+        background: $light-grey-light;
+        border-bottom: 1px solid $border-dark-grey-light;
     }
 }

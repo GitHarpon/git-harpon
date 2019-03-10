@@ -6,6 +6,18 @@
     overflow: scroll;
     white-space: nowrap;
 
+    &.dark {
+        background: $low-dark;
+        border: 1px solid $dark-grey;
+        color: $white;
+    }
+
+    &.light {
+        background: $light-grey-light;
+        border: 1px solid $border-dark-grey-light;
+        color: $dark;
+    }
+
     &:hover {
         cursor: pointer;
     }

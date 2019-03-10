@@ -1,4 +1,4 @@
-<div class="file-diff-commit" [ngClass]="[componentType]">
+<div class="file-diff-commit" [ngClass]="[componentType, currentTheme]">
   <div *ngFor="let file of listFiles" class="file-diff-commit_file" (mouseenter)="mouseEnter(file.path)"  (mouseleave) ="mouseLeave(file.path)">
     <a data-toggle="tooltip" title="{{ file.path }}" >
       <i class="fa" [ngClass]="[(file.status == 'M' ? 'fa-file-signature' : ''), 
