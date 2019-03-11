@@ -104,7 +104,6 @@
         "ALREADY_EXISTS": "already exists",
         "ERROR": "Error during the checkout branch"
     },
-    "BRANCH": "Branch",
     "PULL": {
         "WHERE": "Where to pull",
         "URL": "URL",

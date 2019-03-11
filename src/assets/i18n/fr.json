@@ -105,7 +105,6 @@
         "ALREADY_EXISTS": "existe déjà",
         "ERROR": "Erreur durant le changement de branche"
     },
-    "BRANCH": "Branche",
     "PULL": {
         "WHERE": "Où tirer",
         "URL": "URL",
