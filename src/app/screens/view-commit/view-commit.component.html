@@ -8,7 +8,8 @@
       </span> 
     </span>
   </div>
-  <div class="col-md-12" *ngIf="currentDescription?.message">
-    <app-text-area rows="4" [readonly]="true" [(value)]="currentDescription.message"></app-text-area> 
+  <div class="col-md-12 mt-2" *ngIf="currentDescription?.message">
+    <app-commit-text-area rows="3" [descValue]="getCommitDescription()" [summaryValue]="getCommitSummary()" 
+      [readonly]="true" [descView]="true"></app-commit-text-area>
   </div>
 </div>

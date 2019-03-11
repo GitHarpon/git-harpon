@@ -53,7 +53,23 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   async setDescription() {
     return this.gitService.commitDescription(this.commitHash).then((data) => {
       this.currentDescription = data;
+      console.log(this.currentDescription);
     });
+  }
+
+  getCommitSummary() {
+    if (this.currentDescription) {
+      return this.currentDescription.message.split('\n\n')[0];
+    }
+    return null;
+  }
+
+  getCommitDescription() {
+    if (this.currentDescription) {
+      const Result =  this.currentDescription.message.split('\n\n')[1];
+      return Result ? Result : '';
+    }
+    return null;
   }
 
   async copyCommitHash() {
