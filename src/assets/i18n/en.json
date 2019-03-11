@@ -104,7 +104,21 @@
         "ALREADY_EXISTS": "already exists",
         "ERROR": "Error during the checkout branch"
     },
-    "PULL": "Pull",
+    "BRANCH": "Branch",
+    "PULL": {
+        "WHERE": "Where to pull",
+        "URL": "URL",
+        "TITLE": "Pull",
+        "TAB_TITLE": "Pull a repository",
+        "DONE": "The pull was successful",
+        "ERROR": "Problem during the pull",
+        "UNABLE_TO_UPDATE": "Unable to update url base from redirection",
+        "HTTP_ACCESS_DENIED": "HTTP basic: Access denied",
+        "NOT_WORK_TREE": "Could not create work tree : permission denied",
+        "REPO_NOT_FOUND": "Repository not found",
+        "ALREADY_EXISTS": "This repository already exists and is not an empty directory",
+        "INVALID_CRED": "Invalid username or password"
+    },
     "PUSH": "Push",
     "EXIT_PREFERENCES": "Exit preferences",
     "GENERAL": "General",
@@ -154,5 +168,7 @@
     "DARK_THEME": "Dark theme",
     "LIGHT_THEME": "Light theme",
     "INDEPENDENT_THEME": "Independent of the theme",
-    "WRONG_CRED": "Wrong informations"
+    "WRONG_CRED": "Wrong informations",
+    "SUMMARY": "Summary",
+    "DESCRIPTION": "Description"
 }
