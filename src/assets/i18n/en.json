@@ -94,6 +94,8 @@
     },
     "COPY": "Copy",
     "BRANCH": "Branch",
+    "BRANCH_RENAME_SUCESS" : "Branch renamed successfuly",
+    "BRANCH_RENAME_FAILURE" : "An error occured during the renaming of the branch",    
     "PULL": "Pull",
     "PUSH": "Push",
     "EXIT_PREFERENCES": "Exit preferences",

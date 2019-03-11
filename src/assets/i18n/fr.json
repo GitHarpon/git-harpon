@@ -95,6 +95,8 @@
     },
     "COPY": "Copier",
     "BRANCH": "Branche",
+    "BRANCH_RENAME_SUCESS" : "Branch renommée avec succès",
+    "BRANCH_RENAME_FAILURE" : "Une erreur s'est produite pendant le renommage", 
     "PULL": "Tirer",
     "PUSH": "Pousser",
     "EXIT_PREFERENCES": "Sortir des préferences",

@@ -164,6 +164,20 @@ export class GitService {
     });
   }
 
+  async renameBranch(oldName: string, newName: string) {
+    return new Promise<any>((resolve, reject) => {
+      if (this.repoName) {
+        gitPromise(this.path).raw(['branch', '-m', oldName, newName])
+          .then((result) => {
+            reject(new ServiceResult(false, this.translate.instant('SUCCESS'),
+              this.translate.instant('')));
+          });
+      } else {
+        reject(null);
+      }
+    });
+  }
+
   registerProject(repo: any, path: any) {
     const Project = {
       repo: repo,
