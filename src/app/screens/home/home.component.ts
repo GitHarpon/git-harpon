@@ -39,6 +39,11 @@ export class HomeComponent implements OnDestroy {
   openClonedInfoBarVisible: boolean;
   newClonedRepoPath: string;
   cloneHttpsUser: HttpsUser;
+
+  pullrebaseInfoBarVisible: boolean;
+  pullrebaseAuthErrored: boolean;
+  pullrebaseCredInfoBarVisible: boolean;
+
   homeLoading: boolean;
   openFolder: string;
   themePrefSubscription: Subscription;
@@ -102,11 +107,34 @@ export class HomeComponent implements OnDestroy {
     };
   }
 
-  pullButtonClicked() {
-    return true;
+  async pullrebaseHttps() {
+    this.homeLoading = true;
+    return this.gitService.pullrebaseHttps(this.fullPath, this.currentHttpsUser, this.branchName)
+      .then((data) => {
+        this.homeLoading = false;
+        this.pullrebaseCredInfoBarVisible = false;
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        if (data.newData) {
+          this.pullrebaseAuthErrored = this.pullrebaseCredInfoBarVisible;
+          this.currentHttpsUser.password = '';
+          this.pullrebaseCredInfoBarVisible = true;
+          this.homeLoading = false;
+        } else {
+          this.homeLoading = false;
+          this.resetPullrebaseInputs();
+          this.toastr.error(data.message, data.title);
+        }
+      });
   }
 
   pushButtonClicked() {
+    return true;
+  }
+
+  pullButtonClicked() {
+    this.pullrebaseCredInfoBarVisible = true;
     return true;
   }
 
@@ -294,6 +322,21 @@ export class HomeComponent implements OnDestroy {
     this.newClonedRepoPath = '';
     this.cloneAuthErrored = false;
     this.credInfoBarVisible = false;
+    this.homeLoading = false;
+  }
+
+  closePullrebaseCredInfoBar() {
+    this.pullrebaseCredInfoBarVisible = false;
+    this.resetPullrebaseInputs();
+  }
+
+  resetPullrebaseInputs() {
+    this.currentHttpsUser = {
+      username: '',
+      password: ''
+    };
+    this.pullrebaseAuthErrored = false;
+    this.pullrebaseCredInfoBarVisible = false;
     this.homeLoading = false;
   }
 
