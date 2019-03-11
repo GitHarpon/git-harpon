@@ -109,7 +109,6 @@ export class HomeComponent implements OnDestroy {
   }
 
   pushButtonClicked() {
-    // TODO 1. Verifier qu'il existe des commits. Disable le button
     this.pushCredInfoBarVisible = true;
     return true;
   }

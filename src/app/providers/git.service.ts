@@ -252,12 +252,15 @@ export class GitService {
         RemoteArray = data.split('://');
         Remote = RemoteArray[0] + '://' + Credentials + RemoteArray[1];
       }).catch((err) => { console.error(err); });
-      gitPromise(folder).push(Remote, branch, {'-u': null, 'origin': null})
+      // gitPromise(folder).push(Remote, branch, {'-u': null, 'origin': null})
+      gitPromise(folder).raw(['push', '-u', 'origin', branch])
       .then((data) => {
+          console.log(data);
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
           this.translate.instant('PUSH.DONE')));
         }).catch((err) => {
         var ErrMsg = 'PUSH.ERROR';
+        console.log(err);
         var AccessDenied = false;
         if (err.toString().includes('unable to update url base from redirection')) {
           ErrMsg = 'PUSH.UNABLE_TO_UPDATE';
