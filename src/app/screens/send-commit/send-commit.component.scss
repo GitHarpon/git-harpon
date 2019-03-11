@@ -5,7 +5,7 @@
         
     &.dark {
         background: $light-grey;
-        color: $white;
+        color: $muted-white;
         border-top: 1px solid $light-grey;
     }
 
@@ -16,9 +16,22 @@
     }
 
     &_header {
-        background: $light-grey-light;
-        border-bottom: 1px solid $border-dark-grey-light;
         display: none;
+
+        &.dark {
+            color: $white;
+            background: $blue-grey;
+            border-bottom: 1px solid $dark-grey;
+        }
+
+        &.light {
+            background: $light-grey-light;
+            border-bottom: 1px solid $border-dark-grey-light;
+        }
+    }
+
+    &_container {
+        @include wX-hX(100%, calc(100% - #{$footer-height}));
     }
 
     &_stage {
