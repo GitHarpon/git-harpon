@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { GitService } from '../../providers/git.service';
+import { RightPanelService } from '../../providers/right-panel.service';
 
 @Component({
   selector: 'app-send-commit',
@@ -16,8 +17,8 @@ export class SendCommitComponent implements OnInit, OnDestroy {
   listStagedFiles: any[];
   listStagedFilesSubscription: Subscription;
 
-  constructor(private themePrefService: ThemePreferencesService, private gitService: GitService) {
-  }
+  constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
+    private rightPanelService: RightPanelService) {  }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -27,17 +28,17 @@ export class SendCommitComponent implements OnInit, OnDestroy {
     );
     this.themePrefService.emitThemePreferencesSubject();
 
-    this.listUnstagedFilesSubscription = this.gitService.listUnstagedFilesSubject.subscribe(
+    this.listUnstagedFilesSubscription = this.rightPanelService.listUnstagedFilesSubject.subscribe(
       (listUnstagedFiles: any) => {
         this.listUnstagedFiles = listUnstagedFiles;
       });
-    this.gitService.emitListUnstagedFilesSubject();
+    this.rightPanelService.emitListUnstagedFilesSubject();
 
-    this.listStagedFilesSubscription = this.gitService.listStagedFilesSubject.subscribe(
+    this.listStagedFilesSubscription = this.rightPanelService.listStagedFilesSubject.subscribe(
       (listStagedFiles: any) => {
         this.listStagedFiles = listStagedFiles;
       });
-    this.gitService.emitListStagedFilesSubject();
+    this.rightPanelService.emitListStagedFilesSubject();
   }
 
   addAllFile() {

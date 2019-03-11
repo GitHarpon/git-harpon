@@ -8,6 +8,7 @@ import { ServiceResult } from '../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-store';
 import { HttpsUser } from '../models/HttpsUser';
+import { RightPanelService } from './right-panel.service';
 
 @Injectable()
 export class GitService {
@@ -21,14 +22,10 @@ export class GitService {
   repoNameSubject: Subject<any>;
   branchName: any;
   branchNameSubject: Subject<any>;
-  listUnstagedFiles: any[];
-  listUnstagedFilesSubject: Subject<any[]>;
-  listStagedFiles: any[];
-  listStagedFilesSubject: Subject<any[]>;
   gitP: any;
   git: any;
 
-  constructor(private electronService: ElectronService, private translate: TranslateService) {
+  constructor(private electronService: ElectronService, private translate: TranslateService, private rightPanelService: RightPanelService) {
     this.gitP = gitPromise();
     this.git = simpleGit();
     this.pathSubject = new Subject<any>();
@@ -36,8 +33,6 @@ export class GitService {
     this.recentProjectSubject = new Subject<any[]>();
     this.branchNameSubject = new Subject<any>();
     this.httpsUserSubject = new Subject<HttpsUser>();
-    this.listUnstagedFilesSubject = new Subject<any[]>();
-    this.listStagedFilesSubject = new Subject<any[]>();
     this.setHttpsUser({ username: null, password: null});
     if (this.recentProject[0]) {
       if (this.recentProject[0].path) {
@@ -68,14 +63,6 @@ export class GitService {
 
   emitHttpsUserSubject() {
     this.httpsUserSubject.next(this.httpsUser);
-  }
-
-  emitListUnstagedFilesSubject() {
-    this.listUnstagedFilesSubject.next(this.listUnstagedFiles);
-  }
-
-  emitListStagedFilesSubject() {
-    this.listStagedFilesSubject.next(this.listStagedFiles);
   }
 
   setHttpsUser(newUser: HttpsUser) {
@@ -257,32 +244,31 @@ export class GitService {
   }
 
   updateFilesDiff() {
-    this.listUnstagedFiles = [];
-    this.listStagedFiles = [];
+    var ListUnstagedFiles = [];
+    var ListStagedFiles = [];
     this.gitP.status().then((statusSummary) => {
       const ListFile = statusSummary.files;
       ListFile.forEach(file => {
         if (file.working_dir == 'M' || file.working_dir == 'D') {
-          this.listUnstagedFiles.push({
+          ListUnstagedFiles.push({
             path: file.path,
             status: file.working_dir
           });
         } else if (file.working_dir == '?') {
-          this.listUnstagedFiles.push({
+          ListUnstagedFiles.push({
             path: file.path,
             status: 'A'
           });
         }
         if (file.index == 'M' || file.index == 'D' || file.index == 'A') {
-          this.listStagedFiles.push({
+          ListStagedFiles.push({
             path: file.path,
             status: file.index
           });
         }
       });
     });
-    this.emitListUnstagedFilesSubject();
-    this.emitListStagedFilesSubject();
+    this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
   }
 
   addFile(path: any) {
