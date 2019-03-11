@@ -147,8 +147,12 @@
     "WRONG_CRED": "Informations erronées",
     "SUMMARY": "Résumé",
     "DESCRIPTION": "Description",
+    "NB_FILE_COMMIT": "fichier changé",
+    "NB_FILES_COMMIT": "fichiers changés",
     "UNSTAGED_FILES": "Fichiers pas ajoutés",
     "STAGED_FILES": "Fichiers ajoutés",
+    "STAGE_ALL_FILE": "Ajouter tous les fichiers",
+    "UNSTAGE_ALL_FILE": "Retirer tous les fichiers",
     "STAGE_FILE": "Ajouter fichier",
     "UNSTAGE_FILE": "Retirer fichier"
 }

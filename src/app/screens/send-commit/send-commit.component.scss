@@ -18,5 +18,31 @@
     &_header {
         background: $light-grey-light;
         border-bottom: 1px solid $border-dark-grey-light;
+        display: none;
     }
+
+    &_stage {
+        height: 28%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    &_unstage {
+        height: 28%;
+        padding-top: 30px;
+        padding-bottom: 10px;
+    }
+
+    &_text {
+        font-size: $fs-medium;
+
+        &_button {
+            font-size: $fs-small;
+            float: right;
+        }
+    }
+}
+
+.visible {
+    display: block;
 }

@@ -40,6 +40,14 @@ export class SendCommitComponent implements OnInit, OnDestroy {
     this.gitService.emitListStagedFilesSubject();
   }
 
+  addAllFile() {
+    this.gitService.addFile('.');
+  }
+
+  removeAllFile() {
+    this.gitService.removeFile('.');
+  }
+
   ngOnDestroy() {
     if (this.themePrefSubscription) {
       this.themePrefSubscription.unsubscribe();
