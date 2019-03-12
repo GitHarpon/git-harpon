@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomeComponent } from './home.component';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -14,7 +13,6 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { IconButtonComponent } from '../../components/icon-button/icon-button.component';
-import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { MatTabsModule, TooltipComponent } from '@angular/material';
 import { ResizableModule, ResizeEvent } from 'angular-resizable-element';
 import { LoaderComponent } from '../../components/loader/loader.component';
@@ -33,19 +31,17 @@ import { TerminalManagerService } from '../../providers/terminal-manager.service
 import { LeftPanelComponent } from '../left-panel/left-panel.component';
 import { GraphComponent } from '../graph/graph.component';
 import { RightPanelComponent } from '../right-panel/right-panel.component';
-import { HttpsUser } from '../../models/HttpsUser';
+import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
-import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 
 describe('HomeComponent', () => {
-    /* tslint:disable */
-    let component: HomeComponent;
-    let fixture: ComponentFixture<HomeComponent>;
-    const Empty = '';
-    /* tslint:enable */
+  /* tslint:disable */
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+  /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -57,7 +53,6 @@ describe('HomeComponent', () => {
         ModalComponent,
         FooterComponent,
         IconButtonComponent,
-        CommitTextAreaComponent,
         LoaderComponent,
         InfoBarComponent,
         AccordionComponent,
@@ -101,12 +96,12 @@ describe('HomeComponent', () => {
           useClass: MockGitService
         },
         {
-          provide: TerminalManagerService,
-          useClass: MockTerminalManagerService
+            provide: LeftPanelService,
+            useClass: MockLeftPanelService
         },
         {
-          provide: LeftPanelService,
-          useClass: MockLeftPanelService
+          provide: TerminalManagerService,
+          useClass: MockTerminalManagerService
         },
         ToastrService
       ]
@@ -119,63 +114,84 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('tests the pullrebaseHttps function and valid arguments', (done) => {
-    const User: HttpsUser = { username: 'username', password: 'password' };
-    const Folder = 'path';
-    component.fullPath = Folder;
-    component.currentHttpsUser = User;
-    component.homeLoading = true;
-    component.pullrebaseCredInfoBarVisible = true;
-    component.pullrebaseHttps().then(() => {
-      expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
-      expect(component.homeLoading).toBeFalsy();
+  it('tests the openCheckoutInfoBar function', () => {
+    const OldRemote = 'old';
+    const NewRemote = 'new';
+    const InfobarVisibility = false;
+    component.remoteBranch = OldRemote;
+    component.checkoutInfoBarVisible = InfobarVisibility;
+    component.openCheckoutInfoBar(NewRemote);
+    expect(component.remoteBranch).toBe(NewRemote);
+    expect(component.checkoutInfoBarVisible).toBeTruthy();
+  });
+
+  
+  it('tests the closeCheckoutInfoBar function', () => {
+    const Visibility = true;
+    const RemoteName = 'origin/toto';
+    const NewBranchName = 'new';
+    component.leftPanelLoadingVisible = Visibility;
+    component.remoteBranch = RemoteName;
+    component.newCheckedoutBranchName = NewBranchName;
+    component.checkoutInfoBarVisible = Visibility;
+    component.closeCheckoutInfoBar();
+    expect(component.leftPanelLoadingVisible).toBeFalsy();
+    expect(component.remoteBranch).toBeFalsy();
+    expect(component.newCheckedoutBranchName).toBeFalsy();
+    expect(component.checkoutInfoBarVisible).toBeFalsy();
+  });
+
+  it('tests the createBranchHere function with valid parameters', (done) => {
+    const NewBranchName = 'new';
+    const RemoteBranch = 'origin/toto';
+    component.newCheckedoutBranchName = NewBranchName;
+    component.remoteBranch = RemoteBranch;
+    component.createBranchHere().then(() => {
+      expect(component.leftPanelLoadingVisible).toBeFalsy();
+      expect(component.remoteBranch).toBeFalsy();
+      expect(component.newCheckedoutBranchName).toBeFalsy();
+      expect(component.checkoutInfoBarVisible).toBeFalsy();
       done();
     });
   });
 
-  it('tests the pullrebaseHttps function and invalid arguments', (done) => {
-    const User = { username: '', password: '' };
-    const Visible = true;
-    component.currentHttpsUser = User;
-    component.homeLoading = Visible;
-    component.pullrebaseAuthErrored = false;
-    component.pullrebaseCredInfoBarVisible = Visible;
-    component.pullrebaseHttps().then(() => {
-      expect(component.pullrebaseAuthErrored).toBeTruthy();
-      expect(component.homeLoading).toBeFalsy();
+  it('tests the createBranchHere function with invalid parameters', (done) => {
+    const NewBranchName = 'another';
+    const RemoteBranch = 'origin/branch';
+    component.newCheckedoutBranchName = NewBranchName;
+    component.remoteBranch = RemoteBranch;
+    component.createBranchHere().then(() => {
+      expect(component.leftPanelLoadingVisible).toBeFalsy();
+      expect(component.remoteBranch).toBeFalsy();
+      expect(component.newCheckedoutBranchName).toBeFalsy();
+      expect(component.checkoutInfoBarVisible).toBeFalsy();
       done();
     });
   });
 
-  it('tests the pullrebaseHttps function and invalid arguments alternative', (done) => {
-    const User = { username: 'username', password: 'password' };
-    const InvalidPath = 'invalid';
-    const Visible = true;
-
-    component.fullPath = InvalidPath;
-    component.currentHttpsUser = User;
-    component.homeLoading = Visible;
-    component.pullrebaseAuthErrored = false;
-    component.pullrebaseCredInfoBarVisible = Visible;
-    component.pullrebaseHttps().then(() => {
-      expect(component.homeLoading).toBeFalsy();
-      expect(component.currentHttpsUser.password).toBeFalsy();
-      expect(component.currentHttpsUser.username).toBeFalsy();
+  it('tests the resetLocalHere function with valid parameters', (done) => {
+    const RemoteBranch = 'origin/toto';
+    component.remoteBranch = RemoteBranch;
+    component.resetLocalHere().then(() => {
+      expect(component.leftPanelLoadingVisible).toBeFalsy();
+      expect(component.remoteBranch).toBeFalsy();
+      expect(component.newCheckedoutBranchName).toBeFalsy();
+      expect(component.checkoutInfoBarVisible).toBeFalsy();
       done();
     });
   });
 
-  it('tests the resetPullrebaseInputs function', () => {
-    const Expected: HttpsUser = { username: '', password: '' };
-    component.resetPullrebaseInputs();
-    expect(component.currentHttpsUser.username).toBe(Expected.username);
-    expect(component.currentHttpsUser.password).toBe(Expected.password);
-    expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
-    expect(component.homeLoading).toBeFalsy();
+  it('tests the resetLocalHere function with invalid parameters', (done) => {
+    const RemoteBranch = 'origin/test';
+    component.remoteBranch = RemoteBranch;
+    component.resetLocalHere().then(() => {
+      expect(component.leftPanelLoadingVisible).toBeFalsy();
+      expect(component.remoteBranch).toBeFalsy();
+      expect(component.newCheckedoutBranchName).toBeFalsy();
+      expect(component.checkoutInfoBarVisible).toBeFalsy();
+      done();
+    });
   });
 
-  it('tests the closePullrebaseCredInfoBar function', () => {
-    component.closePullrebaseCredInfoBar();
-    expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
-  });
+
 });

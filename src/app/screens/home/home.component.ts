@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GitService } from '../../providers/git.service';
@@ -9,6 +9,7 @@ import * as GitUrlParse from 'git-url-parse';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { HttpsUser } from '../../models/HttpsUser';
+import { LeftPanelService } from '../../providers/left-panel.service';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +38,7 @@ export class HomeComponent implements OnDestroy {
   branchNameSubscription: Subscription;
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
+  checkoutInfoBarVisible: boolean;
   newClonedRepoPath: string;
   cloneHttpsUser: HttpsUser;
 
@@ -55,11 +57,15 @@ export class HomeComponent implements OnDestroy {
   cloneAuthErrored: boolean;
   currentHttpsUserSubscription: Subscription;
   currentHttpsUser: HttpsUser;
+  localBranch: string;
+  remoteBranch: string;
+  newCheckedoutBranchName: string;
+  leftPanelLoadingVisible: Boolean;
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
     private translateService: TranslateService, private terminalService: TerminalManagerService,
-    private themePrefService: ThemePreferencesService) {
+    private themePrefService: ThemePreferencesService, private leftPanelService: LeftPanelService) {
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
@@ -105,6 +111,12 @@ export class HomeComponent implements OnDestroy {
       username: '',
       password: ''
     };
+  }
+
+  @HostListener('window:focus', ['$event'])
+  onfocus(event: any): void {
+    this.leftPanelService.setLocalBranches();
+    this.leftPanelService.setRemoteBranches();
   }
 
   async pullrebaseHttps() {
@@ -358,6 +370,8 @@ export class HomeComponent implements OnDestroy {
       this.leftPanelVisible = true;
       this.graphVisible = true;
       this.rightPanelVisible = true;
+      this.leftPanelService.setLocalBranches();
+      this.leftPanelService.setRemoteBranches();
     } else {
       this.mainPanelVisible = true;
     }
@@ -368,6 +382,46 @@ export class HomeComponent implements OnDestroy {
     this.leftPanelVisible = false;
     this.graphVisible = false;
     this.rightPanelVisible = false;
+  }
+
+  openCheckoutInfoBar(remoteBranch) {
+    this.remoteBranch = remoteBranch;
+    this.localBranch = remoteBranch.split('/')[1];
+    this.checkoutInfoBarVisible = true;
+  }
+
+  createBranchHere() {
+    return this.gitService.createBranchHere(this.newCheckedoutBranchName, this.remoteBranch).then((data) => {
+      this.leftPanelService.setLocalBranches();
+      this.leftPanelService.setRemoteBranches();
+      this.closeCheckoutInfoBar();
+      this.toastr.info(data.message, data.title);
+    })
+    .catch((data) => {
+      this.closeCheckoutInfoBar();
+      this.toastr.error(data.message, data.title);
+    });
+  }
+
+  resetLocalHere() {
+    return this.gitService.resetLocalHere(this.remoteBranch).then((data) => {
+      this.leftPanelService.setLocalBranches();
+        this.leftPanelService.setRemoteBranches();
+      this.closeCheckoutInfoBar();
+      this.toastr.info(data.message, data.title);
+    })
+    .catch((data) => {
+      this.closeCheckoutInfoBar();
+      this.toastr.error(data.message, data.title);
+    });
+
+  }
+
+  closeCheckoutInfoBar() {
+    this.leftPanelLoadingVisible = false;
+    this.remoteBranch = '';
+    this.newCheckedoutBranchName = '';
+    this.checkoutInfoBarVisible = false;
   }
 
   ngOnDestroy() {

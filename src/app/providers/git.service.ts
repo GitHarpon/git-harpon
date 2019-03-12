@@ -110,13 +110,7 @@ export class GitService {
               this.emitPathSubject();
               this.registerProject(this.repoName, this.path);
 
-              gitPromise(this.path).branch([])
-                .then((result) => {
-                  if (result.current) {
-                    this.branchName = result.current;
-                    this.emitBranchNameSubject();
-                  }
-                });
+              this.getCurrentBranch();
 
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                 this.translate.instant('OPEN.OPENED_REPO')));
@@ -136,6 +130,18 @@ export class GitService {
           this.translate.instant('OPEN.REPO_NOT_EXIST')));
       }
     });
+  }
+
+  getCurrentBranch() {
+    gitPromise(this.path).branch([])
+      .then((result) => {
+        if (result.current) {
+          this.branchName = result.current;
+          this.emitBranchNameSubject();
+
+          return this.branchName;
+        }
+      });
   }
 
   async getLocalBranches() {
@@ -161,6 +167,97 @@ export class GitService {
       } else {
         reject(null);
       }
+    });
+  }
+
+  checkoutLocalBranch(newBranch) {
+    if (newBranch !== this.branchName) {
+      return new Promise<ServiceResult>((resolve, reject) => {
+        gitPromise(this.path).checkout(newBranch).then(() => {
+          this.getCurrentBranch();
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.CHECKED_OUT')));
+        }).catch((err) => {
+          let ErrMsg = 'BRANCH.ERROR';
+          if (err.toString().includes('local changes to the following files would be overwritten by checkout')) {
+            ErrMsg = 'BRANCH.CHECKED_OUT_CONFLICTS';
+          }
+          reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant(ErrMsg)));
+        });
+      });
+    }
+  }
+
+  checkoutRemoteBranch(remoteBranch, currentBranch, isInLocal) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      if (!isInLocal) {
+        gitPromise(this.path)
+          .raw(['checkout', '-t', remoteBranch]).then((result) => {
+          this.getCurrentBranch();
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.CHECKED_OUT')));
+        }).catch((result) => {
+          reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant('BRANCH.ERROR')));
+        });
+      } else {
+        let LocalBranch;
+        if (remoteBranch.split('/')[1]) {
+          LocalBranch = remoteBranch.split('/')[1];
+        }
+        gitPromise(this.path)
+          .raw(['rev-parse', '--symbolic-full-name', '--abbrev-ref', LocalBranch + '@{u}']).then((remote) => {
+            if (remote.split('/')[0] === remoteBranch.split('/')[0]) {
+              const BranchesDiffs = (LocalBranch === currentBranch) ? [ remoteBranch ] : [ LocalBranch, remoteBranch ];
+                gitPromise(this.path).diff(BranchesDiffs).then((isDifferent) => {
+                  if (!isDifferent) {
+                    gitPromise(this.path).checkout(LocalBranch).then((result) => {
+                      this.getCurrentBranch();
+                      resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                        this.translate.instant('BRANCH.CHECKED_OUT')));
+                    }).catch((err) => {
+                      reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('ERROR'), remoteBranch));
+                    });
+                  } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                      this.translate.instant('ERROR'), remoteBranch));
+                  }
+                });
+            } else {
+              reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('ERROR'), remoteBranch));
+            }
+          });
+      }
+    });
+  }
+
+  createBranchHere(newBranch, remoteBranch) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      gitPromise(this.path).checkoutBranch(newBranch, remoteBranch).then((result) => {
+        this.getCurrentBranch();
+        resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.CHECKED_OUT')));
+      }).catch((result) => {
+        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+          this.translate.instant('BRANCH.ERROR')));
+      });
+    });
+  }
+
+
+  resetLocalHere(remoteBranch) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      const LocalBranch = remoteBranch.split('/')[1];
+      gitPromise(this.path).checkout(LocalBranch).then((result) => {
+        this.getCurrentBranch();
+        gitPromise(this.path).raw(['reset', '--hard', remoteBranch]).then((reset) => {
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.CHECKED_OUT')));
+        });
+      });
     });
   }
 
