@@ -16,10 +16,11 @@ export class LeftPanelService {
 
     setLocalBranches() {
         this.gitService.getLocalBranches().then((localBranches) => {
-        this.localBranches = localBranches.sort(function (a, b) {
-            return a.toLowerCase().localeCompare(b.toLowerCase());
-        });
-        this.localBranchesSubject.next(this.localBranches);
+            this.localBranches = localBranches.sort(function (a, b) {
+                return a.toLowerCase().localeCompare(b.toLowerCase());
+            });
+            this.localBranchesSubject.next(this.localBranches);
+            this.gitService.getCurrentBranch();
         });
     }
 
@@ -38,6 +39,7 @@ export class LeftPanelService {
               }, {}
             );
             this.remoteBranchesSubject.next(this.remoteBranches);
+            this.gitService.getCurrentBranch();
         });
 
     }

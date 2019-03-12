@@ -71,7 +71,7 @@
             </div>
         </div>
 
-    <app-left-panel *ngIf="leftPanelVisible" (checkoutInfoBarChange)="openCheckoutInfoBar($event)" [(loadingVisible)]="leftPanelLoadingVisible"></app-left-panel>
+    <app-left-panel *ngIf="leftPanelVisible" (checkoutInfoBarChange)="openCheckoutInfoBar($event)" [loadingVisible]="leftPanelLoadingVisible"></app-left-panel>
     <app-graph *ngIf="graphVisible"></app-graph>
     <app-right-panel *ngIf="rightPanelVisible"></app-right-panel>
     
@@ -225,7 +225,7 @@
 
 <!-- Clone Info bar credentials -->
 <app-info-bar [visible]="checkoutInfoBarVisible">
-    <span>{{ 'BRANCH.A_LOCAL' | translate }} '{{ remoteBranch }}' {{ 'BRANCH.ALREADY_EXISTS' | translate }}.</span>
+    <span>{{ 'BRANCH.A_LOCAL' | translate }} '{{ localBranch }}' {{ 'BRANCH.ALREADY_EXISTS' | translate }}.</span>
     <app-input [(value)]="newCheckedoutBranchName" [placeholder]="'BRANCH.NAME'" class="ml-3"></app-input>
     <app-button class="ml-3" value="BRANCH.CREATE_HERE" type="success" [disabled]="!newCheckedoutBranchName" (buttonClicked)="createBranchHere()"></app-button>
     <app-button class="ml-3" value="BRANCH.RESET_HERE" type="danger" (buttonClicked)="resetLocalHere()"></app-button>

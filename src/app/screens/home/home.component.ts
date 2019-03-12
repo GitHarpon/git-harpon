@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GitService } from '../../providers/git.service';
@@ -57,6 +57,7 @@ export class HomeComponent implements OnDestroy {
   cloneAuthErrored: boolean;
   currentHttpsUserSubscription: Subscription;
   currentHttpsUser: HttpsUser;
+  localBranch: string;
   remoteBranch: string;
   newCheckedoutBranchName: string;
   leftPanelLoadingVisible: Boolean;
@@ -110,6 +111,12 @@ export class HomeComponent implements OnDestroy {
       username: '',
       password: ''
     };
+  }
+
+  @HostListener('window:focus', ['$event'])
+  onfocus(event: any): void {
+    this.leftPanelService.setLocalBranches();
+    this.leftPanelService.setRemoteBranches();
   }
 
   async pullrebaseHttps() {
@@ -363,6 +370,8 @@ export class HomeComponent implements OnDestroy {
       this.leftPanelVisible = true;
       this.graphVisible = true;
       this.rightPanelVisible = true;
+      this.leftPanelService.setLocalBranches();
+      this.leftPanelService.setRemoteBranches();
     } else {
       this.mainPanelVisible = true;
     }
@@ -377,6 +386,7 @@ export class HomeComponent implements OnDestroy {
 
   openCheckoutInfoBar(remoteBranch) {
     this.remoteBranch = remoteBranch;
+    this.localBranch = remoteBranch.split('/')[1];
     this.checkoutInfoBarVisible = true;
   }
 
