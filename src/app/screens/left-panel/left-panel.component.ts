@@ -1,8 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { Subscription } from 'rxjs';
 import { GitService } from '../../providers/git.service';
 import { LeftPanelService } from '../../providers/left-panel.service';
+import { ContextMenuComponent } from 'ngx-contextmenu';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 
 @Component({
   selector: 'app-left-panel',
@@ -17,9 +20,13 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   remoteBranches: any;
   currentBranch: any;
   branchNameSubscription: Subscription;
+  @ViewChild('branchCM') branchCM: ContextMenuComponent;
+
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
-    private leftPanelService: LeftPanelService) { }
+    private leftPanelService: LeftPanelService, private translate: TranslateService,
+    private langPrefService: LanguagePreferencesService) {
+    }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -48,6 +55,10 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     this.gitService.getRemoteBranches().then((remoteBranches) => {
       this.remoteBranches = remoteBranches;
     });
+  }
+
+  renameBranch(branch: string) {
+    console.log('W.I.P rename ' + branch);
   }
 
   ngOnDestroy() {

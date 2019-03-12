@@ -1,12 +1,19 @@
 <div class="left-panel" [ngClass]="[currentTheme]">
   <app-accordion title="LOCAL" [icon]="{name:'fa-laptop', isFab:false}">
-    <div *ngFor="let localBranch of localBranches">
+    <div *ngFor="let localBranch of localBranches" [contextMenu]="branchCM" 
+        [contextMenuSubject]="localBranch">
       {{ localBranch }}
     </div>
   </app-accordion>
   <app-accordion title="REMOTE" [icon]="{name:'fa-cloud', isFab:false}">
-    <div *ngFor="let remoteBranch of remoteBranches">
+    <div *ngFor="let remoteBranch of remoteBranches" [contextMenu]="branchCM"
+    [contextMenuSubject]="remoteBranch">
       {{ remoteBranch }}
     </div>
   </app-accordion>
+  <context-menu #branchCM>
+    <ng-template contextMenuItem let-item (execute)="renameBranch($event.item)">
+      Renommer {{ item }}
+    </ng-template>
+  </context-menu>
 </div>
