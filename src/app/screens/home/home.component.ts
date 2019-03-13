@@ -103,8 +103,9 @@ export class HomeComponent implements OnDestroy {
   }
 
   @HostListener('window:focus', ['$event'])
-  onfocus(event: any): void {
+  onFocus() {
     this.gitService.updateFilesDiff();
+    return true;
   }
 
   pullButtonClicked() {

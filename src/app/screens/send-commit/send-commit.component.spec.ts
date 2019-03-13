@@ -4,10 +4,14 @@ import { SendCommitComponent } from './send-commit.component';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { ButtonComponent } from '../../components/button/button.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService, TranslateLoader } from '@ngx-translate/core';
 import { GitService } from '../../providers/git.service';
 import { MockGitService } from '../../models/MockGitService';
 import { MockTranslateService } from '../../models/MockTranslateService';
+import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { MockRightPanelService } from '../../models/MockRightPanelService';
+import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 
 describe('SendCommitComponent', () => {
   /* tslint:disable */
@@ -19,10 +23,13 @@ describe('SendCommitComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         SendCommitComponent,
-        ButtonComponent
+        ButtonComponent,
+        FileDiffCommitComponent
       ],
       imports: [
-        TranslateModule
+        TranslateModule.forRoot({
+          loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
+        }),
       ],
       providers: [
         {
@@ -32,6 +39,10 @@ describe('SendCommitComponent', () => {
         {
           provide: GitService,
           useClass: MockGitService
+        },
+        {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
         },
         {
           provide: TranslateService,
@@ -68,5 +79,21 @@ describe('SendCommitComponent', () => {
     component.ngOnDestroy();
 
     expect(component.themePrefSubscription).toBeUndefined();
+  });
+
+  it ('test the addAllFile function', () => {
+    const Path = 'src/file3';
+    component.ngOnInit();
+    component.listStagedFiles = [];
+    component.addAllFile();
+    expect(component.listStagedFiles[0].path).toBe(Path);
+  });
+
+  it ('test the removeAllFile function', () => {
+    const Path = 'src/file1';
+    component.ngOnInit();
+    component.listUnstagedFiles = [];
+    component.removeAllFile();
+    expect(component.listUnstagedFiles[0].path).toBe(Path);
   });
 });

@@ -8,9 +8,9 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './file-diff-commit.component.html',
   styleUrls: ['./file-diff-commit.component.scss']
 })
-export class FileDiffCommitComponent implements OnInit {
+export class FileDiffCommitComponent {
   @Input() listFiles: any[];
-  @Input() componentType: string;
+  @Input() componentType: any = 'stage';
   componentHovered: any;
   themePrefSubscription: Subscription;
   currentTheme: string;
@@ -22,9 +22,6 @@ export class FileDiffCommitComponent implements OnInit {
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
-  }
-
-  ngOnInit() {
   }
 
   getFileNameFromPath(path: string): string {
