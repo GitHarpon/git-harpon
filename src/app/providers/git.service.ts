@@ -80,8 +80,17 @@ export class GitService {
           gitPromise(PathToRepo).init()
             .then(() => {
               this.setPath(PathToRepo);
-              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-              this.translate.instant('INIT.SUCCESS')));
+
+              if (!this.electronService.fs.existsSync(this.electronService.path.join(PathToRepo, 'README.md'))) {
+                this.electronService.fs.writeFileSync(this.electronService.path.join(PathToRepo, 'README.md'), initName + '\r\n');
+              }
+
+              gitPromise(PathToRepo).add(this.electronService.path.join(PathToRepo, 'README.md')).then(() => {
+                gitPromise(PathToRepo).commit('Initial commit').then(() => {
+                  resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('INIT.SUCCESS')));
+                });
+              });
             })
             .catch(() => {
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
