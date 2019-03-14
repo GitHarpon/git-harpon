@@ -11,6 +11,7 @@ import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MockGitService } from '../../models/MockGitService';
+import { ContextMenuComponent } from 'ngx-contextmenu';
 
 describe('LeftPanelComponent', () => {
   /* tslint:disable */
@@ -22,7 +23,8 @@ describe('LeftPanelComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
           LeftPanelComponent,
-          AccordionComponent
+          AccordionComponent,
+          ContextMenuComponent
       ],
       imports: [
         TranslateModule.forRoot({

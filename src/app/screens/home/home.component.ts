@@ -294,6 +294,9 @@ export class HomeComponent implements OnDestroy {
   closeRenameBar() {
     this.newBranchCouple = new NewBranchCouple();
     this.newBranchName = '';
+    this.gitService.getLocalBranches().then((localBranches) => {
+      this.leftPanelService.setLocalBranches(localBranches);
+    });
   }
 
   closeCredInfoBar() {

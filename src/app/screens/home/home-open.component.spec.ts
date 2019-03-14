@@ -38,6 +38,7 @@ import { TextAreaComponent } from '../../components/text-area/text-area.componen
 import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
+import { ContextMenuComponent } from 'ngx-contextmenu';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -64,7 +65,8 @@ describe('HomeComponent', () => {
         SendCommitComponent,
         ViewCommitComponent,
         TextAreaComponent,
-        CommitTextAreaComponent
+        CommitTextAreaComponent,
+        ContextMenuComponent
       ],
       imports: [
         FormsModule,
