@@ -274,14 +274,20 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
-  renameBranch() {
+  async renameBranch() {
     var TmpNewBr = new NewBranchCouple();
     TmpNewBr.oldBranch = this.newBranchCouple.oldBranch;
     TmpNewBr.newBranch = this.newBranchName;
     this.newBranchCouple = TmpNewBr;
     if (this.newBranchCouple.newBranch != '' && this.newBranchCouple.oldBranch != '') {
-      console.log(this.newBranchCouple);
-      // this.gitService.renameBranch(this.newBranchCouple.oldBranch, this.newBranchCouple.newBranch);
+      return this.gitService.renameBranch(this.newBranchCouple.oldBranch, this.newBranchCouple.newBranch)
+      .then((data) => {
+        this.closeRenameBar();
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.closeRenameBar();
+      });
     }
   }
 

@@ -20,7 +20,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   localBranchesSubscription: Subscription;
   currentNewBranchCouple: NewBranchCouple;
   @Output()
-  newBranchCoupleChange: EventEmitter<NewBranchCouple>;
+  newBranchCoupleChange = new  EventEmitter<NewBranchCouple>();
   remoteBranches: any;
   currentBranch: any;
   branchNameSubscription: Subscription;

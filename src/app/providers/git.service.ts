@@ -169,7 +169,7 @@ export class GitService {
       if (this.repoName) {
         gitPromise(this.path).raw(['branch', '-m', oldName, newName])
           .then((result) => {
-            reject(new ServiceResult(false, this.translate.instant('BRANCH_RENAME_SUCESS'),
+            reject(new ServiceResult(true, this.translate.instant('BRANCH_RENAME_SUCESS'),
               this.translate.instant('BRANCH_RENAME_ERROR')));
           });
       } else {

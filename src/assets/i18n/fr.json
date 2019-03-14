@@ -95,6 +95,7 @@
     },
     "COPY": "Copier",
     "BRANCH": "Branche",
+    "RENAME": "Renommer",
     "BRANCH_RENAME": "Renommer une branche",
     "NEW_BRANCH_NAME_PROMPT": "Nom de la nouvelle branche",
     "NEW_BRANCH": "Nouvelle branche",
