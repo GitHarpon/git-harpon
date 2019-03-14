@@ -8,10 +8,12 @@ export class LeftPanelService {
     localBranchesSubject: Subject<any>;
     remoteBranches: any;
     remoteBranchesSubject: Subject<any>;
+    loadingVisibleSubject: Subject<any>;
 
     constructor(private gitService: GitService) {
         this.localBranchesSubject = new Subject<any>();
         this.remoteBranchesSubject = new Subject<any>();
+        this.loadingVisibleSubject = new Subject<any>();
     }
 
     setLocalBranches() {
@@ -42,5 +44,9 @@ export class LeftPanelService {
             this.gitService.getCurrentBranch();
         });
 
+    }
+
+    setLoadingVisible(loadingVisible) {
+        this.loadingVisibleSubject.next(loadingVisible);
     }
 }

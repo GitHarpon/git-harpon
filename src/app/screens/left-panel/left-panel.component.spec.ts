@@ -74,6 +74,7 @@ describe('LeftPanelComponent', () => {
     expect(component.themePrefSubscription).toBeDefined();
     expect(component.branchNameSubscription).toBeDefined();
     expect(component.localBranchesSubscription).toBeDefined();
+    expect(component.loadingVisibleSubscription).toBeDefined();
   });
 
   it ('test the checkoutLocalBranch function with local not as current and not conflicted branches', (done) => {
@@ -175,6 +176,7 @@ describe('LeftPanelComponent', () => {
     expect(component.themePrefSubscription.closed).toBeTruthy();
     expect(component.branchNameSubscription.closed).toBeTruthy();
     expect(component.localBranchesSubscription.closed).toBeTruthy();
+    expect(component.loadingVisibleSubscription.closed).toBeTruthy();
   });
 
   it ('test the ngOnDestroy function with undefined subscriptions', () => {
@@ -183,5 +185,6 @@ describe('LeftPanelComponent', () => {
     expect(component.themePrefSubscription).toBeUndefined();
     expect(component.branchNameSubscription).toBeUndefined();
     expect(component.localBranchesSubscription).toBeUndefined();
+    expect(component.loadingVisibleSubscription).toBeUndefined();
   });
 });
