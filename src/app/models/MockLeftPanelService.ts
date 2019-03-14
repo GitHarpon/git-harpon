@@ -7,10 +7,12 @@ export class MockLeftPanelService {
     localBranchesSubject: Subject<any>;
     remoteBranches: any;
     remoteBranchesSubject: Subject<any>;
+    loadingVisibleSubject: Subject<any>;
 
     constructor() {
         this.localBranchesSubject = new Subject<any>();
         this.remoteBranchesSubject = new Subject<any>();
+        this.loadingVisibleSubject = new Subject<any>();
     }
 
     setLocalBranches() {
@@ -19,5 +21,9 @@ export class MockLeftPanelService {
 
     setRemoteBranches() {
         this.remoteBranchesSubject.next(this.remoteBranches);
+    }
+
+    setLoadingVisible(loadingVisible) {
+        this.loadingVisibleSubject.next(loadingVisible);
     }
 }

@@ -20,7 +20,8 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   currentBranch: any;
   branchNameSubscription: Subscription;
   objectKeys = Object.keys;
-  @Input() loadingVisible: Boolean;
+  loadingVisible: Boolean;
+  loadingVisibleSubscription: Subscription;
   @Output() checkoutInfoBarChange = new EventEmitter<any>();
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
@@ -50,8 +51,15 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
         this.remoteBranches = remoteBranches;
       });
 
+    this.loadingVisibleSubscription = this.leftPanelService.loadingVisibleSubject.subscribe(
+      (loadingVisible: any) => {
+        this.loadingVisible = loadingVisible;
+      }
+    );
+
     this.leftPanelService.setLocalBranches();
     this.leftPanelService.setRemoteBranches();
+    this.leftPanelService.setLoadingVisible(this.loadingVisible);
   }
 
   async checkoutLocalBranch(localBranch) {
@@ -108,6 +116,9 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     }
     if (this.branchNameSubscription) {
       this.branchNameSubscription.unsubscribe();
+    }
+    if (this.loadingVisibleSubscription) {
+      this.loadingVisibleSubscription.unsubscribe();
     }
   }
 }

@@ -125,17 +125,15 @@ describe('HomeComponent', () => {
     expect(component.checkoutInfoBarVisible).toBeTruthy();
   });
 
-  
+
   it('tests the closeCheckoutInfoBar function', () => {
     const Visibility = true;
     const RemoteName = 'origin/toto';
     const NewBranchName = 'new';
-    component.leftPanelLoadingVisible = Visibility;
     component.remoteBranch = RemoteName;
     component.newCheckedoutBranchName = NewBranchName;
     component.checkoutInfoBarVisible = Visibility;
     component.closeCheckoutInfoBar();
-    expect(component.leftPanelLoadingVisible).toBeFalsy();
     expect(component.remoteBranch).toBeFalsy();
     expect(component.newCheckedoutBranchName).toBeFalsy();
     expect(component.checkoutInfoBarVisible).toBeFalsy();
@@ -147,7 +145,6 @@ describe('HomeComponent', () => {
     component.newCheckedoutBranchName = NewBranchName;
     component.remoteBranch = RemoteBranch;
     component.createBranchHere().then(() => {
-      expect(component.leftPanelLoadingVisible).toBeFalsy();
       expect(component.remoteBranch).toBeFalsy();
       expect(component.newCheckedoutBranchName).toBeFalsy();
       expect(component.checkoutInfoBarVisible).toBeFalsy();
@@ -161,7 +158,6 @@ describe('HomeComponent', () => {
     component.newCheckedoutBranchName = NewBranchName;
     component.remoteBranch = RemoteBranch;
     component.createBranchHere().then(() => {
-      expect(component.leftPanelLoadingVisible).toBeFalsy();
       expect(component.remoteBranch).toBeFalsy();
       expect(component.newCheckedoutBranchName).toBeFalsy();
       expect(component.checkoutInfoBarVisible).toBeFalsy();
@@ -173,7 +169,6 @@ describe('HomeComponent', () => {
     const RemoteBranch = 'origin/toto';
     component.remoteBranch = RemoteBranch;
     component.resetLocalHere().then(() => {
-      expect(component.leftPanelLoadingVisible).toBeFalsy();
       expect(component.remoteBranch).toBeFalsy();
       expect(component.newCheckedoutBranchName).toBeFalsy();
       expect(component.checkoutInfoBarVisible).toBeFalsy();
@@ -185,7 +180,6 @@ describe('HomeComponent', () => {
     const RemoteBranch = 'origin/test';
     component.remoteBranch = RemoteBranch;
     component.resetLocalHere().then(() => {
-      expect(component.leftPanelLoadingVisible).toBeFalsy();
       expect(component.remoteBranch).toBeFalsy();
       expect(component.newCheckedoutBranchName).toBeFalsy();
       expect(component.checkoutInfoBarVisible).toBeFalsy();

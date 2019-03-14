@@ -60,7 +60,6 @@ export class HomeComponent implements OnDestroy {
   localBranch: string;
   remoteBranch: string;
   newCheckedoutBranchName: string;
-  leftPanelLoadingVisible: Boolean;
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
@@ -418,7 +417,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   closeCheckoutInfoBar() {
-    this.leftPanelLoadingVisible = false;
+    this.leftPanelService.setLoadingVisible(false);
     this.remoteBranch = '';
     this.newCheckedoutBranchName = '';
     this.checkoutInfoBarVisible = false;
