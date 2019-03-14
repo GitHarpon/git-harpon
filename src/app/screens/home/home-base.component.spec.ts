@@ -37,6 +37,8 @@ import { ViewCommitComponent } from '../view-commit/view-commit.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { TextAreaComponent } from '../../components/text-area/text-area.component';
 import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -102,6 +104,10 @@ describe('HomeComponent', () => {
         {
           provide: TerminalManagerService,
           useClass: MockTerminalManagerService
+        },
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
         },
         ToastrService
       ]

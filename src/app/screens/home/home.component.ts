@@ -3,12 +3,14 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GitService } from '../../providers/git.service';
 import { ElectronService } from '../../providers/electron.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import * as GitUrlParse from 'git-url-parse';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { HttpsUser } from '../../models/HttpsUser';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { NewBranchCouple } from '../../models/NewBranchCouple';
 
 @Component({
   selector: 'app-home',
@@ -35,6 +37,8 @@ export class HomeComponent implements OnDestroy {
   recentProjectSubscription: Subscription;
   branchName: any;
   branchNameSubscription: Subscription;
+  newBranchCouple: NewBranchCouple;
+  newBranchName: string;
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
   newClonedRepoPath: string;
@@ -54,7 +58,10 @@ export class HomeComponent implements OnDestroy {
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
     private translateService: TranslateService, private terminalService: TerminalManagerService,
-    private themePrefService: ThemePreferencesService) {
+    private themePrefService: ThemePreferencesService, private leftPanelService: LeftPanelService) {
+
+    this.newBranchCouple = new NewBranchCouple();
+
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
@@ -265,6 +272,22 @@ export class HomeComponent implements OnDestroy {
         this.translateService.instant('ERROR'));
         return false;
     }
+  }
+
+  renameBranch() {
+    var TmpNewBr = new NewBranchCouple();
+    TmpNewBr.oldBranch = this.newBranchCouple.oldBranch;
+    TmpNewBr.newBranch = this.newBranchName;
+    this.newBranchCouple = TmpNewBr;
+    if (this.newBranchCouple.newBranch != '' && this.newBranchCouple.oldBranch != '') {
+      console.log(this.newBranchCouple);
+      // this.gitService.renameBranch(this.newBranchCouple.oldBranch, this.newBranchCouple.newBranch);
+    }
+  }
+
+  closeRenameBar() {
+    this.newBranchCouple = new NewBranchCouple();
+    this.newBranchName = '';
   }
 
   closeCredInfoBar() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { Subscription } from 'rxjs';
 import { GitService } from '../../providers/git.service';
@@ -6,6 +6,7 @@ import { LeftPanelService } from '../../providers/left-panel.service';
 import { ContextMenuComponent } from 'ngx-contextmenu';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
+import { NewBranchCouple } from '../../models/NewBranchCouple';
 
 @Component({
   selector: 'app-left-panel',
@@ -17,6 +18,9 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   themePrefSubscription: Subscription;
   localBranches: any;
   localBranchesSubscription: Subscription;
+  currentNewBranchCouple: NewBranchCouple;
+  @Output()
+  newBranchCoupleChange: EventEmitter<NewBranchCouple>;
   remoteBranches: any;
   currentBranch: any;
   branchNameSubscription: Subscription;
@@ -26,6 +30,17 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
     private leftPanelService: LeftPanelService, private translate: TranslateService,
     private langPrefService: LanguagePreferencesService) {
+
+    }
+
+    @Input()
+    get newBranchCouple() {
+      return this.currentNewBranchCouple;
+    }
+
+    set newBranchCouple(couple) {
+      this.currentNewBranchCouple = couple;
+      this.newBranchCoupleChange.emit(this.currentNewBranchCouple);
     }
 
   ngOnInit() {
@@ -58,7 +73,9 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   }
 
   renameBranch(branch: string) {
-    console.log('W.I.P rename ' + branch);
+    var TmpNewBr = new NewBranchCouple();
+    TmpNewBr.oldBranch = branch;
+    this.newBranchCouple = TmpNewBr;
   }
 
   ngOnDestroy() {

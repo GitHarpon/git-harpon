@@ -95,6 +95,8 @@
     "COPY": "Copy",
     "BRANCH": "Branch",
     "BRANCH_RENAME": "Renommer une branche",
+    "NEW_BRANCH_NAME_PROMPT": "Name of the new branch",
+    "NEW_BRANCH": "Nouvelle branche",
     "BRANCH_RENAME_SUCCESS" : "Branch renamed successfuly",
     "BRANCH_RENAME_FAILURE" : "An error occured during the renaming of the branch",    
     "PULL": "Pull",
