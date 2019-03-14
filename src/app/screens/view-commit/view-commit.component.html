@@ -12,4 +12,15 @@
     <app-commit-text-area rows="3" [descValue]="getCommitDescription()" [summaryValue]="getCommitSummary()" 
       [readonly]="true" [descView]="true"></app-commit-text-area>
   </div>
+  <div class="col-md-12 row">
+    <div class="col-md-7">
+      <div class="col-md-12">
+        <span>{{ currentDescription?.committer.name }}</span>
+      </div>
+      <div class="col-md-12">
+          <span>{{ 'AUTHORED' | translate }}<span class="font-weight-bold">{{ commitDate }}</span></span>
+        </div>
+    </div>
+    
+  </div>
 </div>

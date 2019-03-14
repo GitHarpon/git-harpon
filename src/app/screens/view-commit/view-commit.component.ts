@@ -5,6 +5,7 @@ import { RightPanelService } from '../../providers/right-panel.service';
 import { GitService } from '../../providers/git.service';
 import { CommitDescription } from '../../models/CommitInformations';
 import { ClipboardService } from 'ngx-clipboard';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-view-commit',
@@ -18,6 +19,7 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   commitHash: String;
   currentDescription: CommitDescription;
   hashCopied: Boolean;
+  commitDate: string;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
     private gitService: GitService, private clipboardService: ClipboardService) {
@@ -34,7 +36,6 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     this.commitHashSubscription = this.rightPanelService.commitHashSubject.subscribe(
       (hash: String) => {
         this.commitHash = hash;
-        console.log('toto');
         if (this.commitHash && this.commitHash !== '') {
           console.log('tata');
           this.setDescription();
@@ -53,7 +54,7 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   async setDescription() {
     return this.gitService.commitDescription(this.commitHash).then((data) => {
       this.currentDescription = data;
-      console.log(this.currentDescription);
+      this.setCommitDate();
     });
   }
 
@@ -66,10 +67,15 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
 
   getCommitDescription() {
     if (this.currentDescription) {
-      const Result =  this.currentDescription.message.split('\n\n')[1];
+      const Result = this.currentDescription.message.split('\n\n')[1];
       return Result ? Result : '';
     }
     return null;
+  }
+
+  setCommitDate() {
+    const CommitDate = new Date(this.currentDescription.committer.timestamp * 1000);
+    this.commitDate =  moment(CommitDate).format('DD/MM/YYYY @ HH:mm').toString();
   }
 
   async copyCommitHash() {
