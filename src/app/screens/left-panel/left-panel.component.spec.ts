@@ -11,6 +11,8 @@ import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MockGitService } from '../../models/MockGitService';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,6 +49,10 @@ describe('LeftPanelComponent', () => {
         {
           provide: GitService,
           useClass: MockGitService
+        },
+        {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
         },
         {
           provide: LeftPanelService,

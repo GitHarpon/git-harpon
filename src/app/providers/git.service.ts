@@ -8,6 +8,7 @@ import { ServiceResult } from '../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-store';
 import { HttpsUser } from '../models/HttpsUser';
+import { RightPanelService } from './right-panel.service';
 
 @Injectable()
 export class GitService {
@@ -24,7 +25,7 @@ export class GitService {
   gitP: any;
   git: any;
 
-  constructor(private electronService: ElectronService, private translate: TranslateService) {
+  constructor(private electronService: ElectronService, private translate: TranslateService, private rightPanelService: RightPanelService) {
     this.gitP = gitPromise();
     this.git = simpleGit();
     this.pathSubject = new Subject<any>();
@@ -118,9 +119,8 @@ export class GitService {
               this.gitP.cwd(this.path);
               this.emitPathSubject();
               this.registerProject(this.repoName, this.path);
-
+              this.updateFilesDiff();
               this.getCurrentBranch();
-
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                 this.translate.instant('OPEN.OPENED_REPO')));
 
@@ -349,6 +349,46 @@ export class GitService {
     });
   }
 
+  updateFilesDiff() {
+    var ListUnstagedFiles = [];
+    var ListStagedFiles = [];
+    this.gitP.status().then((statusSummary) => {
+      const ListFile = statusSummary.files;
+      ListFile.forEach(file => {
+        if (file.working_dir == 'M' || file.working_dir == 'D') {
+          ListUnstagedFiles.push({
+            path: file.path,
+            status: file.working_dir
+          });
+        } else if (file.working_dir == '?') {
+          ListUnstagedFiles.push({
+            path: file.path,
+            status: 'A'
+          });
+        }
+        if (file.index == 'M' || file.index == 'D' || file.index == 'A') {
+          ListStagedFiles.push({
+            path: file.path,
+            status: file.index
+          });
+        }
+      });
+    });
+    this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
+  }
+
+  addFile(path: any) {
+    this.gitP.add(path).then(() => {
+      this.updateFilesDiff();
+    });
+  }
+
+  removeFile(path: any) {
+    this.gitP.reset(['--mixed', '--', path]).then(() => {
+      this.updateFilesDiff();
+    });
+  }
+  
   async pullrebaseHttps(folder: string, httpsUser: HttpsUser, branch: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
       var Remote;

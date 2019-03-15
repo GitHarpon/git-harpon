@@ -169,5 +169,13 @@
     "INDEPENDENT_THEME": "Indépendant du thème",
     "WRONG_CRED": "Informations erronées",
     "SUMMARY": "Résumé",
-    "DESCRIPTION": "Description"
+    "DESCRIPTION": "Description",
+    "NB_FILE_COMMIT": "fichier changé",
+    "NB_FILES_COMMIT": "fichiers changés",
+    "UNSTAGED_FILES": "Fichiers pas ajoutés",
+    "STAGED_FILES": "Fichiers ajoutés",
+    "STAGE_ALL_FILE": "Ajouter tout",
+    "UNSTAGE_ALL_FILE": "Retirer tout",
+    "STAGE_FILE": "Ajouter fichier",
+    "UNSTAGE_FILE": "Retirer fichier"
 }

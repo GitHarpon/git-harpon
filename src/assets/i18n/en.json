@@ -169,5 +169,13 @@
     "INDEPENDENT_THEME": "Independent of the theme",
     "WRONG_CRED": "Wrong informations",
     "SUMMARY": "Summary",
-    "DESCRIPTION": "Description"
+    "DESCRIPTION": "Description",
+    "NB_FILE_COMMIT": "file changed",
+    "NB_FILES_COMMIT": "files changed",
+    "UNSTAGED_FILES": "Unstaged Files",
+    "STAGED_FILES": "Staged Files",
+    "STAGE_ALL_FILE": "Stage all changes",
+    "UNSTAGE_ALL_FILE": "Unstage all changes",
+    "STAGE_FILE": "Stage file",
+    "UNSTAGE_FILE": "Unstage file"
 }

@@ -39,6 +39,10 @@ import { ViewCommitComponent } from '../view-commit/view-commit.component';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { MockRightPanelService } from '../../models/MockRightPanelService';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -65,7 +69,9 @@ describe('HomeComponent', () => {
         GraphComponent,
         RightPanelComponent,
         SendCommitComponent,
-        ViewCommitComponent
+        ViewCommitComponent,
+        FileDiffCommitComponent,
+        TextAreaComponent
       ],
       imports: [
         FormsModule,
@@ -103,6 +109,10 @@ describe('HomeComponent', () => {
         {
           provide: TerminalManagerService,
           useClass: MockTerminalManagerService
+        },
+        {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
         },
         {
           provide: LeftPanelService,
