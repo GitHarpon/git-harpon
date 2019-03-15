@@ -109,6 +109,7 @@ describe('HomeComponent', () => {
           provide: RightPanelService,
           useClass: MockRightPanelService
         },
+        {
             provide: LeftPanelService,
             useClass: MockLeftPanelService
         },

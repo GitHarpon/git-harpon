@@ -120,10 +120,6 @@ export class HomeComponent implements OnDestroy {
     return true;
   }
 
-  pullButtonClicked() {
-    return true;
-  }
-
   async pullrebaseHttps() {
     this.homeLoading = true;
     return this.gitService.pullrebaseHttps(this.fullPath, this.currentHttpsUser, this.branchName)
