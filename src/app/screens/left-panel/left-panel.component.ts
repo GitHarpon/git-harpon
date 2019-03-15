@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { Subscription } from 'rxjs';
 import { GitService } from '../../providers/git.service';
 import { LeftPanelService } from '../../providers/left-panel.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-left-panel',
@@ -15,11 +16,16 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   localBranches: any;
   localBranchesSubscription: Subscription;
   remoteBranches: any;
+  remoteBranchesSubscription: Subscription;
   currentBranch: any;
   branchNameSubscription: Subscription;
+  objectKeys = Object.keys;
+  loadingVisible: Boolean;
+  loadingVisibleSubscription: Subscription;
+  @Output() checkoutInfoBarChange = new EventEmitter<any>();
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
-    private leftPanelService: LeftPanelService) { }
+    private leftPanelService: LeftPanelService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -40,13 +46,61 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
         this.localBranches = localBranches;
       });
 
-    this.gitService.getLocalBranches().then((localBranches) => {
-      this.localBranches = localBranches;
-      this.leftPanelService.setLocalBranches(localBranches);
-    });
+    this.remoteBranchesSubscription = this.leftPanelService.remoteBranchesSubject.subscribe(
+      (remoteBranches: any) => {
+        this.remoteBranches = remoteBranches;
+      });
 
-    this.gitService.getRemoteBranches().then((remoteBranches) => {
-      this.remoteBranches = remoteBranches;
+    this.loadingVisibleSubscription = this.leftPanelService.loadingVisibleSubject.subscribe(
+      (loadingVisible: any) => {
+        this.loadingVisible = loadingVisible;
+      }
+    );
+
+    this.leftPanelService.setLocalBranches();
+    this.leftPanelService.setRemoteBranches();
+    this.leftPanelService.setLoadingVisible(this.loadingVisible);
+  }
+
+  async checkoutLocalBranch(localBranch) {
+    if (localBranch !== this.currentBranch) {
+      this.loadingVisible = true;
+      return this.gitService.checkoutLocalBranch(localBranch).then((result) => {
+        this.toastr.info(result.message, result.title, {
+          onActivateTick: true
+        });
+
+        this.loadingVisible = false;
+        this.leftPanelService.setLocalBranches();
+        this.leftPanelService.setRemoteBranches();
+      }).catch((result) => {
+        this.loadingVisible = false;
+        this.toastr.error(result.message, result.title, {
+          onActivateTick: true
+        });
+      });
+    }
+  }
+
+  checkoutRemoteBranch(remoteBranch) {
+    this.loadingVisible = true;
+    const IsInLocal = this.localBranches.includes(remoteBranch.split('/')[1]);
+    return this.gitService.checkoutRemoteBranch(remoteBranch, this.currentBranch, IsInLocal).then((result) => {
+      this.toastr.info(result.message, result.title, {
+        onActivateTick: true
+      });
+      this.loadingVisible = false;
+      this.leftPanelService.setLocalBranches();
+      this.leftPanelService.setRemoteBranches();
+    }).catch((result) => {
+      if (!result.newData) {
+        this.loadingVisible = false;
+        this.toastr.error(result.message, result.title, {
+          onActivateTick: true
+        });
+      } else {
+        this.checkoutInfoBarChange.emit(remoteBranch);
+      }
     });
   }
 
@@ -57,8 +111,14 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     if (this.localBranchesSubscription) {
       this.localBranchesSubscription.unsubscribe();
     }
+    if (this.remoteBranchesSubscription) {
+      this.remoteBranchesSubscription.unsubscribe();
+    }
     if (this.branchNameSubscription) {
       this.branchNameSubscription.unsubscribe();
+    }
+    if (this.loadingVisibleSubscription) {
+      this.loadingVisibleSubscription.unsubscribe();
     }
   }
 }

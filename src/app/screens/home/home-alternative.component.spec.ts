@@ -36,6 +36,8 @@ import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { TextAreaComponent } from '../../components/text-area/text-area.component';
 import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
@@ -108,10 +110,13 @@ describe('HomeComponent', () => {
           useClass: MockRightPanelService
         },
         {
+            provide: LeftPanelService,
+            useClass: MockLeftPanelService
+        },
+        {
           provide: TerminalManagerService,
           useClass: MockTerminalManagerService
         },
-        ToastrService
       ]
     })
       .compileComponents();

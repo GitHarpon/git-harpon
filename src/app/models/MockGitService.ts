@@ -64,6 +64,11 @@ export class MockGitService {
         this.emitHttpsUserSubject();
     }
 
+    getCurrentBranch() {
+        const Current = 'current';
+        return Current;
+    }
+
     getLocalBranches() {
         return new Promise<any>((resolve, reject) => {
             resolve(['hello', 'world']);
@@ -73,6 +78,68 @@ export class MockGitService {
     getRemoteBranches() {
         return new Promise<any>((resolve, reject) => {
             resolve(['hello', 'world']);
+        });
+    }
+
+    checkoutLocalBranch(newBranch) {
+        const ConflictedBranch = 'conflicted';
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (newBranch === ConflictedBranch) {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CHECKED_OUT')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.ERROR')));
+            }
+        });
+    }
+
+    checkoutRemoteBranch(remoteBranch, currentBranch, isInLocal) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (!isInLocal) {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.CHECKED_OUT')));
+            } else {
+                let LocalBranch;
+                if (remoteBranch.split('/')[1]) {
+                    LocalBranch = remoteBranch.split('/')[1];
+                }
+                if (LocalBranch === 'toto') {
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                        this.translate.instant('BRANCH.CHECKED_OUT')));
+                } else if (LocalBranch === 'newdata') {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('BRANCH.ERROR'), LocalBranch));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('BRANCH.ERROR')));
+                }
+            }
+        });
+    }
+
+    createBranchHere(newBranch, remoteBranch) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (newBranch === 'new' && remoteBranch === 'origin/toto') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CHECKED_OUT')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.ERROR')));
+            }
+        });
+    }
+
+    resetLocalHere(remoteBranch) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            const LocalBranch = remoteBranch.split('/')[1];
+            if (LocalBranch === 'toto') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CHECKED_OUT')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.ERROR')));
+            }
         });
     }
 
@@ -155,5 +222,27 @@ export class MockGitService {
 
     removeFile(path: any) {
         this.updateFilesDiff();
+    }
+
+    async pullrebaseHttps(folder: string, httpsUser: HttpsUser, branch: string) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (folder === 'path') {
+                if (httpsUser.username === 'username' && httpsUser.password === 'password') {
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                        this.translate.instant('PULL.DONE')));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('PULL.ERROR')));
+                }
+            } else {
+                if (httpsUser.username === 'username' && httpsUser.password === 'password') {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('PULL.ERROR'), false));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('PULL.ERROR'), true));
+                }
+            }
+        });
     }
 }

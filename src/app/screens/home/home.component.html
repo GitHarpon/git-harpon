@@ -24,7 +24,7 @@
             <!-- Actions (au milieu) -->
             <div class="col-4 gh-button-bar-actions">
                 <div class="d-inline-block">
-                    <app-icon-button value="PULL" tooltipValue="PULL" placement="bottom" [disabled]="!repoName"
+                    <app-icon-button value="PULL.TITLE" tooltipValue="PULL.TITLE" placement="bottom" [disabled]="!repoName"
                         [icon]="{name:'fa-download', isFab:false}" (buttonClicked)="pullButtonClicked()">
                     </app-icon-button>
                 </div>
@@ -34,7 +34,7 @@
                     </app-icon-button>
                 </div>
                 <div class="d-inline-block">
-                    <app-icon-button value="BRANCH" tooltipValue="BRANCH" placement="bottom" [disabled]="!repoName"
+                    <app-icon-button value="BRANCH.TITLE" tooltipValue="BRANCH.TITLE" placement="bottom" [disabled]="!repoName"
                         [icon]="{name:'fa-code-branch', isFab:false}" (buttonClicked)="branchButtonClicked()">
                     </app-icon-button>
                 </div>
@@ -71,7 +71,7 @@
             </div>
         </div>
 
-    <app-left-panel *ngIf="leftPanelVisible"></app-left-panel>
+    <app-left-panel *ngIf="leftPanelVisible" (checkoutInfoBarChange)="openCheckoutInfoBar($event)"></app-left-panel>
     <app-graph *ngIf="graphVisible"></app-graph>
     <app-right-panel *ngIf="rightPanelVisible"></app-right-panel>
     
@@ -206,9 +206,28 @@
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeCredInfoBar()"></app-button>
 </app-info-bar>
 
+<!-- Pull (rebase) Info bar credentials -->
+<app-info-bar [visible]="pullrebaseCredInfoBarVisible">
+    <span *ngIf="!pullrebaseAuthErrored">{{ 'LOG_TO_CONTINUE' | translate }}</span>
+    <span *ngIf="pullrebaseAuthErrored" class="color-red">{{ 'WRONG_CRED' | translate }}</span>
+    <app-input [(value)]="currentHttpsUser.username" [placeholder]="'USERNAME'" class="ml-3"></app-input>
+    <app-input [(value)]="currentHttpsUser.password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
+    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!currentHttpsUser.username || !currentHttpsUser.password" (buttonClicked)="pullrebaseHttps()"></app-button>
+    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closePullrebaseCredInfoBar()"></app-button>
+</app-info-bar>
+
 <!-- Open cloned repo -->
 <app-info-bar [visible]="openClonedInfoBarVisible">
     <app-button value="OPEN_NOW" type="success" (buttonClicked)="openClonedRepo()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeClonedInfoBar()"></app-button>
 </app-info-bar>
 
+
+<!-- Clone Info bar credentials -->
+<app-info-bar [visible]="checkoutInfoBarVisible">
+    <span>{{ 'BRANCH.A_LOCAL' | translate }} '{{ localBranch }}' {{ 'BRANCH.ALREADY_EXISTS' | translate }}.</span>
+    <app-input [(value)]="newCheckedoutBranchName" [placeholder]="'BRANCH.NAME'" class="ml-3"></app-input>
+    <app-button class="ml-3" value="BRANCH.CREATE_HERE" type="success" [disabled]="!newCheckedoutBranchName" (buttonClicked)="createBranchHere()"></app-button>
+    <app-button class="ml-3" value="BRANCH.RESET_HERE" type="danger" (buttonClicked)="resetLocalHere()"></app-button>
+    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeCheckoutInfoBar()"></app-button>
+</app-info-bar>
