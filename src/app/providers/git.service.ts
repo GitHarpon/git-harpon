@@ -8,6 +8,7 @@ import { ServiceResult } from '../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-store';
 import { HttpsUser } from '../models/HttpsUser';
+import { RightPanelService } from './right-panel.service';
 import { LeftPanelService } from './left-panel.service';
 
 @Injectable()
@@ -27,6 +28,7 @@ export class GitService {
 
   constructor(private electronService: ElectronService, private translate: TranslateService,
     private leftPanelService: LeftPanelService) {
+  constructor(private electronService: ElectronService, private translate: TranslateService, private rightPanelService: RightPanelService) {
     this.gitP = gitPromise();
     this.git = simpleGit();
     this.pathSubject = new Subject<any>();
@@ -82,8 +84,17 @@ export class GitService {
           gitPromise(PathToRepo).init()
             .then(() => {
               this.setPath(PathToRepo);
-              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-              this.translate.instant('INIT.SUCCESS')));
+
+              if (!this.electronService.fs.existsSync(this.electronService.path.join(PathToRepo, 'README.md'))) {
+                this.electronService.fs.writeFileSync(this.electronService.path.join(PathToRepo, 'README.md'), initName + '\r\n');
+              }
+
+              gitPromise(PathToRepo).add(this.electronService.path.join(PathToRepo, 'README.md')).then(() => {
+                gitPromise(PathToRepo).commit('Initial commit').then(() => {
+                  resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('INIT.SUCCESS')));
+                });
+              });
             })
             .catch(() => {
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
@@ -111,15 +122,8 @@ export class GitService {
               this.gitP.cwd(this.path);
               this.emitPathSubject();
               this.registerProject(this.repoName, this.path);
-
-              gitPromise(this.path).branch([])
-                .then((result) => {
-                  if (result.current) {
-                    this.branchName = result.current;
-                    this.emitBranchNameSubject();
-                  }
-                });
-
+              this.updateFilesDiff();
+              this.getCurrentBranch();
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                 this.translate.instant('OPEN.OPENED_REPO')));
 
@@ -201,6 +205,18 @@ export class GitService {
     });
   }
 
+  getCurrentBranch() {
+    gitPromise(this.path).branch([])
+      .then((result) => {
+        if (result.current) {
+          this.branchName = result.current;
+          this.emitBranchNameSubject();
+
+          return this.branchName;
+        }
+      });
+  }
+
   async getLocalBranches() {
     return new Promise<any>((resolve, reject) => {
       if (this.repoName) {
@@ -224,6 +240,97 @@ export class GitService {
       } else {
         reject(null);
       }
+    });
+  }
+
+  checkoutLocalBranch(newBranch) {
+    if (newBranch !== this.branchName) {
+      return new Promise<ServiceResult>((resolve, reject) => {
+        gitPromise(this.path).checkout(newBranch).then(() => {
+          this.getCurrentBranch();
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.CHECKED_OUT')));
+        }).catch((err) => {
+          let ErrMsg = 'BRANCH.ERROR';
+          if (err.toString().includes('local changes to the following files would be overwritten by checkout')) {
+            ErrMsg = 'BRANCH.CHECKED_OUT_CONFLICTS';
+          }
+          reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant(ErrMsg)));
+        });
+      });
+    }
+  }
+
+  checkoutRemoteBranch(remoteBranch, currentBranch, isInLocal) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      if (!isInLocal) {
+        gitPromise(this.path)
+          .raw(['checkout', '-t', remoteBranch]).then((result) => {
+          this.getCurrentBranch();
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.CHECKED_OUT')));
+        }).catch((result) => {
+          reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant('BRANCH.ERROR')));
+        });
+      } else {
+        let LocalBranch;
+        if (remoteBranch.split('/')[1]) {
+          LocalBranch = remoteBranch.split('/')[1];
+        }
+        gitPromise(this.path)
+          .raw(['rev-parse', '--symbolic-full-name', '--abbrev-ref', LocalBranch + '@{u}']).then((remote) => {
+            if (remote.split('/')[0] === remoteBranch.split('/')[0]) {
+              const BranchesDiffs = (LocalBranch === currentBranch) ? [ remoteBranch ] : [ LocalBranch, remoteBranch ];
+                gitPromise(this.path).diff(BranchesDiffs).then((isDifferent) => {
+                  if (!isDifferent) {
+                    gitPromise(this.path).checkout(LocalBranch).then((result) => {
+                      this.getCurrentBranch();
+                      resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                        this.translate.instant('BRANCH.CHECKED_OUT')));
+                    }).catch((err) => {
+                      reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('ERROR'), remoteBranch));
+                    });
+                  } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                      this.translate.instant('ERROR'), remoteBranch));
+                  }
+                });
+            } else {
+              reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('ERROR'), remoteBranch));
+            }
+          });
+      }
+    });
+  }
+
+  createBranchHere(newBranch, remoteBranch) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      gitPromise(this.path).checkoutBranch(newBranch, remoteBranch).then((result) => {
+        this.getCurrentBranch();
+        resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.CHECKED_OUT')));
+      }).catch((result) => {
+        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+          this.translate.instant('BRANCH.ERROR')));
+      });
+    });
+  }
+
+
+  resetLocalHere(remoteBranch) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      const LocalBranch = remoteBranch.split('/')[1];
+      gitPromise(this.path).checkout(LocalBranch).then((result) => {
+        this.getCurrentBranch();
+        gitPromise(this.path).raw(['reset', '--hard', remoteBranch]).then((reset) => {
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.CHECKED_OUT')));
+        });
+      });
     });
   }
 
@@ -304,5 +411,82 @@ export class GitService {
             this.translate.instant(ErrMsg), AccessDenied));
         });
     });
+  }
+
+  updateFilesDiff() {
+    var ListUnstagedFiles = [];
+    var ListStagedFiles = [];
+    this.gitP.status().then((statusSummary) => {
+      const ListFile = statusSummary.files;
+      ListFile.forEach(file => {
+        if (file.working_dir == 'M' || file.working_dir == 'D') {
+          ListUnstagedFiles.push({
+            path: file.path,
+            status: file.working_dir
+          });
+        } else if (file.working_dir == '?') {
+          ListUnstagedFiles.push({
+            path: file.path,
+            status: 'A'
+          });
+        }
+        if (file.index == 'M' || file.index == 'D' || file.index == 'A') {
+          ListStagedFiles.push({
+            path: file.path,
+            status: file.index
+          });
+        }
+      });
+    });
+    this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
+  }
+
+  addFile(path: any) {
+    this.gitP.add(path).then(() => {
+      this.updateFilesDiff();
+    });
+  }
+
+  removeFile(path: any) {
+    this.gitP.reset(['--mixed', '--', path]).then(() => {
+      this.updateFilesDiff();
+    });
+  }
+  
+  async pullrebaseHttps(folder: string, httpsUser: HttpsUser, branch: string) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      var Remote;
+      gitPromise(folder).raw(['remote', 'get-url', 'origin']).then((data) => {
+        const Credentials = httpsUser.username + ':' + httpsUser.password + '@';
+        var RemoteArray = [];
+        RemoteArray = data.split('://');
+        Remote = RemoteArray[0] + '://' + Credentials + RemoteArray[1];
+      }).catch((err) => { console.error(err); });
+      gitPromise(folder).pull(Remote, branch, {'--rebase': 'true'})
+      .then((data) => {
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+          this.translate.instant('PULL.DONE')));
+        }).catch((err) => {
+        var ErrMsg = 'PULL.ERROR';
+        var AccessDenied = false;
+        if (err.toString().includes('unable to update url base from redirection')) {
+          ErrMsg = 'PULL.UNABLE_TO_UPDATE';
+        } else if (err.toString().includes('HTTP Basic: Access denied')) {
+          ErrMsg = 'PULL.HTTP_ACCESS_DENIED';
+        } else if (err.toString().includes('could not create work tree')) {
+          ErrMsg = 'PULL.NOT_WORK_TREE';
+        } else if (err.toString().includes('Repository not found')) {
+          ErrMsg = 'PULL.REPO_NOT_FOUND';
+        } else if (err.toString().includes('Invalid username or password')) {
+          ErrMsg = 'PULL.INVALID_CRED';
+        }
+        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+        this.translate.instant(ErrMsg), AccessDenied));
+      });
+    });
+  }
+
+  async pullrebaseSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
+      // SSH non pris en charge pour le moment
   }
 }

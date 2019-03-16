@@ -102,12 +102,37 @@
         "NOT_CREATED": "Branche non créée"
     },
     "PULL": "Tirer",
+    "BRANCH": {
+        "TITLE": "Branche",
+        "CHECKED_OUT": "Branche changée",
+        "CHECKED_OUT_CONFLICTS": "Les conflits empêchent le changement de branche",
+        "NAME": "Nom de la branche",
+        "CREATE_HERE": "Créer une branche ici",
+        "RESET_HERE": "Réinitialiser le local à ici",
+        "A_LOCAL": "Une locale",
+        "ALREADY_EXISTS": "existe déjà",
+        "ERROR": "Erreur durant le changement de branche"
+    },
+    "PULL": {
+        "WHERE": "Où tirer",
+        "URL": "URL",
+        "TITLE": "Tirer",
+        "TAB_TITLE": "Tirer vers un repository",
+        "DONE": "Le contenu a été tiré",
+        "ERROR": "Problème lors du poussage",
+        "UNABLE_TO_UPDATE": "Impossible de mettre à jour la base de l'URL à partir d'une redirection",
+        "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
+        "REPO_NOT_FOUND": "Répertoire non trouvé",
+        "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",
+        "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide"
+    },
     "PUSH": "Pousser",
     "EXIT_PREFERENCES": "Sortir des préferences",
     "GENERAL": "Général",
     "EDITOR": "Editeur",
     "UI": "Interface Utilisateur",
     "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
+    "LOCAL": "LOCAL",
     "REMOTE": "DISTANT",
     "OPEN": {
         "TITLE": "Ouvrir",
@@ -152,5 +177,13 @@
     "INDEPENDENT_THEME": "Indépendant du thème",
     "WRONG_CRED": "Informations erronées",
     "SUMMARY": "Résumé",
-    "DESCRIPTION": "Description"
+    "DESCRIPTION": "Description",
+    "NB_FILE_COMMIT": "fichier changé",
+    "NB_FILES_COMMIT": "fichiers changés",
+    "UNSTAGED_FILES": "Fichiers pas ajoutés",
+    "STAGED_FILES": "Fichiers ajoutés",
+    "STAGE_ALL_FILE": "Ajouter tout",
+    "UNSTAGE_ALL_FILE": "Retirer tout",
+    "STAGE_FILE": "Ajouter fichier",
+    "UNSTAGE_FILE": "Retirer fichier"
 }

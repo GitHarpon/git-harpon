@@ -21,8 +21,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
-import { LeftPanelService } from '../../providers/left-panel.service';
-import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
@@ -98,10 +96,6 @@ describe('HomeComponent', () => {
           useClass: MockThemePreferencesService
         },
         {
-          provide: LeftPanelService,
-          useClass: MockLeftPanelService
-        },
-        {
           provide: ElectronService,
           useClass: MockElectronService
         },
@@ -110,12 +104,12 @@ describe('HomeComponent', () => {
           useClass: MockGitService
         },
         {
-          provide: RightPanelService,
-          useClass: MockRightPanelService
-        },
-        {
             provide: LeftPanelService,
             useClass: MockLeftPanelService
+        },
+        {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
         },
         {
           provide: TerminalManagerService,
@@ -132,91 +126,78 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('tests the openBrowse function with valid BrowsePath', () => {
-    const Path = '/new';
-    component.openBrowse();
-    expect(component.openFolder).toBe(Path);
+  it('tests the openCheckoutInfoBar function', () => {
+    const OldRemote = 'old';
+    const NewRemote = 'new';
+    const InfobarVisibility = false;
+    component.remoteBranch = OldRemote;
+    component.checkoutInfoBarVisible = InfobarVisibility;
+    component.openCheckoutInfoBar(NewRemote);
+    expect(component.remoteBranch).toBe(NewRemote);
+    expect(component.checkoutInfoBarVisible).toBeTruthy();
   });
 
-  it('tests the openRepo function with changed and valid path', (done) => {
-    const OldPath = '/old';
-    const NewPath = '/new';
-    const ProjectModalBoolean = true;
-    component.path = OldPath;
-    component.openFolder = NewPath;
-    component.projectModalLoading = ProjectModalBoolean;
-    component.projectModalVisible = ProjectModalBoolean;
-    component.openRepo().then(() => {
-      expect(component.openFolder).toBe('');
-      expect(component.projectModalLoading).toBeFalsy();
-      expect(component.projectModalVisible).toBeFalsy();
+
+  it('tests the closeCheckoutInfoBar function', () => {
+    const Visibility = true;
+    const RemoteName = 'origin/toto';
+    const NewBranchName = 'new';
+    component.remoteBranch = RemoteName;
+    component.newCheckedoutBranchName = NewBranchName;
+    component.checkoutInfoBarVisible = Visibility;
+    component.closeCheckoutInfoBar();
+    expect(component.remoteBranch).toBeFalsy();
+    expect(component.newCheckedoutBranchName).toBeFalsy();
+    expect(component.checkoutInfoBarVisible).toBeFalsy();
+  });
+
+  it('tests the createBranchHere function with valid parameters', (done) => {
+    const NewBranchName = 'new';
+    const RemoteBranch = 'origin/toto';
+    component.newCheckedoutBranchName = NewBranchName;
+    component.remoteBranch = RemoteBranch;
+    component.createBranchHere().then(() => {
+      expect(component.remoteBranch).toBeFalsy();
+      expect(component.newCheckedoutBranchName).toBeFalsy();
+      expect(component.checkoutInfoBarVisible).toBeFalsy();
       done();
     });
   });
 
-  it('tests the openRepo function with changed and valid path and null openFolder', (done) => {
-    const OldPath = '/old';
-    const NewPath = null;
-    const ProjectModalBoolean = true;
-    component.path = OldPath;
-    component.openFolder = NewPath;
-    component.projectModalLoading = ProjectModalBoolean;
-    component.projectModalVisible = ProjectModalBoolean;
-    component.openRepo().then(() => {
-      expect(component.projectModalLoading).toBeTruthy();
-      expect(component.projectModalVisible).toBeTruthy();
+  it('tests the createBranchHere function with invalid parameters', (done) => {
+    const NewBranchName = 'another';
+    const RemoteBranch = 'origin/branch';
+    component.newCheckedoutBranchName = NewBranchName;
+    component.remoteBranch = RemoteBranch;
+    component.createBranchHere().then(() => {
+      expect(component.remoteBranch).toBeFalsy();
+      expect(component.newCheckedoutBranchName).toBeFalsy();
+      expect(component.checkoutInfoBarVisible).toBeFalsy();
       done();
     });
   });
 
-  it('tests the openRepo function with changed and invalid path', (done) => {
-    const OldPath = '/old';
-    const NewPath = '/invalid';
-    const ProjectModalBoolean = true;
-    component.path = OldPath;
-    component.openFolder = NewPath;
-    component.projectModalLoading = ProjectModalBoolean;
-    component.projectModalVisible = ProjectModalBoolean;
-    component.openRepo().then(() => {
-      expect(component.openFolder).toBe('');
-      expect(component.projectModalLoading).toBeFalsy();
-      expect(component.projectModalVisible).toBeTruthy();
+  it('tests the resetLocalHere function with valid parameters', (done) => {
+    const RemoteBranch = 'origin/toto';
+    component.remoteBranch = RemoteBranch;
+    component.resetLocalHere().then(() => {
+      expect(component.remoteBranch).toBeFalsy();
+      expect(component.newCheckedoutBranchName).toBeFalsy();
+      expect(component.checkoutInfoBarVisible).toBeFalsy();
       done();
     });
   });
 
-  it('tests the openRepo function with unchanged path', (done) => {
-    const OldPath = '/old';
-    const ProjectModalBoolean = true;
-    component.path = OldPath;
-    component.openFolder = OldPath;
-    component.projectModalVisible = ProjectModalBoolean;
-    component.openRepo().then((result) => {
-      expect(component.projectModalVisible).toBeTruthy();
-      expect(result).toBeFalsy();
+  it('tests the resetLocalHere function with invalid parameters', (done) => {
+    const RemoteBranch = 'origin/test';
+    component.remoteBranch = RemoteBranch;
+    component.resetLocalHere().then(() => {
+      expect(component.remoteBranch).toBeFalsy();
+      expect(component.newCheckedoutBranchName).toBeFalsy();
+      expect(component.checkoutInfoBarVisible).toBeFalsy();
       done();
     });
   });
 
-  it('tests the openRecentRepo function', (done) => {
-    const OldPath = '/old';
-    const NewPath = '/new';
-    component.path = OldPath;
-    component.openRecentRepo(NewPath).then(() => {
-      expect(component.openFolder).toBe('');
-      expect(component.projectModalLoading).toBeFalsy();
-      expect(component.projectModalVisible).toBeFalsy();
-      done();
-    });
-  });
 
-  it('tests the closeRepo function', () => {
-    const Path = '/new';
-    const Repo = 'new';
-    component.path = Path;
-    component.repoName = Repo;
-    component.closeRepo();
-    expect(component.path).toBeUndefined();
-    expect(component.repoName).toBeUndefined();
-  });
 });
