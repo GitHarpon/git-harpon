@@ -66,10 +66,6 @@ export class GitService {
     this.httpsUserSubject.next(this.httpsUser);
   }
 
-  async test(hash) {
-    return this.gitP.show(['--name-only', hash]);
-  }
-
   setHttpsUser(newUser: HttpsUser) {
     this.httpsUser = newUser;
     this.emitHttpsUserSubject();
@@ -122,8 +118,7 @@ export class GitService {
                     this.branchName = result.current;
                     this.emitBranchNameSubject();
                   }
-                });
-
+              });
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                 this.translate.instant('OPEN.OPENED_REPO')));
 

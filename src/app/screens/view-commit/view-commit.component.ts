@@ -37,7 +37,7 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
       (hash: String) => {
         this.commitHash = hash;
         if (this.commitHash && this.commitHash !== '') {
-          console.log('tata');
+          console.log('in');
           this.setDescription();
         }
       }
@@ -63,10 +63,6 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
       return this.currentDescription.message.split('\n\n')[0];
     }
     return null;
-  }
-
-  test() {
-    this.gitService.test(this.commitHash).then((data) => console.log(data));
   }
 
   getCommitDescription() {
