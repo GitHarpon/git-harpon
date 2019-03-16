@@ -66,6 +66,10 @@ export class GitService {
     this.httpsUserSubject.next(this.httpsUser);
   }
 
+  async test(hash) {
+    return this.gitP.show(['--name-only', hash]);
+  }
+
   setHttpsUser(newUser: HttpsUser) {
     this.httpsUser = newUser;
     this.emitHttpsUserSubject();
