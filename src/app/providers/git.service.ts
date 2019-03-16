@@ -154,9 +154,6 @@ export class GitService {
                   .then(() => {
                     this.branchName = newBranchName;
                     this.emitBranchNameSubject();
-                    // let UpdatedLocalBranches = result.all;
-                    // UpdatedLocalBranches.push(newBranchName);
-                    // this.leftPanelService.setLocalBranches(UpdatedLocalBranches);
                     resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                     this.translate.instant('BRANCH.CREATED')));
                   })
@@ -174,9 +171,6 @@ export class GitService {
                     .then(() => {
                       this.branchName = newBranchName;
                       this.emitBranchNameSubject();
-                      // let UpdatedLocalBranches = result.all;
-                      // UpdatedLocalBranches.push(newBranchName);
-                      // this.leftPanelService.setLocalBranches(UpdatedLocalBranches);
                       resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                       this.translate.instant('BRANCH.CREATED')));
                     })

@@ -20,6 +20,7 @@ export class MockGitService {
     httpsUser: HttpsUser;
     listUnstagedFilesSubject: Subject<any[]>;
     listStagedFilesSubject: Subject<any[]>;
+    branchName: any;
 
     constructor(private translate: TranslateService, private leftPanelService: LeftPanelService,
         private rightPanelService: RightPanelService) {
@@ -158,15 +159,27 @@ export class MockGitService {
         });
     }
 
-    async setNewBranch(newBranchName, referenceBranchName) {
+    async setNewBranch(newBranchName: string, referenceBranchName: string) {
         return new Promise<any>((resolve, reject) => {
-            if (newBranchName === 'newBranch' && newBranchName !== referenceBranchName
-                && referenceBranchName !== 'wrong') {
-                this.setNewBranch(newBranchName, referenceBranchName);
-                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'), this.translate.instant('BRANCH.CREATED')));
-            } else {
+            if (newBranchName === 'newBranch' && !referenceBranchName.includes('wrong')) {
+                this.branchName = newBranchName;
+                this.emitBranchNameSubject(this.branchName);
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CREATED')));
+            } else if (referenceBranchName.includes('remote/')) {
+                this.branchName = newBranchName;
+                this.emitBranchNameSubject(this.branchName);
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CREATED')));
+            } else if (newBranchName === 'existingBranch') {
                 reject(new ServiceResult(false, this.translate.instant('ERROR'),
                     this.translate.instant('BRANCH.NOT_CREATED')));
+            } else if (referenceBranchName.includes('wrong')) {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.NOT_CREATED')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('BRANCH.NOT_CREATED')));
             }
         });
     }
