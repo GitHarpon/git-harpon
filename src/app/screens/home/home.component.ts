@@ -375,6 +375,7 @@ export class HomeComponent implements OnDestroy {
       this.rightPanelVisible = true;
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
+      this.rightPanelService.setView(true);
     } else {
       this.mainPanelVisible = true;
     }

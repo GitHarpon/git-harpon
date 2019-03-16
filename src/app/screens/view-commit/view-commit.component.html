@@ -22,6 +22,12 @@
             <span class="view-commit__date">{{ commitDate }}</span>
         </div>
       </div>
+      <div class="col-md-7 px-0">
+        <div class="col-md-12">
+          <span>parents :</span>
+          <span *ngFor="let p of currentDescription?.parent; index0">{{p | slice:0:6}}</span>
+        </div>
+      </div>
     </div>
   </div>
 </app-loader>
