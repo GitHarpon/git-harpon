@@ -10,6 +10,7 @@ import { TerminalManagerService } from '../../providers/terminal-manager.service
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { HttpsUser } from '../../models/HttpsUser';
 import { LeftPanelService } from '../../providers/left-panel.service';
+import { RightPanelService } from '../../providers/right-panel.service';
 
 @Component({
   selector: 'app-home',
@@ -64,7 +65,8 @@ export class HomeComponent implements OnDestroy {
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
     private translateService: TranslateService, private terminalService: TerminalManagerService,
-    private themePrefService: ThemePreferencesService, private leftPanelService: LeftPanelService) {
+    private themePrefService: ThemePreferencesService, private leftPanelService: LeftPanelService,
+    private rightPanelService: RightPanelService) {
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;

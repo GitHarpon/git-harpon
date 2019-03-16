@@ -20,6 +20,7 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   currentDescription: CommitDescription;
   hashCopied: Boolean;
   commitDate: string;
+  loading: Boolean;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
     private gitService: GitService, private clipboardService: ClipboardService) {
@@ -44,17 +45,20 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     );
     this.rightPanelService.emitCommitHashSubject();
 
+    this.loading = true;
     this.gitService.revParseHEAD().then((data) => {
       this.commitHash = data.replace('\n', '');
       this.setDescription();
+      this.loading = false;
     });
-    // gérer cas dans open ou pas de commit
   }
 
   async setDescription() {
+    this.loading = true;
     return this.gitService.commitDescription(this.commitHash).then((data) => {
       this.currentDescription = data;
       this.setCommitDate();
+      this.loading = false;
     });
   }
 

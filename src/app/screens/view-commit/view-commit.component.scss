@@ -2,6 +2,8 @@
 
 .view-commit {
     height: 100%;
+    text-align: left; 
+
     &.dark {
         background: $light-grey;
         color: $white;
@@ -15,6 +17,7 @@
     }
 
     &__hash {
+        text-align: center; 
         background: $textarea-bg;
         padding: $gap-md 0 $gap-md 0;
 
@@ -25,6 +28,10 @@
         &__hash {
             color: $white;
         }
+    }
+    
+    &__date {
+        font-size: $fs-small;
     }
 }
 

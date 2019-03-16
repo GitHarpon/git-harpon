@@ -390,7 +390,7 @@ export class GitService {
       this.updateFilesDiff();
     });
   }
-  
+
   async pullrebaseHttps(folder: string, httpsUser: HttpsUser, branch: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
       var Remote;

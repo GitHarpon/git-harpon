@@ -44,13 +44,14 @@ export class RightPanelService {
     this.emitListUnstagedFilesSubject();
     this.emitListStagedFilesSubject();
   }
-    emitCommitHashSubject() {
-        this.commitHashSubject.next(this.commitHash);
-    }
+
+  emitCommitHashSubject() {
+    this.commitHashSubject.next(this.commitHash);
+  }
 
 
-    setCommitHash(hash: String) {
+  setCommitHash(hash: String) {
         this.commitHash = hash;
         this.emitCommitHashSubject();
-    }
+  }
 }
