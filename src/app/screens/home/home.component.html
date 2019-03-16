@@ -16,7 +16,7 @@
                             {{ repoName }}
                         </a>
                     </li>
-                    <li *ngIf="branchName" class="gh-branch" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
+                    <li class="gh-branch" [ngClass]="[(!repoName ? 'gh-project-not-opened' : '')]">
                         <a>{{ branchName }}</a>
                     </li>
                 </ul>
