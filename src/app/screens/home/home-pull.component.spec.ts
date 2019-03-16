@@ -14,6 +14,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { IconButtonComponent } from '../../components/icon-button/icon-button.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { MatTabsModule, TooltipComponent } from '@angular/material';
 import { ResizableModule, ResizeEvent } from 'angular-resizable-element';
 import { LoaderComponent } from '../../components/loader/loader.component';
@@ -33,13 +34,12 @@ import { LeftPanelComponent } from '../left-panel/left-panel.component';
 import { GraphComponent } from '../graph/graph.component';
 import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { HttpsUser } from '../../models/HttpsUser';
-import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
+import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { TextAreaComponent } from '../../components/text-area/text-area.component';
-import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
@@ -61,6 +61,7 @@ describe('HomeComponent', () => {
         ModalComponent,
         FooterComponent,
         IconButtonComponent,
+        CommitTextAreaComponent,
         LoaderComponent,
         InfoBarComponent,
         AccordionComponent,
@@ -69,9 +70,8 @@ describe('HomeComponent', () => {
         RightPanelComponent,
         SendCommitComponent,
         ViewCommitComponent,
-        TextAreaComponent,
-        CommitTextAreaComponent,
-        FileDiffCommitComponent
+        FileDiffCommitComponent,
+        TextAreaComponent
       ],
       imports: [
         FormsModule,
@@ -107,16 +107,16 @@ describe('HomeComponent', () => {
           useClass: MockGitService
         },
         {
+          provide: TerminalManagerService,
+          useClass: MockTerminalManagerService
+        },
+        {
           provide: RightPanelService,
           useClass: MockRightPanelService
         },
         {
-            provide: LeftPanelService,
-            useClass: MockLeftPanelService
-        },
-        {
-          provide: TerminalManagerService,
-          useClass: MockTerminalManagerService
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
         },
         ToastrService
       ]
@@ -129,121 +129,63 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('tests the cloneBrowse function wtih valid BrowsePath', () => {
-    component.cloneBrowse();
-    expect(component.cloneFolder).toBe('/new');
-  });
-
-  it('tests the cloneHttps function and valid arguments', (done) => {
-    const CloneUrl = 'https://github.com/GitHarpon/git-harpon';
-    const CloneFolder = 'path';
-    const User = { username: 'username', password: 'password' };
-    component.cloneUrl = CloneUrl;
-    component.cloneFolder = CloneFolder;
-    component.cloneHttpsUser = User;
-    component.openClonedInfoBarVisible = false;
-    component.homeLoading = false;
-    component.cloneHttps().then(() => {
+  it('tests the pullrebaseHttps function and valid arguments', (done) => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const Folder = 'path';
+    component.fullPath = Folder;
+    component.currentHttpsUser = User;
+    component.homeLoading = true;
+    component.pullrebaseCredInfoBarVisible = true;
+    component.pullrebaseHttps().then(() => {
+      expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
       expect(component.homeLoading).toBeFalsy();
-      expect(component.openClonedInfoBarVisible).toBeTruthy();
       done();
     });
   });
 
-  it('tests the cloneHttps function with invalid url or folder', (done) => {
-    const CloneUrl = 'invalidurl';
-    const CloneFolder = 'invalidfolder';
-    const User = { username: 'username', password: 'password' };
-    component.cloneUrl = CloneUrl;
-    component.cloneFolder = CloneFolder;
-    component.cloneHttpsUser = User;
-    component.cloneHttps().then(() => {
-      expect(component.homeLoading).toBeFalsy();
-      expect(component.projectModalLoading).toBeFalsy();
-      done();
-    });
-  });
-
-  it('tests the cloneHttps function with wrong informations', (done) => {
-    const CloneUrl = 'invalidurl';
-    const CloneFolder = 'invalidfolder';
+  it('tests the pullrebaseHttps function and invalid arguments', (done) => {
     const User = { username: '', password: '' };
-    const NotVisible = false;
-    component.cloneUrl = CloneUrl;
-    component.cloneFolder = CloneFolder;
-    component.cloneHttpsUser = User;
-    component.cloneAuthErrored = NotVisible;
-    component.credInfoBarVisible = NotVisible;
-    component.cloneHttps().then(() => {
-      expect(component.cloneAuthErrored).toBeFalsy();
-      expect(component.credInfoBarVisible).toBeTruthy();
+    const Visible = true;
+    component.currentHttpsUser = User;
+    component.homeLoading = Visible;
+    component.pullrebaseAuthErrored = false;
+    component.pullrebaseCredInfoBarVisible = Visible;
+    component.pullrebaseHttps().then(() => {
+      expect(component.pullrebaseAuthErrored).toBeTruthy();
+      expect(component.homeLoading).toBeFalsy();
       done();
     });
   });
 
+  it('tests the pullrebaseHttps function and invalid arguments alternative', (done) => {
+    const User = { username: 'username', password: 'password' };
+    const InvalidPath = 'invalid';
+    const Visible = true;
 
-  it('tests the cloneSubmit function with https', () => {
-    const CloneFolder = 'path';
-    const CloneUrl = 'https://github.com/GitHarpon/git-harpon';
-    component.cloneFolder = CloneFolder;
-    component.cloneUrl = CloneUrl;
-    component.cloneSubmit();
-    expect(component.projectModalVisible).toBeFalsy();
-    expect(component.homeLoading).toBeTruthy();
+    component.fullPath = InvalidPath;
+    component.currentHttpsUser = User;
+    component.homeLoading = Visible;
+    component.pullrebaseAuthErrored = false;
+    component.pullrebaseCredInfoBarVisible = Visible;
+    component.pullrebaseHttps().then(() => {
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.currentHttpsUser.password).toBeFalsy();
+      expect(component.currentHttpsUser.username).toBeFalsy();
+      done();
+    });
   });
 
-  it('tests the cloneSubmit function with ssh', () => {
-    const CloneFolder = 'path';
-    const CloneUrl = 'git@github.com:GitHarpon/git-harpon.git';
-    component.cloneFolder = CloneFolder;
-    component.cloneUrl = CloneUrl;
-    component.cloneSubmit();
-  });
-
-  it('tests the cloneSubmit function with invalid url', () => {
-    const CloneFolder = 'path';
-    const CloneUrl = 'NotAnUrl';
-    component.cloneFolder = CloneFolder;
-    component.cloneUrl = CloneUrl;
-    component.cloneSubmit();
-  });
-
-  it('tests the cloneSubmit function with invalid folder', () => {
-    const CloneFolder = 'invalid';
-    const CloneUrl = 'https://github.com/GitHarpon/git-harpon';
-    component.cloneFolder = CloneFolder;
-    component.cloneUrl = CloneUrl;
-    component.cloneSubmit();
-  });
-
-  it('tests the resetCloneInputs function', () => {
+  it('tests the resetPullrebaseInputs function', () => {
     const Expected: HttpsUser = { username: '', password: '' };
-    component.resetCloneInputs();
-    expect(component.cloneHttpsUser.username).toBe(Expected.username);
-    expect(component.cloneHttpsUser.password).toBe(Expected.password);
-    expect(component.cloneUrl).toBe(Empty);
-    expect(component.cloneFolder).toBe(Empty);
-    expect(component.newClonedRepoPath).toBe(Empty);
-    expect(component.cloneAuthErrored).toBeFalsy();
-    expect(component.credInfoBarVisible).toBeFalsy();
+    component.resetPullrebaseInputs();
+    expect(component.currentHttpsUser.username).toBe(Expected.username);
+    expect(component.currentHttpsUser.password).toBe(Expected.password);
+    expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
     expect(component.homeLoading).toBeFalsy();
   });
 
-  it('tests the closeCredInfoBar function', () => {
-    component.closeCredInfoBar();
-    expect(component.credInfoBarVisible).toBeFalsy();
-  });
-
-  it('tests the openClonedRepo function', () => {
-    const NewRepo = '/new';
-    component.newClonedRepoPath = NewRepo;
-    component.openClonedRepo();
-    expect(component.path).toBe(NewRepo);
-    expect(component.openClonedInfoBarVisible).toBeFalsy();
-  });
-
-  it('tests the closeClonedInfoBar function', () => {
-    component.closeClonedInfoBar();
-    expect(component.openClonedInfoBarVisible).toBeFalsy();
+  it('tests the closePullrebaseCredInfoBar function', () => {
+    component.closePullrebaseCredInfoBar();
+    expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
   });
 });
