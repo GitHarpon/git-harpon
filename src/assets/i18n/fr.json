@@ -93,15 +93,6 @@
         "LEFT": "Clic gauche"
     },
     "COPY": "Copier",
-    "CREATE_BRANCH": "Créer une branche ici",
-    "BRANCH": {
-        "TITLE": "Branche",
-        "NAME": "Nom des branches",
-        "UNCOMMIT": "Commits manquant sur branche de référence",
-        "CREATED": "Branche créée",
-        "NOT_CREATED": "Branche non créée"
-    },
-    "PULL": "Tirer",
     "BRANCH": {
         "TITLE": "Branche",
         "CHECKED_OUT": "Branche changée",
@@ -109,6 +100,9 @@
         "NAME": "Nom de la branche",
         "CREATE_HERE": "Créer une branche ici",
         "RESET_HERE": "Réinitialiser le local à ici",
+        "UNCOMMIT": "Commits manquant sur branche de référence",
+        "CREATED": "Branche créée",
+        "NOT_CREATED": "Branche non créée",
         "A_LOCAL": "Une locale",
         "ALREADY_EXISTS": "existe déjà",
         "ERROR": "Erreur durant le changement de branche"

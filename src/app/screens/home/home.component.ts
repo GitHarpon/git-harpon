@@ -410,7 +410,7 @@ export class HomeComponent implements OnDestroy {
   resetLocalHere() {
     return this.gitService.resetLocalHere(this.remoteBranch).then((data) => {
       this.leftPanelService.setLocalBranches();
-        this.leftPanelService.setRemoteBranches();
+      this.leftPanelService.setRemoteBranches();
       this.closeCheckoutInfoBar();
       this.toastr.info(data.message, data.title);
     })
@@ -432,6 +432,8 @@ export class HomeComponent implements OnDestroy {
     this.homeLoading = true;
     return this.gitService.setNewBranch(this.newBranchName, this.referenceBranchName)
       .then((data) => {
+        this.leftPanelService.setLocalBranches();
+        this.leftPanelService.setRemoteBranches();
         this.newBranchInfoBarVisible = false;
         this.homeLoading = false;
         this.toastr.info(data.message, data.title);

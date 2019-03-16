@@ -93,15 +93,6 @@
         "LEFT": "Left click"
     },
     "COPY": "Copy",
-    "CREATE_BRANCH": "Create branch here",
-    "BRANCH": {
-        "TITLE": "Branch",
-        "NAME": "Branches name",
-        "UNCOMMIT": "Missing commits on reference branch",
-        "CREATED": "Branch created",
-        "NOT_CREATED": "Branch not created"
-    },
-    "PULL": "Pull",
     "BRANCH": {
         "TITLE": "Branch",
         "CHECKED_OUT": "Branch checked out",
@@ -109,6 +100,9 @@
         "NAME": "Branch name",
         "CREATE_HERE": "Create branch here",
         "RESET_HERE": "Reset local to here",
+        "UNCOMMIT": "Missing commits on reference branch",
+        "CREATED": "Branch created",
+        "NOT_CREATED": "Branch not created",
         "A_LOCAL": "A local",
         "ALREADY_EXISTS": "already exists",
         "ERROR": "Error during the checkout branch"

@@ -9,7 +9,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-store';
 import { HttpsUser } from '../models/HttpsUser';
 import { RightPanelService } from './right-panel.service';
-import { LeftPanelService } from './left-panel.service';
 
 @Injectable()
 export class GitService {
@@ -27,8 +26,7 @@ export class GitService {
   git: any;
 
   constructor(private electronService: ElectronService, private translate: TranslateService,
-    private leftPanelService: LeftPanelService) {
-  constructor(private electronService: ElectronService, private translate: TranslateService, private rightPanelService: RightPanelService) {
+      private rightPanelService: RightPanelService) {
     this.gitP = gitPromise();
     this.git = simpleGit();
     this.pathSubject = new Subject<any>();
@@ -156,9 +154,9 @@ export class GitService {
                   .then(() => {
                     this.branchName = newBranchName;
                     this.emitBranchNameSubject();
-                    let UpdatedLocalBranches = result.all;
-                    UpdatedLocalBranches.push(newBranchName);
-                    this.leftPanelService.setLocalBranches(UpdatedLocalBranches);
+                    // let UpdatedLocalBranches = result.all;
+                    // UpdatedLocalBranches.push(newBranchName);
+                    // this.leftPanelService.setLocalBranches(UpdatedLocalBranches);
                     resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                     this.translate.instant('BRANCH.CREATED')));
                   })
@@ -176,9 +174,9 @@ export class GitService {
                     .then(() => {
                       this.branchName = newBranchName;
                       this.emitBranchNameSubject();
-                      let UpdatedLocalBranches = result.all;
-                      UpdatedLocalBranches.push(newBranchName);
-                      this.leftPanelService.setLocalBranches(UpdatedLocalBranches);
+                      // let UpdatedLocalBranches = result.all;
+                      // UpdatedLocalBranches.push(newBranchName);
+                      // this.leftPanelService.setLocalBranches(UpdatedLocalBranches);
                       resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                       this.translate.instant('BRANCH.CREATED')));
                     })
@@ -452,7 +450,7 @@ export class GitService {
       this.updateFilesDiff();
     });
   }
-  
+
   async pullrebaseHttps(folder: string, httpsUser: HttpsUser, branch: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
       var Remote;

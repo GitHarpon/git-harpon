@@ -21,8 +21,8 @@ export class MockGitService {
     listUnstagedFilesSubject: Subject<any[]>;
     listStagedFilesSubject: Subject<any[]>;
 
-    constructor(private translate: TranslateService, private leftPanelService: LeftPanelService) {
-    constructor(private translate: TranslateService, private rightPanelService: RightPanelService) {
+    constructor(private translate: TranslateService, private leftPanelService: LeftPanelService,
+        private rightPanelService: RightPanelService) {
         this.pathSubject = new Subject<any>();
         this.repoNameSubject = new Subject<any>();
         this.recentProjectSubject = new Subject<any[]>();
