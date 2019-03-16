@@ -171,7 +171,7 @@
     "SUMMARY": "Résumé",
     "COMMIT": {
         "DESCRIPTION": "Description d'un commit"
-    }
+    },
     "DESCRIPTION": "Description",
     "NB_FILE_COMMIT": "fichier changé",
     "NB_FILES_COMMIT": "fichiers changés",
