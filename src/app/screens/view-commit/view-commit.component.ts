@@ -63,12 +63,6 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     });
   }
 
-  test() {
-    this.gitService.test(this.commitHash).then((data) => {
-      console.log(data);
-    })
-
-  }
   getCommitSummary() {
     if (this.currentDescription) {
       return this.currentDescription.message.split('\n\n')[0];
