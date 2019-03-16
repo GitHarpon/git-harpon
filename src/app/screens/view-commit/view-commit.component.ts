@@ -19,6 +19,7 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   commitHash: String;
   currentDescription: CommitDescription;
   hashCopied: Boolean;
+  parentHashCopied: Boolean;
   commitDate: string;
   loading: Boolean;
 
@@ -88,10 +89,22 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     return this.switchCopyCommitHash();
   }
 
+  async copyParentHash(parentHash) {
+    this.clipboardService.copyFromContent(parentHash);
+    return this.switchCopyParentHash();
+  }
+
   async switchCopyCommitHash() {
     this.hashCopied = true;
     return setTimeout(time => {
       this.hashCopied = false;
+    }, 500);
+  }
+
+  async switchCopyParentHash() {
+    this.parentHashCopied = true;
+    return setTimeout(time => {
+      this.parentHashCopied = false;
     }, 500);
   }
 

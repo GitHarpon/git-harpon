@@ -14,7 +14,7 @@
         [readonly]="true" [descView]="true"></app-commit-text-area>
     </div>
     <div class="col-md-12 row">
-      <div class="col-md-7 px-0">
+      <div class="col-md-6 px-0">
         <div class="col-md-12">
           <span>{{ currentDescription?.committer.name }}</span>
         </div>
@@ -22,10 +22,16 @@
             <span class="view-commit__date">{{ commitDate }}</span>
         </div>
       </div>
-      <div class="col-md-7 px-0">
-        <div class="col-md-12">
-          <span>parents :</span>
-          <span *ngFor="let p of currentDescription?.parent; index0">{{p | slice:0:6}}</span>
+      <div class="col-md-1 px-0">
+          <i class="fa copied" [ngClass]="[parentHashCopied ? 'fa-check' : '']"></i>
+      </div>
+      <div class="col-md-5 px-0">
+        <div class="col-md-12 view-commit__parent px-0">
+          <span>parent :</span>
+          <span *ngFor="let p of currentDescription?.parent; let i = index" 
+            placement="top" ngbTooltip="{{ 'COPY' | translate }}" (click)="copyParentHash(p)" class="view-commit__hash__hash">
+            {{p | slice:0:6}}{{ currentDescription?.parent.length - 1 === i ? '' : ', ' }}
+          </span>
         </div>
       </div>
     </div>
