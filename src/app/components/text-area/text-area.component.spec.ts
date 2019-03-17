@@ -9,6 +9,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('TextAreaComponent', () => {
   /* tslint:disable */
@@ -24,7 +25,7 @@ describe('TextAreaComponent', () => {
         FormsModule,
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
-        }),
+        })
       ],
       providers: [
         {

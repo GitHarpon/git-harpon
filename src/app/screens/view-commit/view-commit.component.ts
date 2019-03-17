@@ -39,7 +39,6 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
       (hash: String) => {
         this.commitHash = hash;
         if (this.commitHash && this.commitHash !== '') {
-          console.log('in');
           this.setDescription();
         }
       }
@@ -58,7 +57,6 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     this.loading = true;
     return this.gitService.commitDescription(this.commitHash).then((data) => {
       this.currentDescription = data;
-      console.log(this.currentDescription);
       this.setCommitDate();
       this.loading = false;
     });

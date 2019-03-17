@@ -10,6 +10,11 @@ import { RightPanelService } from '../../providers/right-panel.service';
 import { ButtonComponent } from '../../components/button/button.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
+import { LoaderComponent } from '../../components/loader/loader.component';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
+import { NgbTooltip, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 describe('RightPanelComponent', () => {
   /* tslint:disable */
@@ -24,10 +29,16 @@ describe('RightPanelComponent', () => {
         ViewCommitComponent,
         SendCommitComponent,
         ButtonComponent,
+        FileDiffCommitComponent,
+        LoaderComponent,
+        TextAreaComponent,
+        CommitTextAreaComponent,
         FileDiffCommitComponent
       ],
       imports: [
-        TranslateModule
+        TranslateModule,
+        NgbModule,
+        FormsModule
       ],
       providers: [
         {
