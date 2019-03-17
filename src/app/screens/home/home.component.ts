@@ -386,6 +386,7 @@ export class HomeComponent implements OnDestroy {
     this.leftPanelVisible = false;
     this.graphVisible = false;
     this.rightPanelVisible = false;
+    this.rightPanelService.setCommitHash('');
   }
 
   openCheckoutInfoBar(remoteBranch) {

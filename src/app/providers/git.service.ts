@@ -123,6 +123,9 @@ export class GitService {
               this.registerProject(this.repoName, this.path);
               this.updateFilesDiff();
               this.getCurrentBranch();
+              this.revParseHEAD().then((data) => {
+                this.rightPanelService.setCommitHash(data.replace('\n', ''));
+              });
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                 this.translate.instant('OPEN.OPENED_REPO')));
 

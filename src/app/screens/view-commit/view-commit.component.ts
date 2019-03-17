@@ -38,28 +38,22 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     this.commitHashSubscription = this.rightPanelService.commitHashSubject.subscribe(
       (hash: String) => {
         this.commitHash = hash;
-        if (this.commitHash && this.commitHash !== '') {
-          this.setDescription();
-        }
+        this.setDescription();
       }
     );
     this.rightPanelService.emitCommitHashSubject();
-
-    this.loading = true;
-    this.gitService.revParseHEAD().then((data) => {
-      this.commitHash = data.replace('\n', '');
-      this.setDescription();
-      this.loading = false;
-    });
   }
 
   async setDescription() {
-    this.loading = true;
-    return this.gitService.commitDescription(this.commitHash).then((data) => {
-      this.currentDescription = data;
-      this.setCommitDate();
-      this.loading = false;
-    });
+    if (this.commitHash) {
+      this.loading = true;
+      return this.gitService.commitDescription(this.commitHash).then((data) => {
+        this.currentDescription = data;
+        this.setCommitDate();
+        this.loading = false;
+      });
+    }
+    return;
   }
 
   getCommitSummary() {
