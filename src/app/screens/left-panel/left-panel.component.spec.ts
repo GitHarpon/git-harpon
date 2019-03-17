@@ -22,6 +22,7 @@ import { By } from '@angular/platform-browser';
 import { MockLanguagePreferencesService } from '../../models/MockLanguagePreferenceService';
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 import { MockTranslateService } from '../../models/MockTranslateService';
+import { NewBranchCouple } from '../../models/NewBranchCouple';
 
 describe('LeftPanelComponent', () => {
   /* tslint:disable */
@@ -188,6 +189,14 @@ describe('LeftPanelComponent', () => {
       expect(component.checkoutInfoBarChange.emit).toHaveBeenCalledWith(RemoteBranch);
       done();
     });
+  });
+
+  it('test the renameBranch function', (done) => {
+    const OldBranch = 'toto';
+    component.newBranchCouple = new NewBranchCouple();
+    component.newBranchCouple.oldBranch = 'titi';
+    component.renameBranch(OldBranch);
+    expect(component.newBranchCouple.oldBranch).toEqual(OldBranch);
   });
 
   it ('test the ngOnDestroy function with defined subscriptions', () => {

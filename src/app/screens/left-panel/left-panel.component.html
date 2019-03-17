@@ -17,10 +17,10 @@
         </div>
       </div>
     </app-accordion>
-    <context-menu #branchCM>
-      <ng-template contextMenuItem let-item (execute)="renameBranch($event.item)">
-        {{ 'BRANCH.RENAME' | translate }} {{ item }}
-      </ng-template>
-    </context-menu>
   </app-loader>
+  <context-menu #branchCM>
+    <ng-template contextMenuItem let-item (execute)="renameBranch($event.item)">
+      {{ 'BRANCH.RENAME' | translate }} {{ item }}
+    </ng-template>
+  </context-menu>
 </div>
