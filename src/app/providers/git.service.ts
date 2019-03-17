@@ -270,6 +270,14 @@ export class GitService {
     });
   }
 
+  getGraph() {
+    return new Promise<any>((resolve, reject) => {
+      gitPromise(this.path).raw(['log', '--graph', '--oneline', '--all', '--date-order']).then((result) => {
+        resolve(result);
+      });
+    });
+  }
+
   registerProject(repo: any, path: any) {
     const Project = {
       repo: repo,

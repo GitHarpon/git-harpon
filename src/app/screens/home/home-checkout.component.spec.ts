@@ -41,6 +41,8 @@ import { CommitTextAreaComponent } from '../../components/commit-text-area/commi
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
+import { GraphService } from '../../providers/graph.service';
+import { MockGraphService } from '../../models/MockGraphService';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -110,6 +112,10 @@ describe('HomeComponent', () => {
         {
           provide: RightPanelService,
           useClass: MockRightPanelService
+        },
+        {
+          provide: GraphService,
+          useClass: MockGraphService
         },
         {
           provide: TerminalManagerService,
