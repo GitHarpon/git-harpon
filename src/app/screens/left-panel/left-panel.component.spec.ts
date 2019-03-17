@@ -185,13 +185,12 @@ describe('LeftPanelComponent', () => {
     component.loadingVisible = Visibility;
     spyOn(component.checkoutInfoBarChange, 'emit');
     component.checkoutRemoteBranch(RemoteBranch).then(() => {
-      fixture.detectChanges();
       expect(component.checkoutInfoBarChange.emit).toHaveBeenCalledWith(RemoteBranch);
       done();
     });
   });
 
-  it('test the renameBranch function', (done) => {
+  it('test the renameBranch function', () => {
     const OldBranch = 'toto';
     component.newBranchCouple = new NewBranchCouple();
     component.newBranchCouple.oldBranch = 'titi';

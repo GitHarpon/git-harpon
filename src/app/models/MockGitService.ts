@@ -169,6 +169,19 @@ export class MockGitService {
         }
     }
 
+    async renameBranch(oldName: string, newName: string) {
+        return new Promise<any>((resolve, reject) => {
+            if ( oldName == 'valid' ) {
+                resolve(new ServiceResult(true, this.translate.instant('BRANCH.BRANCH_RENAME_SUCCESS'),
+                this.translate.instant('BRANCH.BRANCH_RENAME_SUCCESS')));
+            } else {
+                reject(new ServiceResult(true, this.translate.instant('BRANCH.BRANCH_RENAME_ERROR'),
+                this.translate.instant('BRANCH.BRANCH_RENAME_ERROR')));
+            }
+
+        });
+      }
+
     async cloneHttps(url: GitUrlParse, folder: string, httpsUser: HttpsUser) {
         return new Promise<ServiceResult>((resolve, reject) => {
             if (url && folder === 'path') {
