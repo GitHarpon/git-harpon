@@ -33,6 +33,14 @@
     &__date, &__parent {
         font-size: $fs-small;
     }
+
+    &__top {
+        height: 30%;
+    }
+
+    &__bottom {
+        height: calc(70% - 33px);
+    }
 }
 
 .copied {

@@ -1,39 +1,42 @@
-<app-loader [loading]="loading"> 
+<app-loader [loading]="loading">
   <div class="view-commit" [ngClass]="currentTheme" *ngIf="!loading">
-    <div class="col-md-12 view-commit__hash">
-      <span class="view-commit__hash__label">
-        commit: 
-        <span placement="top" ngbTooltip="{{ 'COPY' | translate }}" (click)="copyCommitHash()" class="view-commit__hash__hash">
-          {{ currentDescription?.oid | slice:0:6 }}
-          <i class="fa fa-lg copied" [ngClass]="[hashCopied ? 'fa-check' : '']"></i>
-        </span> 
-      </span>
-    </div>
-    <div class="col-md-12 mt-2" *ngIf="currentDescription?.message">
-      <app-commit-text-area rows="3" [descValue]="getCommitDescription()" [summaryValue]="getCommitSummary()" 
-        [readonly]="true" [descView]="true"></app-commit-text-area>
-    </div>
-    <div class="col-md-12 row mt-2">
-      <div class="col-md-6 px-0">
-        <div class="col-md-12">
-          <span>{{ currentDescription?.committer.name }}</span>
-        </div>
-        <div class="col-md-12">
-            <span class="view-commit__date">{{ commitDate }}</span>
-        </div>
-      </div>
-      <div class="col-md-6 px-0">
-        <div class="col-md-12 view-commit__parent px-0 text-right">
-          <i class="fa copied mr-1" [ngClass]="[parentHashCopied ? 'fa-check' : '']"></i>
-          <span>parent :</span>
-          <span *ngFor="let p of currentDescription?.parent; let i = index" 
-            placement="top" ngbTooltip="{{ 'COPY' | translate }}" (click)="copyParentHash(p)" class="view-commit__hash__hash">
-            {{p | slice:0:6}}{{ currentDescription?.parent.length - 1 === i ? '' : ', ' }}
+    <div class="view-commit__top">
+      <div class="col-md-12 view-commit__hash">
+        <span class="view-commit__hash__label">
+          commit:
+          <span placement="top" ngbTooltip="{{ 'COPY' | translate }}" (click)="copyCommitHash()"
+            class="view-commit__hash__hash">
+            {{ currentDescription?.oid | slice:0:6 }}
+            <i class="fa fa-lg copied" [ngClass]="[hashCopied ? 'fa-check' : '']"></i>
           </span>
+        </span>
+      </div>
+      <div class="col-md-12 mt-2" *ngIf="currentDescription?.message">
+        <app-commit-text-area rows="3" [descValue]="getCommitDescription()" [summaryValue]="getCommitSummary()"
+          [readonly]="true" [descView]="true"></app-commit-text-area>
+      </div>
+      <div class="col-md-12 row mt-2">
+        <div class="col-md-6 px-0">
+          <div class="col-md-12">
+            <span>{{ currentDescription?.committer.name }}</span>
+          </div>
+          <div class="col-md-12">
+            <span class="view-commit__date">{{ commitDate }}</span>
+          </div>
+        </div>
+        <div class="col-md-6 px-0">
+          <div class="col-md-12 view-commit__parent px-0 text-right">
+            <i class="fa copied mr-1" [ngClass]="[parentHashCopied ? 'fa-check' : '']"></i>
+            <span>parent :</span>
+            <span *ngFor="let p of currentDescription?.parent; let i = index" placement="top"
+              ngbTooltip="{{ 'COPY' | translate }}" (click)="copyParentHash(p)" class="view-commit__hash__hash">
+              {{p | slice:0:6}}{{ currentDescription?.parent.length - 1 === i ? '' : ', ' }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="container mt-5">
+    <div class="container view-commit__bottom">
       <app-file-diff-commit [listFiles]="currentDescription?.files" componentType="view"></app-file-diff-commit>
     </div>
   </div>
