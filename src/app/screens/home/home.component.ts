@@ -158,6 +158,11 @@ export class HomeComponent implements OnDestroy {
     this.newBranchInfoBarVisible = true;
   }
 
+  openCreateBranchInfoBar(refBranchName) {
+    this.referenceBranchName = refBranchName;
+    this.newBranchInfoBarVisible = true;
+  }
+
   async openTerminal() {
     return this.terminalService.openTerminal()
       .then(() => {
@@ -436,6 +441,8 @@ export class HomeComponent implements OnDestroy {
         this.leftPanelService.setRemoteBranches();
         this.newBranchInfoBarVisible = false;
         this.homeLoading = false;
+        this.referenceBranchName = '';
+        this.newBranchName = '';
         this.toastr.info(data.message, data.title);
       })
       .catch((data) => {
@@ -446,6 +453,8 @@ export class HomeComponent implements OnDestroy {
   }
 
   closeNewBranchInfoBar() {
+    this.referenceBranchName = '';
+    this.newBranchName = '';
     this.newBranchInfoBarVisible = false;
   }
 

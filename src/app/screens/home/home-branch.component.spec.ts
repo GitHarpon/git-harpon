@@ -41,6 +41,7 @@ import { AccordionComponent } from '../../components/accordion/accordion.compone
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
+import { ContextMenuModule } from 'ngx-contextmenu';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -70,6 +71,7 @@ describe('HomeComponent', () => {
         ViewCommitComponent
       ],
       imports: [
+        ContextMenuModule,
         FormsModule,
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
@@ -124,6 +126,17 @@ describe('HomeComponent', () => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     leftPanelService = TestBed.get(LeftPanelService);
+  });
+
+  it('tests the openCreateBranchInfoBar function', () => {
+    const SelectedBranchName = 'selectedBranch';
+    const RefBranchName = '';
+    const NewBranchInfoBarVisibility = false;
+    component.referenceBranchName = RefBranchName;
+    component.newBranchInfoBarVisible = NewBranchInfoBarVisibility;
+    component.openCreateBranchInfoBar(SelectedBranchName);
+    expect(component.referenceBranchName).toBe(SelectedBranchName);
+    expect(component.newBranchInfoBarVisible).toBeTruthy();
   });
 
   it('tests the createBranch function', (done) => {

@@ -43,6 +43,7 @@ import { TextAreaComponent } from '../../components/text-area/text-area.componen
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
+import { ContextMenuModule } from 'ngx-contextmenu';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -74,6 +75,7 @@ describe('HomeComponent', () => {
         TextAreaComponent
       ],
       imports: [
+        ContextMenuModule,
         FormsModule,
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}

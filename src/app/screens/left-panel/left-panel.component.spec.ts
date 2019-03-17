@@ -18,6 +18,7 @@ import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { ContextMenuModule } from 'ngx-contextmenu';
 
 describe('LeftPanelComponent', () => {
   /* tslint:disable */
@@ -34,6 +35,7 @@ describe('LeftPanelComponent', () => {
           LoaderComponent
       ],
       imports: [
+        ContextMenuModule,
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
         }),
@@ -174,6 +176,23 @@ describe('LeftPanelComponent', () => {
       done();
     });
   });
+
+  it ('test the openCreateBranchInfoBar function with a local branch', () => {
+    const LocalBranch = 'localBranch';
+    spyOn(component.createBranchInfoBar, 'emit');
+    component.openCreateBranchInfoBar(LocalBranch);
+    fixture.detectChanges();
+    expect(component.createBranchInfoBar.emit).toHaveBeenCalledWith(LocalBranch);
+  });
+
+  it ('test the openCreateBranchInfoBar function with a remote branch', () => {
+    const RemoteBranch = 'origin/newData';
+    spyOn(component.createBranchInfoBar, 'emit');
+    component.openCreateBranchInfoBar(RemoteBranch);
+    fixture.detectChanges();
+    expect(component.createBranchInfoBar.emit).toHaveBeenCalledWith(RemoteBranch);
+  });
+
 
   it ('test the ngOnDestroy function with defined subscriptions', () => {
     component.ngOnInit();

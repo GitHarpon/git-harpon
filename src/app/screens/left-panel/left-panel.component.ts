@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { Subscription } from 'rxjs';
 import { GitService } from '../../providers/git.service';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { ToastrService } from 'ngx-toastr';
+import { ContextMenuComponent } from 'ngx-contextmenu';
 
 @Component({
   selector: 'app-left-panel',
@@ -11,6 +12,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./left-panel.component.scss']
 })
 export class LeftPanelComponent implements OnInit, OnDestroy {
+  @ViewChild('branchCM') branchCM: ContextMenuComponent;
+  @ViewChild('remoteCM') remoteCM: ContextMenuComponent;
   currentTheme: string;
   themePrefSubscription: Subscription;
   localBranches: any;
@@ -23,6 +26,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   loadingVisible: Boolean;
   loadingVisibleSubscription: Subscription;
   @Output() checkoutInfoBarChange = new EventEmitter<any>();
+  @Output() createBranchInfoBar = new EventEmitter<any>();
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
     private leftPanelService: LeftPanelService, private toastr: ToastrService) { }
@@ -102,6 +106,10 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
         this.checkoutInfoBarChange.emit(remoteBranch);
       }
     });
+  }
+
+  openCreateBranchInfoBar(deleteBranch) {
+    this.createBranchInfoBar.emit(deleteBranch);
   }
 
   ngOnDestroy() {
