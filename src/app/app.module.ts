@@ -61,6 +61,7 @@ import { LeftPanelService } from './providers/left-panel.service';
 import { TextAreaComponent } from './components/text-area/text-area.component';
 import { CommitTextAreaComponent } from './components/commit-text-area/commit-text-area.component';
 import { FileDiffCommitComponent } from './components/file-diff-commit/file-diff-commit.component';
+import { GraphService } from './providers/graph.service';
 
 
 // AoT requires an exported function for factories
@@ -136,7 +137,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ThemePreferencesService,
     TerminalManagerService,
     RightPanelService,
-    LeftPanelService
+    LeftPanelService,
+    GraphService
   ],
   bootstrap: [AppComponent]
 })
