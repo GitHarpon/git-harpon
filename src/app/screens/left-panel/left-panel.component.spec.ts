@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LeftPanelComponent } from './left-panel.component';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 import { GitService } from '../../providers/git.service';
 import { LeftPanelService } from '../../providers/left-panel.service';
@@ -11,7 +11,7 @@ import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MockGitService } from '../../models/MockGitService';
-import { ContextMenuComponent } from 'ngx-contextmenu';
+import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { LoaderComponent } from '../../components/loader/loader.component';
@@ -19,6 +19,9 @@ import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { MockLanguagePreferencesService } from '../../models/MockLanguagePreferenceService';
+import { LanguagePreferencesService } from '../../providers/language-preferences.service';
+import { MockTranslateService } from '../../models/MockTranslateService';
 
 describe('LeftPanelComponent', () => {
   /* tslint:disable */
@@ -32,16 +35,17 @@ describe('LeftPanelComponent', () => {
       declarations: [
           LeftPanelComponent,
           AccordionComponent,
-          ContextMenuComponent,
           LoaderComponent
       ],
       imports: [
+        ContextMenuModule,
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
         }),
         ToastrModule.forRoot(),
         NgbModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ContextMenuModule
       ],
       providers: [
         {
@@ -60,7 +64,16 @@ describe('LeftPanelComponent', () => {
           provide: LeftPanelService,
           useClass: MockLeftPanelService
         },
-        ToastrService
+        {
+          provide: LanguagePreferencesService,
+          useClass: MockLanguagePreferencesService
+        },
+        {
+          provide: TranslateService,
+          useClass: MockTranslateService
+        },
+        ToastrService,
+        ContextMenuService
       ]
     })
     .compileComponents();

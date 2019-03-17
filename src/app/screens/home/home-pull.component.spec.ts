@@ -43,6 +43,7 @@ import { TextAreaComponent } from '../../components/text-area/text-area.componen
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
+import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -71,7 +72,7 @@ describe('HomeComponent', () => {
         SendCommitComponent,
         ViewCommitComponent,
         FileDiffCommitComponent,
-        TextAreaComponent
+        TextAreaComponent,
       ],
       imports: [
         FormsModule,
@@ -83,6 +84,7 @@ describe('HomeComponent', () => {
         NgbModule,
         RouterTestingModule,
         BrowserAnimationsModule,
+        ContextMenuModule,
         ToastrModule.forRoot()
       ],
       providers: [
@@ -118,7 +120,8 @@ describe('HomeComponent', () => {
           provide: LeftPanelService,
           useClass: MockLeftPanelService
         },
-        ToastrService
+        ToastrService,
+        ContextMenuService
       ]
     })
       .compileComponents();
