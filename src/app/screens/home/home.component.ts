@@ -136,15 +136,9 @@ export class HomeComponent implements OnDestroy {
         this.resetPullrebaseInputs();
       })
       .catch((data) => {
-        if (data.newData) {
-          this.pullrebaseAuthErrored = this.pullrebaseCredInfoBarVisible;
-          this.pullrebaseHttpsUser.password = '';
-          this.pullrebaseCredInfoBarVisible = true;
-        } else {
-          this.homeLoading = false;
-          this.resetPullrebaseInputs();
-          this.toastr.error(data.message, data.title);
-        }
+        this.homeLoading = false;
+        this.resetPullrebaseInputs();
+        this.toastr.error(data.message, data.title);
       });
   }
 
