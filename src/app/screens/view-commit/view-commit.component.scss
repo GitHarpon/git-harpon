@@ -31,15 +31,15 @@
     }
     
     &__date, &__parent {
-        font-size: $fs-small;
+        font-size: 9px;
     }
 
     &__top {
-        height: 30%;
+        height: 225px;
     }
 
     &__bottom {
-        height: calc(70% - 33px);
+        height: calc(100% - 225px - 33px);
     }
 }
 
