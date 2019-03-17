@@ -318,7 +318,6 @@ export class GitService {
                 this.translate.instant('CLONE.DONE'), RepoPath));
             })
             .catch((err) => {
-              console.log(err);
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
                 this.translate.instant('CLONE.ERROR')));
             });
@@ -392,7 +391,8 @@ export class GitService {
   async pullrebaseHttps(folder: string, httpsUser: HttpsUser, branch: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
       var Remote;
-      gitPromise(folder).raw(['remote', 'get-url', 'origin'])
+      gitPromise(folder)
+        .raw(['remote', 'get-url', 'origin'])
         .then((data) => {
           const Credentials = httpsUser.username + ':' + httpsUser.password + '@';
           var RemoteArray = [];
@@ -407,7 +407,7 @@ export class GitService {
         .pull(Remote, branch, {'--rebase': 'true'})
         .then((data) => {
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-          this.translate.instant('PULL.DONE')));
+          this.translate.instant('PULL.DONE'), 'newData'));
         })
         .catch((err) => {
           var ErrMsg = 'PULL.ERROR';
@@ -423,9 +423,5 @@ export class GitService {
           this.translate.instant(ErrMsg), AccessDenied));
         });
     });
-  }
-
-  async pullrebaseSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
-      // SSH non pris en charge pour le moment
   }
 }
