@@ -45,6 +45,7 @@ export class HomeComponent implements OnDestroy {
   pullrebaseInfoBarVisible: boolean;
   pullrebaseAuthErrored: boolean;
   pullrebaseCredInfoBarVisible: boolean;
+  pullrebaseHttpsUser: HttpsUser;
 
   homeLoading: boolean;
   openFolder: string;
@@ -110,6 +111,11 @@ export class HomeComponent implements OnDestroy {
       username: '',
       password: ''
     };
+
+    this.pullrebaseHttpsUser = {
+      username: '',
+      password: ''
+    };
   }
 
   @HostListener('window:focus', ['$event'])
@@ -122,18 +128,18 @@ export class HomeComponent implements OnDestroy {
 
   async pullrebaseHttps() {
     this.homeLoading = true;
-    return this.gitService.pullrebaseHttps(this.fullPath, this.currentHttpsUser, this.branchName)
+    return this.gitService.pullrebaseHttps(this.fullPath, this.pullrebaseHttpsUser, this.branchName)
       .then((data) => {
         this.homeLoading = false;
         this.pullrebaseCredInfoBarVisible = false;
         this.toastr.info(data.message, data.title);
+        this.resetPullrebaseInputs();
       })
       .catch((data) => {
         if (data.newData) {
           this.pullrebaseAuthErrored = this.pullrebaseCredInfoBarVisible;
-          this.currentHttpsUser.password = '';
+          this.pullrebaseHttpsUser.password = '';
           this.pullrebaseCredInfoBarVisible = true;
-          this.homeLoading = false;
         } else {
           this.homeLoading = false;
           this.resetPullrebaseInputs();
@@ -311,6 +317,7 @@ export class HomeComponent implements OnDestroy {
   closeCredInfoBar() {
     this.credInfoBarVisible = false;
     this.resetCloneInputs();
+    this.resetPullrebaseInputs();
   }
 
   openClonedRepo() {
@@ -344,7 +351,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   resetPullrebaseInputs() {
-    this.currentHttpsUser = {
+    this.pullrebaseHttpsUser = {
       username: '',
       password: ''
     };
