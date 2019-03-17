@@ -5,13 +5,25 @@ import { Subject } from 'rxjs';
 export class MockLeftPanelService {
     localBranches: any;
     localBranchesSubject: Subject<any>;
+    remoteBranches: any;
+    remoteBranchesSubject: Subject<any>;
+    loadingVisibleSubject: Subject<any>;
 
     constructor() {
         this.localBranchesSubject = new Subject<any>();
+        this.remoteBranchesSubject = new Subject<any>();
+        this.loadingVisibleSubject = new Subject<any>();
     }
 
-    setLocalBranches(localBranches) {
-        this.localBranches = localBranches;
+    setLocalBranches() {
         this.localBranchesSubject.next(this.localBranches);
+    }
+
+    setRemoteBranches() {
+        this.remoteBranchesSubject.next(this.remoteBranches);
+    }
+
+    setLoadingVisible(loadingVisible) {
+        this.loadingVisibleSubject.next(loadingVisible);
     }
 }

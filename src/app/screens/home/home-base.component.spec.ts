@@ -40,6 +40,9 @@ import { CommitTextAreaComponent } from '../../components/commit-text-area/commi
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { ContextMenuComponent } from 'ngx-contextmenu';
+import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { MockRightPanelService } from '../../models/MockRightPanelService';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -68,7 +71,8 @@ describe('HomeComponent', () => {
         ViewCommitComponent,
         TextAreaComponent,
         CommitTextAreaComponent,
-        ContextMenuComponent
+        ContextMenuComponent,
+        FileDiffCommitComponent
       ],
       imports: [
         FormsModule,
@@ -102,6 +106,14 @@ describe('HomeComponent', () => {
         {
           provide: GitService,
           useClass: MockGitService
+        },
+        {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
+        },
+        {
+            provide: LeftPanelService,
+            useClass: MockLeftPanelService
         },
         {
           provide: TerminalManagerService,
@@ -220,5 +232,9 @@ describe('HomeComponent', () => {
     expect(component.leftPanelVisible).toBeFalsy();
     expect(component.graphVisible).toBeFalsy();
     expect(component.rightPanelVisible).toBeFalsy();
+  });
+
+  it('test the function onFocus', () => {
+    expect(component.onFocus()).toBeTruthy();
   });
 });

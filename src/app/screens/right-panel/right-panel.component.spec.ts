@@ -7,6 +7,9 @@ import { ViewCommitComponent } from '../view-commit/view-commit.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { RightPanelService } from '../../providers/right-panel.service';
+import { ButtonComponent } from '../../components/button/button.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 
 describe('RightPanelComponent', () => {
   /* tslint:disable */
@@ -19,7 +22,12 @@ describe('RightPanelComponent', () => {
       declarations: [
         RightPanelComponent,
         ViewCommitComponent,
-        SendCommitComponent
+        SendCommitComponent,
+        ButtonComponent,
+        FileDiffCommitComponent
+      ],
+      imports: [
+        TranslateModule
       ],
       providers: [
         {

@@ -34,11 +34,14 @@ import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
-import { TextAreaComponent } from '../../components/text-area/text-area.component';
-import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { ContextMenuComponent } from 'ngx-contextmenu';
+import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { MockRightPanelService } from '../../models/MockRightPanelService';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -66,7 +69,8 @@ describe('HomeComponent', () => {
         ViewCommitComponent,
         TextAreaComponent,
         CommitTextAreaComponent,
-        ContextMenuComponent
+        ContextMenuComponent,
+        FileDiffCommitComponent
       ],
       imports: [
         FormsModule,
@@ -100,6 +104,14 @@ describe('HomeComponent', () => {
         {
           provide: GitService,
           useClass: MockGitService
+        },
+        {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
+        },
+        {
+            provide: LeftPanelService,
+            useClass: MockLeftPanelService
         },
         {
           provide: TerminalManagerService,

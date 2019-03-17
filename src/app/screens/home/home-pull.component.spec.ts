@@ -14,6 +14,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { IconButtonComponent } from '../../components/icon-button/icon-button.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { MatTabsModule, TooltipComponent } from '@angular/material';
 import { ResizableModule, ResizeEvent } from 'angular-resizable-element';
 import { LoaderComponent } from '../../components/loader/loader.component';
@@ -32,23 +33,23 @@ import { TerminalManagerService } from '../../providers/terminal-manager.service
 import { LeftPanelComponent } from '../left-panel/left-panel.component';
 import { GraphComponent } from '../graph/graph.component';
 import { RightPanelComponent } from '../right-panel/right-panel.component';
-import { AccordionComponent } from '../../components/accordion/accordion.component';
-import { ViewCommitComponent } from '../view-commit/view-commit.component';
+import { HttpsUser } from '../../models/HttpsUser';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
+import { ViewCommitComponent } from '../view-commit/view-commit.component';
+import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { TextAreaComponent } from '../../components/text-area/text-area.component';
-import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
-import { ContextMenuComponent } from 'ngx-contextmenu';
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
 
 describe('HomeComponent', () => {
-  /* tslint:disable */
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
-  /* tslint:enable */
+    /* tslint:disable */
+    let component: HomeComponent;
+    let fixture: ComponentFixture<HomeComponent>;
+    const Empty = '';
+    /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -60,6 +61,7 @@ describe('HomeComponent', () => {
         ModalComponent,
         FooterComponent,
         IconButtonComponent,
+        CommitTextAreaComponent,
         LoaderComponent,
         InfoBarComponent,
         AccordionComponent,
@@ -68,10 +70,8 @@ describe('HomeComponent', () => {
         RightPanelComponent,
         SendCommitComponent,
         ViewCommitComponent,
-        TextAreaComponent,
-        CommitTextAreaComponent,
-        ContextMenuComponent,
-        FileDiffCommitComponent
+        FileDiffCommitComponent,
+        TextAreaComponent
       ],
       imports: [
         FormsModule,
@@ -107,16 +107,12 @@ describe('HomeComponent', () => {
           useClass: MockGitService
         },
         {
-          provide: RightPanelService,
-          useClass: MockRightPanelService
-        },
-        {
-            provide: LeftPanelService,
-            useClass: MockLeftPanelService
-        },
-        {
           provide: TerminalManagerService,
           useClass: MockTerminalManagerService
+        },
+        {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
         },
         {
           provide: LeftPanelService,
@@ -133,69 +129,63 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('tests the updateFullPath function for init with all fields', () => {
-    const Path = '/new';
-    const RepoName = '/repo';
-    component.initLocation = Path;
-    component.initName = RepoName;
-    component.updateFullPath();
-    expect(component.fullPath).toBe('/new/repo');
-  });
-
-  it('tests the updateFullPath for init without location', () => {
-    const Path = '';
-    const RepoName = '/repo';
-    component.initLocation = Path;
-    component.initName = RepoName;
-    component.updateFullPath();
-    expect(component.fullPath).toBe('');
-  });
-
-  it('tests the initBrowse function with valid BrowsePath', () => {
-    component.initBrowse();
-    expect(component.initLocation).toBe('/new');
-  });
-
-  it('tests the initSubmit function with valid path', (done) => {
-    const OldPath = '/old';
-    const NewPath = '/new';
-    const RepoName = '/repo';
-    const BoolModal = true;
-    component.initLocation = NewPath;
-    component.initName = RepoName;
-    component.projectModalVisible = BoolModal;
-    component.projectModalLoading = BoolModal;
-    component.path = OldPath;
-    component.initSubmit().then(() => {
-      expect(component.projectModalVisible).toBeFalsy();
-      expect(component.projectModalLoading).toBeFalsy();
-      expect(component.initLocation).toBe('');
-      expect(component.initName).toBe('');
-      expect(component.fullPath).toBe('');
-      expect(component.path).toBe(NewPath);
+  it('tests the pullrebaseHttps function and valid arguments', (done) => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const Folder = 'path';
+    component.fullPath = Folder;
+    component.currentHttpsUser = User;
+    component.homeLoading = true;
+    component.pullrebaseCredInfoBarVisible = true;
+    component.pullrebaseHttps().then(() => {
+      expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
+      expect(component.homeLoading).toBeFalsy();
       done();
     });
   });
 
-  it('tests the initSubmit function with invalid path', (done) => {
-    const OldPath = '/old';
-    const NewPath = '/invalidpath';
-    const RepoName = '/repo';
-    const BoolModal = true;
-    component.initLocation = NewPath;
-    component.initName = RepoName;
-    const FullPath = component.fullPath;
-    component.projectModalVisible = BoolModal;
-    component.projectModalLoading = BoolModal;
-    component.path = OldPath;
-    component.initSubmit().then(() => {
-      expect(component.projectModalVisible).toBeTruthy();
-      expect(component.projectModalLoading).toBeFalsy();
-      expect(component.initLocation).toBe(NewPath);
-      expect(component.initName).toBe(RepoName);
-      expect(component.fullPath).toBe(FullPath);
-      expect(component.path).toBe(OldPath);
+  it('tests the pullrebaseHttps function and invalid arguments', (done) => {
+    const User = { username: '', password: '' };
+    const Visible = true;
+    component.currentHttpsUser = User;
+    component.homeLoading = Visible;
+    component.pullrebaseAuthErrored = false;
+    component.pullrebaseCredInfoBarVisible = Visible;
+    component.pullrebaseHttps().then(() => {
+      expect(component.pullrebaseAuthErrored).toBeTruthy();
+      expect(component.homeLoading).toBeFalsy();
       done();
     });
+  });
+
+  it('tests the pullrebaseHttps function and invalid arguments alternative', (done) => {
+    const User = { username: 'username', password: 'password' };
+    const InvalidPath = 'invalid';
+    const Visible = true;
+
+    component.fullPath = InvalidPath;
+    component.currentHttpsUser = User;
+    component.homeLoading = Visible;
+    component.pullrebaseAuthErrored = false;
+    component.pullrebaseCredInfoBarVisible = Visible;
+    component.pullrebaseHttps().then(() => {
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.currentHttpsUser.password).toBeFalsy();
+      expect(component.currentHttpsUser.username).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the resetPullrebaseInputs function', () => {
+    const Expected: HttpsUser = { username: '', password: '' };
+    component.resetPullrebaseInputs();
+    expect(component.currentHttpsUser.username).toBe(Expected.username);
+    expect(component.currentHttpsUser.password).toBe(Expected.password);
+    expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
+    expect(component.homeLoading).toBeFalsy();
+  });
+
+  it('tests the closePullrebaseCredInfoBar function', () => {
+    component.closePullrebaseCredInfoBar();
+    expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
   });
 });
