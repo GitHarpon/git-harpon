@@ -172,6 +172,9 @@
     "COMMIT": {
         "DESCRIPTION": "Description d'un commit"
     },
+    "MODIFIED": "modifiés",
+    "ADDED": "ajoutés",
+    "DELETED": "supprimés",
     "DESCRIPTION": "Description",
     "NB_FILE_COMMIT": "fichier changé",
     "NB_FILES_COMMIT": "fichiers changés",

@@ -35,6 +35,20 @@
           </div>
         </div>
       </div>
+      <div class="container mt-2 view-commit__file-status">
+        <span *ngIf="countModifiedFiles() != 0" class="mr-1">
+          <i class="fa fa-file-signature color-m"></i>
+          {{ countModifiedFiles() }} {{ 'MODIFIED' | translate }}
+        </span>
+        <span *ngIf="countAddedFiles() != 0" class="mr-1">
+            <i class="fa fa-file-medical color-a"></i>
+            {{ countAddedFiles() }} {{ 'ADDED' | translate }}
+          </span>
+          <span *ngIf="countDeletedFiles() != 0" class="mr-1">
+              <i class="fa fa-file-excel color-d"></i>
+              {{ countDeletedFiles() }} {{ 'DELETED' | translate }}
+            </span>
+      </div>
     </div>
     <div class="container view-commit__bottom">
       <app-file-diff-commit [listFiles]="currentDescription?.files" componentType="view"></app-file-diff-commit>

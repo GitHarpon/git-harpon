@@ -72,15 +72,27 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   }
 
   countAddedFiles() {
-    return this.currentDescription.files.filter(o => o.status === 'A').length;
+    if (this.currentDescription) {
+      return this.currentDescription.files.filter(o => o.status === 'A').length;
+    }
+
+    return 0;
   }
 
   countModifiedFiles() {
-    return this.currentDescription.files.filter(o => o.status === 'M').length;
+    if (this.currentDescription) {
+      return this.currentDescription.files.filter(o => o.status === 'M').length;
+    }
+
+    return 0;
   }
 
-  countDeltedFiles() {
-    return this.currentDescription.files.filter(o => o.status === 'D').length;
+  countDeletedFiles() {
+    if (this.currentDescription) {
+      return this.currentDescription.files.filter(o => o.status === 'D').length;
+    }
+
+    return 0;
   }
 
   getCommitDescription() {
