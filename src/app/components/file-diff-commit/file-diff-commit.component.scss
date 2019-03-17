@@ -7,6 +7,8 @@
     overflow-y: scroll;
     white-space: nowrap;
     @include w100-h100();
+    width: 100%;
+    height: 150px;
 
     &.dark {
         background: $low-dark;

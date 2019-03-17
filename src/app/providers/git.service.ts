@@ -433,7 +433,7 @@ export class GitService {
   }
 
   async commitDescription(hash: String) {
-    return new Promise<CommitDescription>((resolve, reject) => {
+    return new Promise<any>((resolve, reject) => {
       isomorphic.log(
         {
           fs: this.electronService.fs,
@@ -443,8 +443,28 @@ export class GitService {
         })
         .then((commitInfo) => {
           const Args = hash + '^!';
-          this.gitP.diffSummary([Args])
-            .then((files) => resolve({...commitInfo[0], ...files}));
+          gitPromise().show(['-m', '--name-status', '--oneline', hash.toString()])
+            .then((result) => {
+              const FirstArray = result.split(/\n/);
+              FirstArray.shift();
+              var SecondArray = FirstArray.map(x => {
+                return (x.split(/\s{1}/g));
+              });
+              const Final = [];
+              for (var Elem in SecondArray)  {
+                if (Array.isArray(SecondArray[Elem]) && SecondArray[Elem].length === 2) {
+                  var Path = '';
+                  // Pour gérer les fichiers avec un espace
+                  for (var Ind = 1; Ind < SecondArray[Elem].length; Ind++) {
+                    Path += SecondArray[Elem][Ind];
+                  }
+                  Final.push({ status: SecondArray[Elem][0], path: Path});
+                } else {
+                  break;
+                }
+              }
+              resolve({...commitInfo[0], files: Final});
+          });
         });
     });
   }
