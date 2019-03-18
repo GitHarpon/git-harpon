@@ -42,6 +42,10 @@ import { ViewCommitComponent } from '../view-commit/view-commit.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 import { ContextMenuModule } from 'ngx-contextmenu';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
+import { GraphService } from '../../providers/graph.service';
+import { MockGraphService } from '../../models/MockGraphService';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -67,8 +71,10 @@ describe('HomeComponent', () => {
         GraphComponent,
         RightPanelComponent,
         SendCommitComponent,
-        FileDiffCommitComponent,
-        ViewCommitComponent
+        ViewCommitComponent,
+        TextAreaComponent,
+        CommitTextAreaComponent,
+        FileDiffCommitComponent
       ],
       imports: [
         ContextMenuModule,
@@ -103,6 +109,10 @@ describe('HomeComponent', () => {
         {
           provide: LeftPanelService,
           useClass: MockLeftPanelService
+        },
+        {
+          provide: GraphService,
+          useClass: MockGraphService
         },
         {
           provide: ElectronService,
