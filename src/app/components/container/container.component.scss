@@ -13,7 +13,6 @@
 .gh-container {
     @include w100-h100();
     @include wX-hX(100%, calc(100% - #{$footer-height}));
-    overflow: auto;
 
     &.light {
         background-color: $white;

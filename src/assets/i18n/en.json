@@ -175,6 +175,12 @@
     "INDEPENDENT_THEME": "Independent of the theme",
     "WRONG_CRED": "Wrong informations",
     "SUMMARY": "Summary",
+    "COMMIT": {
+        "DESCRIPTION": "Commit description"
+    },
+    "MODIFIED": "modified",
+    "ADDED": "added",
+    "DELETED": "deleted",
     "DESCRIPTION": "Description",
     "NB_FILE_COMMIT": "file changed",
     "NB_FILES_COMMIT": "files changed",

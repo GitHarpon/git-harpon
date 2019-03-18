@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 import { NewBranchCouple } from '../../models/NewBranchCouple';
 import { ToastrService } from 'ngx-toastr';
+import { RightPanelService } from '../../providers/right-panel.service';
 
 @Component({
   selector: 'app-left-panel',
@@ -35,7 +36,8 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
     private leftPanelService: LeftPanelService, private translate: TranslateService,
-    private langPrefService: LanguagePreferencesService, private toastr: ToastrService) {
+    private langPrefService: LanguagePreferencesService, private toastr: ToastrService,
+    private rightPanelService: RightPanelService) {
 
   }
 
@@ -95,6 +97,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
         this.loadingVisible = false;
         this.leftPanelService.setLocalBranches();
         this.leftPanelService.setRemoteBranches();
+        this.updateCommitDescription();
       }).catch((result) => {
         this.loadingVisible = false;
         this.toastr.error(result.message, result.title, {
@@ -114,6 +117,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
       this.loadingVisible = false;
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
+      this.updateCommitDescription();
     }).catch((result) => {
       if (!result.newData) {
         this.loadingVisible = false;
@@ -130,6 +134,12 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     var TmpNewBr = new NewBranchCouple();
     TmpNewBr.oldBranch = branch;
     this.newBranchCouple = TmpNewBr;
+  }
+  
+  async updateCommitDescription() {
+    return this.gitService.revParseHEAD().then((data) => {
+      this.rightPanelService.setCommitHash(data.replace('\n', ''));
+    });
   }
 
   ngOnDestroy() {

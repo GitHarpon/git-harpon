@@ -11,7 +11,8 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { HttpsUser } from '../../models/HttpsUser';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { NewBranchCouple } from '../../models/NewBranchCouple';
-
+import { RightPanelService } from '../../providers/right-panel.service';
+import { GraphService } from '../../providers/graph.service';
 
 @Component({
   selector: 'app-home',
@@ -68,10 +69,10 @@ export class HomeComponent implements OnDestroy {
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
     private translateService: TranslateService, private terminalService: TerminalManagerService,
-    private themePrefService: ThemePreferencesService, private leftPanelService: LeftPanelService) {
+    private themePrefService: ThemePreferencesService, private leftPanelService: LeftPanelService,
+    private rightPanelService: RightPanelService, private graphService: GraphService) {
 
     this.newBranchCouple = new NewBranchCouple();
-
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
@@ -405,6 +406,8 @@ export class HomeComponent implements OnDestroy {
       this.rightPanelVisible = true;
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
+      this.rightPanelService.setView(true);
+      this.graphService.setGraph();
     } else {
       this.mainPanelVisible = true;
     }
@@ -415,6 +418,7 @@ export class HomeComponent implements OnDestroy {
     this.leftPanelVisible = false;
     this.graphVisible = false;
     this.rightPanelVisible = false;
+    this.rightPanelService.setCommitHash('');
   }
 
   openCheckoutInfoBar(remoteBranch) {
