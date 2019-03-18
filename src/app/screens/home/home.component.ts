@@ -40,7 +40,7 @@ export class HomeComponent implements OnDestroy {
   branchName: any;
   branchNameSubscription: Subscription;
   newBranchCouple: NewBranchCouple;
-  newBranchName: string;
+  newBranchNameForRenaming: string;
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
   checkoutInfoBarVisible: boolean;
@@ -319,7 +319,7 @@ export class HomeComponent implements OnDestroy {
   async renameBranch() {
     var TmpNewBr = new NewBranchCouple();
     TmpNewBr.oldBranch = this.newBranchCouple.oldBranch;
-    TmpNewBr.newBranch = this.newBranchName;
+    TmpNewBr.newBranch = this.newBranchNameForRenaming;
     this.newBranchCouple = TmpNewBr;
     if (this.newBranchCouple.newBranch != '' && this.newBranchCouple.oldBranch != '') {
       return this.gitService.renameBranch(this.newBranchCouple.oldBranch, this.newBranchCouple.newBranch)
@@ -335,7 +335,7 @@ export class HomeComponent implements OnDestroy {
 
   closeRenameBar() {
     this.newBranchCouple = new NewBranchCouple();
-    this.newBranchName = '';
+    this.newBranchNameForRenaming = '';
     this.gitService.getLocalBranches().then(() => {
       this.leftPanelService.setLocalBranches();
     });
