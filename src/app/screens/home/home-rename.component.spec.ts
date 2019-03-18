@@ -45,6 +45,8 @@ import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
 import { NewBranchCouple } from '../../models/NewBranchCouple';
+import { MockGraphService } from '../../models/MockGraphService';
+import { GraphService } from '../../providers/graph.service';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -116,6 +118,10 @@ describe('HomeComponent', () => {
         {
           provide: RightPanelService,
           useClass: MockRightPanelService
+        },
+        {
+          provide: GraphService,
+          useClass: MockGraphService
         },
         {
           provide: LeftPanelService,
