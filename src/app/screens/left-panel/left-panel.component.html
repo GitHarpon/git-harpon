@@ -2,7 +2,7 @@
   <app-loader [loading]="loadingVisible">
     <app-accordion title="LOCAL" [icon]="{name:'fa-laptop', isFab:false}">
       <div *ngFor="let localBranch of localBranches" (dblclick)="checkoutLocalBranch(localBranch)" [class.gh-current-branch]="localBranch === currentBranch"
-      class="gh-branch py-1" [ngClass]="[currentTheme]" [contextMenu]="branchCM" [contextMenuSubject]="branch">
+      class="gh-branch py-1" [ngClass]="[currentTheme]" [contextMenu]="branchCM" [contextMenuSubject]="localBranch">
           <i class="fa fa-code-branch ml-2 mr-1"></i>
         <span>{{ localBranch }}</span>
         <context-menu #branchCM>
@@ -28,4 +28,9 @@
       </div>
     </app-accordion>
   </app-loader>
+  <context-menu #branchCM>
+    <ng-template contextMenuItem let-item (execute)="renameBranch($event.item)">
+      {{ 'BRANCH.RENAME' | translate }} {{ item }}
+    </ng-template>
+  </context-menu>
 </div>

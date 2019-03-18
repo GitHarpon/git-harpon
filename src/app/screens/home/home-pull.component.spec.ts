@@ -43,7 +43,7 @@ import { TextAreaComponent } from '../../components/text-area/text-area.componen
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
-import { ContextMenuModule } from 'ngx-contextmenu';
+import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
 import { GraphService } from '../../providers/graph.service';
 import { MockGraphService } from '../../models/MockGraphService';
 
@@ -74,7 +74,7 @@ describe('HomeComponent', () => {
         SendCommitComponent,
         ViewCommitComponent,
         FileDiffCommitComponent,
-        TextAreaComponent
+        TextAreaComponent,
       ],
       imports: [
         ContextMenuModule,
@@ -87,6 +87,7 @@ describe('HomeComponent', () => {
         NgbModule,
         RouterTestingModule,
         BrowserAnimationsModule,
+        ContextMenuModule,
         ToastrModule.forRoot()
       ],
       providers: [
@@ -126,7 +127,8 @@ describe('HomeComponent', () => {
           provide: LeftPanelService,
           useClass: MockLeftPanelService
         },
-        ToastrService
+        ToastrService,
+        ContextMenuService
       ]
     })
       .compileComponents();

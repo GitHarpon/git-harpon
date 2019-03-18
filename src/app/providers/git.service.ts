@@ -240,6 +240,20 @@ export class GitService {
     });
   }
 
+  async renameBranch(oldName: string, newName: string) {
+    return new Promise<any>((resolve, reject) => {
+      if (this.repoName) {
+        gitPromise(this.path).raw(['branch', '-m', oldName, newName])
+          .then((result) => {
+            reject(new ServiceResult(true, this.translate.instant('BRANCH_RENAME_SUCESS'),
+              this.translate.instant('BRANCH_RENAME_ERROR')));
+          });
+      } else {
+        reject(null);
+      }
+    });
+  }
+
   checkoutLocalBranch(newBranch) {
     if (newBranch !== this.branchName) {
       return new Promise<ServiceResult>((resolve, reject) => {
@@ -300,9 +314,10 @@ export class GitService {
                 this.translate.instant('ERROR'), remoteBranch));
             }
           });
-      }
-    });
-  }
+        }
+      });
+    }
+
 
   createBranchHere(newBranch, remoteBranch) {
     return new Promise<ServiceResult>((resolve, reject) => {

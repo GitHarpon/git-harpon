@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LeftPanelComponent } from './left-panel.component';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 import { GitService } from '../../providers/git.service';
 import { LeftPanelService } from '../../providers/left-panel.service';
@@ -11,6 +11,7 @@ import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MockGitService } from '../../models/MockGitService';
+import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { LoaderComponent } from '../../components/loader/loader.component';
@@ -18,7 +19,10 @@ import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ContextMenuModule } from 'ngx-contextmenu';
+import { MockLanguagePreferencesService } from '../../models/MockLanguagePreferenceService';
+import { LanguagePreferencesService } from '../../providers/language-preferences.service';
+import { MockTranslateService } from '../../models/MockTranslateService';
+import { NewBranchCouple } from '../../models/NewBranchCouple';
 
 describe('LeftPanelComponent', () => {
   /* tslint:disable */
@@ -41,7 +45,8 @@ describe('LeftPanelComponent', () => {
         }),
         ToastrModule.forRoot(),
         NgbModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ContextMenuModule
       ],
       providers: [
         {
@@ -60,7 +65,16 @@ describe('LeftPanelComponent', () => {
           provide: LeftPanelService,
           useClass: MockLeftPanelService
         },
-        ToastrService
+        {
+          provide: LanguagePreferencesService,
+          useClass: MockLanguagePreferencesService
+        },
+        {
+          provide: TranslateService,
+          useClass: MockTranslateService
+        },
+        ToastrService,
+        ContextMenuService
       ]
     })
     .compileComponents();
@@ -171,7 +185,6 @@ describe('LeftPanelComponent', () => {
     component.loadingVisible = Visibility;
     spyOn(component.checkoutInfoBarChange, 'emit');
     component.checkoutRemoteBranch(RemoteBranch).then(() => {
-      fixture.detectChanges();
       expect(component.checkoutInfoBarChange.emit).toHaveBeenCalledWith(RemoteBranch);
       done();
     });
@@ -193,6 +206,14 @@ describe('LeftPanelComponent', () => {
     expect(component.createBranchInfoBar.emit).toHaveBeenCalledWith(RemoteBranch);
   });
 
+
+  it('test the renameBranch function', () => {
+    const OldBranch = 'toto';
+    component.newBranchCouple = new NewBranchCouple();
+    component.newBranchCouple.oldBranch = 'titi';
+    component.renameBranch(OldBranch);
+    expect(component.newBranchCouple.oldBranch).toEqual(OldBranch);
+  });
 
   it ('test the ngOnDestroy function with defined subscriptions', () => {
     component.ngOnInit();

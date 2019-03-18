@@ -105,6 +105,12 @@
         "NOT_CREATED": "Branche non créée",
         "A_LOCAL": "Une locale",
         "ALREADY_EXISTS": "existe déjà",
+        "RENAME": "Renommer",
+        "BRANCH_RENAME": "Renommer une branche",
+        "NEW_BRANCH_NAME_PROMPT": "Nom de la nouvelle branche",
+        "NEW_BRANCH": "Nouvelle branche",
+        "BRANCH_RENAME_SUCCESS" : "Branch renommée avec succès",
+        "BRANCH_RENAME_FAILURE" : "Une erreur s'est produite pendant le renommage",
         "ERROR": "Erreur durant le changement de branche"
     },
     "PULL": {

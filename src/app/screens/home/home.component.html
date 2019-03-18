@@ -71,7 +71,7 @@
             </div>
         </div>
 
-    <app-left-panel *ngIf="leftPanelVisible" (createBranchInfoBar)="openCreateBranchInfoBar($event)" (checkoutInfoBarChange)="openCheckoutInfoBar($event)"></app-left-panel>
+    <app-left-panel *ngIf="leftPanelVisible" (createBranchInfoBar)="openCreateBranchInfoBar($event)" (checkoutInfoBarChange)="openCheckoutInfoBar($event)" [(newBranchCouple)]="newBranchCouple"></app-left-panel>
     <app-graph *ngIf="graphVisible"></app-graph>
     <app-right-panel *ngIf="rightPanelVisible"></app-right-panel>
     
@@ -204,6 +204,14 @@
     <app-input [(value)]="cloneHttpsUser.password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
     <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!cloneHttpsUser.username || !cloneHttpsUser.password" (buttonClicked)="cloneHttps()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeCredInfoBar()"></app-button>
+</app-info-bar>
+
+<!-- Rename Info bar -->
+<app-info-bar [visible]="(newBranchCouple.oldBranch == '') ? false : true">
+    <span>{{ 'BRANCH.NEW_BRANCH_NAME_PROMPT' | translate }}</span>
+    <app-input [(value)]="newBranchName" [placeholder]="'BRANCH.NEW_BRANCH'" class="ml-3"></app-input>
+    <app-button class="ml-3" value="BRANCH.RENAME" type="success" [disabled]="!newBranchName" (buttonClicked)="renameBranch()"></app-button>
+    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeRenameBar()"></app-button>
 </app-info-bar>
 
 <!-- Pull (rebase) Info bar credentials -->
