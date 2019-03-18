@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { RightPanelService } from '../../providers/right-panel.service';
+import { GraphService } from '../../providers/graph.service';
 
 @Component({
   selector: 'app-graph',
@@ -10,10 +11,13 @@ import { RightPanelService } from '../../providers/right-panel.service';
 })
 export class GraphComponent implements OnInit, OnDestroy {
   themePrefSubscription: Subscription;
+  graph: string;
+  graphSubscription: Subscription;
   currentTheme: string;
   commitHash: string;
 
-  constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService) { }
+  constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
+    private graphService: GraphService) { }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -22,17 +26,32 @@ export class GraphComponent implements OnInit, OnDestroy {
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
+
+    this.graphSubscription = this.graphService.graphSubject.subscribe(
+      (graph) => {
+        this.graph = graph;
+      }
+    );
+    this.graphService.setGraph();
   }
 
   openViewCommit() {
+    this.rightPanelService.setCommitHash(this.commitHash);
     this.rightPanelService.setView(true);
+    return true;
   }
 
   openSendCommit() {
     this.rightPanelService.setView(false);
+    return true;
   }
 
   ngOnDestroy() {
-    this.themePrefSubscription.unsubscribe();
+    if (this.themePrefSubscription) {
+      this.themePrefSubscription.unsubscribe();
+    }
+    if (this.graphSubscription) {
+      this.graphSubscription.unsubscribe();
+    }
   }
 }

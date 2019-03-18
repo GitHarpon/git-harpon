@@ -35,6 +35,16 @@ import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
+import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
+import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { MockRightPanelService } from '../../models/MockRightPanelService';
+import { GraphService } from '../../providers/graph.service';
+import { MockGraphService } from '../../models/MockGraphService';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -60,7 +70,10 @@ describe('HomeComponent', () => {
         GraphComponent,
         RightPanelComponent,
         SendCommitComponent,
-        ViewCommitComponent
+        ViewCommitComponent,
+        TextAreaComponent,
+        CommitTextAreaComponent,
+        FileDiffCommitComponent
       ],
       imports: [
         FormsModule,
@@ -72,6 +85,7 @@ describe('HomeComponent', () => {
         NgbModule,
         RouterTestingModule,
         BrowserAnimationsModule,
+        ContextMenuModule,
         ToastrModule.forRoot()
       ],
       providers: [
@@ -96,10 +110,27 @@ describe('HomeComponent', () => {
           useClass: MockGitService
         },
         {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
+        },
+        {
+            provide: LeftPanelService,
+            useClass: MockLeftPanelService
+        },
+        {
+          provide: GraphService,
+          useClass: MockGraphService
+        },
+        {
           provide: TerminalManagerService,
           useClass: MockTerminalManagerService
         },
-        ToastrService
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
+        },
+        ToastrService,
+        ContextMenuService
       ]
     })
       .compileComponents();
@@ -208,5 +239,9 @@ describe('HomeComponent', () => {
     expect(component.leftPanelVisible).toBeFalsy();
     expect(component.graphVisible).toBeFalsy();
     expect(component.rightPanelVisible).toBeFalsy();
+  });
+
+  it('test the function onFocus', () => {
+    expect(component.onFocus()).toBeTruthy();
   });
 });

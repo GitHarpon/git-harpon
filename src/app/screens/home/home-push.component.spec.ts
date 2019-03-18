@@ -35,7 +35,17 @@ import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { HttpsUser } from '../../models/HttpsUser';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
+import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { MockRightPanelService } from '../../models/MockRightPanelService';
+import { GraphService } from '../../providers/graph.service';
+import { MockGraphService } from '../../models/MockGraphService';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
+import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -44,66 +54,83 @@ describe('HomeComponent', () => {
     const Empty = '';
     /* tslint:enable */
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        HomeComponent,
-        ContainerComponent,
-        InputComponent,
-        ButtonComponent,
-        ModalComponent,
-        FooterComponent,
-        IconButtonComponent,
-        LoaderComponent,
-        InfoBarComponent,
-        AccordionComponent,
-        LeftPanelComponent,
-        GraphComponent,
-        RightPanelComponent,
-        SendCommitComponent,
-        ViewCommitComponent
-      ],
-      imports: [
-        FormsModule,
-        TranslateModule.forRoot({
-          loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
-        }),
-        MatTabsModule,
-        ResizableModule,
-        NgbModule,
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        ToastrModule.forRoot()
-      ],
-      providers: [
-        {
-          provide: Router,
-          useClass: MockRouter
-        },
-        {
-          provide: TranslateService,
-          useClass: MockTranslateService
-        },
-        {
-          provide: ThemePreferencesService,
-          useClass: MockThemePreferencesService
-        },
-        {
-          provide: ElectronService,
-          useClass: MockElectronService
-        },
-        {
-          provide: GitService,
-          useClass: MockGitService
-        },
-        {
-          provide: TerminalManagerService,
-          useClass: MockTerminalManagerService
-        },
-        ToastrService
-      ]
-    })
-      .compileComponents();
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          HomeComponent,
+          ContainerComponent,
+          InputComponent,
+          ButtonComponent,
+          ModalComponent,
+          FooterComponent,
+          IconButtonComponent,
+          CommitTextAreaComponent,
+          LoaderComponent,
+          InfoBarComponent,
+          AccordionComponent,
+          LeftPanelComponent,
+          GraphComponent,
+          RightPanelComponent,
+          SendCommitComponent,
+          ViewCommitComponent,
+          FileDiffCommitComponent,
+          TextAreaComponent,
+        ],
+        imports: [
+          FormsModule,
+          TranslateModule.forRoot({
+            loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
+          }),
+          MatTabsModule,
+          ResizableModule,
+          NgbModule,
+          RouterTestingModule,
+          BrowserAnimationsModule,
+          ContextMenuModule,
+          ToastrModule.forRoot()
+        ],
+        providers: [
+          {
+            provide: Router,
+            useClass: MockRouter
+          },
+          {
+            provide: TranslateService,
+            useClass: MockTranslateService
+          },
+          {
+            provide: ThemePreferencesService,
+            useClass: MockThemePreferencesService
+          },
+          {
+            provide: ElectronService,
+            useClass: MockElectronService
+          },
+          {
+            provide: GitService,
+            useClass: MockGitService
+          },
+          {
+            provide: TerminalManagerService,
+            useClass: MockTerminalManagerService
+          },
+          {
+            provide: RightPanelService,
+            useClass: MockRightPanelService
+          },
+          {
+            provide: GraphService,
+            useClass: MockGraphService
+          },
+          {
+            provide: LeftPanelService,
+            useClass: MockLeftPanelService
+          },
+          ToastrService,
+          ContextMenuService
+        ]
+      })
+        .compileComponents();
   }));
 
   beforeEach(() => {

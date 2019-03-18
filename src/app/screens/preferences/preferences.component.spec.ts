@@ -45,6 +45,9 @@ import { GraphComponent } from '../graph/graph.component';
 import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
+import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 
 describe('PreferencesComponent', () => {
   /* tslint:disable */
@@ -77,7 +80,10 @@ describe('PreferencesComponent', () => {
         GraphComponent,
         RightPanelComponent,
         SendCommitComponent,
-        ViewCommitComponent
+        ViewCommitComponent,
+        TextAreaComponent,
+        CommitTextAreaComponent,
+        FileDiffCommitComponent
       ],
       imports: [
         FormsModule,

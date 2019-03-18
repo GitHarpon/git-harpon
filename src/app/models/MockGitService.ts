@@ -7,6 +7,8 @@ import { ServiceResult } from '../models/ServiceResult';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpsUser } from './HttpsUser';
+import { CommitDescription } from './CommitInformations';
+import { RightPanelService } from '../providers/right-panel.service';
 
 @Injectable()
 export class MockGitService {
@@ -16,13 +18,17 @@ export class MockGitService {
     branchNameSubject: Subject<any>;
     httpsUserSubject: Subject<HttpsUser>;
     httpsUser: HttpsUser;
+    listUnstagedFilesSubject: Subject<any[]>;
+    listStagedFilesSubject: Subject<any[]>;
 
-    constructor(private translate: TranslateService) {
+    constructor(private translate: TranslateService, private rightPanelService: RightPanelService) {
         this.pathSubject = new Subject<any>();
         this.repoNameSubject = new Subject<any>();
         this.recentProjectSubject = new Subject<any[]>();
         this.branchNameSubject = new Subject<any>();
         this.httpsUserSubject = new Subject<HttpsUser>();
+        this.listUnstagedFilesSubject = new Subject<any[]>();
+        this.listStagedFilesSubject = new Subject<any[]>();
         this.setHttpsUser({ username: null, password: null});
     }
 
@@ -46,9 +52,22 @@ export class MockGitService {
         this.httpsUserSubject.next(this.httpsUser);
     }
 
+    emitListUnstagedFilesSubject(listUnstagedFiles) {
+        this.listUnstagedFilesSubject.next(listUnstagedFiles);
+    }
+
+    emitListStagedFilesSubject(listStagedFiles) {
+        this.listStagedFilesSubject.next(listStagedFiles);
+    }
+
     setHttpsUser(newUser: HttpsUser) {
         this.httpsUser = newUser;
         this.emitHttpsUserSubject();
+    }
+
+    getCurrentBranch() {
+        const Current = 'current';
+        return Current;
     }
 
     getLocalBranches() {
@@ -60,6 +79,68 @@ export class MockGitService {
     getRemoteBranches() {
         return new Promise<any>((resolve, reject) => {
             resolve(['hello', 'world']);
+        });
+    }
+
+    checkoutLocalBranch(newBranch) {
+        const ConflictedBranch = 'conflicted';
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (newBranch === ConflictedBranch) {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CHECKED_OUT')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.ERROR')));
+            }
+        });
+    }
+
+    checkoutRemoteBranch(remoteBranch, currentBranch, isInLocal) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (!isInLocal) {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.CHECKED_OUT')));
+            } else {
+                let LocalBranch;
+                if (remoteBranch.split('/')[1]) {
+                    LocalBranch = remoteBranch.split('/')[1];
+                }
+                if (LocalBranch === 'toto') {
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                        this.translate.instant('BRANCH.CHECKED_OUT')));
+                } else if (LocalBranch === 'newdata') {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('BRANCH.ERROR'), LocalBranch));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('BRANCH.ERROR')));
+                }
+            }
+        });
+    }
+
+    createBranchHere(newBranch, remoteBranch) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (newBranch === 'new' && remoteBranch === 'origin/toto') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CHECKED_OUT')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.ERROR')));
+            }
+        });
+    }
+
+    resetLocalHere(remoteBranch) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            const LocalBranch = remoteBranch.split('/')[1];
+            if (LocalBranch === 'toto') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CHECKED_OUT')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.ERROR')));
+            }
         });
     }
 
@@ -89,6 +170,19 @@ export class MockGitService {
         }
     }
 
+    async renameBranch(oldName: string, newName: string) {
+        return new Promise<any>((resolve, reject) => {
+            if ( oldName == 'valid' ) {
+                resolve(new ServiceResult(true, this.translate.instant('BRANCH.BRANCH_RENAME_SUCCESS'),
+                this.translate.instant('BRANCH.BRANCH_RENAME_SUCCESS')));
+            } else {
+                reject(new ServiceResult(true, this.translate.instant('BRANCH.BRANCH_RENAME_ERROR'),
+                this.translate.instant('BRANCH.BRANCH_RENAME_ERROR')));
+            }
+
+        });
+      }
+
     async cloneHttps(url: GitUrlParse, folder: string, httpsUser: HttpsUser) {
         return new Promise<ServiceResult>((resolve, reject) => {
             if (url && folder === 'path') {
@@ -98,7 +192,7 @@ export class MockGitService {
                         this.translate.instant('CLONE.DONE'), REPOPATH));
                 } else {
                     reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                    this.translate.instant('CLONE.ERROR')));
+                        this.translate.instant('CLONE.ERROR')));
                 }
             } else {
                 if (httpsUser.username === 'username' && httpsUser.password === 'password') {
@@ -125,10 +219,112 @@ export class MockGitService {
             } else {
                 if (httpsUser.username === 'username' && httpsUser.password === 'password') {
                     reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                        this.translate.instant('PUSH.ERROR'), false));
+                    this.translate.instant('PUSH.ERROR'), false));
                 } else {
                     reject(new ServiceResult(false, this.translate.instant('ERROR'),
                         this.translate.instant('PUSH.ERROR'), true));
+                    }
+                }
+            });
+    }
+
+    async revParseHEAD(): Promise<String> {
+        return new Promise<String>((resolve, reject) => {
+            // hash au hasard
+            resolve('72267b6ad64858f2db2d597f67004b59e543928b');
+        });
+    }
+
+    async commitDescription(hash: String) {
+        return new Promise<CommitDescription>((resolve, reject) => {
+            resolve({
+                oid: '72267b6ad64858f2db2d597f67004b59e543928b',
+                message: 'feat(test): commit',
+                tree: '2a6ad7904cd02e149c19418e2b776aabde1f2637',
+                parent: ['aae2f2e434c64c83a2092dad969878f553cb9acb'],
+                author: {
+                    name: 'M. Toto',
+                    email: 'toto@mail.com',
+                    timestamp: 1551914175,
+                    timezoneOffset: -60,
+                },
+                committer: {
+                    name: 'M. toto',
+                    email: 'toto@mail.com',
+                    timestamp: 1551914175,
+                    timezoneOffset: -60,
+                },
+                gpgsig: null,
+                files: [
+                    {
+                        file: 'src/app/screens/right-panel/right-panel.component.spec.ts',
+                        changes: 4,
+                        insertions: 3,
+                        deletions: 1,
+                        binary: false
+                    },
+                    {
+                        file: 'src/app/screens/view-commit/view-commit.component.spec.ts',
+                        changes: 16,
+                        insertions: 15,
+                        deletions: 1,
+                        binary: false
+                    }
+                ]
+            });
+        });
+    }
+
+    updateFilesDiff() {
+        var ListUnstagedFiles = [
+            {
+                path: 'src/file1',
+                status: 'M'
+            },
+            {
+                path: 'src/file2',
+                status: 'D'
+            }
+        ];
+        var ListStagedFiles = [
+            {
+                path: 'src/file3',
+                status: 'A'
+            },
+            {
+                path: 'src/file4',
+                status: 'M'
+            }
+        ];
+        this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
+    }
+
+    addFile(path: any) {
+        this.updateFilesDiff();
+    }
+
+    removeFile(path: any) {
+        this.updateFilesDiff();
+    }
+
+    async pullrebaseHttps(folder: string, httpsUser: HttpsUser, branch: string) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (folder === 'path') {
+                if (httpsUser.username === 'username' && httpsUser.password === 'password') {
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                        this.translate.instant('PULL.DONE')));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('PULL.ERROR')));
+                }
+            } else {
+                if (httpsUser.username === 'username' && httpsUser.password === 'password') {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+
+                        this.translate.instant('PULL.ERROR'), false));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('PULL.ERROR'), true));
                 }
             }
         });

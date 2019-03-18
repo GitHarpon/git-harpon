@@ -1,0 +1,83 @@
+@import '../../../variables.scss';
+.gh-commit-textarea textarea {
+    resize: none;
+    outline: none;
+    width: 100%;
+    
+    &.gh-commit-textarea-summary {
+        font-size: $fs-medium;
+        &.dark {
+            border: 1px solid $dark-grey;
+            border-bottom: 0;
+        }
+
+        &.light {
+            border: 1px solid $border-dark-grey-light;
+            border-bottom: 0;
+        }
+    }
+
+    &.gh-commit-textarea-desc {
+        font-size: $fs-xsmall;
+        &.dark {
+            border: 1px solid $dark-grey;
+            border-top: 0;
+        }
+
+        &.light {
+            border: 1px solid $border-dark-grey-light;
+            border-top: 0;
+        }
+    }
+
+    &.dark {
+        background-color: $low-dark;
+        color: $white;
+        &.desc-view {
+            background-color: $textarea-bg;
+        }
+        &::-webkit-scrollbar-track-piece  {
+            background-color: rgba(55, 56, 65, 0.3);
+        }
+        &::-webkit-scrollbar-thumb:vertical {
+            background-color: #373841;
+            border: 1px solid rgba(55, 56, 65, 0.3);
+        }
+    }
+
+    &.light {
+        background: $light-grey-light;
+        color: $dark;
+        &.desc-view {
+            background: $grey-variant-light;
+        }
+        &::-webkit-scrollbar-track-piece  {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        &::-webkit-scrollbar-thumb:vertical {
+            background-color: #C6C6C6;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 10px;
+    }
+    &::-webkit-scrollbar-button:start:decrement,
+    &::-webkit-scrollbar-button:end:increment  {
+        height: 10px;
+        background-color: transparent;
+    }
+    &::-webkit-scrollbar-track-piece  {
+        -webkit-border-radius: 16px;
+    }
+    &::-webkit-scrollbar-thumb:vertical {
+        height: 10px;
+        -webkit-border-radius: 16px;
+    }
+}
+
+.dark::placeholder {
+    color: $muted-white;
+}
