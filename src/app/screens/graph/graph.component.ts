@@ -38,10 +38,12 @@ export class GraphComponent implements OnInit, OnDestroy {
   openViewCommit() {
     this.rightPanelService.setCommitHash(this.commitHash);
     this.rightPanelService.setView(true);
+    return true;
   }
 
   openSendCommit() {
     this.rightPanelService.setView(false);
+    return true;
   }
 
   ngOnDestroy() {

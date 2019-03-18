@@ -165,8 +165,6 @@ export class GitService {
           .then((result) => {
             resolve(result.all);
         });
-      } else {
-        reject(null);
       }
     });
   }
@@ -178,8 +176,6 @@ export class GitService {
           .then((result) => {
             resolve(result.all);
         });
-      } else {
-        reject(null);
       }
     });
   }
