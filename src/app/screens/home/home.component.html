@@ -236,7 +236,6 @@
 <app-info-bar [visible]="newBranchInfoBarVisible">
     <span>{{ 'BRANCH.NAME' | translate }}</span>
     <app-input [(value)]="newBranchName" class="ml-3"></app-input>
-    <app-input [(value)]="referenceBranchName" [placeholder]="referenceBranchName !== '' ? referenceBranchName : branchName" class="ml-3"></app-input>
     <app-button class="ml-3" value="BRANCH.CREATE_HERE" type="success" [disabled]="mainPanelVisible" (buttonClicked)="createBranch()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeNewBranchInfoBar()"></app-button>
 </app-info-bar>

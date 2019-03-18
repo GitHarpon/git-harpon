@@ -158,6 +158,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   branchButtonClicked() {
+    this.referenceBranchName = this.branchName;
     this.newBranchInfoBarVisible = true;
   }
 
