@@ -388,11 +388,10 @@ export class GitService {
     });
   }
 
-  async pullrebaseHttps(folder: string, httpsUser: HttpsUser, branch: string) {
+  async pullrebaseHttps(httpsUser: HttpsUser, branch: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
       var Remote;
-      gitPromise(folder)
-        .raw(['remote', 'get-url', 'origin'])
+      this.gitP.raw(['remote', 'get-url', 'origin'])
         .then((data) => {
           const Credentials = httpsUser.username + ':' + httpsUser.password + '@';
           var RemoteArray = [];
@@ -400,8 +399,7 @@ export class GitService {
           var Repo = RemoteArray[1].split('/');
           Remote = RemoteArray[0] + '://' + Credentials + Repo[0] + '/' + Repo[1] + '/' + this.repoName;
 
-          gitPromise(folder)
-            .pull(Remote, branch, {'--rebase': 'true'})
+          this.gitP.pull(Remote, branch, {'--rebase': 'true'})
             .then((data) => {
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
               this.translate.instant('PULL.DONE'), 'newData'));
@@ -409,12 +407,8 @@ export class GitService {
             .catch((err) => {
               var ErrMsg = 'PULL.ERROR';
               var AccessDenied = false;
-              if (err.toString().includes('unable to update url base from redirection')) {
-                ErrMsg = 'PULL.UNABLE_TO_UPDATE';
-              } else if (err.toString().includes('HTTP Basic: Access denied')) {
-                ErrMsg = 'PULL.HTTP_ACCESS_DENIED';
-              } else if (err.toString().includes('Invalid username or password')) {
-                ErrMsg = 'PULL.INVALID_CRED';
+              if (err.toString().includes('Authentication failed')) {
+                ErrMsg = 'PULL.UNABLE_TO_CONNECT';
               }
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
               this.translate.instant(ErrMsg), AccessDenied));
