@@ -19,6 +19,8 @@ import { FormsModule } from '@angular/forms';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 import { ClipboardService, ClipboardModule } from 'ngx-clipboard';
 import { CommitDescription } from '../../models/CommitInformations';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 
 describe('ViewCommitComponent', () => {
   /* tslint:disable */
@@ -56,6 +58,10 @@ describe('ViewCommitComponent', () => {
         {
           provide: GitService,
           useClass: MockGitService
+        },
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
         },
         {
           provide: TranslateService,

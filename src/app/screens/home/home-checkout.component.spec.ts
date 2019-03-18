@@ -74,6 +74,7 @@ describe('HomeComponent', () => {
         FileDiffCommitComponent,
       ],
       imports: [
+        ContextMenuModule,
         FormsModule,
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}

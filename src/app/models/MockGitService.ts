@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { HttpsUser } from './HttpsUser';
 import { CommitDescription } from './CommitInformations';
 import { RightPanelService } from '../providers/right-panel.service';
+import { LeftPanelService } from '../providers/left-panel.service';
 
 @Injectable()
 export class MockGitService {
@@ -20,8 +21,10 @@ export class MockGitService {
     httpsUser: HttpsUser;
     listUnstagedFilesSubject: Subject<any[]>;
     listStagedFilesSubject: Subject<any[]>;
+    branchName: any;
 
-    constructor(private translate: TranslateService, private rightPanelService: RightPanelService) {
+    constructor(private translate: TranslateService, private leftPanelService: LeftPanelService,
+        private rightPanelService: RightPanelService) {
         this.pathSubject = new Subject<any>();
         this.repoNameSubject = new Subject<any>();
         this.recentProjectSubject = new Subject<any[]>();
@@ -153,6 +156,31 @@ export class MockGitService {
             } else {
                 reject(new ServiceResult(false, this.translate.instant('ERROR'),
                     this.translate.instant('OPEN.NOT_GIT_REPO')));
+            }
+        });
+    }
+
+    async setNewBranch(newBranchName: string, referenceBranchName: string) {
+        return new Promise<any>((resolve, reject) => {
+            if (newBranchName === 'newBranch' && !referenceBranchName.includes('wrong')) {
+                this.branchName = newBranchName;
+                this.emitBranchNameSubject(this.branchName);
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CREATED')));
+            } else if (referenceBranchName.includes('remote/')) {
+                this.branchName = newBranchName;
+                this.emitBranchNameSubject(this.branchName);
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CREATED')));
+            } else if (newBranchName === 'existingBranch') {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.NOT_CREATED')));
+            } else if (referenceBranchName.includes('wrong')) {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.NOT_CREATED')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('BRANCH.NOT_CREATED')));
             }
         });
     }

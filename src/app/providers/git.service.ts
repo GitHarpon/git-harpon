@@ -27,7 +27,8 @@ export class GitService {
   gitP: any;
   git: any;
 
-  constructor(private electronService: ElectronService, private translate: TranslateService, private rightPanelService: RightPanelService) {
+  constructor(private electronService: ElectronService, private translate: TranslateService,
+      private rightPanelService: RightPanelService) {
     this.gitP = gitPromise();
     this.git = simpleGit();
     this.pathSubject = new Subject<any>();
@@ -142,6 +143,60 @@ export class GitService {
         this.deleteProjetWithPath(newPath);
         reject(new ServiceResult(false, this.translate.instant('ERROR'),
           this.translate.instant('OPEN.REPO_NOT_EXIST')));
+      }
+    });
+  }
+
+  async setNewBranch(newBranchName, referenceBranchName) {
+    return new Promise<any>((resolve, reject) => {
+      if (this.repoName) {
+        gitPromise(this.path).branch([])
+          .then((result) => {
+            if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
+              gitPromise(this.path).branchLocal()
+                .then((result) => {
+                  gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
+                  .then(() => {
+                    this.branchName = newBranchName;
+                    this.emitBranchNameSubject();
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CREATED')));
+                  })
+                  .catch(() => {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.NOT_CREATED')));
+                  });
+                });
+            } else {
+              gitPromise(this.path).branch(['-r'])
+                .then((resultbis) => {
+                  if (resultbis.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
+                    gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
+                    .then(() => {
+                      this.branchName = newBranchName;
+                      this.emitBranchNameSubject();
+                      resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                      this.translate.instant('BRANCH.CREATED')));
+                    })
+                    .catch(() => {
+                      reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                      this.translate.instant('BRANCH.UNCOMMIT')));
+                    });
+                  } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.NOT_CREATED')));
+                  }
+                })
+                .catch(() => {
+                  reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                  this.translate.instant('BRANCH.NOT_CREATED')));
+                });
+            }
+          })
+          .catch(() => {
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+              this.translate.instant('BRANCH.NOT_CREATED')));
+          });
       }
     });
   }
