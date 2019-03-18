@@ -1,6 +1,6 @@
 <div class="gh-commit-textarea col-md-12 row mx-0 px-0">
     <textarea class="gh-commit-textarea-summary" rows="1" [cols]="cols" [placeholder]="summaryPlaceholder ? getSummaryPlaceholderTranslation() : ''" 
       [readonly]="readonly" [ngClass]="[currentTheme, descView ? 'desc-view' : '']" [(ngModel)]="summaryValue" ></textarea>
-    <textarea class="gh-commit-textarea-desc" [rows]="rows" [cols]="cols" [name]="name" [placeholder]="descPlaceholder ? getDescPlaceholderTranslation() : ''" 
+    <textarea class="gh-commit-textarea-desc" [rows]="rows" [cols]="cols" [placeholder]="descPlaceholder ? getDescPlaceholderTranslation() : ''" 
       [readonly]="readonly" [ngClass]="[currentTheme, descView ? 'desc-view' : '']" [(ngModel)]="descValue" ></textarea>
 </div>
