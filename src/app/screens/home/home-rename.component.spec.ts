@@ -143,12 +143,12 @@ describe('HomeComponent', () => {
     component.newBranchCouple = new NewBranchCouple();
     component.newBranchCouple.oldBranch = 'valid';
     component.newBranchCouple.newBranch = 'tata';
-    component.newBranchName = 'titi';
+    component.newBranchNameForRenaming = 'titi';
     const Empty = '';
 
     component.renameBranch().then(() => {
       expect(component.newBranchCouple.newBranch).toEqual(Empty);
-      expect(component.newBranchName).toEqual(Empty);
+      expect(component.newBranchNameForRenaming).toEqual(Empty);
       done();
     });
   });
@@ -157,12 +157,12 @@ describe('HomeComponent', () => {
     component.newBranchCouple = new NewBranchCouple();
     component.newBranchCouple.oldBranch = 'toto';
     component.newBranchCouple.newBranch = 'tata';
-    component.newBranchName = 'titi';
+    component.newBranchNameForRenaming = 'titi';
     const Empty = '';
 
     component.renameBranch().then(() => {
       expect(component.newBranchCouple.newBranch).toEqual(Empty);
-      expect(component.newBranchName).toEqual(Empty);
+      expect(component.newBranchNameForRenaming).toEqual(Empty);
       done();
     });
   });
@@ -173,11 +173,11 @@ describe('HomeComponent', () => {
     const Empty = '';
     component.newBranchCouple.oldBranch = Empty;
     component.newBranchCouple.newBranch = Empty;
-    component.newBranchName = 'titi';
+    component.newBranchNameForRenaming = 'titi';
 
     component.renameBranch().then(() => {
       expect(component.newBranchCouple.newBranch).toEqual('titi');
-      expect(component.newBranchName).toEqual('titi');
+      expect(component.newBranchNameForRenaming).toEqual('titi');
       done();
     });
   });

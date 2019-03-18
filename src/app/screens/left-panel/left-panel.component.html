@@ -5,11 +5,6 @@
       class="gh-branch py-1" [ngClass]="[currentTheme]" [contextMenu]="branchCM" [contextMenuSubject]="localBranch">
           <i class="fa fa-code-branch ml-2 mr-1"></i>
         <span>{{ localBranch }}</span>
-        <context-menu #branchCM>
-          <ng-template contextMenuItem (execute)="openCreateBranchInfoBar(localBranch)">
-            {{ 'BRANCH.CREATE_HERE' | translate }}
-          </ng-template>
-        </context-menu>
       </div>
     </app-accordion>
     <app-accordion *ngIf="remoteBranches" title="REMOTE" [icon]="{name:'fa-cloud', isFab:false}">
@@ -20,15 +15,19 @@
             <i class="fa fa-code-branch ml-4 mr-1"></i>
           <span>{{ remoteBranch }}</span>
           <context-menu #remoteCM>
-            <ng-template contextMenuItem (execute)="openCreateBranchInfoBar(remote + '/' + remoteBranch)">
-              {{ 'BRANCH.CREATE_HERE' | translate }}
-            </ng-template>
+              <ng-template contextMenuItem (execute)="openCreateBranchInfoBar(remote + '/' + remoteBranch)">
+                {{ 'BRANCH.CREATE_HERE' | translate }}
+              </ng-template>
           </context-menu>
         </div>
       </div>
     </app-accordion>
   </app-loader>
   <context-menu #branchCM>
+    <ng-template contextMenuItem (execute)="openCreateBranchInfoBar($event.item)">
+      <span class="d-none">{{ item }}</span>
+      {{ 'BRANCH.CREATE_HERE' | translate }}
+    </ng-template>
     <ng-template contextMenuItem let-item (execute)="renameBranch($event.item)">
       {{ 'BRANCH.RENAME' | translate }} {{ item }}
     </ng-template>
