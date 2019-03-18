@@ -9,7 +9,9 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { TranslateService } from '@ngx-translate/core';
 import { MockTranslateService } from '../../models/MockTranslateService';
 import { RightPanelService } from '../../providers/right-panel.service';
+import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 
 describe('FileDiffCommitComponent', () => {
   /* tslint:disable */
@@ -35,6 +37,10 @@ describe('FileDiffCommitComponent', () => {
         {
           provide: RightPanelService,
           useClass: MockRightPanelService
+        },
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
         },
         {
           provide: TranslateService,

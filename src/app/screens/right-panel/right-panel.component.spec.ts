@@ -10,6 +10,11 @@ import { RightPanelService } from '../../providers/right-panel.service';
 import { ButtonComponent } from '../../components/button/button.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
+import { LoaderComponent } from '../../components/loader/loader.component';
+import { TextAreaComponent } from '../../components/text-area/text-area.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
+import { NgbTooltip, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 describe('RightPanelComponent', () => {
   /* tslint:disable */
@@ -24,10 +29,16 @@ describe('RightPanelComponent', () => {
         ViewCommitComponent,
         SendCommitComponent,
         ButtonComponent,
+        FileDiffCommitComponent,
+        LoaderComponent,
+        TextAreaComponent,
+        CommitTextAreaComponent,
         FileDiffCommitComponent
       ],
       imports: [
-        TranslateModule
+        TranslateModule,
+        NgbModule,
+        FormsModule
       ],
       providers: [
         {
@@ -48,20 +59,20 @@ describe('RightPanelComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it ('test the ngOnInit function', () => {
+  it ('tests the ngOnInit function', () => {
     component.ngOnInit();
 
     expect(component.isViewSubscription).toBeDefined();
   });
 
-  it ('test the ngOnDestroy function with defined isViewSubscription', () => {
+  it ('tests the ngOnDestroy function with defined isViewSubscription', () => {
     component.ngOnInit();
     component.ngOnDestroy();
 
     expect(component.isViewSubscription.closed).toBeTruthy();
   });
 
-  it ('test the ngOnDestroy function with undefined isViewSubscription', () => {
+  it ('tests the ngOnDestroy function with undefined isViewSubscription', () => {
     component.ngOnDestroy();
 
     expect(component.isViewSubscription).toBeUndefined();

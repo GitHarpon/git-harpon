@@ -100,8 +100,17 @@
         "NAME": "Branch name",
         "CREATE_HERE": "Create branch here",
         "RESET_HERE": "Reset local to here",
+        "UNCOMMIT": "Missing commits on reference branch",
+        "CREATED": "Branch created",
+        "NOT_CREATED": "Branch not created",
         "A_LOCAL": "A local",
         "ALREADY_EXISTS": "already exists",
+        "RENAME": "Rename",
+        "BRANCH_RENAME": "Rename a branch",
+        "NEW_BRANCH_NAME_PROMPT": "Name of the new branch",
+        "NEW_BRANCH": "New branch",
+        "BRANCH_RENAME_SUCCESS" : "Branch renamed successfuly",
+        "BRANCH_RENAME_FAILURE" : "An error occured during the renaming of the branch",  
         "ERROR": "Error during the checkout branch"
     },
     "PULL": {
@@ -169,6 +178,12 @@
     "INDEPENDENT_THEME": "Independent of the theme",
     "WRONG_CRED": "Wrong informations",
     "SUMMARY": "Summary",
+    "COMMIT": {
+        "DESCRIPTION": "Commit description"
+    },
+    "MODIFIED": "modified",
+    "ADDED": "added",
+    "DELETED": "deleted",
     "DESCRIPTION": "Description",
     "NB_FILE_COMMIT": "file changed",
     "NB_FILES_COMMIT": "files changed",

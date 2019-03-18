@@ -2,7 +2,7 @@
   <app-loader [loading]="loadingVisible">
     <app-accordion title="LOCAL" [icon]="{name:'fa-laptop', isFab:false}">
       <div *ngFor="let localBranch of localBranches" (dblclick)="checkoutLocalBranch(localBranch)" [class.gh-current-branch]="localBranch === currentBranch"
-      class="gh-branch py-1" [ngClass]="[currentTheme]">
+      class="gh-branch py-1" [ngClass]="[currentTheme]" [contextMenu]="branchCM" [contextMenuSubject]="localBranch">
           <i class="fa fa-code-branch ml-2 mr-1"></i>
         <span>{{ localBranch }}</span>
       </div>
@@ -11,11 +11,25 @@
       <div *ngFor="let remote of objectKeys(remoteBranches); let i = index">
         <span class="ml-2">{{ remote }}</span>
         <div *ngFor="let remoteBranch of remoteBranches[remote]; let j = index" (dblclick)="checkoutRemoteBranch(remote + '/' + remoteBranch)"
-          class="gh-branch py-1" [ngClass]="[currentTheme]">
+          class="gh-branch py-1" [ngClass]="[currentTheme]" [contextMenu]="remoteCM" [contextMenuSubject]="remote">
             <i class="fa fa-code-branch ml-4 mr-1"></i>
           <span>{{ remoteBranch }}</span>
+          <context-menu #remoteCM>
+              <ng-template contextMenuItem (execute)="openCreateBranchInfoBar(remote + '/' + remoteBranch)">
+                {{ 'BRANCH.CREATE_HERE' | translate }}
+              </ng-template>
+          </context-menu>
         </div>
       </div>
     </app-accordion>
   </app-loader>
+  <context-menu #branchCM>
+    <ng-template contextMenuItem (execute)="openCreateBranchInfoBar($event.item)">
+      <span class="d-none">{{ item }}</span>
+      {{ 'BRANCH.CREATE_HERE' | translate }}
+    </ng-template>
+    <ng-template contextMenuItem let-item (execute)="renameBranch($event.item)">
+      {{ 'BRANCH.RENAME' | translate }} {{ item }}
+    </ng-template>
+  </context-menu>
 </div>

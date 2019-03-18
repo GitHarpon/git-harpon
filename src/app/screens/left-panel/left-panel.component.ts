@@ -1,9 +1,14 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { Subscription } from 'rxjs';
 import { GitService } from '../../providers/git.service';
 import { LeftPanelService } from '../../providers/left-panel.service';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguagePreferencesService } from '../../providers/language-preferences.service';
+import { NewBranchCouple } from '../../models/NewBranchCouple';
 import { ToastrService } from 'ngx-toastr';
+import { ContextMenuComponent } from 'ngx-contextmenu';
+import { RightPanelService } from '../../providers/right-panel.service';
 
 @Component({
   selector: 'app-left-panel',
@@ -11,10 +16,15 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./left-panel.component.scss']
 })
 export class LeftPanelComponent implements OnInit, OnDestroy {
+  @ViewChild('branchCM') branchCM: ContextMenuComponent;
+  @ViewChild('remoteCM') remoteCM: ContextMenuComponent;
   currentTheme: string;
   themePrefSubscription: Subscription;
   localBranches: any;
   localBranchesSubscription: Subscription;
+  currentNewBranchCouple: NewBranchCouple;
+  @Output()
+  newBranchCoupleChange = new  EventEmitter<NewBranchCouple>();
   remoteBranches: any;
   remoteBranchesSubscription: Subscription;
   currentBranch: any;
@@ -23,9 +33,24 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   loadingVisible: Boolean;
   loadingVisibleSubscription: Subscription;
   @Output() checkoutInfoBarChange = new EventEmitter<any>();
+  @Output() createBranchInfoBar = new EventEmitter<any>();
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
-    private leftPanelService: LeftPanelService, private toastr: ToastrService) { }
+    private leftPanelService: LeftPanelService, private translate: TranslateService,
+    private langPrefService: LanguagePreferencesService, private toastr: ToastrService,
+    private rightPanelService: RightPanelService) {
+
+  }
+
+  @Input()
+  get newBranchCouple() {
+    return this.currentNewBranchCouple;
+  }
+
+  set newBranchCouple(couple) {
+    this.currentNewBranchCouple = couple;
+    this.newBranchCoupleChange.emit(this.currentNewBranchCouple);
+  }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -73,6 +98,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
         this.loadingVisible = false;
         this.leftPanelService.setLocalBranches();
         this.leftPanelService.setRemoteBranches();
+        this.updateCommitDescription();
       }).catch((result) => {
         this.loadingVisible = false;
         this.toastr.error(result.message, result.title, {
@@ -92,6 +118,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
       this.loadingVisible = false;
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
+      this.updateCommitDescription();
     }).catch((result) => {
       if (!result.newData) {
         this.loadingVisible = false;
@@ -101,6 +128,22 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
       } else {
         this.checkoutInfoBarChange.emit(remoteBranch);
       }
+    });
+  }
+
+  openCreateBranchInfoBar(branch) {
+    this.createBranchInfoBar.emit(branch);
+  }
+
+  renameBranch(branch: string) {
+    var TmpNewBr = new NewBranchCouple();
+    TmpNewBr.oldBranch = branch;
+    this.newBranchCouple = TmpNewBr;
+  }
+
+  async updateCommitDescription() {
+    return this.gitService.revParseHEAD().then((data) => {
+      this.rightPanelService.setCommitHash(data.replace('\n', ''));
     });
   }
 

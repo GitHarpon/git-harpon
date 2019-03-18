@@ -8,6 +8,8 @@ import { ServiceResult } from '../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-store';
 import { HttpsUser } from '../models/HttpsUser';
+import * as isomorphic from 'isomorphic-git';
+import { CommitDescription } from '../models/CommitInformations';
 import { RightPanelService } from './right-panel.service';
 
 @Injectable()
@@ -25,7 +27,8 @@ export class GitService {
   gitP: any;
   git: any;
 
-  constructor(private electronService: ElectronService, private translate: TranslateService, private rightPanelService: RightPanelService) {
+  constructor(private electronService: ElectronService, private translate: TranslateService,
+      private rightPanelService: RightPanelService) {
     this.gitP = gitPromise();
     this.git = simpleGit();
     this.pathSubject = new Subject<any>();
@@ -33,7 +36,7 @@ export class GitService {
     this.recentProjectSubject = new Subject<any[]>();
     this.branchNameSubject = new Subject<any>();
     this.httpsUserSubject = new Subject<HttpsUser>();
-    this.setHttpsUser({ username: null, password: null});
+    this.setHttpsUser({ username: null, password: null });
     if (this.recentProject[0]) {
       if (this.recentProject[0].path) {
         this.setPath(this.recentProject[0].path);
@@ -95,11 +98,11 @@ export class GitService {
             })
             .catch(() => {
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
-              this.translate.instant('INIT.FAILED')));
+                this.translate.instant('INIT.FAILED')));
             });
         } else {
           reject(new ServiceResult(false, this.translate.instant('ERROR'),
-          this.translate.instant('PATH_NOT_FOUND')));
+            this.translate.instant('PATH_NOT_FOUND')));
         }
       });
     }
@@ -121,12 +124,15 @@ export class GitService {
               this.registerProject(this.repoName, this.path);
               this.updateFilesDiff();
               this.getCurrentBranch();
+              this.revParseHEAD().then((data) => {
+                this.rightPanelService.setCommitHash(data.replace('\n', ''));
+              });
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                 this.translate.instant('OPEN.OPENED_REPO')));
 
             } else {
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
-              this.translate.instant('OPEN.NOT_GIT_REPO')));
+                this.translate.instant('OPEN.NOT_GIT_REPO')));
             }
           })
           .catch(() => {
@@ -137,6 +143,60 @@ export class GitService {
         this.deleteProjetWithPath(newPath);
         reject(new ServiceResult(false, this.translate.instant('ERROR'),
           this.translate.instant('OPEN.REPO_NOT_EXIST')));
+      }
+    });
+  }
+
+  async setNewBranch(newBranchName, referenceBranchName) {
+    return new Promise<any>((resolve, reject) => {
+      if (this.repoName) {
+        gitPromise(this.path).branch([])
+          .then((result) => {
+            if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
+              gitPromise(this.path).branchLocal()
+                .then((result) => {
+                  gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
+                  .then(() => {
+                    this.branchName = newBranchName;
+                    this.emitBranchNameSubject();
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CREATED')));
+                  })
+                  .catch(() => {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.NOT_CREATED')));
+                  });
+                });
+            } else {
+              gitPromise(this.path).branch(['-r'])
+                .then((resultbis) => {
+                  if (resultbis.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
+                    gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
+                    .then(() => {
+                      this.branchName = newBranchName;
+                      this.emitBranchNameSubject();
+                      resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                      this.translate.instant('BRANCH.CREATED')));
+                    })
+                    .catch(() => {
+                      reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                      this.translate.instant('BRANCH.UNCOMMIT')));
+                    });
+                  } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.NOT_CREATED')));
+                  }
+                })
+                .catch(() => {
+                  reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                  this.translate.instant('BRANCH.NOT_CREATED')));
+                });
+            }
+          })
+          .catch(() => {
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+              this.translate.instant('BRANCH.NOT_CREATED')));
+          });
       }
     });
   }
@@ -160,8 +220,6 @@ export class GitService {
           .then((result) => {
             resolve(result.all);
         });
-      } else {
-        reject(null);
       }
     });
   }
@@ -173,6 +231,18 @@ export class GitService {
           .then((result) => {
             resolve(result.all);
         });
+      }
+    });
+  }
+
+  async renameBranch(oldName: string, newName: string) {
+    return new Promise<any>((resolve, reject) => {
+      if (this.repoName) {
+        gitPromise(this.path).raw(['branch', '-m', oldName, newName])
+          .then((result) => {
+            reject(new ServiceResult(true, this.translate.instant('BRANCH_RENAME_SUCESS'),
+              this.translate.instant('BRANCH_RENAME_ERROR')));
+          });
       } else {
         reject(null);
       }
@@ -239,9 +309,10 @@ export class GitService {
                 this.translate.instant('ERROR'), remoteBranch));
             }
           });
-      }
-    });
-  }
+        }
+      });
+    }
+
 
   createBranchHere(newBranch, remoteBranch) {
     return new Promise<ServiceResult>((resolve, reject) => {
@@ -266,6 +337,14 @@ export class GitService {
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
         });
+      });
+    });
+  }
+
+  getGraph() {
+    return new Promise<any>((resolve, reject) => {
+      gitPromise(this.path).raw(['log', '--graph', '--oneline', '--all', '--date-order']).then((result) => {
+        resolve(result);
       });
     });
   }
@@ -328,7 +407,7 @@ export class GitService {
           if (err.toString().includes('unable to update url base from redirection')) {
             ErrMsg = 'CLONE.UNABLE_TO_UPDATE';
           } else if (err.toString().includes('HTTP Basic: Access denied') ||
-              err.toString().includes('Authentication failed for')) {
+            err.toString().includes('Authentication failed for')) {
             ErrMsg = 'CLONE.HTTP_ACCESS_DENIED';
             AccessDenied = true;
           } else if (err.toString().includes('could not create work tree')) {
@@ -416,6 +495,47 @@ export class GitService {
         })
         .catch((err) => {
           console.error(err);
+        });
+    });
+  }
+
+  async revParseHEAD(): Promise<String> {
+    return this.gitP.raw(['rev-parse', 'HEAD']);
+  }
+
+  async commitDescription(hash: String) {
+    return new Promise<any>((resolve, reject) => {
+      isomorphic.log(
+        {
+          fs: this.electronService.fs,
+          dir: this.electronService.process.cwd(),
+          depth: 1,
+          ref: hash.toString()
+        })
+        .then((commitInfo) => {
+          const Args = hash + '^!';
+          gitPromise().show(['-m', '--name-status', '--oneline', hash.toString()])
+            .then((result) => {
+              const FirstArray = result.split(/\n/);
+              FirstArray.shift();
+              var SecondArray = FirstArray.map(x => {
+                return (x.split(/\s{1}/g));
+              });
+              const Final = [];
+              for (var Elem in SecondArray)  {
+                if (Array.isArray(SecondArray[Elem]) && SecondArray[Elem].length === 2) {
+                  var Path = '';
+                  // Pour gérer les fichiers avec un espace
+                  for (var Ind = 1; Ind < SecondArray[Elem].length; Ind++) {
+                    Path += SecondArray[Elem][Ind];
+                  }
+                  Final.push({ status: SecondArray[Elem][0], path: Path});
+                } else {
+                  break;
+                }
+              }
+              resolve({...commitInfo[0], files: Final});
+          });
         });
     });
   }

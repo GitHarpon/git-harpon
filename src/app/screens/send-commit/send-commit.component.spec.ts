@@ -11,6 +11,8 @@ import { MockTranslateService } from '../../models/MockTranslateService';
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 
 describe('SendCommitComponent', () => {
@@ -45,6 +47,10 @@ describe('SendCommitComponent', () => {
           useClass: MockRightPanelService
         },
         {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
+        },
+        {
           provide: TranslateService,
           useClass: MockTranslateService
         },
@@ -62,20 +68,20 @@ describe('SendCommitComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it ('test the ngOnInit function', () => {
+  it ('tests the ngOnInit function', () => {
     component.ngOnInit();
 
     expect(component.themePrefSubscription).toBeDefined();
   });
 
-  it ('test the ngOnDestroy function with defined themePrefSubscription', () => {
+  it ('tests the ngOnDestroy function with defined themePrefSubscription', () => {
     component.ngOnInit();
     component.ngOnDestroy();
 
     expect(component.themePrefSubscription.closed).toBeTruthy();
   });
 
-  it ('test the ngOnDestroy function with undefined themePrefSubscription', () => {
+  it ('tests the ngOnDestroy function with undefined themePrefSubscription', () => {
     component.ngOnDestroy();
 
     expect(component.themePrefSubscription).toBeUndefined();

@@ -41,6 +41,9 @@ import { CommitTextAreaComponent } from '../../components/commit-text-area/commi
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
+import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
+import { GraphService } from '../../providers/graph.service';
+import { MockGraphService } from '../../models/MockGraphService';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -68,9 +71,10 @@ describe('HomeComponent', () => {
         ViewCommitComponent,
         TextAreaComponent,
         CommitTextAreaComponent,
-        FileDiffCommitComponent
+        FileDiffCommitComponent,
       ],
       imports: [
+        ContextMenuModule,
         FormsModule,
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
@@ -80,7 +84,8 @@ describe('HomeComponent', () => {
         NgbModule,
         RouterTestingModule,
         BrowserAnimationsModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        ContextMenuModule
       ],
       providers: [
         {
@@ -112,10 +117,16 @@ describe('HomeComponent', () => {
           useClass: MockRightPanelService
         },
         {
+          provide: GraphService,
+          useClass: MockGraphService
+        },
+        {
           provide: TerminalManagerService,
           useClass: MockTerminalManagerService
         },
-        ToastrService
+        ToastrService,
+        ContextMenuService,
+        ContextMenuModule,
       ]
     })
       .compileComponents();

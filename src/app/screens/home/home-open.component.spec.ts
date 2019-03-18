@@ -21,6 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
@@ -34,13 +36,14 @@ import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
-import { LeftPanelService } from '../../providers/left-panel.service';
-import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { TextAreaComponent } from '../../components/text-area/text-area.component';
 import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
+import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
+import { GraphService } from '../../providers/graph.service';
+import { MockGraphService } from '../../models/MockGraphService';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -71,6 +74,7 @@ describe('HomeComponent', () => {
         FileDiffCommitComponent
       ],
       imports: [
+        ContextMenuModule,
         FormsModule,
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
@@ -80,6 +84,7 @@ describe('HomeComponent', () => {
         NgbModule,
         RouterTestingModule,
         BrowserAnimationsModule,
+        ContextMenuModule,
         ToastrModule.forRoot()
       ],
       providers: [
@@ -94,6 +99,10 @@ describe('HomeComponent', () => {
         {
           provide: ThemePreferencesService,
           useClass: MockThemePreferencesService
+        },
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
         },
         {
           provide: ElectronService,
@@ -112,10 +121,19 @@ describe('HomeComponent', () => {
             useClass: MockLeftPanelService
         },
         {
+          provide: GraphService,
+          useClass: MockGraphService
+        },
+        {
           provide: TerminalManagerService,
           useClass: MockTerminalManagerService
         },
-        ToastrService
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
+        },
+        ToastrService,
+        ContextMenuService
       ]
     })
       .compileComponents();

@@ -3,13 +3,16 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GitService } from '../../providers/git.service';
 import { ElectronService } from '../../providers/electron.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import * as GitUrlParse from 'git-url-parse';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { HttpsUser } from '../../models/HttpsUser';
 import { LeftPanelService } from '../../providers/left-panel.service';
+import { NewBranchCouple } from '../../models/NewBranchCouple';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { GraphService } from '../../providers/graph.service';
 
 @Component({
   selector: 'app-home',
@@ -34,8 +37,13 @@ export class HomeComponent implements OnDestroy {
   repoNameSubscription: Subscription;
   recentProject: any[];
   recentProjectSubscription: Subscription;
-  branchName: any;
+  branchName: string;
   branchNameSubscription: Subscription;
+  newBranchInfoBarVisible: boolean;
+  newBranchName: string;
+  referenceBranchName: string;
+  newBranchCouple: NewBranchCouple;
+  newBranchNameForRenaming: string;
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
   checkoutInfoBarVisible: boolean;
@@ -65,7 +73,10 @@ export class HomeComponent implements OnDestroy {
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
     private translateService: TranslateService, private terminalService: TerminalManagerService,
-    private themePrefService: ThemePreferencesService, private leftPanelService: LeftPanelService) {
+    private themePrefService: ThemePreferencesService, private leftPanelService: LeftPanelService,
+    private rightPanelService: RightPanelService, private graphService: GraphService) {
+
+    this.newBranchCouple = new NewBranchCouple();
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
@@ -158,7 +169,13 @@ export class HomeComponent implements OnDestroy {
   }
 
   branchButtonClicked() {
-    return true;
+    this.referenceBranchName = this.branchName;
+    this.newBranchInfoBarVisible = true;
+  }
+
+  openCreateBranchInfoBar(refBranchName) {
+    this.referenceBranchName = refBranchName;
+    this.newBranchInfoBarVisible = true;
   }
 
   async openTerminal() {
@@ -314,6 +331,31 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
+  async renameBranch() {
+    var TmpNewBr = new NewBranchCouple();
+    TmpNewBr.oldBranch = this.newBranchCouple.oldBranch;
+    TmpNewBr.newBranch = this.newBranchNameForRenaming;
+    this.newBranchCouple = TmpNewBr;
+    if (this.newBranchCouple.newBranch != '' && this.newBranchCouple.oldBranch != '') {
+      return this.gitService.renameBranch(this.newBranchCouple.oldBranch, this.newBranchCouple.newBranch)
+      .then((data) => {
+        this.closeRenameBar();
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.closeRenameBar();
+      });
+    }
+  }
+
+  closeRenameBar() {
+    this.newBranchCouple = new NewBranchCouple();
+    this.newBranchNameForRenaming = '';
+    this.gitService.getLocalBranches().then(() => {
+      this.leftPanelService.setLocalBranches();
+    });
+  }
+
   closeCredInfoBar() {
     this.credInfoBarVisible = false;
     this.resetCloneInputs();
@@ -380,6 +422,8 @@ export class HomeComponent implements OnDestroy {
       this.rightPanelVisible = true;
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
+      this.rightPanelService.setView(true);
+      this.graphService.setGraph();
     } else {
       this.mainPanelVisible = true;
     }
@@ -390,6 +434,7 @@ export class HomeComponent implements OnDestroy {
     this.leftPanelVisible = false;
     this.graphVisible = false;
     this.rightPanelVisible = false;
+    this.rightPanelService.setCommitHash('');
   }
 
   openCheckoutInfoBar(remoteBranch) {
@@ -414,7 +459,7 @@ export class HomeComponent implements OnDestroy {
   resetLocalHere() {
     return this.gitService.resetLocalHere(this.remoteBranch).then((data) => {
       this.leftPanelService.setLocalBranches();
-        this.leftPanelService.setRemoteBranches();
+      this.leftPanelService.setRemoteBranches();
       this.closeCheckoutInfoBar();
       this.toastr.info(data.message, data.title);
     })
@@ -430,6 +475,31 @@ export class HomeComponent implements OnDestroy {
     this.remoteBranch = '';
     this.newCheckedoutBranchName = '';
     this.checkoutInfoBarVisible = false;
+  }
+
+  async createBranch() {
+    this.homeLoading = true;
+    return this.gitService.setNewBranch(this.newBranchName, this.referenceBranchName)
+      .then((data) => {
+        this.leftPanelService.setLocalBranches();
+        this.leftPanelService.setRemoteBranches();
+        this.newBranchInfoBarVisible = false;
+        this.homeLoading = false;
+        this.referenceBranchName = '';
+        this.newBranchName = '';
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.newBranchInfoBarVisible = true;
+        this.homeLoading = false;
+        this.toastr.error(data.message, data.title);
+      });
+  }
+
+  closeNewBranchInfoBar() {
+    this.referenceBranchName = '';
+    this.newBranchName = '';
+    this.newBranchInfoBarVisible = false;
   }
 
   ngOnDestroy() {

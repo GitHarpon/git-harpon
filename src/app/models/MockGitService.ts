@@ -7,7 +7,9 @@ import { ServiceResult } from '../models/ServiceResult';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpsUser } from './HttpsUser';
+import { CommitDescription } from './CommitInformations';
 import { RightPanelService } from '../providers/right-panel.service';
+import { LeftPanelService } from '../providers/left-panel.service';
 
 @Injectable()
 export class MockGitService {
@@ -19,8 +21,10 @@ export class MockGitService {
     httpsUser: HttpsUser;
     listUnstagedFilesSubject: Subject<any[]>;
     listStagedFilesSubject: Subject<any[]>;
+    branchName: any;
 
-    constructor(private translate: TranslateService, private rightPanelService: RightPanelService) {
+    constructor(private translate: TranslateService, private leftPanelService: LeftPanelService,
+        private rightPanelService: RightPanelService) {
         this.pathSubject = new Subject<any>();
         this.repoNameSubject = new Subject<any>();
         this.recentProjectSubject = new Subject<any[]>();
@@ -156,6 +160,31 @@ export class MockGitService {
         });
     }
 
+    async setNewBranch(newBranchName: string, referenceBranchName: string) {
+        return new Promise<any>((resolve, reject) => {
+            if (newBranchName === 'newBranch' && !referenceBranchName.includes('wrong')) {
+                this.branchName = newBranchName;
+                this.emitBranchNameSubject(this.branchName);
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CREATED')));
+            } else if (referenceBranchName.includes('remote/')) {
+                this.branchName = newBranchName;
+                this.emitBranchNameSubject(this.branchName);
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('BRANCH.CREATED')));
+            } else if (newBranchName === 'existingBranch') {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.NOT_CREATED')));
+            } else if (referenceBranchName.includes('wrong')) {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.NOT_CREATED')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('BRANCH.NOT_CREATED')));
+            }
+        });
+    }
+
     init(initLocation: string, initName: string) {
         if (initLocation && initName) {
             return new Promise<ServiceResult>((resolve, reject) => {
@@ -169,6 +198,19 @@ export class MockGitService {
         }
     }
 
+    async renameBranch(oldName: string, newName: string) {
+        return new Promise<any>((resolve, reject) => {
+            if ( oldName == 'valid' ) {
+                resolve(new ServiceResult(true, this.translate.instant('BRANCH.BRANCH_RENAME_SUCCESS'),
+                this.translate.instant('BRANCH.BRANCH_RENAME_SUCCESS')));
+            } else {
+                reject(new ServiceResult(true, this.translate.instant('BRANCH.BRANCH_RENAME_ERROR'),
+                this.translate.instant('BRANCH.BRANCH_RENAME_ERROR')));
+            }
+
+        });
+      }
+
     async cloneHttps(url: GitUrlParse, folder: string, httpsUser: HttpsUser) {
         return new Promise<ServiceResult>((resolve, reject) => {
             if (url && folder === 'path') {
@@ -178,7 +220,7 @@ export class MockGitService {
                         this.translate.instant('CLONE.DONE'), REPOPATH));
                 } else {
                     reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                    this.translate.instant('CLONE.ERROR')));
+                        this.translate.instant('CLONE.ERROR')));
                 }
             } else {
                 if (httpsUser.username === 'username' && httpsUser.password === 'password') {
@@ -189,6 +231,53 @@ export class MockGitService {
                         this.translate.instant('CLONE.ERROR'), true));
                 }
             }
+        });
+    }
+
+    async revParseHEAD(): Promise<String> {
+        return new Promise<String>((resolve, reject) => {
+            // hash au hasard
+            resolve('72267b6ad64858f2db2d597f67004b59e543928b');
+        });
+    }
+
+    async commitDescription(hash: String) {
+        return new Promise<CommitDescription>((resolve, reject) => {
+            resolve({
+                oid: '72267b6ad64858f2db2d597f67004b59e543928b',
+                message: 'feat(test): commit',
+                tree: '2a6ad7904cd02e149c19418e2b776aabde1f2637',
+                parent: ['aae2f2e434c64c83a2092dad969878f553cb9acb'],
+                author: {
+                    name: 'M. Toto',
+                    email: 'toto@mail.com',
+                    timestamp: 1551914175,
+                    timezoneOffset: -60,
+                },
+                committer: {
+                    name: 'M. toto',
+                    email: 'toto@mail.com',
+                    timestamp: 1551914175,
+                    timezoneOffset: -60,
+                },
+                gpgsig: null,
+                files: [
+                    {
+                        file: 'src/app/screens/right-panel/right-panel.component.spec.ts',
+                        changes: 4,
+                        insertions: 3,
+                        deletions: 1,
+                        binary: false
+                    },
+                    {
+                        file: 'src/app/screens/view-commit/view-commit.component.spec.ts',
+                        changes: 16,
+                        insertions: 15,
+                        deletions: 1,
+                        binary: false
+                    }
+                ]
+            });
         });
     }
 
