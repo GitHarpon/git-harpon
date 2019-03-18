@@ -469,14 +469,10 @@ export class GitService {
 
   async pullrebaseHttps(httpsUser: HttpsUser, branch: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
-      var Remote;
       this.gitP.raw(['remote', 'get-url', 'origin'])
         .then((data) => {
-          const Credentials = httpsUser.username + ':' + httpsUser.password + '@';
-          var RemoteArray = [];
-          RemoteArray = data.split('://');
-          var Repo = RemoteArray[1].split('/');
-          Remote = RemoteArray[0] + '://' + Credentials + Repo[0] + '/' + Repo[1] + '/' + this.repoName;
+          const Url = GitUrlParse(data);
+          let Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
 
           this.gitP.pull(Remote, branch, {'--rebase': 'true'})
             .then((data) => {
