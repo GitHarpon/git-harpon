@@ -397,30 +397,31 @@ export class GitService {
           const Credentials = httpsUser.username + ':' + httpsUser.password + '@';
           var RemoteArray = [];
           RemoteArray = data.split('://');
-          Remote = RemoteArray[0] + '://' + Credentials + RemoteArray[1];
+          var Repo = RemoteArray[1].split('/');
+          Remote = RemoteArray[0] + '://' + Credentials + Repo[0] + '/' + Repo[1] + '/' + this.repoName;
+
+          gitPromise(folder)
+            .pull(Remote, branch, {'--rebase': 'true'})
+            .then((data) => {
+              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+              this.translate.instant('PULL.DONE'), 'newData'));
+            })
+            .catch((err) => {
+              var ErrMsg = 'PULL.ERROR';
+              var AccessDenied = false;
+              if (err.toString().includes('unable to update url base from redirection')) {
+                ErrMsg = 'PULL.UNABLE_TO_UPDATE';
+              } else if (err.toString().includes('HTTP Basic: Access denied')) {
+                ErrMsg = 'PULL.HTTP_ACCESS_DENIED';
+              } else if (err.toString().includes('Invalid username or password')) {
+                ErrMsg = 'PULL.INVALID_CRED';
+              }
+              reject(new ServiceResult(false, this.translate.instant('ERROR'),
+              this.translate.instant(ErrMsg), AccessDenied));
+            });
         })
         .catch((err) => {
           console.error(err);
-        });
-
-      gitPromise(folder)
-        .pull(Remote, branch, {'--rebase': 'true'})
-        .then((data) => {
-          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-          this.translate.instant('PULL.DONE'), 'newData'));
-        })
-        .catch((err) => {
-          var ErrMsg = 'PULL.ERROR';
-          var AccessDenied = false;
-          if (err.toString().includes('unable to update url base from redirection')) {
-            ErrMsg = 'PULL.UNABLE_TO_UPDATE';
-          } else if (err.toString().includes('HTTP Basic: Access denied')) {
-            ErrMsg = 'PULL.HTTP_ACCESS_DENIED';
-          } else if (err.toString().includes('Invalid username or password')) {
-            ErrMsg = 'PULL.INVALID_CRED';
-          }
-          reject(new ServiceResult(false, this.translate.instant('ERROR'),
-          this.translate.instant(ErrMsg), AccessDenied));
         });
     });
   }
