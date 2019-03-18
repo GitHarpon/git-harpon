@@ -44,8 +44,9 @@ import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
-import { GraphService } from '../../providers/graph.service';
+import { NewBranchCouple } from '../../models/NewBranchCouple';
 import { MockGraphService } from '../../models/MockGraphService';
+import { GraphService } from '../../providers/graph.service';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -138,63 +139,48 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('tests the pullrebaseHttps function and valid arguments', (done) => {
-    const User: HttpsUser = { username: 'username', password: 'password' };
-    const Folder = 'path';
-    component.fullPath = Folder;
-    component.currentHttpsUser = User;
-    component.homeLoading = true;
-    component.pullrebaseCredInfoBarVisible = true;
-    component.pullrebaseHttps().then(() => {
-      expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
-      expect(component.homeLoading).toBeFalsy();
+  it('tests the renameBranch function that success with valid arguments', (done) => {
+    component.newBranchCouple = new NewBranchCouple();
+    component.newBranchCouple.oldBranch = 'valid';
+    component.newBranchCouple.newBranch = 'tata';
+    component.newBranchName = 'titi';
+    const Empty = '';
+
+    component.renameBranch().then(() => {
+      expect(component.newBranchCouple.newBranch).toEqual(Empty);
+      expect(component.newBranchName).toEqual(Empty);
       done();
     });
   });
 
-  it('tests the pullrebaseHttps function and invalid arguments', (done) => {
-    const User = { username: '', password: '' };
-    const Visible = true;
-    component.currentHttpsUser = User;
-    component.homeLoading = Visible;
-    component.pullrebaseAuthErrored = false;
-    component.pullrebaseCredInfoBarVisible = Visible;
-    component.pullrebaseHttps().then(() => {
-      expect(component.pullrebaseAuthErrored).toBeTruthy();
-      expect(component.homeLoading).toBeFalsy();
+  it('tests the renameBranch function that fails with valid arguments', (done) => {
+    component.newBranchCouple = new NewBranchCouple();
+    component.newBranchCouple.oldBranch = 'toto';
+    component.newBranchCouple.newBranch = 'tata';
+    component.newBranchName = 'titi';
+    const Empty = '';
+
+    component.renameBranch().then(() => {
+      expect(component.newBranchCouple.newBranch).toEqual(Empty);
+      expect(component.newBranchName).toEqual(Empty);
       done();
     });
   });
 
-  it('tests the pullrebaseHttps function and invalid arguments alternative', (done) => {
-    const User = { username: 'username', password: 'password' };
-    const InvalidPath = 'invalid';
-    const Visible = true;
 
-    component.fullPath = InvalidPath;
-    component.currentHttpsUser = User;
-    component.homeLoading = Visible;
-    component.pullrebaseAuthErrored = false;
-    component.pullrebaseCredInfoBarVisible = Visible;
-    component.pullrebaseHttps().then(() => {
-      expect(component.homeLoading).toBeFalsy();
-      expect(component.currentHttpsUser.password).toBeFalsy();
-      expect(component.currentHttpsUser.username).toBeFalsy();
+  it('tests the renameBranch function with invalid arguments', (done) => {
+    component.newBranchCouple = new NewBranchCouple();
+    const Empty = '';
+    component.newBranchCouple.oldBranch = Empty;
+    component.newBranchCouple.newBranch = Empty;
+    component.newBranchName = 'titi';
+
+    component.renameBranch().then(() => {
+      expect(component.newBranchCouple.newBranch).toEqual('titi');
+      expect(component.newBranchName).toEqual('titi');
       done();
     });
   });
 
-  it('tests the resetPullrebaseInputs function', () => {
-    const Expected: HttpsUser = { username: '', password: '' };
-    component.resetPullrebaseInputs();
-    expect(component.currentHttpsUser.username).toBe(Expected.username);
-    expect(component.currentHttpsUser.password).toBe(Expected.password);
-    expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
-    expect(component.homeLoading).toBeFalsy();
-  });
 
-  it('tests the closePullrebaseCredInfoBar function', () => {
-    component.closePullrebaseCredInfoBar();
-    expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
-  });
 });

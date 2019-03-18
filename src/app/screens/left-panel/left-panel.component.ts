@@ -1,8 +1,12 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { Subscription } from 'rxjs';
 import { GitService } from '../../providers/git.service';
 import { LeftPanelService } from '../../providers/left-panel.service';
+import { ContextMenuComponent } from 'ngx-contextmenu';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguagePreferencesService } from '../../providers/language-preferences.service';
+import { NewBranchCouple } from '../../models/NewBranchCouple';
 import { ToastrService } from 'ngx-toastr';
 import { RightPanelService } from '../../providers/right-panel.service';
 
@@ -16,17 +20,36 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   themePrefSubscription: Subscription;
   localBranches: any;
   localBranchesSubscription: Subscription;
+  currentNewBranchCouple: NewBranchCouple;
+  @Output()
+  newBranchCoupleChange = new  EventEmitter<NewBranchCouple>();
   remoteBranches: any;
   remoteBranchesSubscription: Subscription;
   currentBranch: any;
   branchNameSubscription: Subscription;
+
+  @ViewChild('branchCM') branchCM: ContextMenuComponent;
   objectKeys = Object.keys;
   loadingVisible: Boolean;
   loadingVisibleSubscription: Subscription;
   @Output() checkoutInfoBarChange = new EventEmitter<any>();
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
-    private leftPanelService: LeftPanelService, private toastr: ToastrService, private rightPanelService: RightPanelService) { }
+    private leftPanelService: LeftPanelService, private translate: TranslateService,
+    private langPrefService: LanguagePreferencesService, private toastr: ToastrService,
+    private rightPanelService: RightPanelService) {
+
+  }
+
+  @Input()
+  get newBranchCouple() {
+    return this.currentNewBranchCouple;
+  }
+
+  set newBranchCouple(couple) {
+    this.currentNewBranchCouple = couple;
+    this.newBranchCoupleChange.emit(this.currentNewBranchCouple);
+  }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -107,6 +130,12 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     });
   }
 
+  renameBranch(branch: string) {
+    var TmpNewBr = new NewBranchCouple();
+    TmpNewBr.oldBranch = branch;
+    this.newBranchCouple = TmpNewBr;
+  }
+  
   async updateCommitDescription() {
     return this.gitService.revParseHEAD().then((data) => {
       this.rightPanelService.setCommitHash(data.replace('\n', ''));
