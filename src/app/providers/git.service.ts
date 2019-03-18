@@ -8,6 +8,8 @@ import { ServiceResult } from '../models/ServiceResult';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-store';
 import { HttpsUser } from '../models/HttpsUser';
+import * as isomorphic from 'isomorphic-git';
+import { CommitDescription } from '../models/CommitInformations';
 import { RightPanelService } from './right-panel.service';
 
 @Injectable()
@@ -33,7 +35,7 @@ export class GitService {
     this.recentProjectSubject = new Subject<any[]>();
     this.branchNameSubject = new Subject<any>();
     this.httpsUserSubject = new Subject<HttpsUser>();
-    this.setHttpsUser({ username: null, password: null});
+    this.setHttpsUser({ username: null, password: null });
     if (this.recentProject[0]) {
       if (this.recentProject[0].path) {
         this.setPath(this.recentProject[0].path);
@@ -95,11 +97,11 @@ export class GitService {
             })
             .catch(() => {
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
-              this.translate.instant('INIT.FAILED')));
+                this.translate.instant('INIT.FAILED')));
             });
         } else {
           reject(new ServiceResult(false, this.translate.instant('ERROR'),
-          this.translate.instant('PATH_NOT_FOUND')));
+            this.translate.instant('PATH_NOT_FOUND')));
         }
       });
     }
@@ -121,12 +123,15 @@ export class GitService {
               this.registerProject(this.repoName, this.path);
               this.updateFilesDiff();
               this.getCurrentBranch();
+              this.revParseHEAD().then((data) => {
+                this.rightPanelService.setCommitHash(data.replace('\n', ''));
+              });
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                 this.translate.instant('OPEN.OPENED_REPO')));
 
             } else {
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
-              this.translate.instant('OPEN.NOT_GIT_REPO')));
+                this.translate.instant('OPEN.NOT_GIT_REPO')));
             }
           })
           .catch(() => {
@@ -337,7 +342,7 @@ export class GitService {
           if (err.toString().includes('unable to update url base from redirection')) {
             ErrMsg = 'CLONE.UNABLE_TO_UPDATE';
           } else if (err.toString().includes('HTTP Basic: Access denied') ||
-              err.toString().includes('Authentication failed for')) {
+            err.toString().includes('Authentication failed for')) {
             ErrMsg = 'CLONE.HTTP_ACCESS_DENIED';
             AccessDenied = true;
           } else if (err.toString().includes('could not create work tree')) {
@@ -396,7 +401,7 @@ export class GitService {
       this.updateFilesDiff();
     });
   }
-  
+
   async pullrebaseHttps(folder: string, httpsUser: HttpsUser, branch: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
       var Remote;
@@ -432,5 +437,46 @@ export class GitService {
 
   async pullrebaseSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
       // SSH non pris en charge pour le moment
+  }
+
+  async revParseHEAD(): Promise<String> {
+    return this.gitP.raw(['rev-parse', 'HEAD']);
+  }
+
+  async commitDescription(hash: String) {
+    return new Promise<any>((resolve, reject) => {
+      isomorphic.log(
+        {
+          fs: this.electronService.fs,
+          dir: this.electronService.process.cwd(),
+          depth: 1,
+          ref: hash.toString()
+        })
+        .then((commitInfo) => {
+          const Args = hash + '^!';
+          gitPromise().show(['-m', '--name-status', '--oneline', hash.toString()])
+            .then((result) => {
+              const FirstArray = result.split(/\n/);
+              FirstArray.shift();
+              var SecondArray = FirstArray.map(x => {
+                return (x.split(/\s{1}/g));
+              });
+              const Final = [];
+              for (var Elem in SecondArray)  {
+                if (Array.isArray(SecondArray[Elem]) && SecondArray[Elem].length === 2) {
+                  var Path = '';
+                  // Pour gérer les fichiers avec un espace
+                  for (var Ind = 1; Ind < SecondArray[Elem].length; Ind++) {
+                    Path += SecondArray[Elem][Ind];
+                  }
+                  Final.push({ status: SecondArray[Elem][0], path: Path});
+                } else {
+                  break;
+                }
+              }
+              resolve({...commitInfo[0], files: Final});
+          });
+        });
+    });
   }
 }

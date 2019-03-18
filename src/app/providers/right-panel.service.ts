@@ -9,8 +9,11 @@ export class RightPanelService {
   listUnstagedFilesSubject: Subject<any[]>;
   listStagedFiles: any[];
   listStagedFilesSubject: Subject<any[]>;
+  commitHash: String;
+  commitHashSubject: Subject<String>;
 
   constructor() {
+    this.commitHashSubject = new Subject<String>();
     this.isViewSubject = new Subject<Boolean>();
     this.isView = true;
     this.emitIsViewSubject();
@@ -40,5 +43,15 @@ export class RightPanelService {
     this.listStagedFiles = listStagedFiles;
     this.emitListUnstagedFilesSubject();
     this.emitListStagedFilesSubject();
+  }
+
+  emitCommitHashSubject() {
+    this.commitHashSubject.next(this.commitHash);
+  }
+
+
+  setCommitHash(hash: String) {
+    this.commitHash = hash;
+    this.emitCommitHashSubject();
   }
 }
