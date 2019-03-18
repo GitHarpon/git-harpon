@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { InputComponent } from '../../components/input/input.component';
 import { ButtonComponent } from '../../components/button/button.component';
+import { GraphService } from '../../providers/graph.service';
+import { MockGraphService } from '../../models/MockGraphService';
 
 describe('GraphComponent', () => {
   /* tslint:disable */
@@ -37,6 +39,10 @@ describe('GraphComponent', () => {
         {
           provide: RightPanelService,
           useClass: MockRightPanelService
+        },
+        {
+          provide: GraphService,
+          useClass: MockGraphService
         }
       ]
     })
@@ -56,24 +62,27 @@ describe('GraphComponent', () => {
 
   it('tests the ngOnInit function', () => {
     component.ngOnInit();
+
     expect(component.themePrefSubscription).toBeDefined();
+    expect(component.graphSubscription).toBeDefined();
   });
 
-  it('tests the openViewCommit function', () => {
-    component.openViewCommit();
-
-    expect(rightPanelService.isView).toBeTruthy();
-  });
-
-  it('tests the openSendCommit function', () => {
-    component.openSendCommit();
-
-    expect(rightPanelService.isView).toBeFalsy();
-  });
-
-  it('tests the ngOnDestroy function', () => {
+  it ('test the ngOnDestroy function with defined subscriptions', () => {
     component.ngOnInit();
     component.ngOnDestroy();
+
     expect(component.themePrefSubscription.closed).toBeTruthy();
+    expect(component.graphSubscription.closed).toBeTruthy();
+  });
+
+  it ('test the ngOnDestroy function with undefined subscriptions', () => {
+    const Undefined = undefined;
+    component.themePrefSubscription = Undefined;
+    component.graphSubscription = Undefined;
+
+    component.ngOnDestroy();
+
+    expect(component.themePrefSubscription).toBeUndefined();
+    expect(component.graphSubscription).toBeUndefined();
   });
 });

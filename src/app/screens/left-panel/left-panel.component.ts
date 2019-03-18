@@ -5,6 +5,7 @@ import { GitService } from '../../providers/git.service';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { ToastrService } from 'ngx-toastr';
 import { ContextMenuComponent } from 'ngx-contextmenu';
+import { RightPanelService } from '../../providers/right-panel.service';
 
 @Component({
   selector: 'app-left-panel',
@@ -29,7 +30,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   @Output() createBranchInfoBar = new EventEmitter<any>();
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
-    private leftPanelService: LeftPanelService, private toastr: ToastrService) { }
+    private leftPanelService: LeftPanelService, private toastr: ToastrService, private rightPanelService: RightPanelService) { }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -77,6 +78,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
         this.loadingVisible = false;
         this.leftPanelService.setLocalBranches();
         this.leftPanelService.setRemoteBranches();
+        this.updateCommitDescription();
       }).catch((result) => {
         this.loadingVisible = false;
         this.toastr.error(result.message, result.title, {
@@ -96,6 +98,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
       this.loadingVisible = false;
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
+      this.updateCommitDescription();
     }).catch((result) => {
       if (!result.newData) {
         this.loadingVisible = false;
@@ -110,6 +113,12 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
 
   openCreateBranchInfoBar(deleteBranch) {
     this.createBranchInfoBar.emit(deleteBranch);
+  }
+
+  async updateCommitDescription() {
+    return this.gitService.revParseHEAD().then((data) => {
+      this.rightPanelService.setCommitHash(data.replace('\n', ''));
+    });
   }
 
   ngOnDestroy() {

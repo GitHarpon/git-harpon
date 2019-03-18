@@ -5,7 +5,7 @@
             <app-input [(value)]="commitHash"></app-input>
         </div>
         <div class="col-md-4 text-right">
-          <app-button value="VIEW_COMMIT" type="primary" (buttonClicked)="openViewCommit()"></app-button>
+          <app-button value="VIEW_COMMIT" type="primary" [disabled]="!commitHash" (buttonClicked)="openViewCommit()"></app-button>
         </div>
     </div>
     <div class="col-md-12 row mt-3">
@@ -13,5 +13,6 @@
           <app-button value="SEND_COMMIT" type="primary" (buttonClicked)="openSendCommit()"></app-button>
         </div>
     </div>
+    <div [innerHTML]="graph" class="col-md-12 row mt-3"></div>
   </div>
 </div>
