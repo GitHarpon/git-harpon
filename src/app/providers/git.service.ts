@@ -397,7 +397,6 @@ export class GitService {
                 this.translate.instant('CLONE.DONE'), RepoPath));
             })
             .catch((err) => {
-              console.log(err);
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
                 this.translate.instant('CLONE.ERROR')));
             });
@@ -468,41 +467,32 @@ export class GitService {
     });
   }
 
-  async pullrebaseHttps(folder: string, httpsUser: HttpsUser, branch: string) {
+  async pullrebaseHttps(httpsUser: HttpsUser, branch: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
-      var Remote;
-      gitPromise(folder).raw(['remote', 'get-url', 'origin']).then((data) => {
-        const Credentials = httpsUser.username + ':' + httpsUser.password + '@';
-        var RemoteArray = [];
-        RemoteArray = data.split('://');
-        Remote = RemoteArray[0] + '://' + Credentials + RemoteArray[1];
-      }).catch((err) => { console.error(err); });
-      gitPromise(folder).pull(Remote, branch, {'--rebase': 'true'})
-      .then((data) => {
-          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-          this.translate.instant('PULL.DONE')));
-        }).catch((err) => {
-        var ErrMsg = 'PULL.ERROR';
-        var AccessDenied = false;
-        if (err.toString().includes('unable to update url base from redirection')) {
-          ErrMsg = 'PULL.UNABLE_TO_UPDATE';
-        } else if (err.toString().includes('HTTP Basic: Access denied')) {
-          ErrMsg = 'PULL.HTTP_ACCESS_DENIED';
-        } else if (err.toString().includes('could not create work tree')) {
-          ErrMsg = 'PULL.NOT_WORK_TREE';
-        } else if (err.toString().includes('Repository not found')) {
-          ErrMsg = 'PULL.REPO_NOT_FOUND';
-        } else if (err.toString().includes('Invalid username or password')) {
-          ErrMsg = 'PULL.INVALID_CRED';
-        }
-        reject(new ServiceResult(false, this.translate.instant('ERROR'),
-        this.translate.instant(ErrMsg), AccessDenied));
-      });
-    });
-  }
+      this.gitP.raw(['remote', 'get-url', 'origin'])
+        .then((data) => {
+          const Url = GitUrlParse(data);
+          let Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
 
-  async pullrebaseSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
-      // SSH non pris en charge pour le moment
+          this.gitP.pull(Remote, branch, {'--rebase': 'true'})
+            .then((data) => {
+              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+              this.translate.instant('PULL.DONE'), 'newData'));
+            })
+            .catch((err) => {
+              var ErrMsg = 'PULL.ERROR';
+              var AccessDenied = false;
+              if (err.toString().includes('Authentication failed')) {
+                ErrMsg = 'PULL.UNABLE_TO_CONNECT';
+              }
+              reject(new ServiceResult(false, this.translate.instant('ERROR'),
+              this.translate.instant(ErrMsg), AccessDenied));
+            });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    });
   }
 
   async revParseHEAD(): Promise<String> {

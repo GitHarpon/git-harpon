@@ -141,55 +141,58 @@ describe('HomeComponent', () => {
 
   it('tests the pullrebaseHttps function and valid arguments', (done) => {
     const User: HttpsUser = { username: 'username', password: 'password' };
-    const Folder = 'path';
-    component.fullPath = Folder;
-    component.currentHttpsUser = User;
+
+    component.pullrebaseHttpsUser = User;
     component.homeLoading = true;
     component.pullrebaseCredInfoBarVisible = true;
+
     component.pullrebaseHttps().then(() => {
+      expect(component.homeLoading).toBeFalsy();
       expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
-      expect(component.homeLoading).toBeFalsy();
+      expect(component.pullrebaseHttpsUser.password).toBeFalsy();
+      expect(component.pullrebaseHttpsUser.username).toBeFalsy();
       done();
     });
   });
 
-  it('tests the pullrebaseHttps function and invalid arguments', (done) => {
-    const User = { username: '', password: '' };
-    const Visible = true;
-    component.currentHttpsUser = User;
-    component.homeLoading = Visible;
-    component.pullrebaseAuthErrored = false;
+  it('tests the pullrebaseHttps function and invalid arguments with newData', (done) => {
+    const User: HttpsUser = { username: 'username', password: 'newData' };
+    const Visible = false;
+
+    component.pullrebaseAuthErrored = Visible;
+    component.pullrebaseHttpsUser = User;
     component.pullrebaseCredInfoBarVisible = Visible;
+
     component.pullrebaseHttps().then(() => {
-      expect(component.pullrebaseAuthErrored).toBeTruthy();
-      expect(component.homeLoading).toBeFalsy();
+      expect(component.pullrebaseAuthErrored).toBeFalsy();
+      expect(component.pullrebaseHttpsUser.password).toEqual('');
+      expect(component.pullrebaseCredInfoBarVisible).toBeTruthy();
       done();
     });
   });
 
-  it('tests the pullrebaseHttps function and invalid arguments alternative', (done) => {
-    const User = { username: 'username', password: 'password' };
-    const InvalidPath = 'invalid';
-    const Visible = true;
+  it('tests the pullrebaseHttps function and invalid arguments without newData', (done) => {
+    const User: HttpsUser = { username: 'username', password: 'noNewData' };
+    const Expected: HttpsUser = { username: '', password: '' };
 
-    component.fullPath = InvalidPath;
-    component.currentHttpsUser = User;
-    component.homeLoading = Visible;
-    component.pullrebaseAuthErrored = false;
-    component.pullrebaseCredInfoBarVisible = Visible;
+    component.homeLoading = true;
+    component.pullrebaseHttpsUser = User;
+
     component.pullrebaseHttps().then(() => {
+      expect(component.pullrebaseHttpsUser.password).toEqual('');
+      expect(component.pullrebaseHttpsUser.username).toBe(Expected.username);
+      expect(component.pullrebaseHttpsUser.password).toBe(Expected.password);
       expect(component.homeLoading).toBeFalsy();
-      expect(component.currentHttpsUser.password).toBeFalsy();
-      expect(component.currentHttpsUser.username).toBeFalsy();
       done();
     });
   });
 
   it('tests the resetPullrebaseInputs function', () => {
     const Expected: HttpsUser = { username: '', password: '' };
+    component.pullrebaseHttpsUser = Expected;
     component.resetPullrebaseInputs();
-    expect(component.currentHttpsUser.username).toBe(Expected.username);
-    expect(component.currentHttpsUser.password).toBe(Expected.password);
+    expect(component.pullrebaseHttpsUser.username).toBe(Expected.username);
+    expect(component.pullrebaseHttpsUser.password).toBe(Expected.password);
     expect(component.pullrebaseCredInfoBarVisible).toBeFalsy();
     expect(component.homeLoading).toBeFalsy();
   });
