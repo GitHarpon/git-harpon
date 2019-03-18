@@ -170,7 +170,6 @@ export class GitService {
             } else {
               gitPromise(this.path).branch(['-r'])
                 .then((resultbis) => {
-                  console.log(resultbis);
                   if (resultbis.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
                     gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
                     .then(() => {
