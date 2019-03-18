@@ -224,24 +224,17 @@ export class MockGitService {
         this.updateFilesDiff();
     }
 
-    async pullrebaseHttps(folder: string, httpsUser: HttpsUser, branch: string) {
+    async pullrebaseHttps(httpsUser: HttpsUser, branch: string) {
         return new Promise<ServiceResult>((resolve, reject) => {
-            if (folder === 'path') {
-                if (httpsUser.username === 'username' && httpsUser.password === 'password') {
-                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-                        this.translate.instant('PULL.DONE')));
-                } else {
-                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                    this.translate.instant('PULL.ERROR')));
-                }
+            if (httpsUser.username === 'username' && httpsUser.password === 'password') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                    this.translate.instant('PULL.DONE')));
+            } else if (httpsUser.username === 'username' && httpsUser.password === 'newData') {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('PULL.ERROR'), 'newData'));
             } else {
-                if (httpsUser.username === 'username' && httpsUser.password === 'password') {
-                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                        this.translate.instant('PULL.ERROR'), false));
-                } else {
-                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                        this.translate.instant('PULL.ERROR'), true));
-                }
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('PULL.ERROR')));
             }
         });
     }
