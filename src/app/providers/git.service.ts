@@ -155,8 +155,6 @@ export class GitService {
             if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
               gitPromise(this.path).branchLocal()
                 .then((result) => {
-                  console.log('setNewbranch');
-                  console.log(result);
                   gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
                   .then(() => {
                     this.branchName = newBranchName;
@@ -220,8 +218,6 @@ export class GitService {
       if (this.repoName) {
         gitPromise(this.path).branch([])
           .then((result) => {
-            console.log('getLocalBranches');
-            console.log(result.all);
             resolve(result.all);
         });
       }
@@ -280,7 +276,8 @@ export class GitService {
           this.getCurrentBranch();
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
-        }).catch((result) => {
+        }).catch((err) => {
+          console.log(err);
           reject(new ServiceResult(false, this.translate.instant('ERROR'),
             this.translate.instant('BRANCH.ERROR')));
         });
@@ -300,6 +297,7 @@ export class GitService {
                       resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                         this.translate.instant('BRANCH.CHECKED_OUT')));
                     }).catch((err) => {
+                      console.log(err);
                       reject(new ServiceResult(false, this.translate.instant('ERROR'),
                         this.translate.instant('ERROR'), remoteBranch));
                     });
@@ -439,7 +437,6 @@ export class GitService {
 
         this.gitP.raw(['push', '-u', Remote, branch])
         .then((result) => {
-            console.log(result);
             resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('PUSH.DONE')));
           }).catch((err) => {
