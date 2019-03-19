@@ -77,6 +77,7 @@ describe('HomeComponent', () => {
         TextAreaComponent,
       ],
       imports: [
+        ContextMenuModule,
         FormsModule,
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}

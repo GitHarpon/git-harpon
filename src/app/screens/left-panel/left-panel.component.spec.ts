@@ -190,6 +190,23 @@ describe('LeftPanelComponent', () => {
     });
   });
 
+  it ('test the openCreateBranchInfoBar function with a local branch', () => {
+    const LocalBranch = 'localBranch';
+    spyOn(component.createBranchInfoBar, 'emit');
+    component.openCreateBranchInfoBar(LocalBranch);
+    fixture.detectChanges();
+    expect(component.createBranchInfoBar.emit).toHaveBeenCalledWith(LocalBranch);
+  });
+
+  it ('test the openCreateBranchInfoBar function with a remote branch', () => {
+    const RemoteBranch = 'origin/newData';
+    spyOn(component.createBranchInfoBar, 'emit');
+    component.openCreateBranchInfoBar(RemoteBranch);
+    fixture.detectChanges();
+    expect(component.createBranchInfoBar.emit).toHaveBeenCalledWith(RemoteBranch);
+  });
+
+
   it('test the renameBranch function', () => {
     const OldBranch = 'toto';
     component.newBranchCouple = new NewBranchCouple();

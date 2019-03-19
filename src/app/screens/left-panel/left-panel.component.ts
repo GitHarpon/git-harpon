@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy, ViewChild, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { Subscription } from 'rxjs';
 import { GitService } from '../../providers/git.service';
 import { LeftPanelService } from '../../providers/left-panel.service';
-import { ContextMenuComponent } from 'ngx-contextmenu';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 import { NewBranchCouple } from '../../models/NewBranchCouple';
 import { ToastrService } from 'ngx-toastr';
+import { ContextMenuComponent } from 'ngx-contextmenu';
 import { RightPanelService } from '../../providers/right-panel.service';
 
 @Component({
@@ -16,6 +16,8 @@ import { RightPanelService } from '../../providers/right-panel.service';
   styleUrls: ['./left-panel.component.scss']
 })
 export class LeftPanelComponent implements OnInit, OnDestroy {
+  @ViewChild('branchCM') branchCM: ContextMenuComponent;
+  @ViewChild('remoteCM') remoteCM: ContextMenuComponent;
   currentTheme: string;
   themePrefSubscription: Subscription;
   localBranches: any;
@@ -27,12 +29,11 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   remoteBranchesSubscription: Subscription;
   currentBranch: any;
   branchNameSubscription: Subscription;
-
-  @ViewChild('branchCM') branchCM: ContextMenuComponent;
   objectKeys = Object.keys;
   loadingVisible: Boolean;
   loadingVisibleSubscription: Subscription;
   @Output() checkoutInfoBarChange = new EventEmitter<any>();
+  @Output() createBranchInfoBar = new EventEmitter<any>();
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
     private leftPanelService: LeftPanelService, private translate: TranslateService,
@@ -130,12 +131,16 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     });
   }
 
+  openCreateBranchInfoBar(branch) {
+    this.createBranchInfoBar.emit(branch);
+  }
+
   renameBranch(branch: string) {
     var TmpNewBr = new NewBranchCouple();
     TmpNewBr.oldBranch = branch;
     this.newBranchCouple = TmpNewBr;
   }
-  
+
   async updateCommitDescription() {
     return this.gitService.revParseHEAD().then((data) => {
       this.rightPanelService.setCommitHash(data.replace('\n', ''));

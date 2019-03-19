@@ -24,6 +24,9 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { MockRightPanelService } from '../../models/MockRightPanelService';
+
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
@@ -37,12 +40,10 @@ import { RightPanelComponent } from '../right-panel/right-panel.component';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { ViewCommitComponent } from '../view-commit/view-commit.component';
 import { SendCommitComponent } from '../send-commit/send-commit.component';
+import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
+import { ContextMenuModule } from 'ngx-contextmenu';
 import { TextAreaComponent } from '../../components/text-area/text-area.component';
 import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
-import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
-import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
-import { RightPanelService } from '../../providers/right-panel.service';
-import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { GraphService } from '../../providers/graph.service';
 import { MockGraphService } from '../../models/MockGraphService';
 
@@ -50,6 +51,7 @@ describe('HomeComponent', () => {
   /* tslint:disable */
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
+  let leftPanelService: LeftPanelService;
   /* tslint:enable */
 
   beforeEach(async(() => {
@@ -85,7 +87,6 @@ describe('HomeComponent', () => {
         NgbModule,
         RouterTestingModule,
         BrowserAnimationsModule,
-        ContextMenuModule,
         ToastrModule.forRoot()
       ],
       providers: [
@@ -102,8 +103,16 @@ describe('HomeComponent', () => {
           useClass: MockThemePreferencesService
         },
         {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
+        },
+        {
           provide: LeftPanelService,
           useClass: MockLeftPanelService
+        },
+        {
+          provide: GraphService,
+          useClass: MockGraphService
         },
         {
           provide: ElectronService,
@@ -114,27 +123,10 @@ describe('HomeComponent', () => {
           useClass: MockGitService
         },
         {
-          provide: RightPanelService,
-          useClass: MockRightPanelService
-        },
-        {
-            provide: LeftPanelService,
-            useClass: MockLeftPanelService
-        },
-        {
-          provide: GraphService,
-          useClass: MockGraphService
-        },
-        {
           provide: TerminalManagerService,
           useClass: MockTerminalManagerService
         },
-        {
-          provide: LeftPanelService,
-          useClass: MockLeftPanelService
-        },
-        ToastrService,
-        ContextMenuService
+        ToastrService
       ]
     })
       .compileComponents();
@@ -143,71 +135,118 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
+    leftPanelService = TestBed.get(LeftPanelService);
   });
 
-  it('tests the updateFullPath function for init with all fields', () => {
-    const Path = '/new';
-    const RepoName = '/repo';
-    component.initLocation = Path;
-    component.initName = RepoName;
-    component.updateFullPath();
-    expect(component.fullPath).toBe('/new/repo');
+  it('tests the openCreateBranchInfoBar function', () => {
+    const SelectedBranchName = 'selectedBranch';
+    const RefBranchName = '';
+    const NewBranchInfoBarVisibility = false;
+    component.referenceBranchName = RefBranchName;
+    component.newBranchInfoBarVisible = NewBranchInfoBarVisibility;
+    component.openCreateBranchInfoBar(SelectedBranchName);
+    expect(component.referenceBranchName).toBe(SelectedBranchName);
+    expect(component.newBranchInfoBarVisible).toBeTruthy();
   });
 
-  it('tests the updateFullPath for init without location', () => {
-    const Path = '';
-    const RepoName = '/repo';
-    component.initLocation = Path;
-    component.initName = RepoName;
-    component.updateFullPath();
-    expect(component.fullPath).toBe('');
-  });
+  it('tests the createBranch function', (done) => {
+    const NewBranchName = 'newBranch';
+    const RefBranchName = 'refBranch';
+    const CurrentBranchName = 'currentBranch';
+    component.branchName = CurrentBranchName;
+    component.newBranchName = NewBranchName;
+    component.referenceBranchName = RefBranchName;
+    component.newBranchInfoBarVisible = true;
 
-  it('tests the initBrowse function with valid BrowsePath', () => {
-    component.initBrowse();
-    expect(component.initLocation).toBe('/new');
-  });
-
-  it('tests the initSubmit function with valid path', (done) => {
-    const OldPath = '/old';
-    const NewPath = '/new';
-    const RepoName = '/repo';
-    const BoolModal = true;
-    component.initLocation = NewPath;
-    component.initName = RepoName;
-    component.projectModalVisible = BoolModal;
-    component.projectModalLoading = BoolModal;
-    component.path = OldPath;
-    component.initSubmit().then(() => {
-      expect(component.projectModalVisible).toBeFalsy();
-      expect(component.projectModalLoading).toBeFalsy();
-      expect(component.initLocation).toBe('');
-      expect(component.initName).toBe('');
-      expect(component.fullPath).toBe('');
-      expect(component.path).toBe(NewPath);
+    component.createBranch().then(() => {
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.branchName).toBe(NewBranchName);
+      expect(component.newBranchInfoBarVisible).toBeFalsy();
       done();
     });
   });
 
-  it('tests the initSubmit function with invalid path', (done) => {
-    const OldPath = '/old';
-    const NewPath = '/invalidpath';
-    const RepoName = '/repo';
-    const BoolModal = true;
-    component.initLocation = NewPath;
-    component.initName = RepoName;
-    const FullPath = component.fullPath;
-    component.projectModalVisible = BoolModal;
-    component.projectModalLoading = BoolModal;
-    component.path = OldPath;
-    component.initSubmit().then(() => {
-      expect(component.projectModalVisible).toBeTruthy();
-      expect(component.projectModalLoading).toBeFalsy();
-      expect(component.initLocation).toBe(NewPath);
-      expect(component.initName).toBe(RepoName);
-      expect(component.fullPath).toBe(FullPath);
-      expect(component.path).toBe(OldPath);
+  it('tests the createBranch function with an existing new branch name', (done) => {
+    const NewBranchName = 'existingBranch';
+    const RefBranchName = 'refBranch';
+    const CurrentBranchName = 'currentBranch';
+    component.branchName = CurrentBranchName;
+    component.newBranchName = NewBranchName;
+    component.referenceBranchName = RefBranchName;
+    component.newBranchInfoBarVisible = true;
+
+    component.createBranch().then(() => {
+      expect(component.branchName).toBe(CurrentBranchName);
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.newBranchInfoBarVisible).toBeTruthy();
       done();
     });
   });
+
+  it('tests the createBranch function with a wrong reference branch name', (done) => {
+    const NewBranchName = 'newBranch';
+    const RefBranchName = 'wrongRefBranch';
+    const CurrentBranchName = 'currentBranch';
+    component.branchName = CurrentBranchName;
+    component.newBranchName = NewBranchName;
+    component.referenceBranchName = RefBranchName;
+    component.newBranchInfoBarVisible = true;
+
+    component.createBranch().then(() => {
+      expect(component.branchName).toBe(CurrentBranchName);
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.newBranchInfoBarVisible).toBeTruthy();
+      done();
+    });
+  });
+
+  it('tests the createBranch function with a remote reference branch', (done) => {
+    const NewBranchName = 'newBranch';
+    const RefBranchName = 'remote/refBranch';
+    const CurrentBranchName = 'currentBranch';
+    component.branchName = CurrentBranchName;
+    component.newBranchName = NewBranchName;
+    component.referenceBranchName = RefBranchName;
+    component.newBranchInfoBarVisible = true;
+
+    component.createBranch().then(() => {
+      expect(component.branchName).toBe(NewBranchName);
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.newBranchInfoBarVisible).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the createBranch function with a wrong remote reference branch', (done) => {
+    const NewBranchName = 'newBranch';
+    const RefBranchName = 'wrong/refBranch';
+    const CurrentBranchName = 'currentBranch';
+    component.branchName = CurrentBranchName;
+    component.newBranchName = NewBranchName;
+    component.referenceBranchName = RefBranchName;
+    component.newBranchInfoBarVisible = true;
+
+    component.createBranch().then(() => {
+      expect(component.branchName).toBe(CurrentBranchName);
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.newBranchInfoBarVisible).toBeTruthy();
+      done();
+    });
+  });
+
+  it('tests the branchButtonClicked function', () => {
+    const NewBranchInfoBarVisibility = false;
+    component.newBranchInfoBarVisible = NewBranchInfoBarVisibility;
+    component.branchButtonClicked();
+    expect(component.newBranchInfoBarVisible).toBeTruthy();
+  });
+
+
+  it('tests the closeNewBranchInfoBar function', () => {
+    const NewBranchInfoBarVisibility = true;
+    component.newBranchInfoBarVisible = NewBranchInfoBarVisibility;
+    component.closeNewBranchInfoBar();
+    expect(component.newBranchInfoBarVisible).toBeFalsy();
+  });
+
 });

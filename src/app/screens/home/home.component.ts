@@ -41,6 +41,9 @@ export class HomeComponent implements OnDestroy {
   pushCredInfoBarVisible: boolean;
   branchName: any;
   branchNameSubscription: Subscription;
+  newBranchInfoBarVisible: boolean;
+  newBranchName: string;
+  referenceBranchName: string;
   newBranchCouple: NewBranchCouple;
   newBranchNameForRenaming: string;
   credInfoBarVisible: boolean;
@@ -164,7 +167,13 @@ export class HomeComponent implements OnDestroy {
   }
 
   branchButtonClicked() {
-    return true;
+    this.referenceBranchName = this.branchName;
+    this.newBranchInfoBarVisible = true;
+  }
+
+  openCreateBranchInfoBar(refBranchName) {
+    this.referenceBranchName = refBranchName;
+    this.newBranchInfoBarVisible = true;
   }
 
   async openTerminal() {
@@ -483,7 +492,7 @@ export class HomeComponent implements OnDestroy {
   resetLocalHere() {
     return this.gitService.resetLocalHere(this.remoteBranch).then((data) => {
       this.leftPanelService.setLocalBranches();
-        this.leftPanelService.setRemoteBranches();
+      this.leftPanelService.setRemoteBranches();
       this.closeCheckoutInfoBar();
       this.toastr.info(data.message, data.title);
     })
@@ -499,6 +508,31 @@ export class HomeComponent implements OnDestroy {
     this.remoteBranch = '';
     this.newCheckedoutBranchName = '';
     this.checkoutInfoBarVisible = false;
+  }
+
+  async createBranch() {
+    this.homeLoading = true;
+    return this.gitService.setNewBranch(this.newBranchName, this.referenceBranchName)
+      .then((data) => {
+        this.leftPanelService.setLocalBranches();
+        this.leftPanelService.setRemoteBranches();
+        this.newBranchInfoBarVisible = false;
+        this.homeLoading = false;
+        this.referenceBranchName = '';
+        this.newBranchName = '';
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.newBranchInfoBarVisible = true;
+        this.homeLoading = false;
+        this.toastr.error(data.message, data.title);
+      });
+  }
+
+  closeNewBranchInfoBar() {
+    this.referenceBranchName = '';
+    this.newBranchName = '';
+    this.newBranchInfoBarVisible = false;
   }
 
   ngOnDestroy() {
