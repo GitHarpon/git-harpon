@@ -277,7 +277,6 @@ describe('HomeComponent', () => {
   });
 
   it('tests the deleteBranch function', (done) => {
-    // const User: HttpsUser = { username: 'username', password: 'password' };
     const CurrentBranchName = 'currentBranch';
     const DeleteBranchName = 'deleteBranch';
     const DeleteBranchInfoBarVisibility = false;
@@ -365,7 +364,6 @@ describe('HomeComponent', () => {
 
   it('tests the deleteBranch function and invalid arguments alternative', (done) => {
     const User = { username: 'username', password: 'password' };
-    const InvalidPath = 'invalid';
     const HomeLoading = true;
     const DeleteRemoteBranchCredInfoBarVisibility = true;
     const DeleteRemoteBranchAuthErrored = false;
@@ -373,7 +371,7 @@ describe('HomeComponent', () => {
     component.homeLoading = HomeLoading;
     component.deleteRemoteBranchAuthErrored = DeleteRemoteBranchAuthErrored;
     component.deleteRemoteBranchCredInfoBarVisible = DeleteRemoteBranchCredInfoBarVisibility;
-    component.pullrebaseHttps().then(() => {
+    component.deleteBranch().then(() => {
       expect(component.homeLoading).toBeFalsy();
       expect(component.currentHttpsUser.password).toBe('');
       done();

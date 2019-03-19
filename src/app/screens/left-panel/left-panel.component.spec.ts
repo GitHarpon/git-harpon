@@ -215,6 +215,22 @@ describe('LeftPanelComponent', () => {
     expect(component.newBranchCouple.oldBranch).toEqual(OldBranch);
   });
 
+  it ('test the openDeleteBranchInfoBar function with a local branch', () => {
+    const LocalBranch = 'localBranch';
+    spyOn(component.deleteBranchInfoBar, 'emit');
+    component.openDeleteBranchInfoBar(LocalBranch);
+    fixture.detectChanges();
+    expect(component.deleteBranchInfoBar.emit).toHaveBeenCalledWith(LocalBranch);
+  });
+
+  it ('test the openDeleteBranchInfoBar function with a remote branch', () => {
+    const RemoteBranch = 'origin/newData';
+    spyOn(component.deleteBranchInfoBar, 'emit');
+    component.openDeleteBranchInfoBar(RemoteBranch);
+    fixture.detectChanges();
+    expect(component.deleteBranchInfoBar.emit).toHaveBeenCalledWith(RemoteBranch);
+  });
+
   it ('test the ngOnDestroy function with defined subscriptions', () => {
     component.ngOnInit();
     component.ngOnDestroy();

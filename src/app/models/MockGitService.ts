@@ -185,6 +185,28 @@ export class MockGitService {
         });
     }
 
+    async applyDeletionBranch(deleteBranchName: string, httpsUser: HttpsUser) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (deleteBranchName !== 'currentBranch') {
+                if (deleteBranchName.includes('remote/')) {
+                    if (httpsUser.username === 'username' && httpsUser.password === 'password') {
+                        resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                            this.translate.instant('BRANCH.REMOTE_DELETED')));
+                    } else {
+                        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('BRANCH.REMOTE_NOT_DELETED')));
+                    }
+                } else if (deleteBranchName === 'deleteBranch') {
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                            this.translate.instant('BRANCH.DELETED')));
+                }
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.CURRENT')));
+            }
+        });
+    }
+
     init(initLocation: string, initName: string) {
         if (initLocation && initName) {
             return new Promise<ServiceResult>((resolve, reject) => {

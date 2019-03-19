@@ -573,11 +573,6 @@ export class HomeComponent implements OnDestroy {
         this.toastr.info(data.message, data.title);
       })
       .catch((data) => {
-        if (data.newData) {
-          this.deleteRemoteBranchAuthErrored = this.deleteRemoteBranchCredInfoBarVisible;
-          this.currentHttpsUser.password = '';
-          this.deleteRemoteBranchCredInfoBarVisible = true;
-        }
           this.deleteBranchName = '';
           this.deleteBranchInfoBarVisible = false;
           this.homeLoading = false;
