@@ -133,7 +133,7 @@
         "TAB_TITLE": "Tirer vers un repository",
         "DONE": "Le contenu a été tiré",
         "ERROR": "Problème lors du poussage",
-        "UNABLE_TO_UPDATE": "Impossible de mettre à jour la base de l'URL à partir d'une redirection",
+        "UNABLE_TO_CONNECT": "Impossible de se connecter au dépot avec ces données de connexion",
         "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
         "REPO_NOT_FOUND": "Répertoire non trouvé",
         "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",

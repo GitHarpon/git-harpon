@@ -134,7 +134,7 @@
         "TAB_TITLE": "Pull a repository",
         "DONE": "The pull was successful",
         "ERROR": "Problem during the pull",
-        "UNABLE_TO_UPDATE": "Unable to update url base from redirection",
+        "UNABLE_TO_CONNECT": "Unable to connect to the repo with those identification datas",
         "HTTP_ACCESS_DENIED": "HTTP basic: Access denied",
         "NOT_WORK_TREE": "Could not create work tree : permission denied",
         "REPO_NOT_FOUND": "Repository not found",
