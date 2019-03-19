@@ -34,6 +34,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   loadingVisibleSubscription: Subscription;
   @Output() checkoutInfoBarChange = new EventEmitter<any>();
   @Output() createBranchInfoBar = new EventEmitter<any>();
+  @Output() deleteBranchInfoBar = new EventEmitter<any>();
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
     private leftPanelService: LeftPanelService, private translate: TranslateService,
@@ -133,6 +134,10 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
 
   openCreateBranchInfoBar(branch) {
     this.createBranchInfoBar.emit(branch);
+  }
+
+  openDeleteBranchInfoBar(deleteBranch) {
+    this.deleteBranchInfoBar.emit(deleteBranch);
   }
 
   renameBranch(branch: string) {

@@ -18,6 +18,9 @@
               <ng-template contextMenuItem (execute)="openCreateBranchInfoBar(remote + '/' + remoteBranch)">
                 {{ 'BRANCH.CREATE_HERE' | translate }}
               </ng-template>
+              <ng-template contextMenuItem (execute)="openDeleteBranchInfoBar(remote + '/' + remoteBranch)">
+                {{ 'BRANCH.DELETE' | translate }} {{ remote }}/{{ remoteBranch }}
+              </ng-template>
           </context-menu>
         </div>
       </div>
@@ -27,6 +30,10 @@
     <ng-template contextMenuItem (execute)="openCreateBranchInfoBar($event.item)">
       <span class="d-none">{{ item }}</span>
       {{ 'BRANCH.CREATE_HERE' | translate }}
+    </ng-template>
+    <ng-template contextMenuItem let-item (execute)="openDeleteBranchInfoBar($event.item)">
+      <span class="d-none">{{ item }}</span>
+      {{ 'BRANCH.DELETE' | translate }} {{ item }}
     </ng-template>
     <ng-template contextMenuItem let-item (execute)="renameBranch($event.item)">
       {{ 'BRANCH.RENAME' | translate }} {{ item }}
