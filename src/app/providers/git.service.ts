@@ -155,6 +155,8 @@ export class GitService {
             if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
               gitPromise(this.path).branchLocal()
                 .then((result) => {
+                  console.log('setNewbranch');
+                  console.log(result);
                   gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
                   .then(() => {
                     this.branchName = newBranchName;
@@ -216,8 +218,10 @@ export class GitService {
   async getLocalBranches() {
     return new Promise<any>((resolve, reject) => {
       if (this.repoName) {
-        gitPromise(this.path).branchLocal()
+        gitPromise(this.path).branch([])
           .then((result) => {
+            console.log('getLocalBranches');
+            console.log(result.all);
             resolve(result.all);
         });
       }
