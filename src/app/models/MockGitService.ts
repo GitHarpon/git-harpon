@@ -234,6 +234,28 @@ export class MockGitService {
         });
     }
 
+    async pushHttps(folder: string, httpsUser: HttpsUser, branch: string) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (folder === 'path') {
+                if (httpsUser.username === 'username' && httpsUser.password === 'password' && branch === 'master') {
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                        this.translate.instant('PUSH.DONE')));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('PUSH.ERROR')));
+                }
+            } else {
+                if (httpsUser.username === 'username' && httpsUser.password === 'password') {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('PUSH.ERROR'), false));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('PUSH.ERROR'), true));
+                    }
+                }
+            });
+    }
+
     async revParseHEAD(): Promise<String> {
         return new Promise<String>((resolve, reject) => {
             // hash au hasard

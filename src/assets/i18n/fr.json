@@ -43,6 +43,19 @@
         "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",
         "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide"
     },
+    "PUSH": {
+        "WHERE": "Où pousser",
+        "URL": "URL",
+        "TITLE": "Pousser",
+        "TAB_TITLE": "Pousser vers un repository",
+        "DONE": "Le contenu a été poussé",
+        "ERROR": "Problème lors du poussage",
+        "UNABLE_TO_UPDATE": "Impossible de mettre à jour la base de l'URL à partir d'une redirection",
+        "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
+        "REPO_NOT_FOUND": "Répertoire non trouvé",
+        "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",
+        "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide"
+    },
     "BUTTON": {
         "PRIMARY": "Bouton primaire",
         "SUCCESS": "Bouton succès",
@@ -126,7 +139,6 @@
         "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",
         "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide"
     },
-    "PUSH": "Pousser",
     "EXIT_PREFERENCES": "Sortir des préferences",
     "GENERAL": "Général",
     "EDITOR": "Editeur",

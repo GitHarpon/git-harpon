@@ -191,10 +191,10 @@ describe('HomeComponent', () => {
     component.cloneFolder = CloneFolder;
     component.cloneHttpsUser = User;
     component.cloneAuthErrored = NotVisible;
-    component.credInfoBarVisible = NotVisible;
+    component.cloneCredInfoBarVisible = NotVisible;
     component.cloneHttps().then(() => {
       expect(component.cloneAuthErrored).toBeFalsy();
-      expect(component.credInfoBarVisible).toBeTruthy();
+      expect(component.cloneCredInfoBarVisible).toBeTruthy();
       done();
     });
   });
@@ -243,13 +243,13 @@ describe('HomeComponent', () => {
     expect(component.cloneFolder).toBe(Empty);
     expect(component.newClonedRepoPath).toBe(Empty);
     expect(component.cloneAuthErrored).toBeFalsy();
-    expect(component.credInfoBarVisible).toBeFalsy();
+    expect(component.cloneCredInfoBarVisible).toBeFalsy();
     expect(component.homeLoading).toBeFalsy();
   });
 
   it('tests the closeCredInfoBar function', () => {
-    component.closeCredInfoBar();
-    expect(component.credInfoBarVisible).toBeFalsy();
+    component.closeCloneCredInfoBar();
+    expect(component.cloneCredInfoBarVisible).toBeFalsy();
   });
 
   it('tests the openClonedRepo function', () => {

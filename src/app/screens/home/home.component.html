@@ -29,7 +29,7 @@
                     </app-icon-button>
                 </div>
                 <div class="d-inline-block">
-                    <app-icon-button value="PUSH" tooltipValue="PUSH" placement="bottom" [disabled]="!repoName"
+                    <app-icon-button value="PUSH.TITLE" tooltipValue="PUSH.TITLE" placement="bottom" [disabled]="!repoName"
                         [icon]="{name:'fa-upload', isFab:false}" (buttonClicked)="pushButtonClicked()">
                     </app-icon-button>
                 </div>
@@ -197,13 +197,23 @@
 <app-footer [devRedirect]="{ icon: 'fa-toolbox', link: '/toolbox' }"></app-footer>
 
 <!-- Clone Info bar credentials -->
-<app-info-bar [visible]="credInfoBarVisible">
+<app-info-bar [visible]="cloneCredInfoBarVisible">
     <span *ngIf="!cloneAuthErrored">{{ 'LOG_TO_CONTINUE' | translate }}</span>
     <span *ngIf="cloneAuthErrored" class="color-red">{{ 'WRONG_CRED' | translate }}</span>
     <app-input [(value)]="cloneHttpsUser.username" [placeholder]="'USERNAME'" class="ml-3"></app-input>
     <app-input [(value)]="cloneHttpsUser.password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
     <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!cloneHttpsUser.username || !cloneHttpsUser.password" (buttonClicked)="cloneHttps()"></app-button>
-    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeCredInfoBar()"></app-button>
+    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeCloneCredInfoBar()"></app-button>
+</app-info-bar>
+
+<!-- Push Info bar credentials -->
+<app-info-bar [visible]="pushCredInfoBarVisible">
+    <span *ngIf="!pushAuthErrored">{{ 'LOG_TO_CONTINUE' | translate }}</span>
+    <span *ngIf="pushAuthErrored" class="color-red">{{ 'WRONG_CRED' | translate }}</span>
+    <app-input [(value)]="currentHttpsUser.username" [placeholder]="'USERNAME'" class="ml-3"></app-input>
+    <app-input [(value)]="currentHttpsUser.password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
+    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!currentHttpsUser.username || !currentHttpsUser.password" (buttonClicked)="pushHttps()"></app-button>
+    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closePushCredInfoBar()"></app-button>
 </app-info-bar>
 
 <!-- Rename Info bar -->

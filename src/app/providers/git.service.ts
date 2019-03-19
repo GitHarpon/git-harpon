@@ -427,6 +427,42 @@ export class GitService {
     });
   }
 
+  async pushHttps(folder: string, httpsUser: HttpsUser, branch: string) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      this.gitP.raw(['remote', 'get-url', 'origin']).then((data) => {
+        const Url = GitUrlParse(data);
+        const Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
+
+        this.gitP.raw(['push', '-u', Remote, branch])
+        .then((result) => {
+            console.log(result);
+            resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('PUSH.DONE')));
+          }).catch((err) => {
+            var ErrMsg = 'PUSH.ERROR';
+            console.log(err);
+            var AccessDenied = false;
+            if (err.toString().includes('unable to update url base from redirection')) {
+              ErrMsg = 'PUSH.UNABLE_TO_UPDATE';
+            } else if (err.toString().includes('HTTP Basic: Access denied')) {
+              ErrMsg = 'PUSH.HTTP_ACCESS_DENIED';
+            } else if (err.toString().includes('could not create work tree')) {
+              ErrMsg = 'PUSH.NOT_WORK_TREE';
+            } else if (err.toString().includes('Repository not found')) {
+              ErrMsg = 'PUSH.REPO_NOT_FOUND';
+            } else if (err.toString().includes('Invalid username or password')) {
+              ErrMsg = 'PUSH.INVALID_CRED';
+            }
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant(ErrMsg), AccessDenied));
+          });
+      }).catch((err) => {
+        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant('PUSH.ERROR')));
+      });
+    });
+  }
+
   updateFilesDiff() {
     var ListUnstagedFiles = [];
     var ListStagedFiles = [];
@@ -467,13 +503,23 @@ export class GitService {
     });
   }
 
-  async pullrebaseHttps(httpsUser: HttpsUser, branch: string) {
-    return new Promise<ServiceResult>((resolve, reject) => {
-      this.gitP.raw(['remote', 'get-url', 'origin'])
-        .then((data) => {
-          const Url = GitUrlParse(data);
-          let Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
+  
 
+  async pushSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
+      console.log('Ssh non pris en charge pour le moment');
+      return new Promise<ServiceResult>(() => {});
+  }
+
+  async pullrebaseSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
+      // SSH non pris en charge pour le moment
+  }
+
+  async pullrebaseHttps(httpsUser: HttpsUser, branch: string) {
+  return new Promise<ServiceResult>((resolve, reject) => {
+    this.gitP.raw(['remote', 'get-url', 'origin'])
+      .then((data) => {
+        const Url = GitUrlParse(data);
+        let Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
           this.gitP.pull(Remote, branch, {'--rebase': 'true'})
             .then((data) => {
               resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
