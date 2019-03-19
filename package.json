@@ -1,6 +1,6 @@
 {
   "name": "git-harpon",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Open-source GUI for git",
   "author": {
     "name": "GitHarpon",
@@ -35,10 +35,8 @@
     "electron:linux": "npm run build:prod && npx electron-builder build --linux",
     "electron:windows": "npm run build:prod && npx electron-builder build --windows",
     "electron:mac": "npm run build:prod && npx electron-builder build --mac",
-    "e2e": "npm run postinstall:web && ng e2e",
     "test:unit": "npm run postinstall:web && ng test",
-    "test:unit:coverage": "npm run postinstall:web && ng test --watch=false --code-coverage",
-    "test:e2e": "mocha --timeout 15000 tests/*.js"
+    "test:unit:coverage": "npm run postinstall:web && ng test --watch=false --code-coverage"
   },
   "dependencies": {
     "@angular/animations": "^7.2.4",
@@ -51,10 +49,12 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "git-url-parse": "^11.1.2",
+    "isomorphic-git": "^0.51.12",
     "jquery": "^3.3.1",
     "karma-htmlfile-reporter": "^0.3.8",
     "mocha": "^5.2.0",
     "mocha-sinon": "^2.1.0",
+    "moment": "^2.24.0",
     "monaco-editor": "^0.14.3",
     "ngx-clipboard": "^11.1.9",
     "ngx-contextmenu": "^5.1.1",

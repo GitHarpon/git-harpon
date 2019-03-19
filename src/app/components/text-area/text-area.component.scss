@@ -1,0 +1,53 @@
+@import '../../../variables.scss';
+.gh-textarea {
+    resize: none;
+    outline: none;
+    width: 100%;
+    
+    &.dark {
+        background-color: $textarea-bg;
+        color: $white;
+        border: 1px solid $dark-grey;
+        &::-webkit-scrollbar-track-piece  {
+            background-color: rgba(55, 56, 65, 0.3);
+        }
+        &::-webkit-scrollbar-thumb:vertical {
+            background-color: #373841;
+            border: 1px solid rgba(55, 56, 65, 0.3);
+        }
+    }
+
+    &.light {
+        background: $grey-variant-light;
+        color: $dark;
+        border: 1px solid $border-dark-grey-light;
+        &::-webkit-scrollbar-track-piece  {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        &::-webkit-scrollbar-thumb:vertical {
+            background-color: #C6C6C6;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 10px;
+    }
+    &::-webkit-scrollbar-button:start:decrement,
+    &::-webkit-scrollbar-button:end:increment  {
+        height: 10px;
+        background-color: transparent;
+    }
+    &::-webkit-scrollbar-track-piece  {
+        -webkit-border-radius: 16px;
+    }
+    &::-webkit-scrollbar-thumb:vertical {
+        height: 10px;
+        -webkit-border-radius: 16px;
+    }
+}
+
+.dark::placeholder {
+    color: $muted-white;
+}

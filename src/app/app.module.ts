@@ -51,6 +51,17 @@ import { CopyButtonComponent } from './components/copy-button/copy-button.compon
 import { PreferencesComponent } from './screens/preferences/preferences.component';
 import { AccordionComponent } from './components/accordion/accordion.component';
 import { InfoBarComponent } from './components/info-bar/info-bar.component';
+import { LeftPanelComponent } from './screens/left-panel/left-panel.component';
+import { RightPanelComponent } from './screens/right-panel/right-panel.component';
+import { GraphComponent } from './screens/graph/graph.component';
+import { ViewCommitComponent } from './screens/view-commit/view-commit.component';
+import { SendCommitComponent } from './screens/send-commit/send-commit.component';
+import { RightPanelService } from './providers/right-panel.service';
+import { LeftPanelService } from './providers/left-panel.service';
+import { TextAreaComponent } from './components/text-area/text-area.component';
+import { CommitTextAreaComponent } from './components/commit-text-area/commit-text-area.component';
+import { FileDiffCommitComponent } from './components/file-diff-commit/file-diff-commit.component';
+import { GraphService } from './providers/graph.service';
 
 
 // AoT requires an exported function for factories
@@ -78,7 +89,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     CopyButtonComponent,
     PreferencesComponent,
     AccordionComponent,
-    InfoBarComponent
+    InfoBarComponent,
+    LeftPanelComponent,
+    RightPanelComponent,
+    GraphComponent,
+    ViewCommitComponent,
+    SendCommitComponent,
+    TextAreaComponent,
+    CommitTextAreaComponent,
+    FileDiffCommitComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -116,7 +135,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorPreferencesService,
     LanguagePreferencesService,
     ThemePreferencesService,
-    TerminalManagerService
+    TerminalManagerService,
+    RightPanelService,
+    LeftPanelService,
+    GraphService
   ],
   bootstrap: [AppComponent]
 })

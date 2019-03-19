@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
@@ -8,7 +8,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './icon-button.component.html',
   styleUrls: ['./icon-button.component.scss']
 })
-export class IconButtonComponent implements OnInit {
+export class IconButtonComponent {
 
   @Input() value: String;
   @Input() tooltipValue: String;
@@ -30,9 +30,6 @@ export class IconButtonComponent implements OnInit {
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
-  }
-
-  ngOnInit() {
   }
 
   execClick(evt) {

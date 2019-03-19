@@ -1,16 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ResizeEvent } from 'angular-resizable-element';
 import { GitService } from '../../providers/git.service';
 import { ElectronService } from '../../providers/electron.service';
-import { initNgModule } from '@angular/core/src/view/ng_module';
-import { Subscription } from 'rxjs';
-import { ServiceResult } from '../../models/ServiceResult';
+import { Subscription, Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import * as GitUrlParse from 'git-url-parse';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
+import { HttpsUser } from '../../models/HttpsUser';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { NewBranchCouple } from '../../models/NewBranchCouple';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { GraphService } from '../../providers/graph.service';
 
 @Component({
   selector: 'app-home',
@@ -35,20 +37,49 @@ export class HomeComponent implements OnDestroy {
   repoNameSubscription: Subscription;
   recentProject: any[];
   recentProjectSubscription: Subscription;
+  cloneCredInfoBarVisible: boolean;
+  pushCredInfoBarVisible: boolean;
+  branchName: any;
+  branchNameSubscription: Subscription;
+  newBranchInfoBarVisible: boolean;
+  newBranchName: string;
+  referenceBranchName: string;
+  newBranchCouple: NewBranchCouple;
+  newBranchNameForRenaming: string;
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
+  checkoutInfoBarVisible: boolean;
   newClonedRepoPath: string;
-  username: string;
-  password: string;
+  cloneHttpsUser: HttpsUser;
+
+  pullrebaseInfoBarVisible: boolean;
+  pullrebaseAuthErrored: boolean;
+  pullrebaseCredInfoBarVisible: boolean;
+  pullrebaseHttpsUser: HttpsUser;
+
   homeLoading: boolean;
   openFolder: string;
   themePrefSubscription: Subscription;
   currentTheme: string;
+  mainPanelVisible: boolean;
+  leftPanelVisible: boolean;
+  graphVisible: boolean;
+  rightPanelVisible: boolean;
+  cloneAuthErrored: boolean;
+  pushAuthErrored: boolean;
+  currentHttpsUserSubscription: Subscription;
+  currentHttpsUser: HttpsUser;
+  localBranch: string;
+  remoteBranch: string;
+  newCheckedoutBranchName: string;
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
     private translateService: TranslateService, private terminalService: TerminalManagerService,
-    private themePrefService: ThemePreferencesService) {
+    private themePrefService: ThemePreferencesService, private leftPanelService: LeftPanelService,
+    private rightPanelService: RightPanelService, private graphService: GraphService) {
+
+    this.newBranchCouple = new NewBranchCouple();
     this.pathSubscription = this.gitService.pathSubject.subscribe(
       (path: any) => {
         this.path = path;
@@ -58,6 +89,7 @@ export class HomeComponent implements OnDestroy {
     this.repoNameSubscription = this.gitService.repoNameSubject.subscribe(
       (repoName: any) => {
         this.repoName = repoName;
+        this.openHomeView();
       });
     this.gitService.emitRepoNameSubject();
 
@@ -67,6 +99,12 @@ export class HomeComponent implements OnDestroy {
       });
     this.gitService.emitRecentProjectSubject();
 
+    this.branchNameSubscription = this.gitService.branchNameSubject.subscribe(
+      (branchName: any) => {
+        this.branchName = branchName;
+      });
+    this.gitService.emitBranchNameSubject();
+
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
         this.currentTheme = newTheme;
@@ -74,19 +112,74 @@ export class HomeComponent implements OnDestroy {
     );
     this.themePrefService.emitThemePreferencesSubject();
 
+    this.currentHttpsUserSubscription = this.gitService.httpsUserSubject.subscribe(
+      (newUser: HttpsUser) => {
+        this.currentHttpsUser = newUser;
+      }
+    );
+    this.gitService.emitHttpsUserSubject();
+
     this.dimensions = 20;
+
+    this.cloneHttpsUser = {
+      username: '',
+      password: ''
+    };
+
+    this.pullrebaseHttpsUser = {
+      username: '',
+      password: ''
+    };
   }
 
-  pullButtonClicked() {
+  @HostListener('window:focus', ['$event'])
+  onFocus() {
+    this.gitService.updateFilesDiff();
+    this.leftPanelService.setLocalBranches();
+    this.leftPanelService.setRemoteBranches();
     return true;
   }
 
+  async pullrebaseHttps() {
+    this.homeLoading = true;
+    return this.gitService.pullrebaseHttps(this.pullrebaseHttpsUser, this.branchName)
+      .then((data) => {
+        this.homeLoading = false;
+        this.pullrebaseCredInfoBarVisible = false;
+        this.toastr.info(data.message, data.title);
+        this.resetPullrebaseInputs();
+      })
+      .catch((data) => {
+        if (data.newData) {
+          this.pullrebaseAuthErrored = this.pullrebaseCredInfoBarVisible;
+          this.pullrebaseHttpsUser.password = '';
+          this.pullrebaseCredInfoBarVisible = true;
+        } else {
+          this.homeLoading = false;
+          this.resetPullrebaseInputs();
+          this.toastr.error(data.message, data.title);
+        }
+      });
+  }
+
   pushButtonClicked() {
+    this.pushCredInfoBarVisible = true;
+    return true;
+  }
+
+  pullButtonClicked() {
+    this.pullrebaseCredInfoBarVisible = true;
     return true;
   }
 
   branchButtonClicked() {
-    return true;
+    this.referenceBranchName = this.branchName;
+    this.newBranchInfoBarVisible = true;
+  }
+
+  openCreateBranchInfoBar(refBranchName) {
+    this.referenceBranchName = refBranchName;
+    this.newBranchInfoBarVisible = true;
   }
 
   async openTerminal() {
@@ -115,22 +208,7 @@ export class HomeComponent implements OnDestroy {
     if (this.repoName) {
       return true;
     }
-  }
-
-  validate(event: ResizeEvent): boolean {
-    if (
-      event.rectangle.width &&
-      (event.rectangle.width < this.dimensions)
-    ) {
-      return false;
-    }
-    return true;
-  }
-
-  onResizeEnd(event: ResizeEvent): void {
-    this.style = {
-      width: `${event.rectangle.width}px`
-    };
+    return false;
   }
 
   cloneBrowse() {
@@ -145,7 +223,8 @@ export class HomeComponent implements OnDestroy {
       var Url = GitUrlParse(this.cloneUrl);
       if (Url.protocol === 'https') {
         this.projectModalVisible = false;
-        this.credInfoBarVisible = true;
+        this.homeLoading = true;
+        this.cloneHttps();
       } else if (Url.protocol === 'ssh') {
         this.toastr.error('Pas de ssh pour le moment', 'Erreur');
       } else {
@@ -158,10 +237,8 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
-  cloneHttps() {
-    this.credInfoBarVisible = false;
-    this.homeLoading = true;
-    return this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.username, this.password)
+  async cloneHttps() {
+    return this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.cloneHttpsUser)
       .then((data) => {
         this.homeLoading = false;
         this.openClonedInfoBarVisible = true;
@@ -169,9 +246,16 @@ export class HomeComponent implements OnDestroy {
         this.toastr.info(data.message, data.title);
       })
       .catch((data) => {
-        this.homeLoading = false;
-        this.resetCloneInputs();
-        this.toastr.error(data.message, data.title);
+        if (data.newData) {
+          this.cloneAuthErrored = this.cloneCredInfoBarVisible;
+          this.cloneHttpsUser.password = '';
+          this.cloneCredInfoBarVisible = true;
+        } else {
+          this.projectModalLoading = false;
+          this.homeLoading = false;
+          this.resetCloneInputs();
+          this.toastr.error(data.message, data.title);
+        }
       });
   }
 
@@ -181,6 +265,29 @@ export class HomeComponent implements OnDestroy {
       this.initLocation = InitPath;
     }
     this.updateFullPath();
+  }
+
+
+  async pushHttps() {
+    this.homeLoading = true;
+    return this.gitService.pushHttps(this.fullPath, this.currentHttpsUser, this.branchName)
+      .then((data) => {
+        this.homeLoading = false;
+        this.pushCredInfoBarVisible = false;
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        if (data.newData) {
+          this.pushAuthErrored = this.pushCredInfoBarVisible;
+          this.currentHttpsUser.password = '';
+          this.pushCredInfoBarVisible = true;
+          this.homeLoading = false;
+        } else {
+          this.homeLoading = false;
+          this.resetPushInputs();
+          this.toastr.error(data.message, data.title);
+        }
+      });
   }
 
   updateFullPath() {
@@ -208,6 +315,7 @@ export class HomeComponent implements OnDestroy {
         this.initName = '';
         this.initLocation = '';
         this.fullPath = '';
+        this.openHomeView();
       })
       .catch((result) => {
         this.toastr.error(result.message, result.title, {
@@ -233,7 +341,9 @@ export class HomeComponent implements OnDestroy {
             this.projectModalLoading = false;
             this.projectModalVisible = false;
             this.openFolder = '';
+            this.openHomeView();
             this.toastr.info(data.message, data.title);
+            this.gitService.setHttpsUser({ username: null, password: null });
           })
           .catch((data) => {
             this.projectModalLoading = false;
@@ -248,27 +358,88 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
-  closeCredInfoBar() {
-    this.credInfoBarVisible = false;
+  closeCloneCredInfoBar() {
+    this.cloneCredInfoBarVisible = false;
     this.resetCloneInputs();
+  }
+  async renameBranch() {
+    var TmpNewBr = new NewBranchCouple();
+    TmpNewBr.oldBranch = this.newBranchCouple.oldBranch;
+    TmpNewBr.newBranch = this.newBranchNameForRenaming;
+    this.newBranchCouple = TmpNewBr;
+    if (this.newBranchCouple.newBranch != '' && this.newBranchCouple.oldBranch != '') {
+      return this.gitService.renameBranch(this.newBranchCouple.oldBranch, this.newBranchCouple.newBranch)
+      .then((data) => {
+        this.closeRenameBar();
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.closeRenameBar();
+      });
+    }
+  }
+
+  closeRenameBar() {
+    this.newBranchCouple = new NewBranchCouple();
+    this.newBranchNameForRenaming = '';
+    this.gitService.getLocalBranches().then(() => {
+      this.leftPanelService.setLocalBranches();
+    });
+  }
+
+  closePushCredInfoBar() {
+    this.pushCredInfoBarVisible = false;
+    this.resetPushInputs();
   }
 
   openClonedRepo() {
+    this.gitService.setHttpsUser(this.cloneHttpsUser);
     this.gitService.setPath(this.newClonedRepoPath);
     this.closeClonedInfoBar();
+    this.openHomeView();
   }
 
   closeClonedInfoBar() {
     this.openClonedInfoBarVisible = false;
     this.resetCloneInputs();
+    this.resetPullrebaseInputs();
   }
 
   resetCloneInputs() {
-    this.username = '';
-    this.password = '';
+    this.cloneHttpsUser = {
+      username: '',
+      password: ''
+    };
     this.cloneUrl = '';
     this.cloneFolder = '';
     this.newClonedRepoPath = '';
+    this.cloneAuthErrored = false;
+    this.cloneCredInfoBarVisible = false;
+    this.homeLoading = false;
+  }
+
+  resetPushInputs() {
+    this.currentHttpsUser = {
+      username: '',
+      password: ''
+    };
+    this.pushCredInfoBarVisible = false;
+    this.homeLoading = false;
+  }
+
+  closePullrebaseCredInfoBar() {
+    this.pullrebaseCredInfoBarVisible = false;
+    this.resetPullrebaseInputs();
+  }
+
+  resetPullrebaseInputs() {
+    this.pullrebaseHttpsUser = {
+      username: '',
+      password: ''
+    };
+    this.pullrebaseAuthErrored = false;
+    this.pullrebaseCredInfoBarVisible = false;
+    this.homeLoading = false;
   }
 
   async openRecentRepo(recentPath: string) {
@@ -279,11 +450,103 @@ export class HomeComponent implements OnDestroy {
   closeRepo() {
     this.path = undefined;
     this.repoName = undefined;
+    this.branchName = undefined;
+    this.closeHomeView();
+  }
+
+  openHomeView() {
+    if (this.repoName) {
+      this.mainPanelVisible = false;
+      this.leftPanelVisible = true;
+      this.graphVisible = true;
+      this.rightPanelVisible = true;
+      this.leftPanelService.setLocalBranches();
+      this.leftPanelService.setRemoteBranches();
+      this.rightPanelService.setView(true);
+      this.graphService.setGraph();
+    } else {
+      this.mainPanelVisible = true;
+    }
+  }
+
+  closeHomeView() {
+    this.mainPanelVisible = true;
+    this.leftPanelVisible = false;
+    this.graphVisible = false;
+    this.rightPanelVisible = false;
+    this.rightPanelService.setCommitHash('');
+  }
+
+  openCheckoutInfoBar(remoteBranch) {
+    this.remoteBranch = remoteBranch;
+    this.localBranch = remoteBranch.split('/')[1];
+    this.checkoutInfoBarVisible = true;
+  }
+
+  createBranchHere() {
+    return this.gitService.createBranchHere(this.newCheckedoutBranchName, this.remoteBranch).then((data) => {
+      this.leftPanelService.setLocalBranches();
+      this.leftPanelService.setRemoteBranches();
+      this.closeCheckoutInfoBar();
+      this.toastr.info(data.message, data.title);
+    })
+    .catch((data) => {
+      this.closeCheckoutInfoBar();
+      this.toastr.error(data.message, data.title);
+    });
+  }
+
+  resetLocalHere() {
+    return this.gitService.resetLocalHere(this.remoteBranch).then((data) => {
+      this.leftPanelService.setLocalBranches();
+      this.leftPanelService.setRemoteBranches();
+      this.closeCheckoutInfoBar();
+      this.toastr.info(data.message, data.title);
+    })
+    .catch((data) => {
+      this.closeCheckoutInfoBar();
+      this.toastr.error(data.message, data.title);
+    });
+
+  }
+
+  closeCheckoutInfoBar() {
+    this.leftPanelService.setLoadingVisible(false);
+    this.remoteBranch = '';
+    this.newCheckedoutBranchName = '';
+    this.checkoutInfoBarVisible = false;
+  }
+
+  async createBranch() {
+    this.homeLoading = true;
+    return this.gitService.setNewBranch(this.newBranchName, this.referenceBranchName)
+      .then((data) => {
+        this.leftPanelService.setLocalBranches();
+        this.leftPanelService.setRemoteBranches();
+        this.newBranchInfoBarVisible = false;
+        this.homeLoading = false;
+        this.referenceBranchName = '';
+        this.newBranchName = '';
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.newBranchInfoBarVisible = true;
+        this.homeLoading = false;
+        this.toastr.error(data.message, data.title);
+      });
+  }
+
+  closeNewBranchInfoBar() {
+    this.referenceBranchName = '';
+    this.newBranchName = '';
+    this.newBranchInfoBarVisible = false;
   }
 
   ngOnDestroy() {
     this.pathSubscription.unsubscribe();
     this.repoNameSubscription.unsubscribe();
     this.recentProjectSubscription.unsubscribe();
+    this.branchNameSubscription.unsubscribe();
+    this.currentHttpsUserSubscription.unsubscribe();
   }
 }

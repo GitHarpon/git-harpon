@@ -7,7 +7,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.scss']
 })
-export class LoaderComponent implements OnInit {
+export class LoaderComponent {
   @Input() loading: Boolean = false;
   themePrefSubscription: Subscription;
   currentTheme: string;
@@ -19,9 +19,6 @@ export class LoaderComponent implements OnInit {
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
-  }
-
-  ngOnInit() {
   }
 
 }

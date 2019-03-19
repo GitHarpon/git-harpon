@@ -1,6 +1,6 @@
 {
     "HOME": "Accueil",
-    "VERSION": "Version",
+    "VERSIONS": "Version",
     "COLORS": "Couleurs",
     "TAGS": "Balises",
     "TAG": "Balise",
@@ -9,6 +9,7 @@
     "LANGUE": "Langage",
     "FRENCH": "Français",
     "ENGLISH": "Anglais",
+    "TEST": "Test",
     "FONT_SIZES": "Tailles de texte",
     "CHECKBOX": "Case à cocher",
     "UN_CHECKBOX": "Case décochée",
@@ -42,13 +43,25 @@
         "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",
         "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide"
     },
+    "PUSH": {
+        "WHERE": "Où pousser",
+        "URL": "URL",
+        "TITLE": "Pousser",
+        "TAB_TITLE": "Pousser vers un repository",
+        "DONE": "Le contenu a été poussé",
+        "ERROR": "Problème lors du poussage",
+        "UNABLE_TO_UPDATE": "Impossible de mettre à jour la base de l'URL à partir d'une redirection",
+        "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
+        "REPO_NOT_FOUND": "Répertoire non trouvé",
+        "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",
+        "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide"
+    },
     "BUTTON": {
         "PRIMARY": "Bouton primaire",
         "SUCCESS": "Bouton succès",
         "DANGER": "Bouton danger",
         "DISABLED": "Bouton désactivé",
         "LARGE": "Bouton allongé"
-        
     },
     "ICONBUTTON": {
         "GITHUB": "GitHub",
@@ -63,6 +76,7 @@
     "INFORMATION": "Information",
     "SUCCESS": "Succès",
     "DANGER": "Danger",
+    "ERROR": "Erreur",
     "PATH_NOT_FOUND": "Ce chemin n'existe pas",
     "UPDATE_VALUE": "Changer la valeur",
     "DISPLAY_VALUE": "Afficher la valeur",
@@ -92,14 +106,45 @@
         "LEFT": "Clic gauche"
     },
     "COPY": "Copier",
-    "BRANCH": "Branche",
-    "PULL": "Tirer",
-    "PUSH": "Pousser",
+    "BRANCH": {
+        "TITLE": "Branche",
+        "CHECKED_OUT": "Branche changée",
+        "CHECKED_OUT_CONFLICTS": "Les conflits empêchent le changement de branche",
+        "NAME": "Nom de la branche",
+        "CREATE_HERE": "Créer une branche ici",
+        "RESET_HERE": "Réinitialiser le local à ici",
+        "UNCOMMIT": "Commits manquant sur branche de référence",
+        "CREATED": "Branche créée",
+        "NOT_CREATED": "Branche non créée",
+        "A_LOCAL": "Une locale",
+        "ALREADY_EXISTS": "existe déjà",
+        "RENAME": "Renommer",
+        "BRANCH_RENAME": "Renommer une branche",
+        "NEW_BRANCH_NAME_PROMPT": "Nom de la nouvelle branche",
+        "NEW_BRANCH": "Nouvelle branche",
+        "BRANCH_RENAME_SUCCESS" : "Branch renommée avec succès",
+        "BRANCH_RENAME_FAILURE" : "Une erreur s'est produite pendant le renommage",
+        "ERROR": "Erreur durant le changement de branche"
+    },
+    "PULL": {
+        "WHERE": "Où tirer",
+        "URL": "URL",
+        "TITLE": "Tirer",
+        "TAB_TITLE": "Tirer vers un repository",
+        "DONE": "Le contenu a été tiré",
+        "ERROR": "Problème lors du poussage",
+        "UNABLE_TO_CONNECT": "Impossible de se connecter au dépot avec ces données de connexion",
+        "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
+        "REPO_NOT_FOUND": "Répertoire non trouvé",
+        "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",
+        "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide"
+    },
     "EXIT_PREFERENCES": "Sortir des préferences",
     "GENERAL": "Général",
     "EDITOR": "Editeur",
     "UI": "Interface Utilisateur",
     "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
+    "LOCAL": "LOCAL",
     "REMOTE": "DISTANT",
     "OPEN": {
         "TITLE": "Ouvrir",
@@ -127,6 +172,8 @@
         "MESSAGE": "Il ne semble pas installé sur la machine",
         "NAME": "Terminal"
     },
+    "SEND_COMMIT": "Commit",
+    "VIEW_COMMIT": "Visualiser le commit",
     "LOG_IN": "S'identifier",
     "CANCEL": "Annuler",
     "OPEN_NOW": "Ouvrir",
@@ -139,5 +186,22 @@
     "THEME": "Thème",
     "DARK_THEME": "Thème sombre",
     "LIGHT_THEME": "Thème clair",
-    "INDEPENDENT_THEME": "Indépendant du thème"
+    "INDEPENDENT_THEME": "Indépendant du thème",
+    "WRONG_CRED": "Informations erronées",
+    "SUMMARY": "Résumé",
+    "COMMIT": {
+        "DESCRIPTION": "Description d'un commit"
+    },
+    "MODIFIED": "modifiés",
+    "ADDED": "ajoutés",
+    "DELETED": "supprimés",
+    "DESCRIPTION": "Description",
+    "NB_FILE_COMMIT": "fichier changé",
+    "NB_FILES_COMMIT": "fichiers changés",
+    "UNSTAGED_FILES": "Fichiers pas ajoutés",
+    "STAGED_FILES": "Fichiers ajoutés",
+    "STAGE_ALL_FILE": "Ajouter tout",
+    "UNSTAGE_ALL_FILE": "Retirer tout",
+    "STAGE_FILE": "Ajouter fichier",
+    "UNSTAGE_FILE": "Retirer fichier"
 }

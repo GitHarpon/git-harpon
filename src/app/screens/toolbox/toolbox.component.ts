@@ -38,6 +38,8 @@ export class ToolboxComponent implements OnInit {
   contextMenuSecondObject: Array<Object>;
   dataDropdownExample: Array<any>;
   dataDropdownExampleTwo: Array<any>;
+  textareaValue: String;
+  commitTextAreaValue: any;
 
   key: String = 'key';
   value: String = 'value';
@@ -64,7 +66,11 @@ export class ToolboxComponent implements OnInit {
     this.cbValue = true;
     this.inputValue = 'Test';
     this.inputEmptyValue = '';
-
+    this.textareaValue = '';
+    this.commitTextAreaValue = {
+      summary: '',
+      desc: ''
+    };
     this.modalTabSelectedIndex = 1;
     this.passwordInput = 'toto';
 
@@ -88,7 +94,9 @@ export class ToolboxComponent implements OnInit {
       'dark-grey',
       'light-grey',
       'blue-grey',
-      'version'
+      'low-dark',
+      'version',
+      'textarea-bg'
     ];
 
     this.lightColorList = [
@@ -169,7 +177,10 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-cog', isFab: false },
       { icon: 'fa-laptop', isFab: false },
       { icon: 'fa-search', isFab: false },
-      { icon: 'fa-times', isFab: false }
+      { icon: 'fa-times', isFab: false },
+      { icon: 'fa-file-medical', isFab: false },
+      { icon: 'fa-file-signature', isFab: false },
+      { icon: 'fa-file-excel', isFab: false }
     ];
 
     this.dataDropdownExample = [
@@ -204,7 +215,7 @@ export class ToolboxComponent implements OnInit {
 
 
   openFontAwesome() {
-    this.electronService.shell.openExternal('https://fontawesome.com/icons?d=gallery');
+    return this.electronService.shellOpenExternal('https://fontawesome.com/icons?d=gallery');
   }
 
   setCheckValue() {
@@ -212,45 +223,45 @@ export class ToolboxComponent implements OnInit {
   }
 
   displayCbValue() {
-    this.toastr.info(this.cbValue ? 'Coché' : 'Décoché', 'Information');
+    return this.toastr.info(this.cbValue ? 'Coché' : 'Décoché', 'Information');
   }
 
   primary() {
-    this.toastr.info(this.translateService.instant('BUTTON.PRIMARY'),
+    return this.toastr.info(this.translateService.instant('BUTTON.PRIMARY'),
       this.translateService.instant('INFORMATION'));
   }
 
   success() {
-    this.toastr.success(this.translateService.instant('BUTTON.SUCCESS'),
+    return this.toastr.success(this.translateService.instant('BUTTON.SUCCESS'),
       this.translateService.instant('SUCCESS'));
   }
 
   danger() {
-    this.toastr.error(this.translateService.instant('BUTTON.DANGER'),
+    return this.toastr.error(this.translateService.instant('BUTTON.DANGER'),
       this.translateService.instant('DANGER'));
   }
 
   menubar() {
-    this.toastr.info(this.translateService.instant('ICONBUTTON.MENUBAR'),
+    return this.toastr.info(this.translateService.instant('ICONBUTTON.MENUBAR'),
       this.translateService.instant('MENUBAR'));
   }
 
   githubButtonClicked() {
-    this.toastr.success(this.translateService.instant('ICONBUTTON.GITHUB'),
+    return this.toastr.success(this.translateService.instant('ICONBUTTON.GITHUB'),
       this.translateService.instant('ICONBUTTON.GITHUB'));
   }
 
   gitlabButtonClicked() {
-    this.toastr.info(this.translateService.instant('ICONBUTTON.GITLAB'),
+    return this.toastr.info(this.translateService.instant('ICONBUTTON.GITLAB'),
       this.translateService.instant('ICONBUTTON.GITLAB'));
   }
 
   testInput() {
-    this.toastr.info(this.inputValue.toString());
+    return this.toastr.info(this.inputValue.toString());
   }
 
   changeInputValue() {
-    this.inputValue += 'daa';
+    this.inputValue += 'add';
   }
 
   setLoading() {
@@ -265,10 +276,10 @@ export class ToolboxComponent implements OnInit {
     this.modalFullscreenVisible = true;
   }
 
-  openLoadingModal() {
+  async openLoadingModal() {
     this.modalLoadingVisible = true;
     this.modalLoading = true;
-    new Promise(resolve => setTimeout(resolve, 3000))
+    return new Promise(resolve => setTimeout(resolve, 3000))
       .then(() => {
         this.modalLoading = false;
       }
@@ -284,7 +295,7 @@ export class ToolboxComponent implements OnInit {
   }
 
   displayModalInputValue() {
-    this.toastr.info(this.modalInputValue.toString());
+    return this.toastr.info(this.modalInputValue.toString());
   }
 
   checkIfCloseModal(event) {
@@ -295,7 +306,7 @@ export class ToolboxComponent implements OnInit {
   }
 
   testInputNumber() {
-    this.toastr.info(this.inputValueNumber.toString());
+    return this.toastr.info(this.inputValueNumber.toString());
   }
 
   setInputNumber() {
@@ -303,18 +314,38 @@ export class ToolboxComponent implements OnInit {
   }
 
   testDropdown() {
-    this.toastr.info(this.dropdownValue.toString());
+    return this.toastr.info(this.dropdownValue.toString());
   }
 
   testCopyButton() {
-    this.toastr.info('Contenu copié');
+    return this.toastr.info('Contenu copié');
   }
 
   testAleatDropdown() {
-    this.dropdownValue = this.dataDropdownExample[Math.floor(Math.random() * 4)].key;
+    const Random = Math.floor(Math.random() * 4);
+    this.dropdownValue = this.dataDropdownExample[Random].key;
+    return Random;
   }
 
   showMessage(message: string) {
-    this.toastr.info(message);
+    return this.toastr.info(message);
+  }
+
+  testTextarea() {
+    return this.toastr.info(this.textareaValue.toString());
+  }
+
+  setTextareaValue() {
+    this.textareaValue += 'Lorem ipsum...';
+  }
+
+  testCommitTextarea() {
+    return this.toastr.info(this.translateService.instant('SUMMARY') + ' : ' + this.commitTextAreaValue.summary.toString()
+      + '\n' + this.translateService.instant('DESCRIPTION') + ' : ' + this.commitTextAreaValue.desc.toString());
+  }
+
+  setCommitTextareaValue() {
+    this.commitTextAreaValue.summary += 'Lorem ipsum...';
+    this.commitTextAreaValue.desc += 'dolor sit amet...';
   }
 }

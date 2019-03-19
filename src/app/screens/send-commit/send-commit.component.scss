@@ -1,0 +1,61 @@
+@import '../../../variables.scss';
+
+.send-commit {
+    height: 100%;
+        
+    &.dark {
+        background: $light-grey;
+        color: $muted-white;
+        border-top: 1px solid $light-grey;
+    }
+
+    &.light {
+        background: $dark-grey-light;
+        color: $dark;
+        border-top: 1px solid $border-dark-grey-light;
+    }
+
+    &_header {
+        display: none;
+
+        &.dark {
+            color: $white;
+            background: $blue-grey;
+            border-bottom: 1px solid $dark-grey;
+        }
+
+        &.light {
+            background: $light-grey-light;
+            border-bottom: 1px solid $border-dark-grey-light;
+        }
+    }
+
+    &_container {
+        @include wX-hX(100%, calc(100% - #{$footer-height}));
+    }
+
+    &_stage {
+        height: 28%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    &_unstage {
+        height: 28%;
+        padding-top: 30px;
+        padding-bottom: 10px;
+    }
+
+    &_text {
+        font-size: $fs-medium;
+
+        &_button {
+            font-size: $fs-small;
+            float: right;
+        }
+    }
+}
+
+.visible {
+    display: block;
+}

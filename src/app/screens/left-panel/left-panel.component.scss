@@ -1,0 +1,84 @@
+@import '../../../variables.scss';
+
+.left-panel {
+    display:inline-block;
+    height: calc(100% - 50px);
+    width: 15%;
+    vertical-align: top;
+    overflow: auto;
+    overflow-x: hidden;
+    
+    &.dark {
+        background: $low-dark;
+        color: $white;
+        border-top: 1px solid $dark;
+
+        &::-webkit-scrollbar-track-piece  {
+            background-color: rgba(55, 56, 65, 0.3);
+        }
+        &::-webkit-scrollbar-thumb:vertical {
+            background-color: #373841;
+            border: 1px solid rgba(55, 56, 65, 0.3);
+        }
+    }
+
+    &.light {
+        background: $dark-grey-light;
+        color: $dark;
+        border-top: 1px solid $border-dark-grey-light;
+
+        &::-webkit-scrollbar-track-piece  {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        &::-webkit-scrollbar-thumb:vertical {
+            background-color: #C6C6C6;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 10px;
+    }
+    &::-webkit-scrollbar-button:start:decrement,
+    &::-webkit-scrollbar-button:end:increment  {
+        height: 10px;
+        background-color: transparent;
+    }
+    &::-webkit-scrollbar-track-piece  {
+        -webkit-border-radius: 16px;
+    }
+    &::-webkit-scrollbar-thumb:vertical {
+        height: 10px;
+        -webkit-border-radius: 16px;
+    }
+}
+
+.gh-current-branch.light {
+    @include bg-color($light-green-hover-light);
+    &:hover {
+        @include bg-color($light-green-hover-light);
+        cursor: default;
+    }
+}
+
+.gh-current-branch.dark {
+    @include bg-color($light-green-hover);
+
+    &:hover {
+        @include bg-color($light-green-hover);
+    }
+}
+
+.gh-branch.dark {
+    &:hover {
+        @include bg-color($disabled-blue);
+        cursor: pointer;
+    }
+}
+.gh-branch.light {
+    &:hover {
+        @include bg-color($modal-tab-hover-light);
+        cursor: pointer;
+    }
+}
