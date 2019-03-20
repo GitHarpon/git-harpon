@@ -6,11 +6,6 @@
 .bold {
     font-weight: bold;
 }
-ul {
-    padding-left: 0.5em;
-    line-height: 1.5em;
-    list-style-type: none;
-}
 
 .color-m {
     color: #de9b49;
@@ -22,4 +17,21 @@ ul {
 
 .color-d {
     color: $dark-red-light;
+}
+
+.gh-tree-item:hover div:first-child{
+    &.dark:hover {
+        @include bg-color($dark-blue);
+    }
+
+    &.light:hover {
+        @include bg-color($light-green-light);
+    }
+
+    &_button {
+        position: absolute;
+        right: 20px;
+        visibility: hidden;
+        font-size: $fs-small;
+    }
 }

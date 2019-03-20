@@ -1,20 +1,23 @@
-<li>
-    <div
-      *ngIf="isFolder()"
-      class="bold"
-      (click)="toggle()">
-      <i class="fa" [ngClass]="isOpen ? 'fa-folder-open' : 'fa-folder'"></i>
-      {{ item.folder }}
-    </div>
-    <div *ngIf="!isFolder()">
-        <i class="fa" [ngClass]="[(item.status == 'M' ? 'fa-file-signature color-m' : ''), 
-        (item.status == 'A' ? 'fa-file-medical color-a' : ''), (item.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>{{ item.file}}
-    </div>
-    <ul [hidden]="!isOpen" *ngIf="isFolder()">
-      <app-tree-item
-        class="item"
-        *ngFor="let child of item.children"
-        [item]="child"
-      ></app-tree-item>
-    </ul>
-  </li>
+<div class="gh-tree-item">
+  <div
+    *ngIf="isFolder()"
+    class="bold folder-item"
+    [ngStyle]="getFileDepth()"
+    [ngClass]="[currentTheme]"
+    (click)="toggle()">
+    <i class="fa" [ngClass]="isOpen ? 'fa-folder-open' : 'fa-folder'"></i>
+    {{ item.folder }}
+  </div>
+  <div *ngIf="!isFolder()" class="file-item" [ngClass]="[currentTheme]" [ngStyle]="getDepth()">
+      <i class="fa mr-1" [ngClass]="[(item.status == 'M' ? 'fa-file-signature color-m' : ''), 
+      (item.status == 'A' ? 'fa-file-medical color-a' : ''), (item.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>{{ item.file}}
+  </div>
+  <div [hidden]="!isOpen" *ngIf="isFolder()">
+    <app-tree-item
+      [depth]="depth + 0.5"
+      class="item"
+      *ngFor="let child of item.children"
+      [item]="child"
+    ></app-tree-item>
+  </div>
+</div>

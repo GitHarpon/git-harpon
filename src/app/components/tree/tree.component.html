@@ -1,10 +1,12 @@
-<div class="gh-tree">
-  <ul>
+<div class="gh-tree" [ngClass]="[currentTheme]">
+  <div>
     <ng-container *ngFor="let item of tree;">
-      <app-tree-item *ngIf="isFolder(item)" [item]="item"></app-tree-item>
-      <li *ngIf="!isFolder(item)"><i class="fa" [ngClass]="[(item.status == 'M' ? 'fa-file-signature color-m' : ''), 
-        (item.status == 'A' ? 'fa-file-medical color-a' : ''), (item.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>{{ item.file}}
-      </li>
+      <app-tree-item *ngIf="isFolder(item)" [item]="item" [depth]="0"></app-tree-item>
+      <div [ngClass]="[currentTheme]" *ngIf="!isFolder(item)" class="file-item">
+        <i class="fa mr-1" [ngClass]="[(item.status == 'M' ? 'fa-file-signature color-m' : ''), 
+          (item.status == 'A' ? 'fa-file-medical color-a' : ''), (item.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>
+          {{ item.file}}
+      </div>
     </ng-container>
-  </ul>
+  </div>
 </div>

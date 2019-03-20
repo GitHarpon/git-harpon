@@ -13,6 +13,7 @@ export class TreeItemComponent implements OnDestroy {
   isOpen: boolean;
   currentTheme: string;
   themePrefSubscription: Subscription;
+  @Input() depth: number;
 
   constructor(private themePrefService: ThemePreferencesService) {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -32,6 +33,16 @@ export class TreeItemComponent implements OnDestroy {
     if (this.isFolder()) {
       this.isOpen = !this.isOpen;
     }
+  }
+
+  getDepth() {
+    const Depth = this.depth + 0.5;
+    return { 'padding-left': Depth + 'em'};
+  }
+  
+  getFileDepth() {
+    const Depth = this.depth === 0 ? 0 : this.depth + 0.5;
+    return { 'padding-left': Depth + 'em'};
   }
 
   ngOnDestroy() {
