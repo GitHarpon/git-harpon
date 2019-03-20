@@ -37,6 +37,8 @@ import { ClipboardService, ClipboardModule } from 'ngx-clipboard';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { TextAreaComponent } from '../../components/text-area/text-area.component';
 import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TreeComponent } from '../../components/tree/tree.component';
 
 describe('ToolboxComponent', () => {
   /* tslint:disable */
@@ -63,7 +65,9 @@ describe('ToolboxComponent', () => {
         IconButtonComponent,
         MonacoEditorWrapperComponent,
         TextAreaComponent,
-        CommitTextAreaComponent
+        CommitTextAreaComponent,
+        TreeItemComponent,
+        TreeComponent
       ],
       imports: [
         FormsModule,

@@ -1,0 +1,10 @@
+<div class="gh-tree">
+  <ul>
+    <ng-container *ngFor="let item of tree;">
+      <app-tree-item *ngIf="isFolder(item)" [item]="item"></app-tree-item>
+      <li *ngIf="!isFolder(item)"><i class="fa" [ngClass]="[(item.status == 'M' ? 'fa-file-signature color-m' : ''), 
+        (item.status == 'A' ? 'fa-file-medical color-a' : ''), (item.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>{{ item.file}}
+      </li>
+    </ng-container>
+  </ul>
+</div>

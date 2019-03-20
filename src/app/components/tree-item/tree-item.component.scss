@@ -1,0 +1,25 @@
+@import '../../../variables.scss';
+
+.item {
+    cursor: pointer;
+}
+.bold {
+    font-weight: bold;
+}
+ul {
+    padding-left: 0.5em;
+    line-height: 1.5em;
+    list-style-type: none;
+}
+
+.color-m {
+    color: #de9b49;
+}
+
+.color-a {
+    color: $dark-green-light;
+}
+
+.color-d {
+    color: $dark-red-light;
+}

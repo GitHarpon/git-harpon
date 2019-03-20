@@ -21,6 +21,8 @@ import { ClipboardService, ClipboardModule } from 'ngx-clipboard';
 import { CommitDescription } from '../../models/CommitInformations';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
+import { TreeComponent } from '../../components/tree/tree.component';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 
 describe('ViewCommitComponent', () => {
   /* tslint:disable */
@@ -37,6 +39,8 @@ describe('ViewCommitComponent', () => {
         TextAreaComponent,
         CommitTextAreaComponent,
         FileDiffCommitComponent,
+        TreeItemComponent,
+        TreeComponent
       ],
       imports: [
         NgbModule,

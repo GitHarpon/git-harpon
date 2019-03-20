@@ -14,6 +14,8 @@ import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { MockTranslateLoader } from '../../models/MockTranslateLoader';
+import { TreeComponent } from '../../components/tree/tree.component';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 
 describe('SendCommitComponent', () => {
   /* tslint:disable */
@@ -26,7 +28,9 @@ describe('SendCommitComponent', () => {
       declarations: [
         SendCommitComponent,
         ButtonComponent,
-        FileDiffCommitComponent
+        FileDiffCommitComponent,
+        TreeItemComponent,
+        TreeComponent
       ],
       imports: [
         TranslateModule.forRoot({

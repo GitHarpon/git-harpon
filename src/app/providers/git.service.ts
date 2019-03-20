@@ -150,10 +150,10 @@ export class GitService {
   async setNewBranch(newBranchName, referenceBranchName) {
     return new Promise<any>((resolve, reject) => {
       if (this.repoName) {
-        gitPromise(this.path).branch([])
+        this.gitP.branch([])
           .then((result) => {
             if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
-              gitPromise(this.path).branchLocal()
+              this.gitP.branchLocal()
                 .then((result) => {
                   gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
                   .then(() => {
@@ -502,8 +502,6 @@ export class GitService {
       this.updateFilesDiff();
     });
   }
-
-  
 
   async pushSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
       console.log('Ssh non pris en charge pour le moment');

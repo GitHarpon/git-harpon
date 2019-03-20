@@ -13,6 +13,8 @@ import { InputComponent } from '../../components/input/input.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { GraphService } from '../../providers/graph.service';
 import { MockGraphService } from '../../models/MockGraphService';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TreeComponent } from '../../components/tree/tree.component';
 
 describe('GraphComponent', () => {
   /* tslint:disable */
@@ -23,7 +25,13 @@ describe('GraphComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GraphComponent, InputComponent, ButtonComponent ],
+      declarations: [
+        GraphComponent,
+        InputComponent,
+        ButtonComponent,
+        TreeItemComponent,
+        TreeComponent
+      ],
       imports: [
         FormsModule,
         BrowserModule,

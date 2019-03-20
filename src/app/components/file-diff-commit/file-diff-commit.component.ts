@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { GitService } from '../../providers/git.service';
 import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
@@ -8,7 +8,7 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
   templateUrl: './file-diff-commit.component.html',
   styleUrls: ['./file-diff-commit.component.scss']
 })
-export class FileDiffCommitComponent {
+export class FileDiffCommitComponent implements OnDestroy {
   @Input() listFiles: any[];
   @Input() componentType: any = 'stage';
   componentHovered: any;
@@ -52,6 +52,12 @@ export class FileDiffCommitComponent {
   mouseLeave() {
     if (this.componentType == 'unstage' || this.componentType == 'stage') {
       this.componentHovered = '';
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.themePrefSubscription) {
+      this.themePrefSubscription.unsubscribe();
     }
   }
 }

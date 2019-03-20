@@ -48,6 +48,8 @@ import { SendCommitComponent } from '../send-commit/send-commit.component';
 import { TextAreaComponent } from '../../components/text-area/text-area.component';
 import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
+import { TreeComponent } from '../../components/tree/tree.component';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 
 describe('PreferencesComponent', () => {
   /* tslint:disable */
@@ -83,7 +85,9 @@ describe('PreferencesComponent', () => {
         ViewCommitComponent,
         TextAreaComponent,
         CommitTextAreaComponent,
-        FileDiffCommitComponent
+        FileDiffCommitComponent,
+        TreeItemComponent,
+        TreeComponent
       ],
       imports: [
         FormsModule,

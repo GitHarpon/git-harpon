@@ -41,6 +41,8 @@ export class ToolboxComponent implements OnInit {
   textareaValue: String;
   commitTextAreaValue: any;
 
+  treeData: any;
+
   key: String = 'key';
   value: String = 'value';
   dropdownValue: String;
@@ -73,6 +75,89 @@ export class ToolboxComponent implements OnInit {
     };
     this.modalTabSelectedIndex = 1;
     this.passwordInput = 'toto';
+
+    this.treeData = [
+      {
+        folder: 'src',
+        children: [
+          {
+            folder: 'app',
+            children: [
+              {
+                file: 'app.module.ts',
+                status: 'M'
+              },
+              {
+                folder: 'components',
+                children: [
+                  {
+                    folder: 'accordion',
+                    children: [
+                      {
+                        file: 'accordion.component.scss',
+                        status: 'M'
+                      }
+                    ]
+                  },
+                  {
+                    folder: 'file-diff-commit',
+                    children: [
+                      {
+                        file: 'file-diff-commit.component.html',
+                        status: 'A'
+                      },
+                      {
+                        file: 'file-diff-commit.component.ts',
+                        status: 'A'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                folder: 'models',
+                children: [
+                  {
+                    file: 'MockGitService.ts',
+                    status: 'M'
+                  },
+                  {
+                    file: 'MockLeftPanelService.ts',
+                    status: 'M'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            folder: 'assets',
+            children: [
+              {
+                folder: 'i18n',
+                children: [
+                  {
+                    file: 'en.json',
+                    status: 'M'
+                  },
+                  {
+                    file: 'fr.json',
+                    status: 'M'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        file: 'package.json',
+        status: 'M'
+      },
+      {
+        file: 'yarn.lock',
+        status: 'M'
+      }
+    ];
 
     this.inputValueNumber = 10;
     this.inputMinMaxValueNumber = 0;
@@ -169,7 +254,7 @@ export class ToolboxComponent implements OnInit {
       { icon: 'fa-spinner', isFab: false },
       { icon: 'fa-upload', isFab: false },
       { icon: 'fa-download', isFab: false },
-      { icon: 'fa-globe', isFab: false},
+      { icon: 'fa-globe', isFab: false },
       { icon: 'fa-sign-out-alt', isFab: false },
       { icon: 'fa-code-branch', isFab: false },
       { icon: 'fa-laptop', isFab: false },
@@ -283,7 +368,7 @@ export class ToolboxComponent implements OnInit {
       .then(() => {
         this.modalLoading = false;
       }
-    );
+      );
   }
 
   openInfoBar() {

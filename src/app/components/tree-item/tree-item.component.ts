@@ -1,0 +1,43 @@
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { GitService } from '../../providers/git.service';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
+
+@Component({
+  selector: 'app-tree-item',
+  templateUrl: './tree-item.component.html',
+  styleUrls: ['./tree-item.component.scss']
+})
+export class TreeItemComponent implements OnDestroy {
+  @Input() item: any;
+  isOpen: boolean;
+  currentTheme: string;
+  themePrefSubscription: Subscription;
+
+  constructor(private themePrefService: ThemePreferencesService) {
+    this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
+      (newTheme: string) => {
+        this.currentTheme = newTheme;
+      }
+    );
+    this.themePrefService.emitThemePreferencesSubject();
+    this.isOpen = false;
+  }
+
+  isFolder() {
+    return this.item.children && this.item.children.length;
+  }
+
+  toggle() {
+    if (this.isFolder()) {
+      this.isOpen = !this.isOpen;
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.themePrefSubscription) {
+      this.themePrefSubscription.unsubscribe();
+    }
+  }
+
+}

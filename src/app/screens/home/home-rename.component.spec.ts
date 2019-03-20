@@ -47,6 +47,8 @@ import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-
 import { NewBranchCouple } from '../../models/NewBranchCouple';
 import { MockGraphService } from '../../models/MockGraphService';
 import { GraphService } from '../../providers/graph.service';
+import { TreeComponent } from '../../components/tree/tree.component';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -76,6 +78,8 @@ describe('HomeComponent', () => {
         ViewCommitComponent,
         FileDiffCommitComponent,
         TextAreaComponent,
+        TreeItemComponent,
+        TreeComponent
       ],
       imports: [
         FormsModule,

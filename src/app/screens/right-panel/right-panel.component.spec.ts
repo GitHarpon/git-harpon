@@ -15,6 +15,8 @@ import { TextAreaComponent } from '../../components/text-area/text-area.componen
 import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { NgbTooltip, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { TreeComponent } from '../../components/tree/tree.component';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 
 describe('RightPanelComponent', () => {
   /* tslint:disable */
@@ -33,12 +35,14 @@ describe('RightPanelComponent', () => {
         LoaderComponent,
         TextAreaComponent,
         CommitTextAreaComponent,
-        FileDiffCommitComponent
+        FileDiffCommitComponent,
+        TreeItemComponent,
+        TreeComponent
       ],
       imports: [
         TranslateModule,
         NgbModule,
-        FormsModule
+        FormsModule,
       ],
       providers: [
         {
