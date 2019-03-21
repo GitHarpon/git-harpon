@@ -50,6 +50,9 @@
             </span>
       </div>
     </div>
+    <div class="col-md-12">
+      <app-tabs [data]="[{ title: 'PATH', icon: 'fa-bars'}, { title: 'TREE', icon: 'fa-stream' }]" [(value)]="currentTab"></app-tabs>
+    </div>
     <div class="container view-commit__bottom">
       <app-file-diff-commit [listFiles]="currentDescription?.files" componentType="view"></app-file-diff-commit>
     </div>

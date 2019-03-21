@@ -1,13 +1,13 @@
 <div class="file-diff-commit" [ngClass]="[componentType, currentTheme]">
-  <div *ngFor="let file of listFiles" class="file-diff-commit_file" [ngClass]="[currentTheme]" (mouseenter)="mouseEnter(file.path)"  (mouseleave) ="mouseLeave(file.path)">
-    <a data-toggle="tooltip" title="{{ file.path }}" >
-      <i class="fa" [ngClass]="[(file.status == 'M' ? 'fa-file-signature color-m' : ''), 
-        (file.status == 'A' ? 'fa-file-medical color-a' : ''), (file.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>
-      {{ getFileNameFromPath(file.path) }}
-      <app-button class="file-diff-commit_file_button" [ngClass]="[(file.path == componentHovered && componentType == 'unstage' ? 'visible' : '')]"
-        value="STAGE_FILE" type="success" (buttonClicked)="addFile(file.path)"></app-button>
-      <app-button class="file-diff-commit_file_button" [ngClass]="[(file.path == componentHovered && componentType == 'stage' ? 'visible' : '')]"
-        value="UNSTAGE_FILE" type="danger" (buttonClicked)="removeFile(file.path)"></app-button>
-    </a>
+  <div *ngFor="let file of listFiles" class="file-diff-commit_file" [ngClass]="[currentTheme]" data-toggle="tooltip" title="{{ file.path }}">
+    <i class="fa" [ngClass]="[(file.status == 'M' ? 'fa-file-signature color-m' : ''), 
+      (file.status == 'A' ? 'fa-file-medical color-a' : ''), (file.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>
+    {{ getFileNameFromPath(file.path) }}
+    <div *ngIf="componentType == 'unstage'" class="file-diff-commit_file_button float-right">
+      <app-button value="STAGE_FILE" type="success" (buttonClicked)="addFile(file.path)"></app-button>
+    </div>
+    <div *ngIf="componentType == 'stage'" class="file-diff-commit_file_button float-right">
+      <app-button value="UNSTAGE_FILE" type="danger" (buttonClicked)="removeFile(file.path)"></app-button>
+    </div>
   </div>
 </div>

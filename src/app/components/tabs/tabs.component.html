@@ -1,0 +1,6 @@
+<div class="text-center">
+  <div *ngFor="let item of data" class="tab" [ngClass]="[currentTheme, value === item.title ? 'active' : '']" (click)="setValue(item.title)">
+      <i class="fa" [ngClass]="[item.icon]" ></i>
+      <span>{{ item.title.toUpperCase() | translate }}</span>
+  </div>
+</div>

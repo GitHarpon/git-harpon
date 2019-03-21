@@ -22,6 +22,7 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   parentHashCopied: Boolean;
   commitDate: string;
   loading: Boolean;
+  currentTab: string;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
     private gitService: GitService, private clipboardService: ClipboardService) {
@@ -42,6 +43,8 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
       }
     );
     this.rightPanelService.emitCommitHashSubject();
+
+    this.currentTab = 'PATH';
   }
 
   async setDescription() {

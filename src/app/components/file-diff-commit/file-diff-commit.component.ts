@@ -11,7 +11,6 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 export class FileDiffCommitComponent implements OnDestroy {
   @Input() listFiles: any[];
   @Input() componentType: any = 'stage';
-  componentHovered: any;
   themePrefSubscription: Subscription;
   currentTheme: string;
 
@@ -32,26 +31,12 @@ export class FileDiffCommitComponent implements OnDestroy {
   addFile(path: any) {
     if (this.componentType == 'unstage') {
       this.gitService.addFile(path);
-      this.componentHovered = '';
     }
   }
 
   removeFile(path: any) {
     if (this.componentType == 'stage') {
       this.gitService.removeFile(path);
-      this.componentHovered = '';
-    }
-  }
-
-  mouseEnter(filePath: any) {
-    if (this.componentType === 'unstage' || this.componentType === 'stage') {
-      this.componentHovered = filePath;
-    }
-  }
-
-  mouseLeave() {
-    if (this.componentType === 'unstage' || this.componentType === 'stage') {
-      this.componentHovered = '';
     }
   }
 

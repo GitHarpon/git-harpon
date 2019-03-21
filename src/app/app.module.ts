@@ -64,6 +64,7 @@ import { FileDiffCommitComponent } from './components/file-diff-commit/file-diff
 import { GraphService } from './providers/graph.service';
 import { TreeComponent } from './components/tree/tree.component';
 import { TreeItemComponent } from './components/tree-item/tree-item.component';
+import { TabsComponent } from './components/tabs/tabs.component';
 
 
 // AoT requires an exported function for factories
@@ -101,7 +102,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommitTextAreaComponent,
     FileDiffCommitComponent,
     TreeComponent,
-    TreeItemComponent
+    TreeItemComponent,
+    TabsComponent
   ],
   imports: [
     ReactiveFormsModule,

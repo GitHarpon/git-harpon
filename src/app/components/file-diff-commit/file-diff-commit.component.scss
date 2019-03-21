@@ -68,23 +68,23 @@
 
         &.dark:hover {
             @include bg-color($dark-blue);
+            & .file-diff-commit_file_button {
+                display: inline;
+            }
         }
 
         &.light:hover {
             @include bg-color($light-green-light);
+            & .file-diff-commit_file_button {
+                display: inline;
+            }
         }
 
         &_button {
-            position: absolute;
-            right: 20px;
-            visibility: hidden;
+            display: none;
             font-size: $fs-small;
         }
     }
-}
-
-.visible {
-    visibility: visible;
 }
 
 .color-m {

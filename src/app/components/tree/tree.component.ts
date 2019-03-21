@@ -12,11 +12,10 @@ export class TreeComponent implements OnDestroy {
 
   @Input() tree: any;
   @Input() componentType: any = 'stage';
-  componentHovered: any;
   currentTheme: string;
   themePrefSubscription: Subscription;
 
-  constructor(private themePrefService: ThemePreferencesService) {
+  constructor(private themePrefService: ThemePreferencesService, private gitService: GitService) {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
         this.currentTheme = newTheme;
@@ -25,20 +24,20 @@ export class TreeComponent implements OnDestroy {
     this.themePrefService.emitThemePreferencesSubject();
   }
 
+  addFile(path: any) {
+    if (this.componentType == 'unstage') {
+      this.gitService.addFile(path);
+    }
+  }
+
+  removeFile(path: any) {
+    if (this.componentType == 'stage') {
+      this.gitService.removeFile(path);
+    }
+  }
+
   isFolder(item) {
     return item.children && item.children.length;
-  }
-
-  mouseEnter(filePath: any) {
-    if (this.componentType === 'unstage' || this.componentType === 'stage') {
-      this.componentHovered = filePath;
-    }
-  }
-
-  mouseLeave() {
-    if (this.componentType === 'unstage' || this.componentType === 'stage') {
-      this.componentHovered = '';
-    }
   }
 
   ngOnDestroy() {

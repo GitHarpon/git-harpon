@@ -1,21 +1,29 @@
 <div class="gh-tree-item">
   <div
     *ngIf="isFolder()"
-    class="bold folder-item"
-    [ngStyle]="getFileDepth()"
+    class="folder-item"
+    [ngStyle]="getFolderDepth()"
     [ngClass]="[currentTheme]"
     (click)="toggle()">
-    <i class="fa" [ngClass]="isOpen ? 'fa-folder-open' : 'fa-folder'"></i>
+    <i class="light-blue fa" [ngClass]="isOpen ? 'fa-folder-open' : 'fa-folder'"></i>
     {{ item.folder }}
   </div>
-  <div *ngIf="!isFolder()" class="file-item" [ngClass]="[currentTheme]" [ngStyle]="getDepth()">
-      <i class="fa mr-1" [ngClass]="[(item.status == 'M' ? 'fa-file-signature color-m' : ''), 
-      (item.status == 'A' ? 'fa-file-medical color-a' : ''), (item.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>{{ item.file}}
+  <div [ngClass]="[currentTheme]" [ngStyle]="getDepth()" *ngIf="!isFolder()" class="file-item" data-toggle="tooltip" [title]="item.file">
+      <i class="mr-1 fa" [ngClass]="[(item.status == 'M' ? 'fa-file-signature color-m' : ''),
+        (item.status == 'A' ? 'fa-file-medical color-a' : ''), (item.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>
+      {{ item.file }}
+      <div *ngIf="componentType == 'unstage'" class="tree_file_item_button float-right">
+        <app-button value="STAGE_FILE" type="success" (buttonClicked)="addFile(item.file)"></app-button>
+      </div>
+      <div *ngIf="componentType == 'stage'" class="tree_file_item_button float-right">
+        <app-button value="UNSTAGE_FILE" type="danger" (buttonClicked)="removeFile(item.file)"></app-button>
+      </div>
   </div>
   <div [hidden]="!isOpen" *ngIf="isFolder()">
     <app-tree-item
       [depth]="depth + 0.5"
       class="item"
+      [componentType]="componentType"
       [currentPath]="computeCurrentPath()"
       *ngFor="let child of item.children"
       [item]="child"

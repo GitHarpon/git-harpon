@@ -19,19 +19,27 @@
     color: $dark-red-light;
 }
 
-.gh-tree-item:hover div:first-child{
+.light-blue {
+    color: $light-blue; 
+}
+
+.gh-tree-item div:first-child{
     &.dark:hover {
         @include bg-color($dark-blue);
+        & .tree_file_item_button {
+            display: inline;
+        }
     }
 
     &.light:hover {
         @include bg-color($light-green-light);
+        & .tree_file_item_button {
+            display: inline;
+        }
     }
 
-    &_button {
-        position: absolute;
-        right: 20px;
-        visibility: hidden;
+    & .tree_file_item_button {
+        display: none;
         font-size: $fs-small;
     }
 }

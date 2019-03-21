@@ -65,16 +65,21 @@
     & .file-item {
         &.dark:hover {
             @include bg-color($dark-blue);
+            .tree_file_button {
+                background: red;
+                display: inline;
+            }
         }
 
         &.light:hover {
             @include bg-color($light-green-light);
+            & .tree_file_button {
+                display: inline;
+            }
         }
 
-        &_button {
-            position: absolute;
-            right: 20px;
-            visibility: hidden;
+        & .tree_file_button {
+            display: none;
             font-size: $fs-small;
         }
     }
@@ -85,7 +90,6 @@
     .bold {
         font-weight: bold;
     }
-    
 
     .color-m {
         color: #de9b49;
@@ -99,4 +103,3 @@
         color: $dark-red-light;
     }
 }
-
