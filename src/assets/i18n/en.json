@@ -191,6 +191,8 @@
     "INDEPENDENT_THEME": "Independent of the theme",
     "WRONG_CRED": "Wrong informations",
     "SUMMARY": "Summary",
+    "PATH": "Path",
+    "TREE": "Tree",
     "COMMIT": {
         "DESCRIPTION": "Commit description"
     },

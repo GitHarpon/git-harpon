@@ -6,6 +6,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
     white-space: nowrap;
+    font-size: $fs-medium;
     @include w100-h100();
 
     &.dark {

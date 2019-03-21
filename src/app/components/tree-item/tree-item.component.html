@@ -5,7 +5,7 @@
     [ngStyle]="getFolderDepth()"
     [ngClass]="[currentTheme]"
     (click)="toggle()">
-    <i class="light-blue fa" [ngClass]="isOpen ? 'fa-folder-open' : 'fa-folder'"></i>
+    <i class="light-blue fa mr-1" [ngClass]="isOpen ? 'fa-folder-open' : 'fa-folder'"></i>
     {{ item.folder }}
   </div>
   <div [ngClass]="[currentTheme]" [ngStyle]="getDepth()" *ngIf="!isFolder()" class="file-item" data-toggle="tooltip" [title]="item.file">

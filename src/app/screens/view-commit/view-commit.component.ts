@@ -23,6 +23,7 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   commitDate: string;
   loading: Boolean;
   currentTab: string;
+  tree: Array<any>;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
     private gitService: GitService, private clipboardService: ClipboardService) {
@@ -52,6 +53,7 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
       this.loading = true;
       return this.gitService.commitDescription(this.commitHash).then((data) => {
         this.currentDescription = data;
+        this.setTree();
         this.setCommitDate();
         this.loading = false;
       });
@@ -125,6 +127,28 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     return setTimeout(time => {
       this.parentHashCopied = false;
     }, 500);
+  }
+
+  setTree() {
+    if (this.currentDescription.files) {
+      const Tree = [];
+
+      this.currentDescription.files.forEach(({ status, path }) => {
+          const Dirs = path.split('/');
+          const File = Dirs.pop();
+
+          Dirs.reduce((level, folder) => {
+            let Object = level.find(o => o.folder === folder);
+            if (!Object) {
+                level.push(Object = { folder, children: [] });
+            }
+            return Object.children;
+          }, Tree)
+          .push({ file: File, status });
+      });
+
+      this.tree = Tree;
+    }
   }
 
   ngOnDestroy() {

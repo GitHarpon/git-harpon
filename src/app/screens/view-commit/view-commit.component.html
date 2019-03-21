@@ -29,7 +29,7 @@
             <i class="fa copied mr-1" [ngClass]="[parentHashCopied ? 'fa-check' : '']"></i>
             <span>parent :</span>
             <span *ngFor="let p of currentDescription?.parent; let i = index" placement="top"
-              ngbTooltip="{{ 'COPY' | translate }}" (click)="copyParentHash(p)" class="view-commit__hash__hash">
+              ngbTooltip="{{ 'COPY' | translate }}" (click)="copyParentHash(p)">
               {{p | slice:0:6}}{{ currentDescription?.parent.length - 1 === i ? '' : ', ' }}
             </span>
           </div>
@@ -49,12 +49,13 @@
               {{ countDeletedFiles() }} {{ 'DELETED' | translate }}
             </span>
       </div>
-    </div>
-    <div class="col-md-12">
-      <app-tabs [data]="[{ title: 'PATH', icon: 'fa-bars'}, { title: 'TREE', icon: 'fa-stream' }]" [(value)]="currentTab"></app-tabs>
+      <div class="col-md-12 mt-2">
+        <app-tabs [data]="[{ title: 'PATH', icon: 'fa-bars'}, { title: 'TREE', icon: 'fa-stream' }]" [(value)]="currentTab"></app-tabs>
+      </div>
     </div>
     <div class="container view-commit__bottom">
-      <app-file-diff-commit [listFiles]="currentDescription?.files" componentType="view"></app-file-diff-commit>
+      <app-file-diff-commit *ngIf="currentTab === 'PATH'" [listFiles]="currentDescription?.files" componentType="view"></app-file-diff-commit>
+      <app-tree *ngIf="currentTab === 'TREE'" componentType="view" [tree]="tree"></app-tree>
     </div>
   </div>
 </app-loader>

@@ -189,6 +189,8 @@
     "INDEPENDENT_THEME": "Indépendant du thème",
     "WRONG_CRED": "Informations erronées",
     "SUMMARY": "Résumé",
+    "PATH": "Chemin",
+    "TREE": "Arbre",
     "COMMIT": {
         "DESCRIPTION": "Description d'un commit"
     },
