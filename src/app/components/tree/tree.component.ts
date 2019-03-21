@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
 export class TreeComponent implements OnDestroy {
 
   @Input() tree: any;
+  @Input() componentType: any = 'stage';
+  componentHovered: any;
   currentTheme: string;
   themePrefSubscription: Subscription;
 
@@ -25,6 +27,18 @@ export class TreeComponent implements OnDestroy {
 
   isFolder(item) {
     return item.children && item.children.length;
+  }
+
+  mouseEnter(filePath: any) {
+    if (this.componentType === 'unstage' || this.componentType === 'stage') {
+      this.componentHovered = filePath;
+    }
+  }
+
+  mouseLeave() {
+    if (this.componentType === 'unstage' || this.componentType === 'stage') {
+      this.componentHovered = '';
+    }
   }
 
   ngOnDestroy() {

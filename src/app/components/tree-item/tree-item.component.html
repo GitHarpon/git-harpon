@@ -16,6 +16,7 @@
     <app-tree-item
       [depth]="depth + 0.5"
       class="item"
+      [currentPath]="computeCurrentPath()"
       *ngFor="let child of item.children"
       [item]="child"
     ></app-tree-item>

@@ -44,13 +44,13 @@ export class FileDiffCommitComponent implements OnDestroy {
   }
 
   mouseEnter(filePath: any) {
-    if (this.componentType == 'unstage' || this.componentType == 'stage') {
+    if (this.componentType === 'unstage' || this.componentType === 'stage') {
       this.componentHovered = filePath;
     }
   }
 
   mouseLeave() {
-    if (this.componentType == 'unstage' || this.componentType == 'stage') {
+    if (this.componentType === 'unstage' || this.componentType === 'stage') {
       this.componentHovered = '';
     }
   }

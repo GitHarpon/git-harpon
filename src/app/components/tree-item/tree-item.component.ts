@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GitService } from '../../providers/git.service';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
+import { ElectronService } from '../../providers/electron.service';
 
 @Component({
   selector: 'app-tree-item',
@@ -10,12 +11,14 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 })
 export class TreeItemComponent implements OnDestroy {
   @Input() item: any;
+  @Input() depth: number;
+  @Input() currentPath: String = '';
   isOpen: boolean;
   currentTheme: string;
   themePrefSubscription: Subscription;
-  @Input() depth: number;
 
-  constructor(private themePrefService: ThemePreferencesService) {
+
+  constructor(private themePrefService: ThemePreferencesService, private electronService: ElectronService) {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
         this.currentTheme = newTheme;
@@ -35,11 +38,16 @@ export class TreeItemComponent implements OnDestroy {
     }
   }
 
+  computeCurrentPath() {
+    const FileName = this.isFolder() ? this.item.folder : this.item.file;
+    return this.electronService.path.join(this.currentPath.toString(), FileName );
+  }
+
   getDepth() {
     const Depth = this.depth + 0.5;
     return { 'padding-left': Depth + 'em'};
   }
-  
+
   getFileDepth() {
     const Depth = this.depth === 0 ? 0 : this.depth + 0.5;
     return { 'padding-left': Depth + 'em'};
