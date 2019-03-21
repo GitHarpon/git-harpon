@@ -153,25 +153,22 @@ export class GitService {
         gitPromise(this.path).branch([])
           .then((result) => {
             if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
-              gitPromise(this.path).branchLocal()
-                .then((result) => {
-                  gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
-                  .then(() => {
-                    this.branchName = newBranchName;
-                    this.emitBranchNameSubject();
-                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-                    this.translate.instant('BRANCH.CREATED')));
-                  })
-                  .catch(() => {
-                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                    this.translate.instant('BRANCH.NOT_CREATED')));
-                  });
+              this.gitP.raw(['checkout', '-b', newBranchName, referenceBranchName])
+                .then(() => {
+                  this.branchName = newBranchName;
+                  this.emitBranchNameSubject();
+                  resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                  this.translate.instant('BRANCH.CREATED')));
+                })
+                .catch(() => {
+                  reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                  this.translate.instant('BRANCH.NOT_CREATED')));
                 });
             } else {
               gitPromise(this.path).branch(['-r'])
                 .then((resultbis) => {
                   if (resultbis.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
-                    gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
+                    this.gitP.raw(['checkout', '-b', newBranchName, referenceBranchName])
                     .then(() => {
                       this.branchName = newBranchName;
                       this.emitBranchNameSubject();
@@ -318,11 +315,13 @@ export class GitService {
 
   createBranchHere(newBranch, remoteBranch) {
     return new Promise<ServiceResult>((resolve, reject) => {
-      gitPromise(this.path).checkoutBranch(newBranch, remoteBranch).then((result) => {
+      this.gitP.raw(['checkout', '-b', newBranch, remoteBranch])
+      .then((result) => {
         this.getCurrentBranch();
         resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
-      }).catch((result) => {
+      }).catch((err) => {
+        console.log(err);
         reject(new ServiceResult(false, this.translate.instant('ERROR'),
           this.translate.instant('BRANCH.ERROR')));
       });
