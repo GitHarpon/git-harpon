@@ -153,25 +153,22 @@ export class GitService {
         this.gitP.branch([])
           .then((result) => {
             if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
-              this.gitP.branchLocal()
-                .then((result) => {
-                  gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
-                  .then(() => {
-                    this.branchName = newBranchName;
-                    this.emitBranchNameSubject();
-                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-                    this.translate.instant('BRANCH.CREATED')));
-                  })
-                  .catch(() => {
-                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                    this.translate.instant('BRANCH.NOT_CREATED')));
-                  });
+              this.gitP.raw(['checkout', '-b', newBranchName, referenceBranchName])
+                .then(() => {
+                  this.branchName = newBranchName;
+                  this.emitBranchNameSubject();
+                  resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                  this.translate.instant('BRANCH.CREATED')));
+                })
+                .catch(() => {
+                  reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                  this.translate.instant('BRANCH.NOT_CREATED')));
                 });
             } else {
               gitPromise(this.path).branch(['-r'])
                 .then((resultbis) => {
                   if (resultbis.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
-                    gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
+                    this.gitP.raw(['checkout', '-b', newBranchName, referenceBranchName])
                     .then(() => {
                       this.branchName = newBranchName;
                       this.emitBranchNameSubject();
@@ -216,7 +213,7 @@ export class GitService {
   async getLocalBranches() {
     return new Promise<any>((resolve, reject) => {
       if (this.repoName) {
-        gitPromise(this.path).branchLocal()
+        gitPromise(this.path).branch([])
           .then((result) => {
             resolve(result.all);
         });
@@ -276,7 +273,8 @@ export class GitService {
           this.getCurrentBranch();
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
-        }).catch((result) => {
+        }).catch((err) => {
+          console.log(err);
           reject(new ServiceResult(false, this.translate.instant('ERROR'),
             this.translate.instant('BRANCH.ERROR')));
         });
@@ -296,6 +294,7 @@ export class GitService {
                       resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                         this.translate.instant('BRANCH.CHECKED_OUT')));
                     }).catch((err) => {
+                      console.log(err);
                       reject(new ServiceResult(false, this.translate.instant('ERROR'),
                         this.translate.instant('ERROR'), remoteBranch));
                     });
@@ -316,11 +315,13 @@ export class GitService {
 
   createBranchHere(newBranch, remoteBranch) {
     return new Promise<ServiceResult>((resolve, reject) => {
-      gitPromise(this.path).checkoutBranch(newBranch, remoteBranch).then((result) => {
+      this.gitP.raw(['checkout', '-b', newBranch, remoteBranch])
+      .then((result) => {
         this.getCurrentBranch();
         resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
-      }).catch((result) => {
+      }).catch((err) => {
+        console.log(err);
         reject(new ServiceResult(false, this.translate.instant('ERROR'),
           this.translate.instant('BRANCH.ERROR')));
       });
@@ -435,7 +436,6 @@ export class GitService {
 
         this.gitP.raw(['push', '-u', Remote, branch])
         .then((result) => {
-            console.log(result);
             resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('PUSH.DONE')));
           }).catch((err) => {
