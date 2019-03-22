@@ -3,7 +3,7 @@
 .gh-graph {
     display:inline-block;
     height: calc(100% - 50px);
-    width: 65%;
+    width: calc(85% - 350px);
     padding: $gap-sm;
     vertical-align: top;
     overflow: auto;
