@@ -41,10 +41,7 @@ describe('TabsComponent', () => {
         TabsComponent,
         TreeItemComponent,
         TreeItemComponent,
-        ButtonComponent,
-        TranslateModule.forRoot({
-          loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
-        }),
+        ButtonComponent
       ],
       imports: [
         ContextMenuModule,

@@ -41,10 +41,7 @@ describe('TreeItemComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         TreeItemComponent,
-        ButtonComponent,
-        TranslateModule.forRoot({
-          loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
-        }),
+        ButtonComponent
       ],
       imports: [
         ContextMenuModule,
@@ -107,7 +104,7 @@ describe('TreeItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TreeItemComponent);
     component = fixture.componentInstance;
-    treeEl = fixture.debugElement.query(By.css('li'));
+    treeEl = fixture.debugElement.query(By.css('.gh-tree-item'));
   });
 
   it('should create', () => {

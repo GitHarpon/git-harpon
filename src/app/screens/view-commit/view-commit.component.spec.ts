@@ -356,17 +356,6 @@ describe('ViewCommitComponent', () => {
     expect(Result).toBe(Expected);
   });
 
-  it('tests the setDescription function', (done) => {
-    const Hash = '72267b6ad64858f2db2d597f67004b59e543928b';
-    component.commitHash = Hash;
-
-    component.setDescription().then(() => {
-      expect(component.currentDescription).toBeDefined();
-      expect(component.currentDescription.oid).toBe(Hash);
-      done();
-    });
-  });
-
   it('tests the switchCopyCommitHash function immediatly', () => {
     component.switchCopyCommitHash();
 
