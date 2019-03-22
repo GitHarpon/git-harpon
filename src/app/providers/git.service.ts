@@ -463,10 +463,10 @@ export class GitService {
     });
   }
 
-  updateFilesDiff() {
+  async updateFilesDiff() {
     var ListUnstagedFiles = [];
     var ListStagedFiles = [];
-    this.gitP.status().then((statusSummary) => {
+    return await this.gitP.status().then((statusSummary) => {
       const ListFile = statusSummary.files;
       ListFile.forEach(file => {
         if (file.working_dir == 'M' || file.working_dir == 'D') {
@@ -487,8 +487,8 @@ export class GitService {
           });
         }
       });
+      this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
     });
-    this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
   }
 
   addFile(path: any) {
