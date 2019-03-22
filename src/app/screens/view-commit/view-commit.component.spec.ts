@@ -23,6 +23,7 @@ import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
 
 describe('ViewCommitComponent', () => {
   /* tslint:disable */
@@ -40,7 +41,8 @@ describe('ViewCommitComponent', () => {
         CommitTextAreaComponent,
         FileDiffCommitComponent,
         TreeItemComponent,
-        TreeComponent
+        TreeComponent,
+        TabsComponent
       ],
       imports: [
         NgbModule,

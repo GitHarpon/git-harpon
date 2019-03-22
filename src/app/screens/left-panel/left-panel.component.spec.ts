@@ -25,6 +25,8 @@ import { MockTranslateService } from '../../models/MockTranslateService';
 import { NewBranchCouple } from '../../models/NewBranchCouple';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
+import { ButtonComponent } from '../../components/button/button.component';
 
 describe('LeftPanelComponent', () => {
   /* tslint:disable */
@@ -40,7 +42,8 @@ describe('LeftPanelComponent', () => {
           AccordionComponent,
           LoaderComponent,
           TreeItemComponent,
-          TreeComponent
+          TreeComponent,
+          ButtonComponent
       ],
       imports: [
         ContextMenuModule,

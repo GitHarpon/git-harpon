@@ -39,6 +39,7 @@ import { TextAreaComponent } from '../../components/text-area/text-area.componen
 import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 import { TreeComponent } from '../../components/tree/tree.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
 
 describe('ToolboxComponent', () => {
   /* tslint:disable */
@@ -67,7 +68,8 @@ describe('ToolboxComponent', () => {
         TextAreaComponent,
         CommitTextAreaComponent,
         TreeItemComponent,
-        TreeComponent
+        TreeComponent,
+        TabsComponent
       ],
       imports: [
         FormsModule,

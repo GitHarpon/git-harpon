@@ -49,6 +49,7 @@ import { MockGraphService } from '../../models/MockGraphService';
 import { GraphService } from '../../providers/graph.service';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -79,7 +80,8 @@ describe('HomeComponent', () => {
         FileDiffCommitComponent,
         TextAreaComponent,
         TreeItemComponent,
-        TreeComponent
+        TreeComponent,
+        TabsComponent
       ],
       imports: [
         FormsModule,

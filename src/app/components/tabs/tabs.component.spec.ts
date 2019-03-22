@@ -1,14 +1,82 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TabsComponent } from './tabs.component';
+import { TreeItemComponent } from '../tree-item/tree-item.component';
+import { ButtonComponent } from '../button/button.component';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MockTranslateLoader } from '../../models/MockTranslateLoader';
+import { ThemePreferencesService } from '../../providers/theme-preferences.service';
+import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
+import { ElectronService } from '../../providers/electron.service';
+import { MockElectronService } from '../../models/MockElectronService';
+import { MockGitService } from '../../models/MockGitService';
+import { GitService } from '../../providers/git.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
+import { TerminalManagerService } from '../../providers/terminal-manager.service';
+import { MockGraphService } from '../../models/MockGraphService';
+import { GraphService } from '../../providers/graph.service';
+import { MockRightPanelService } from '../../models/MockRightPanelService';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { MockTranslateService } from '../../models/MockTranslateService';
 
 describe('TabsComponent', () => {
+  /* tslint:disable */
   let component: TabsComponent;
   let fixture: ComponentFixture<TabsComponent>;
+  /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TabsComponent ]
+      declarations: [
+        TabsComponent,
+        TreeItemComponent,
+        TreeItemComponent,
+        ButtonComponent,
+        TranslateModule.forRoot({
+          loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
+        }),
+      ],
+      providers: [
+        {
+          provide: ThemePreferencesService,
+          useClass: MockThemePreferencesService
+        },
+        {
+          provide: ElectronService,
+          useClass: MockElectronService
+        },
+        {
+          provide: GitService,
+          useClass: MockGitService
+        },
+        {
+          provide: TranslateService,
+          useClass: MockTranslateService
+        },
+        {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
+        },
+        {
+            provide: LeftPanelService,
+            useClass: MockLeftPanelService
+        },
+        {
+          provide: GraphService,
+          useClass: MockGraphService
+        },
+        {
+          provide: TerminalManagerService,
+          useClass: MockTerminalManagerService
+        },
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
+        },
+      ]
+    
     })
     .compileComponents();
   }));

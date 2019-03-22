@@ -15,6 +15,7 @@ import { GraphService } from '../../providers/graph.service';
 import { MockGraphService } from '../../models/MockGraphService';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 import { TreeComponent } from '../../components/tree/tree.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
 
 describe('GraphComponent', () => {
   /* tslint:disable */
@@ -30,7 +31,8 @@ describe('GraphComponent', () => {
         InputComponent,
         ButtonComponent,
         TreeItemComponent,
-        TreeComponent
+        TreeComponent,
+        TabsComponent
       ],
       imports: [
         FormsModule,

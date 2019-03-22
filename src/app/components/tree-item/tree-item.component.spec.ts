@@ -10,10 +10,17 @@ import { RightPanelService } from '../../providers/right-panel.service';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { MockTranslateService } from '../../models/MockTranslateService';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { ElectronService } from '../../providers/electron.service';
+import { MockElectronService } from '../../models/MockElectronService';
+import { MockTranslateLoader } from '../../models/MockTranslateLoader';
+import { GraphService } from '../../providers/graph.service';
+import { MockGraphService } from '../../models/MockGraphService';
+import { TerminalManagerService } from '../../providers/terminal-manager.service';
+import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
 
 describe('TreeItemComponent', () => {
   /* tslint:disable */
@@ -26,14 +33,48 @@ describe('TreeItemComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         TreeItemComponent,
-        TreeItemComponent,
-        ButtonComponent
+        ButtonComponent,
+        TranslateModule.forRoot({
+          loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
+        }),
       ],
       providers: [
         {
           provide: ThemePreferencesService,
           useClass: MockThemePreferencesService
-        }
+        },
+        {
+          provide: ElectronService,
+          useClass: MockElectronService
+        },
+        {
+          provide: GitService,
+          useClass: MockGitService
+        },
+        {
+          provide: TranslateService,
+          useClass: MockTranslateService
+        },
+        {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
+        },
+        {
+            provide: LeftPanelService,
+            useClass: MockLeftPanelService
+        },
+        {
+          provide: GraphService,
+          useClass: MockGraphService
+        },
+        {
+          provide: TerminalManagerService,
+          useClass: MockTerminalManagerService
+        },
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
+        },
       ]
 
     })

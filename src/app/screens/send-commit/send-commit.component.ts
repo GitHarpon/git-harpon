@@ -34,7 +34,6 @@ export class SendCommitComponent implements OnInit, OnDestroy {
     this.listUnstagedFilesSubscription = this.rightPanelService.listUnstagedFilesSubject.subscribe(
       (listUnstagedFiles: any) => {
         this.listUnstagedFiles = listUnstagedFiles;
-        console.log(this.listUnstagedFiles, this.rightPanelService.listUnstagedFiles);
         this.setUnstageTree(listUnstagedFiles);
       });
     this.rightPanelService.emitListUnstagedFilesSubject();

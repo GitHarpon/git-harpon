@@ -9,10 +9,15 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { MockTranslateService } from '../../models/MockTranslateService';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { LeftPanelService } from '../../providers/left-panel.service';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { TreeItemComponent } from '../tree-item/tree-item.component';
+import { MockTranslateLoader } from '../../models/MockTranslateLoader';
+import { GraphService } from '../../providers/graph.service';
+import { MockGraphService } from '../../models/MockGraphService';
+import { TerminalManagerService } from '../../providers/terminal-manager.service';
+import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
 
 describe('TreeComponent', () => {
   /* tslint:disable */
@@ -27,11 +32,44 @@ describe('TreeComponent', () => {
         TreeItemComponent,
         ButtonComponent
       ],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
+        }),
+      ],
       providers: [
         {
           provide: ThemePreferencesService,
           useClass: MockThemePreferencesService
-        }
+        },
+        {
+          provide: GitService,
+          useClass: MockGitService
+        },
+        {
+          provide: TranslateService,
+          useClass: MockTranslateService
+        },
+        {
+          provide: RightPanelService,
+          useClass: MockRightPanelService
+        },
+        {
+            provide: LeftPanelService,
+            useClass: MockLeftPanelService
+        },
+        {
+          provide: GraphService,
+          useClass: MockGraphService
+        },
+        {
+          provide: TerminalManagerService,
+          useClass: MockTerminalManagerService
+        },
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
+        },
       ]
     })
     .compileComponents();

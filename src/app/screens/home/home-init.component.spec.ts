@@ -47,6 +47,7 @@ import { GraphService } from '../../providers/graph.service';
 import { MockGraphService } from '../../models/MockGraphService';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -76,7 +77,8 @@ describe('HomeComponent', () => {
         CommitTextAreaComponent,
         FileDiffCommitComponent,
         TreeItemComponent,
-        TreeComponent
+        TreeComponent,
+        TabsComponent
       ],
       imports: [
         ContextMenuModule,

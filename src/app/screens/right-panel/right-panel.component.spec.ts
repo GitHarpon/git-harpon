@@ -17,6 +17,7 @@ import { NgbTooltip, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
 
 describe('RightPanelComponent', () => {
   /* tslint:disable */
@@ -37,7 +38,8 @@ describe('RightPanelComponent', () => {
         CommitTextAreaComponent,
         FileDiffCommitComponent,
         TreeItemComponent,
-        TreeComponent
+        TreeComponent,
+        TabsComponent
       ],
       imports: [
         TranslateModule,
