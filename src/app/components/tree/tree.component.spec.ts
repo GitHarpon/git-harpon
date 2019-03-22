@@ -18,6 +18,14 @@ import { GraphService } from '../../providers/graph.service';
 import { MockGraphService } from '../../models/MockGraphService';
 import { TerminalManagerService } from '../../providers/terminal-manager.service';
 import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
+import { ContextMenuModule } from 'ngx-contextmenu';
+import { FormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ResizableModule } from 'angular-resizable-element';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 describe('TreeComponent', () => {
   /* tslint:disable */
@@ -33,9 +41,19 @@ describe('TreeComponent', () => {
         ButtonComponent
       ],
       imports: [
+        ContextMenuModule,
+        FormsModule,
+        ContextMenuModule,
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
         }),
+        MatTabsModule,
+        ResizableModule,
+        NgbModule,
+        RouterTestingModule,
+        BrowserAnimationsModule,
+        ContextMenuModule,
+        ToastrModule.forRoot()
       ],
       providers: [
         {

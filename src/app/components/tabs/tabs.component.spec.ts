@@ -20,6 +20,14 @@ import { GraphService } from '../../providers/graph.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { MockTranslateService } from '../../models/MockTranslateService';
+import { ContextMenuModule } from 'ngx-contextmenu';
+import { FormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material';
+import { ResizableModule } from 'angular-resizable-element';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('TabsComponent', () => {
   /* tslint:disable */
@@ -37,6 +45,21 @@ describe('TabsComponent', () => {
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
         }),
+      ],
+      imports: [
+        ContextMenuModule,
+        FormsModule,
+        ContextMenuModule,
+        TranslateModule.forRoot({
+          loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
+        }),
+        MatTabsModule,
+        ResizableModule,
+        NgbModule,
+        RouterTestingModule,
+        BrowserAnimationsModule,
+        ContextMenuModule,
+        ToastrModule.forRoot()
       ],
       providers: [
         {
