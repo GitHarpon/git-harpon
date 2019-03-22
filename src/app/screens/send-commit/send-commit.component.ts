@@ -16,9 +16,12 @@ export class SendCommitComponent implements OnInit, OnDestroy {
   listUnstagedFilesSubscription: Subscription;
   listStagedFiles: any[];
   listStagedFilesSubscription: Subscription;
+  currentTab: string;
+  unstageTree: Array<any>;
+  stageTree: Array<any>;
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
-    private rightPanelService: RightPanelService) {  }
+    private rightPanelService: RightPanelService) { }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -31,14 +34,19 @@ export class SendCommitComponent implements OnInit, OnDestroy {
     this.listUnstagedFilesSubscription = this.rightPanelService.listUnstagedFilesSubject.subscribe(
       (listUnstagedFiles: any) => {
         this.listUnstagedFiles = listUnstagedFiles;
+        console.log(this.listUnstagedFiles, this.rightPanelService.listUnstagedFiles);
+        this.setUnstageTree(listUnstagedFiles);
       });
     this.rightPanelService.emitListUnstagedFilesSubject();
 
     this.listStagedFilesSubscription = this.rightPanelService.listStagedFilesSubject.subscribe(
       (listStagedFiles: any) => {
         this.listStagedFiles = listStagedFiles;
+        this.setStageTree(listStagedFiles);
       });
     this.rightPanelService.emitListStagedFilesSubject();
+
+    this.currentTab = 'PATH';
   }
 
   addAllFile() {
@@ -47,6 +55,50 @@ export class SendCommitComponent implements OnInit, OnDestroy {
 
   removeAllFile() {
     this.gitService.removeFile('.');
+  }
+
+  setUnstageTree(obj) {
+    if (obj) {
+      const Tree = [];
+
+      obj.forEach(({ status, path }) => {
+        const Dirs = path.split('/');
+        const File = Dirs.pop();
+
+        Dirs.reduce((level, folder) => {
+          let Object = level.find(o => o.folder === folder);
+          if (!Object) {
+            level.push(Object = { folder, children: [] });
+          }
+          return Object.children;
+        }, Tree)
+          .push({ file: File, status });
+      });
+
+      this.unstageTree = Tree;
+    }
+  }
+
+  setStageTree(obj) {
+    if (obj) {
+      const Tree = [];
+
+      obj.forEach(({ status, path }) => {
+        const Dirs = path.split('/');
+        const File = Dirs.pop();
+
+        Dirs.reduce((level, folder) => {
+          let Object = level.find(o => o.folder === folder);
+          if (!Object) {
+            level.push(Object = { folder, children: [] });
+          }
+          return Object.children;
+        }, Tree)
+          .push({ file: File, status });
+      });
+
+      this.stageTree = Tree;
+    }
   }
 
   ngOnDestroy() {
