@@ -160,6 +160,20 @@ export class MockGitService {
         });
     }
 
+    async getUrl() {
+        // Branch name has nothing to do with getUrl
+        // it is just to do multiple mocks case to fully code cover.
+        return new Promise<any>((resolve, reject) => {
+            if (this.branchName == 'getUrlMarche') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('SUCCESS')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('ERROR')));
+            }
+        });
+    }
+
     async setNewBranch(newBranchName: string, referenceBranchName: string) {
         return new Promise<any>((resolve, reject) => {
             if (newBranchName === 'newBranch' && !referenceBranchName.includes('wrong')) {

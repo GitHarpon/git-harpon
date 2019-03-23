@@ -22,6 +22,7 @@ import { GraphService } from '../../providers/graph.service';
 export class HomeComponent implements OnDestroy {
   projectModalTabSelectedIndex: any;
   projectModalVisible: Boolean;
+  currentUrl: String;
   cloneUrl: String;
   cloneFolder: string;
   searchInputValue: String;
@@ -170,10 +171,24 @@ export class HomeComponent implements OnDestroy {
   }
 
   pullButtonClicked() {
-    // this.pullrebaseCredInfoBarVisible = true;
-    this.pullrebaseHttps();
-
-    return true;
+    return this.gitService.getUrl().then((data) => {
+      if (data.newData) {
+        this.currentUrl = data.newData;
+        var Url = GitUrlParse(this.currentUrl);
+        if (Url.protocol === 'ssh') {
+          this.toastr.error('Pas de ssh pour le moment', 'Erreur');
+        } else if (Url.protocol === 'https') {
+          this.homeLoading = true;
+          this.pullrebaseHttps();
+        }
+      } else {
+        this.toastr.error(this.translateService.instant('ERROR'),
+        this.translateService.instant('ERROR'));
+      }
+    }).catch((err) => {
+      this.toastr.error(this.translateService.instant('ERROR'),
+      this.translateService.instant('ERROR'));
+    });
   }
 
   branchButtonClicked() {
@@ -273,7 +288,6 @@ export class HomeComponent implements OnDestroy {
 
 
   async pushHttps() {
-    this.homeLoading = true;
     return this.gitService.pushHttps(this.fullPath, this.currentHttpsUser, this.branchName)
       .then((data) => {
         this.homeLoading = false;

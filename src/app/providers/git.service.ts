@@ -428,6 +428,18 @@ export class GitService {
     });
   }
 
+  async getUrl() {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      this.gitP.raw(['remote', 'get-url', 'origin'])
+      .then((data) => {
+        resolve(new ServiceResult(true, this.translate.instant('SUCCESS'), this.translate.instant('SUCCESS'), data));
+      }).catch((err) => {
+        console.log(err);
+        reject(new ServiceResult(false, this.translate.instant('ERROR'), this.translate.instant('ERROR')));
+      });
+    });
+  }
+
   async pushHttps(folder: string, httpsUser: HttpsUser, branch: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
       this.gitP.raw(['remote', 'get-url', 'origin']).then((data) => {
