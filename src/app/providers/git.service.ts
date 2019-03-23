@@ -503,15 +503,9 @@ export class GitService {
     });
   }
 
-  
-
   async pushSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
       console.log('Ssh non pris en charge pour le moment');
       return new Promise<ServiceResult>(() => {});
-  }
-
-  async pullrebaseSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
-      // SSH non pris en charge pour le moment
   }
 
   async pullrebaseHttps(httpsUser: HttpsUser, branch: string) {
@@ -530,6 +524,7 @@ export class GitService {
               var AccessDenied = false;
               if (err.toString().includes('Authentication failed')) {
                 ErrMsg = 'PULL.UNABLE_TO_CONNECT';
+                AccessDenied = true;
               }
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
               this.translate.instant(ErrMsg), AccessDenied));

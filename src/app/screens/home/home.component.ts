@@ -170,7 +170,9 @@ export class HomeComponent implements OnDestroy {
   }
 
   pullButtonClicked() {
-    this.pullrebaseCredInfoBarVisible = true;
+    // this.pullrebaseCredInfoBarVisible = true;
+    this.pullrebaseHttps();
+
     return true;
   }
 
