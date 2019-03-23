@@ -132,6 +132,7 @@
         "REMOTE_DELETED": "Branche remote supprimée",
         "REMOTE_NOT_DELETED": "Branche remote non supprimée",
         "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
+        "DELETE_MESSAGE": "Ceci est une opération destructive, êtes vous sûr de vouloir supprimer ",
         "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide",
         "ACCESS_DENIED": "Impossible de résoudre l'hôte",
         "REPO_NOT_FOUND": "Dépôt non trouvé",

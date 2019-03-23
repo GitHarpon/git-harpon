@@ -181,7 +181,7 @@ export class GitService {
                     });
                   } else {
                     reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                    this.translate.instant('BRANCH.NOT_CREATED')));
+                    this.translate.instant('BRANCH.ALREADY_EXISTS')));
                   }
                 })
                 .catch(() => {
@@ -246,7 +246,7 @@ export class GitService {
                   console.error(err);
                 });
             } else {
-              gitPromise(this.path).deleteLocalBranch(deleteBranchName)
+              this.gitP.raw(['branch', '-d', deleteBranchName])
                 .then(() => {
                   resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                   this.translate.instant('BRANCH.DELETED')));
@@ -256,6 +256,10 @@ export class GitService {
                   this.translate.instant('BRANCH.NOT_DELETED')));
                 });
             }
+          })
+          .catch(() => {
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant('BRANCH.NOT_DELETED')));
           });
       } else {
         reject(new ServiceResult(false, this.translate.instant('ERROR'),

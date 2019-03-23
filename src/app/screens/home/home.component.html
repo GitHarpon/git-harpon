@@ -269,8 +269,8 @@
 
 <!-- Delete branch Info bar -->
 <app-info-bar [visible]="deleteBranchInfoBarVisible">
-    <span>{{ 'BRANCH.DELETE_MESSAGE' | translate }}</span>
-    <app-button class="ml-3" value="DELETE_BRANCH" type="danger" (buttonClicked)="deleteBranch()"></app-button>
+    <span>{{ 'BRANCH.DELETE_MESSAGE' | translate }} "{{ deleteBranchName }}" ?</span>
+    <app-button class="ml-3" value="BRANCH.DELETE" type="danger" (buttonClicked)="deleteBranch()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeDeleteBranchInfoBar()"></app-button>
 </app-info-bar>
 

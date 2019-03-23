@@ -132,6 +132,7 @@
         "REMOTE_DELETED": "Remote branch deleted",
         "REMOTE_NOT_DELETED": "Remote branch not deleted",
         "HTTP_ACCESS_DENIED": "HTTP basic: Access denied",
+        "DELETE_MESSAGE": "This is a destructive operation, are you sure you want to delete ",
         "INVALID_CRED":"Invalid username or password",
         "ACCESS_DENIED": "Could not resolve host",
         "REPO_NOT_FOUND": "Repository not found",
