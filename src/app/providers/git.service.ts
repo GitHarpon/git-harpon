@@ -525,22 +525,27 @@ export class GitService {
     this.gitP.raw(['remote', 'get-url', 'origin'])
       .then((data) => {
         const Url = GitUrlParse(data);
-        let Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
-          this.gitP.pull(Remote, branch, {'--rebase': 'true'})
-            .then((data) => {
-              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-              this.translate.instant('PULL.DONE'), 'newData'));
-            })
-            .catch((err) => {
-              var ErrMsg = 'PULL.ERROR';
-              var AccessDenied = false;
-              if (err.toString().includes('Authentication failed')) {
-                ErrMsg = 'PULL.UNABLE_TO_CONNECT';
-                AccessDenied = true;
-              }
-              reject(new ServiceResult(false, this.translate.instant('ERROR'),
-              this.translate.instant(ErrMsg), AccessDenied));
-            });
+        var Remote;
+        if (httpsUser.username) {
+          Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
+        } else {
+          Remote = `https://${Url.resource}${Url.pathname}`;
+        }
+        this.gitP.pull(Remote, branch, {'--rebase': 'true'})
+          .then((data) => {
+            resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('PULL.DONE'), 'newData'));
+          })
+          .catch((err) => {
+            var ErrMsg = 'PULL.ERROR';
+            var AccessDenied = false;
+            if (err.toString().includes('Authentication failed')) {
+              ErrMsg = 'PULL.UNABLE_TO_CONNECT';
+              AccessDenied = true;
+            }
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant(ErrMsg), AccessDenied));
+          });
         })
         .catch((err) => {
           console.error(err);
