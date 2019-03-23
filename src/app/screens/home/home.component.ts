@@ -138,9 +138,11 @@ export class HomeComponent implements OnDestroy {
 
   @HostListener('window:focus', ['$event'])
   onFocus() {
-    this.gitService.updateFilesDiff();
-    this.leftPanelService.setLocalBranches();
-    this.leftPanelService.setRemoteBranches();
+    if (this.repoName) {
+      this.gitService.updateFilesDiff();
+      this.leftPanelService.setLocalBranches();
+      this.leftPanelService.setRemoteBranches();
+    }
     return true;
   }
 
