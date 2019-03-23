@@ -160,11 +160,18 @@ export class MockGitService {
         });
     }
 
-    async getUrl() {
-        // Branch name has nothing to do with getUrl
-        // it is just to do multiple mocks case to fully code cover.
+    async getUrl(remote: String) {
         return new Promise<any>((resolve, reject) => {
-            if (this.branchName == 'getUrlMarche') {
+            if (remote == 'origin') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('SUCCESS'), 'https://github.com/toto/myrepository'));
+            } else if (remote == 'originssh') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('SUCCESS'), 'ssh://github.com/toto/myrepository'));
+            } else if (remote == 'origininvalidproto') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('SUCCESS'), 'toto://github.com/toto/myrepository'));
+            } else if (remote == 'originnonewdata') {
                 resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                 this.translate.instant('SUCCESS')));
             } else {

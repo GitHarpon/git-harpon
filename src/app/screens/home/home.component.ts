@@ -52,6 +52,7 @@ export class HomeComponent implements OnDestroy {
   checkoutInfoBarVisible: boolean;
   newClonedRepoPath: string;
   cloneHttpsUser: HttpsUser;
+  remoteAlias: String;
 
   pullrebaseInfoBarVisible: boolean;
   pullrebaseAuthErrored: boolean;
@@ -171,7 +172,13 @@ export class HomeComponent implements OnDestroy {
   }
 
   pullButtonClicked() {
-    return this.gitService.getUrl().then((data) => {
+    this.remoteAlias = 'origin';
+    this.pullrebaseSubmit();
+    return true;
+  }
+
+  pullrebaseSubmit() {
+    return this.gitService.getUrl(this.remoteAlias).then((data) => {
       if (data.newData) {
         this.currentUrl = data.newData;
         var Url = GitUrlParse(this.currentUrl);

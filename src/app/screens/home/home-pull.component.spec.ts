@@ -139,6 +139,72 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
   });
 
+  it('tests the pullrebaseSubmit with newData set, https case', () => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const Origin = 'origin';
+
+    component.pullrebaseHttpsUser = User;
+    component.homeLoading = true;
+    component.pullrebaseCredInfoBarVisible = true;
+    component.remoteAlias = Origin;
+
+    component.pullrebaseSubmit();
+    expect(component.remoteAlias).toEqual(Origin);
+    expect(component.homeLoading).toBeTruthy;
+  });
+
+  it('tests the pullrebaseSubmit with newData set, ssh case', () => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const Originssh = 'originssh';
+
+    component.pullrebaseHttpsUser = User;
+    component.homeLoading = true;
+    component.pullrebaseCredInfoBarVisible = true;
+    component.remoteAlias = Originssh;
+
+    component.pullrebaseSubmit();
+    expect(component.remoteAlias).toEqual(Originssh);
+  });
+
+  it('tests the pullrebaseSubmit with newData set and invalid protocol', () => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const Origininvalidproto = 'origininvalidproto';
+
+    component.pullrebaseHttpsUser = User;
+    component.homeLoading = true;
+    component.pullrebaseCredInfoBarVisible = true;
+    component.remoteAlias = Origininvalidproto;
+
+    component.pullrebaseSubmit();
+    expect(component.remoteAlias).toEqual(Origininvalidproto);
+  });
+
+  it('tests the pullrebaseSubmit without newData set, reject case', () => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const OriginNodata = 'toto';
+
+    component.pullrebaseHttpsUser = User;
+    component.homeLoading = true;
+    component.pullrebaseCredInfoBarVisible = true;
+    component.remoteAlias = OriginNodata;
+
+    component.pullrebaseSubmit();
+    expect(component.remoteAlias).toEqual(OriginNodata);
+  });
+
+  it('tests the pullrebaseSubmit without newData set, resolve case', () => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const OriginNoNewdata = 'originnonewdata';
+
+    component.pullrebaseHttpsUser = User;
+    component.homeLoading = true;
+    component.pullrebaseCredInfoBarVisible = true;
+    component.remoteAlias = OriginNoNewdata;
+
+    component.pullrebaseSubmit();
+    expect(component.remoteAlias).toEqual(OriginNoNewdata);
+  });
+
   it('tests the pullrebaseHttps function and valid arguments', (done) => {
     const User: HttpsUser = { username: 'username', password: 'password' };
 

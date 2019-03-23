@@ -428,9 +428,9 @@ export class GitService {
     });
   }
 
-  async getUrl() {
+  async getUrl(remote: String) {
     return new Promise<ServiceResult>((resolve, reject) => {
-      this.gitP.raw(['remote', 'get-url', 'origin'])
+      this.gitP.raw(['remote', 'get-url', remote])
       .then((data) => {
         resolve(new ServiceResult(true, this.translate.instant('SUCCESS'), this.translate.instant('SUCCESS'), data));
       }).catch((err) => {
