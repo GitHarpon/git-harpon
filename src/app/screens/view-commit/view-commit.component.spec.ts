@@ -102,6 +102,81 @@ describe('ViewCommitComponent', () => {
     expect(component.commitHashSubscription).toBeDefined();
   });
 
+  it ('tests the setCommitDate function', () => {
+    const TemplateCommit = {
+      oid: 'd9159aa643063b627939dd434b4134371b1dcf0b',
+      message: 'Hello world',
+      tree: '0f154817e0dd2cc13bb8312082565ee9296fc293',
+      parent: [
+          'e35d4be0cb6bbe7e852d6e9160b3a023f1b537d3'
+      ],
+      author: {
+        name: 'toto',
+        email: 'toto@mail.com',
+        timestamp: 1552840891,
+        timezoneOffset: -60
+      },
+      committer: {
+        name: 'toto',
+        email: 'toto@mail.com',
+        timestamp: 1552840891,
+        timezoneOffset: -60
+      },
+      gpgsig: null,
+      files: [
+          {status: 'M', path: 'src/app/modified.txt'},
+          {status: 'A', path: 'src/app/added'},
+          {status: 'D', path: 'src/deleted.txt'}
+      ]
+    };
+    component.currentDescription = TemplateCommit;
+    const Expect = '17/03/2019 @ 17:41';
+    component.setCommitDate();
+    expect(component.commitDate).toBe(Expect);
+  });
+
+  it ('tests the setDescription function with commitHash', (done) => {
+    const Hash = '72267b6ad64858f2db2d597f67004b59e543928b';
+    component.commitHash = Hash;
+
+    component.setDescription().then(() => {
+      expect(component.currentDescription).toBeDefined();
+      expect(component.loading).toBeFalsy();
+      expect(component.commitDate).toBeDefined();
+      expect(component.tree).toBeDefined();
+
+      done();
+    });
+  });
+
+  it ('tests the setTree function with invalid currentDescription', () => {
+    component.currentDescription = {
+      oid: 'd9159aa643063b627939dd434b4134371b1dcf0b',
+      message: 'Hello world',
+      tree: '0f154817e0dd2cc13bb8312082565ee9296fc293',
+      parent: [
+          'e35d4be0cb6bbe7e852d6e9160b3a023f1b537d3'
+      ],
+      author: {
+        name: 'toto',
+        email: 'toto@mail.com',
+        timestamp: 1552840891,
+        timezoneOffset: -60
+      },
+      committer: {
+        name: 'toto',
+        email: 'toto@mail.com',
+        timestamp: 1552840891,
+        timezoneOffset: -60
+      },
+      gpgsig: null,
+      files: null
+    };
+    component.tree = null;
+    component.setTree();
+    expect(component.tree).toBeNull();
+  });
+
   it ('tests the getCommitSummary function with valid currentDescription', () => {
     const TemplateCommit = {
       oid: 'd9159aa643063b627939dd434b4134371b1dcf0b',
