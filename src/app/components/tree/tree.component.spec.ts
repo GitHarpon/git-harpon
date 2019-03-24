@@ -102,4 +102,48 @@ describe('TreeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('tests the addFile function with valid parameter', () => {
+    const Path = 'C:/Src/Projet/git-harpon';
+    const ComponentType = 'unstage';
+    component.componentType = ComponentType;
+    const Return = component.addFile(Path);
+    expect(Return).toBeTruthy();
+  });
+
+  it('tests the addFile function with invalid parameter', () => {
+    const Path = 'C:/Src/Projet/git-harpon';
+    const ComponentType = 'stage';
+    component.componentType = ComponentType;
+    const Return = component.addFile(Path);
+    expect(Return).toBeFalsy();
+  });
+
+  it('tests the removeFile function with valid parameter', () => {
+    const Path = 'C:/Src/Projet/git-harpon';
+    const ComponentType = 'stage';
+    component.componentType = ComponentType;
+    const Return = component.removeFile(Path);
+    expect(Return).toBeTruthy();
+  });
+
+  it('tests the removeFile function with invalid parameter', () => {
+    const Path = 'C:/Src/Projet/git-harpon';
+    const ComponentType = 'unstage';
+    component.componentType = ComponentType;
+    const Return = component.removeFile(Path);
+    expect(Return).toBeFalsy();
+  });
+
+  it('tests the isFolder function', () => {
+    const Folder = {
+        children: [
+          {
+            repo: 'file1'
+          }
+        ]
+      };
+    const Return = component.isFolder(Folder);
+    expect(Return).toBeTruthy();
+  });
 });

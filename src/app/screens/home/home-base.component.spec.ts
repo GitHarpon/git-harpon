@@ -255,7 +255,13 @@ describe('HomeComponent', () => {
     expect(component.rightPanelVisible).toBeFalsy();
   });
 
-  it('test the function onFocus', () => {
+  it('test the function onFocus with valid parameter', () => {
+    const RepoName = 'RepoName';
+    component.repoName = RepoName;
     expect(component.onFocus()).toBeTruthy();
+  });
+
+  it('test the function onFocus with invalid parameter', () => {
+    expect(component.onFocus()).toBeFalsy();
   });
 });

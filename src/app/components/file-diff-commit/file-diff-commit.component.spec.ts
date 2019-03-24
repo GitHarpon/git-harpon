@@ -66,4 +66,36 @@ describe('FileDiffCommitComponent', () => {
     const FileName = 'git-harpon';
     expect(component.getFileNameFromPath(Path)).toBe(FileName);
   });
+
+  it('tests the addFile function with valid parameter', () => {
+    const Path = 'C:/Src/Projet/git-harpon';
+    const ComponentType = 'unstage';
+    component.componentType = ComponentType;
+    const Return = component.addFile(Path);
+    expect(Return).toBeTruthy();
+  });
+
+  it('tests the addFile function with invalid parameter', () => {
+    const Path = 'C:/Src/Projet/git-harpon';
+    const ComponentType = 'stage';
+    component.componentType = ComponentType;
+    const Return = component.addFile(Path);
+    expect(Return).toBeFalsy();
+  });
+
+  it('tests the removeFile function with valid parameter', () => {
+    const Path = 'C:/Src/Projet/git-harpon';
+    const ComponentType = 'stage';
+    component.componentType = ComponentType;
+    const Return = component.removeFile(Path);
+    expect(Return).toBeTruthy();
+  });
+
+  it('tests the removeFile function with invalid parameter', () => {
+    const Path = 'C:/Src/Projet/git-harpon';
+    const ComponentType = 'unstage';
+    component.componentType = ComponentType;
+    const Return = component.removeFile(Path);
+    expect(Return).toBeFalsy();
+  });
 });

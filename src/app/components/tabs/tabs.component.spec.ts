@@ -110,4 +110,26 @@ describe('TabsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('tests the setter of value', () => {
+    const Content = 'content';
+    spyOn(component.valueChange, 'emit');
+    component.value = Content;
+    fixture.detectChanges();
+    expect(component.valueChange.emit).toHaveBeenCalledWith(Content);
+  });
+
+  it('tests the getter of value', () => {
+    const Content = 'content';
+    component.value = Content;
+    expect(component.value).toBe(Content);
+  });
+
+  it('tests the setValue function', () => {
+    const Content = 'content2';
+    spyOn(component.valueChange, 'emit');
+    component.setValue(Content);
+    fixture.detectChanges();
+    expect(component.valueChange.emit).toHaveBeenCalledWith(Content);
+  });
 });

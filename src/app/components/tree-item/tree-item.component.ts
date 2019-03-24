@@ -43,13 +43,17 @@ export class TreeItemComponent implements OnDestroy {
   addFile(path: any) {
     if (this.componentType == 'unstage') {
       this.gitService.addFile(path);
+      return true;
     }
+    return false;
   }
 
   removeFile(path: any) {
     if (this.componentType == 'stage') {
       this.gitService.removeFile(path);
+      return true;
     }
+    return false;
   }
 
   computeCurrentPath() {
