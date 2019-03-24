@@ -44,6 +44,9 @@ import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { GraphService } from '../../providers/graph.service';
 import { MockGraphService } from '../../models/MockGraphService';
+import { TreeComponent } from '../../components/tree/tree.component';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -71,7 +74,10 @@ describe('HomeComponent', () => {
         ViewCommitComponent,
         TextAreaComponent,
         CommitTextAreaComponent,
-        FileDiffCommitComponent
+        FileDiffCommitComponent,
+        TreeItemComponent,
+        TreeComponent,
+        TabsComponent
       ],
       imports: [
         ContextMenuModule,

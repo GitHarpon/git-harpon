@@ -1,11 +1,11 @@
 @import '../../../variables.scss';
 
-.file-diff-commit {
-    @include bg-color($white);
+.gh-tree {
     border: 1px solid $muted-white;
     overflow-x: hidden;
     overflow-y: scroll;
     white-space: nowrap;
+    padding: 4px;
     font-size: $fs-medium;
     @include w100-h100();
 
@@ -64,38 +64,44 @@
         cursor: pointer;
     }
 
-    &_file {
-        padding: $gap-sm;
-
+    & .file-item {
         &.dark:hover {
             @include bg-color($dark-blue);
-            & .file-diff-commit_file_button {
+            .tree_file_button {
+                background: red;
                 display: inline;
             }
         }
 
         &.light:hover {
             @include bg-color($light-green-light);
-            & .file-diff-commit_file_button {
+            & .tree_file_button {
                 display: inline;
             }
         }
 
-        &_button {
+        & .tree_file_button {
             display: none;
             font-size: $fs-small;
         }
     }
-}
 
-.color-m {
-    color: #de9b49;
-}
+    .item {
+        cursor: pointer;
+    }
+    .bold {
+        font-weight: bold;
+    }
 
-.color-a {
-    color: $dark-green-light;
-}
-
-.color-d {
-    color: $dark-red-light;
+    .color-m {
+        color: #de9b49;
+    }
+    
+    .color-a {
+        color: $dark-green-light;
+    }
+    
+    .color-d {
+        color: $dark-red-light;
+    }
 }

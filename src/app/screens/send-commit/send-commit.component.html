@@ -5,13 +5,17 @@
   <div class="send-commit_header" [ngClass]="[currentTheme, (listUnstagedFiles.length + listStagedFiles.length > 1 ? 'visible' : '')]">
     {{ listUnstagedFiles.length + listStagedFiles.length }} {{ 'NB_FILES_COMMIT' | translate }}
   </div>
+  <div class="col-md-12 mt-2">
+    <app-tabs [data]="[{ title: 'PATH', icon: 'fa-bars'}, { title: 'TREE', icon: 'fa-stream' }]" [(value)]="currentTab"></app-tabs>
+  </div>
   <div class="container send-commit_container">
     <div class="text-left send-commit_stage">
       <div class="send-commit_text">
         {{ 'UNSTAGED_FILES' | translate }} ({{ listUnstagedFiles.length }})
         <app-button class="send-commit_text_button" value="STAGE_ALL_FILE" type="success" (buttonClicked)="addAllFile()"></app-button>
       </div>
-      <app-file-diff-commit [listFiles]="listUnstagedFiles" componentType="unstage"></app-file-diff-commit>
+      <app-file-diff-commit *ngIf="currentTab === 'PATH'" [listFiles]="listUnstagedFiles" componentType="unstage"></app-file-diff-commit>
+      <app-tree *ngIf="currentTab === 'TREE'" componentType="unstage" [tree]="unstageTree"></app-tree>
     </div>
 
     <div class="text-left send-commit_unstage">
@@ -19,7 +23,8 @@
           {{ 'STAGED_FILES' | translate }} ({{ listStagedFiles.length }})
           <app-button class="send-commit_text_button" value="UNSTAGE_ALL_FILE" type="danger" (buttonClicked)="removeAllFile()"></app-button>
         </div>
-        <app-file-diff-commit [listFiles]="listStagedFiles" componentType="stage"></app-file-diff-commit>
+        <app-file-diff-commit *ngIf="currentTab === 'PATH'" [listFiles]="listStagedFiles" componentType="stage"></app-file-diff-commit>
+        <app-tree *ngIf="currentTab === 'TREE'" componentType="stage" [tree]="stageTree"></app-tree>
     </div>
   </div>
 </div>

@@ -23,6 +23,10 @@ import { MockLanguagePreferencesService } from '../../models/MockLanguagePrefere
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 import { MockTranslateService } from '../../models/MockTranslateService';
 import { NewBranchCouple } from '../../models/NewBranchCouple';
+import { TreeComponent } from '../../components/tree/tree.component';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
+import { ButtonComponent } from '../../components/button/button.component';
 
 describe('LeftPanelComponent', () => {
   /* tslint:disable */
@@ -36,7 +40,10 @@ describe('LeftPanelComponent', () => {
       declarations: [
           LeftPanelComponent,
           AccordionComponent,
-          LoaderComponent
+          LoaderComponent,
+          TreeItemComponent,
+          TreeComponent,
+          ButtonComponent
       ],
       imports: [
         ContextMenuModule,
