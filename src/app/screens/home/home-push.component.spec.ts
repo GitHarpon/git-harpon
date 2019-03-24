@@ -144,6 +144,73 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
   });
 
+  it('tests the pullrebaseSubmit with newData set, https case', () => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const Origin = 'origin';
+
+    component.currentHttpsUser = User;
+    component.homeLoading = true;
+    component.pushCredInfoBarVisible = true;
+    component.remoteAlias = Origin;
+
+    component.pushSubmit();
+    expect(component.remoteAlias).toEqual(Origin);
+    expect(component.homeLoading).toBeTruthy;
+  });
+
+  it('tests the pushSubmit with newData set, ssh case', () => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const Originssh = 'originssh';
+
+    component.currentHttpsUser = User;
+    component.homeLoading = true;
+    component.pushCredInfoBarVisible = true;
+    component.remoteAlias = Originssh;
+
+    component.pushSubmit();
+    expect(component.remoteAlias).toEqual(Originssh);
+  });
+
+  it('tests the pushSubmit with newData set and invalid protocol', () => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const Origininvalidproto = 'origininvalidproto';
+
+    component.currentHttpsUser = User;
+    component.homeLoading = true;
+    component.pushCredInfoBarVisible = true;
+    component.remoteAlias = Origininvalidproto;
+
+    component.pushSubmit();
+    expect(component.remoteAlias).toEqual(Origininvalidproto);
+  });
+
+  it('tests the pushSubmit without newData set, reject case', () => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const OriginNodata = 'toto';
+
+    component.currentHttpsUser = User;
+    component.homeLoading = true;
+    component.pushCredInfoBarVisible = true;
+    component.remoteAlias = OriginNodata;
+
+    component.pushSubmit();
+    expect(component.remoteAlias).toEqual(OriginNodata);
+  });
+
+  it('tests the pushSubmit without newData set, resolve case', () => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const OriginNoNewdata = 'originnonewdata';
+
+    component.currentHttpsUser = User;
+    component.homeLoading = true;
+    component.pushCredInfoBarVisible = true;
+    component.remoteAlias = OriginNoNewdata;
+
+    component.pushSubmit();
+    expect(component.remoteAlias).toEqual(OriginNoNewdata);
+  });
+
+
   it('tests the pushHttps function and valid arguments', (done) => {
     const User: HttpsUser = { username: 'username', password: 'password' };
     const Branch = 'master';
@@ -169,7 +236,7 @@ describe('HomeComponent', () => {
     component.pushCredInfoBarVisible = Visible;
     component.pushHttps().then(() => {
       expect(component.pushAuthErrored).toBeTruthy();
-      expect(component.homeLoading).toBeFalsy();
+      expect(component.homeLoading).toBeTruthy();
       done();
     });
   });

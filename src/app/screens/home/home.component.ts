@@ -165,11 +165,6 @@ export class HomeComponent implements OnDestroy {
       });
   }
 
-  pushButtonClicked() {
-    this.pushCredInfoBarVisible = true;
-    return true;
-  }
-
   pullButtonClicked() {
     this.remoteAlias = 'origin';
     this.pullrebaseSubmit();
@@ -262,6 +257,34 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
+
+  pushButtonClicked() {
+    this.remoteAlias = 'origin';
+    this.pushSubmit();
+    return true;
+  }
+
+  pushSubmit() {
+    return this.gitService.getUrl(this.remoteAlias).then((data) => {
+      if (data.newData) {
+        this.currentUrl = data.newData;
+        var Url = GitUrlParse(this.currentUrl);
+        if (Url.protocol === 'ssh') {
+          this.toastr.error('Pas de ssh pour le moment', 'Erreur');
+        } else if (Url.protocol === 'https') {
+          this.homeLoading = true;
+          this.pushHttps();
+        }
+      } else {
+        this.toastr.error(this.translateService.instant('ERROR'),
+        this.translateService.instant('ERROR'));
+      }
+    }).catch((err) => {
+      this.toastr.error(this.translateService.instant('ERROR'),
+      this.translateService.instant('ERROR'));
+    });
+  }
+
   async cloneHttps() {
     return this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.cloneHttpsUser)
       .then((data) => {
@@ -297,7 +320,7 @@ export class HomeComponent implements OnDestroy {
     return this.gitService.pushHttps(this.fullPath, this.currentHttpsUser, this.branchName)
       .then((data) => {
         this.homeLoading = false;
-        this.pushCredInfoBarVisible = false;
+        this.resetPushInputs();
         this.toastr.info(data.message, data.title);
       })
       .catch((data) => {
@@ -305,7 +328,6 @@ export class HomeComponent implements OnDestroy {
           this.pushAuthErrored = this.pushCredInfoBarVisible;
           this.currentHttpsUser.password = '';
           this.pushCredInfoBarVisible = true;
-          this.homeLoading = false;
         } else {
           this.homeLoading = false;
           this.resetPushInputs();
@@ -447,6 +469,7 @@ export class HomeComponent implements OnDestroy {
       username: '',
       password: ''
     };
+    this.pushAuthErrored = false;
     this.pushCredInfoBarVisible = false;
     this.homeLoading = false;
   }
