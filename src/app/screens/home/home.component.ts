@@ -47,6 +47,10 @@ export class HomeComponent implements OnDestroy {
   referenceBranchName: string;
   newBranchCouple: NewBranchCouple;
   newBranchNameForRenaming: string;
+  deleteBranchInfoBarVisible: boolean;
+  deleteRemoteBranchCredInfoBarVisible: boolean;
+  deleteBranchName: string;
+  deleteRemoteBranchAuthErrored: boolean;
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
   checkoutInfoBarVisible: boolean;
@@ -200,6 +204,16 @@ export class HomeComponent implements OnDestroy {
   openCreateBranchInfoBar(refBranchName) {
     this.referenceBranchName = refBranchName;
     this.newBranchInfoBarVisible = true;
+  }
+
+  openDeleteBranchInfoBar(deleteBranch) {
+    this.deleteBranchName = deleteBranch;
+    if (this.deleteBranchName.includes('/')) {
+      this.deleteBranchInfoBarVisible = false;
+      this.deleteRemoteBranchCredInfoBarVisible = true;
+    } else {
+      this.deleteBranchInfoBarVisible = true;
+    }
   }
 
   async openTerminal() {
@@ -587,6 +601,52 @@ export class HomeComponent implements OnDestroy {
     this.referenceBranchName = '';
     this.newBranchName = '';
     this.newBranchInfoBarVisible = false;
+  }
+
+  async deleteBranch() {
+    this.homeLoading = true;
+    this.deleteBranchInfoBarVisible = false;
+    return this.gitService.applyDeletionBranch(this.deleteBranchName, this.currentHttpsUser)
+      .then((data) => {
+        this.leftPanelService.setLocalBranches();
+        this.leftPanelService.setRemoteBranches();
+        this.deleteRemoteBranchCredInfoBarVisible = false;
+        this.deleteBranchInfoBarVisible = false;
+        this.homeLoading = false;
+        this.currentHttpsUser = {
+          username: '',
+          password: ''
+        };
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+          this.deleteBranchName = '';
+          this.deleteBranchInfoBarVisible = false;
+          this.homeLoading = false;
+          this.resetDeleteRemoteBranchInputs();
+          this.toastr.error(data.message, data.title);
+      });
+  }
+
+  closeDeleteBranchInfoBar() {
+    this.deleteBranchName = '';
+    this.deleteBranchInfoBarVisible = false;
+    this.homeLoading = false;
+  }
+
+  closeDeleteRemoteBranchCredInfoBar() {
+    this.deleteRemoteBranchCredInfoBarVisible = false;
+    this.resetDeleteRemoteBranchInputs();
+  }
+
+  resetDeleteRemoteBranchInputs() {
+    this.currentHttpsUser = {
+      username: '',
+      password: ''
+    };
+    this.deleteRemoteBranchAuthErrored = false;
+    this.deleteRemoteBranchCredInfoBarVisible = false;
+    this.homeLoading = false;
   }
 
   ngOnDestroy() {

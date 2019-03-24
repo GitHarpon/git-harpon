@@ -181,7 +181,7 @@ export class GitService {
                     });
                   } else {
                     reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                    this.translate.instant('BRANCH.NOT_CREATED')));
+                    this.translate.instant('BRANCH.ALREADY_EXISTS')));
                   }
                 })
                 .catch(() => {
@@ -197,6 +197,77 @@ export class GitService {
       }
     });
   }
+
+  async applyDeletionBranch(deleteBranchName: string, httpsUser: HttpsUser) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      if (deleteBranchName !== this.branchName) {
+        this.gitP.branch(['-r'])
+          .then((result) => {
+            if (result.all.includes(deleteBranchName)) {
+              this.gitP.raw(['ls-remote', '--get-url'])
+                .then((data) => {
+                  const Url = GitUrlParse(data);
+                  if (Url.protocol === 'https') {
+                    const Remote = `${Url.protocol}://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
+                    this.gitP.raw(['push', Remote, '--delete', deleteBranchName.split('/')[1]])
+                      .then(() => {
+                        this.gitP.raw(['branch', '-d', '-r', deleteBranchName])
+                          .then(() => {
+                            resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                            this.translate.instant('BRANCH.REMOTE_DELETED'), 'newData'));
+                          })
+                          .catch((err) => {
+                            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                            this.translate.instant('BRANCH.REMOTE_NOT_DELETED')));
+                          });
+                      })
+                      .catch((err) => {
+                        var ErrMsg = 'BRANCH.ERROR_DELETION';
+                        var AccessDenied = false;
+                        if (err.toString().includes('HTTP Basic: Access denied')) {
+                          ErrMsg = 'BRANCH.HTTP_ACCESS_DENIED';
+                          AccessDenied = true;
+                        } else if (err.toString().includes('not valid: is this a git repository ?')) {
+                          ErrMsg = 'BRANCH.REPO_NOT_FOUND';
+                        } else  if (err.toString().includes('Invalid username or password')) {
+                          ErrMsg = 'BRANCH.INVALID_CRED';
+                        } else if (err.toString().includes('Could not resolve host:')) {
+                          ErrMsg = 'BRANCH.ACCESS_DENIED';
+                        }
+                        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                          this.translate.instant(ErrMsg), AccessDenied));
+                      });
+                  } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('SSH')));
+                  }
+                })
+                .catch((err) => {
+                  console.error(err);
+                });
+            } else {
+              this.gitP.raw(['branch', '-D', deleteBranchName])
+                .then(() => {
+                  resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                  this.translate.instant('BRANCH.DELETED')));
+                })
+                .catch(() => {
+                  reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                  this.translate.instant('BRANCH.NOT_DELETED')));
+                });
+            }
+          })
+          .catch(() => {
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant('BRANCH.NOT_DELETED')));
+          });
+      } else {
+        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+        this.translate.instant('BRANCH.CURRENT')));
+      }
+    });
+  }
+
 
   getCurrentBranch() {
     gitPromise(this.path).branch([])

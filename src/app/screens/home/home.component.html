@@ -71,7 +71,7 @@
             </div>
         </div>
 
-    <app-left-panel *ngIf="leftPanelVisible" (createBranchInfoBar)="openCreateBranchInfoBar($event)" (checkoutInfoBarChange)="openCheckoutInfoBar($event)" [(newBranchCouple)]="newBranchCouple"></app-left-panel>
+    <app-left-panel *ngIf="leftPanelVisible" (deleteBranchInfoBar)="openDeleteBranchInfoBar($event)" (createBranchInfoBar)="openCreateBranchInfoBar($event)" (checkoutInfoBarChange)="openCheckoutInfoBar($event)" [(newBranchCouple)]="newBranchCouple"></app-left-panel>
     <app-graph *ngIf="graphVisible"></app-graph>
     <app-right-panel *ngIf="rightPanelVisible"></app-right-panel>
     
@@ -255,4 +255,21 @@
     <app-input [(value)]="newBranchName" class="ml-3"></app-input>
     <app-button class="ml-3" value="BRANCH.CREATE_HERE" type="success" [disabled]="mainPanelVisible" (buttonClicked)="createBranch()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeNewBranchInfoBar()"></app-button>
+</app-info-bar>
+
+<!-- Delete branch Info bar -->
+<app-info-bar [visible]="deleteBranchInfoBarVisible">
+    <span>{{ 'BRANCH.DELETE_MESSAGE' | translate }} "{{ deleteBranchName }}" ?</span>
+    <app-button class="ml-3" value="BRANCH.DELETE" type="danger" (buttonClicked)="deleteBranch()"></app-button>
+    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeDeleteBranchInfoBar()"></app-button>
+</app-info-bar>
+
+<!-- Delete branch Info bar credentials -->
+<app-info-bar [visible]="deleteRemoteBranchCredInfoBarVisible">
+    <span *ngIf="!deleteRemoteBranchAuthErrored">{{ 'LOG_TO_CONTINUE' | translate }}</span>
+    <span *ngIf="deleteRemoteBranchAuthErrored" class="color-red">{{ 'WRONG_CRED' | translate }}</span>
+    <app-input [(value)]="currentHttpsUser.username" [placeholder]="'USERNAME'" class="ml-3"></app-input>
+    <app-input [(value)]="currentHttpsUser.password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
+    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!currentHttpsUser.username || !currentHttpsUser.password" (buttonClicked)="deleteBranch()"></app-button>
+    <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeDeleteRemoteBranchCredInfoBar()"></app-button>
 </app-info-bar>

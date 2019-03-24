@@ -46,6 +46,7 @@ import { TextAreaComponent } from '../../components/text-area/text-area.componen
 import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { GraphService } from '../../providers/graph.service';
 import { MockGraphService } from '../../models/MockGraphService';
+import { HttpsUser } from '../../models/HttpsUser';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 import { TabsComponent } from '../../components/tabs/tabs.component';
@@ -253,6 +254,165 @@ describe('HomeComponent', () => {
     component.newBranchInfoBarVisible = NewBranchInfoBarVisibility;
     component.closeNewBranchInfoBar();
     expect(component.newBranchInfoBarVisible).toBeFalsy();
+  });
+
+  it('tests the openDeleteBranchInfoBar function with a local branch', () => {
+    const DeleteBranchName = 'localBranch';
+    const DeleteBranchInfoBarVisibility = false;
+    const DeleteRemoteBranchCredInfoBarVisibility = false;
+    component.deleteBranchInfoBarVisible = DeleteBranchInfoBarVisibility;
+    component.deleteRemoteBranchCredInfoBarVisible = DeleteRemoteBranchCredInfoBarVisibility;
+
+    component.openDeleteBranchInfoBar(DeleteBranchName);
+    expect(component.deleteBranchName).toBe(DeleteBranchName);
+    expect(component.deleteBranchInfoBarVisible).toBeTruthy();
+    expect(component.deleteRemoteBranchCredInfoBarVisible).toBeFalsy();
+  });
+
+  it('tests the openDeleteBranchInfoBar function with a remote branch', () => {
+    const DeleteBranchName = 'remote/branch';
+    const DeleteBranchInfoBarVisibility = false;
+    const DeleteRemoteBranchCredInfoBarVisibility = false;
+    component.deleteBranchInfoBarVisible = DeleteBranchInfoBarVisibility;
+    component.deleteRemoteBranchCredInfoBarVisible = DeleteRemoteBranchCredInfoBarVisibility;
+
+    component.openDeleteBranchInfoBar(DeleteBranchName);
+    expect(component.deleteBranchName).toBe(DeleteBranchName);
+    expect(component.deleteBranchInfoBarVisible).toBeFalsy();
+    expect(component.deleteRemoteBranchCredInfoBarVisible).toBeTruthy();
+  });
+
+  it('tests the deleteBranch function', (done) => {
+    const CurrentBranchName = 'currentBranch';
+    const DeleteBranchName = 'deleteBranch';
+    const DeleteBranchInfoBarVisibility = false;
+    const DeleteRemoteBranchCredInfoBarVisibility = false;
+    const HomeLoading = false;
+    component.deleteBranchInfoBarVisible = DeleteBranchInfoBarVisibility;
+    component.deleteRemoteBranchCredInfoBarVisible = DeleteRemoteBranchCredInfoBarVisibility;
+    component.branchName = CurrentBranchName;
+    component.deleteBranchName = DeleteBranchName;
+    component.homeLoading = HomeLoading;
+
+    component.deleteBranch().then(() => {
+      expect(component.deleteBranchInfoBarVisible).toBeFalsy();
+      expect(component.deleteRemoteBranchCredInfoBarVisible).toBeFalsy();
+      expect(component.homeLoading).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the deleteBranch function with a remote branch and valid cred', (done) => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const CurrentBranchName = 'currentBranch';
+    const DeleteBranchName = 'remote/branch';
+    const DeleteBranchInfoBarVisibility = false;
+    const DeleteRemoteBranchCredInfoBarVisibility = true;
+    const HomeLoading = false;
+    component.currentHttpsUser = User;
+    component.deleteBranchInfoBarVisible = DeleteBranchInfoBarVisibility;
+    component.deleteRemoteBranchCredInfoBarVisible = DeleteRemoteBranchCredInfoBarVisibility;
+    component.branchName = CurrentBranchName;
+    component.deleteBranchName = DeleteBranchName;
+    component.homeLoading = HomeLoading;
+
+    component.deleteBranch().then(() => {
+      expect(component.deleteBranchInfoBarVisible).toBeFalsy();
+      expect(component.deleteRemoteBranchCredInfoBarVisible).toBeFalsy();
+      expect(component.homeLoading).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the deleteBranch function with a remote branch and invalid cred', (done) => {
+    const User: HttpsUser = { username: '', password: '' };
+    const CurrentBranchName = 'currentBranch';
+    const DeleteBranchName = 'remote/branch';
+    const DeleteBranchInfoBarVisibility = false;
+    const DeleteRemoteBranchCredInfoBarVisibility = true;
+    const HomeLoading = false;
+    component.currentHttpsUser = User;
+    component.deleteBranchInfoBarVisible = DeleteBranchInfoBarVisibility;
+    component.deleteRemoteBranchCredInfoBarVisible = DeleteRemoteBranchCredInfoBarVisibility;
+    component.branchName = CurrentBranchName;
+    component.deleteBranchName = DeleteBranchName;
+    component.homeLoading = HomeLoading;
+
+    component.deleteBranch().then(() => {
+      expect(component.deleteBranchInfoBarVisible).toBeFalsy();
+      expect(component.deleteRemoteBranchCredInfoBarVisible).toBeFalsy();
+      expect(component.homeLoading).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the deleteBranch function with an invalid branch name', (done) => {
+    const User: HttpsUser = { username: 'username', password: 'password' };
+    const CurrentBranchName = 'currentBranch';
+    const DeleteBranchName = CurrentBranchName;
+    const DeleteBranchInfoBarVisibility = false;
+    const DeleteRemoteBranchCredInfoBarVisibility = true;
+    const HomeLoading = false;
+    component.currentHttpsUser = User;
+    component.deleteBranchInfoBarVisible = DeleteBranchInfoBarVisibility;
+    component.deleteRemoteBranchCredInfoBarVisible = DeleteRemoteBranchCredInfoBarVisibility;
+    component.branchName = CurrentBranchName;
+    component.deleteBranchName = DeleteBranchName;
+    component.homeLoading = HomeLoading;
+
+    component.deleteBranch().then(() => {
+      expect(component.deleteBranchInfoBarVisible).toBeFalsy();
+      expect(component.deleteRemoteBranchCredInfoBarVisible).toBeFalsy();
+      expect(component.homeLoading).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the deleteBranch function and invalid arguments alternative', (done) => {
+    const User = { username: 'username', password: 'password' };
+    const HomeLoading = true;
+    const DeleteRemoteBranchCredInfoBarVisibility = true;
+    const DeleteRemoteBranchAuthErrored = false;
+    component.currentHttpsUser = User;
+    component.homeLoading = HomeLoading;
+    component.deleteRemoteBranchAuthErrored = DeleteRemoteBranchAuthErrored;
+    component.deleteRemoteBranchCredInfoBarVisible = DeleteRemoteBranchCredInfoBarVisibility;
+    component.deleteBranch().then(() => {
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.currentHttpsUser.password).toBe('');
+      done();
+    });
+  });
+
+  it('tests the closeDeleteBranchInfoBar function', () => {
+    const DeleteBranchName = 'deleteBranch';
+    const DeleteBranchInfoBarVisibility = false;
+    const HomeLoading = true;
+    component.homeLoading = HomeLoading;
+    component.deleteBranchName = DeleteBranchName;
+    component.deleteBranchInfoBarVisible = DeleteBranchInfoBarVisibility;
+
+    component.closeDeleteBranchInfoBar();
+    expect(component.deleteBranchInfoBarVisible).toBeFalsy();
+    expect(component.deleteBranchName).toBe('');
+    expect(component.homeLoading).toBeFalsy();
+  });
+
+  it('tests the closeDeleteRemoteBranchCredInfoBar function', () => {
+    const DeleteRemoteBranchCredInfoBarVisibility = true;
+    component.deleteRemoteBranchCredInfoBarVisible = DeleteRemoteBranchCredInfoBarVisibility;
+    component.closeDeleteRemoteBranchCredInfoBar();
+    expect(component.deleteRemoteBranchCredInfoBarVisible).toBeFalsy();
+  });
+
+  it('tests the resetDeleteRemoteBranchInputs function', () => {
+    const Expected: HttpsUser = { username: '', password: '' };
+    component.resetDeleteRemoteBranchInputs();
+    expect(component.currentHttpsUser.username).toBe(Expected.username);
+    expect(component.currentHttpsUser.password).toBe(Expected.password);
+    expect(component.deleteRemoteBranchAuthErrored).toBeFalsy();
+    expect(component.deleteRemoteBranchCredInfoBarVisible).toBeFalsy();
+    expect(component.homeLoading).toBeFalsy();
   });
 
 });
