@@ -45,6 +45,9 @@ import { RightPanelService } from '../../providers/right-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { GraphService } from '../../providers/graph.service';
 import { MockGraphService } from '../../models/MockGraphService';
+import { TabsComponent } from '../../components/tabs/tabs.component';
+import { TreeComponent } from '../../components/tree/tree.component';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -73,7 +76,10 @@ describe('HomeComponent', () => {
         ViewCommitComponent,
         TextAreaComponent,
         CommitTextAreaComponent,
-        FileDiffCommitComponent
+        FileDiffCommitComponent,
+        TabsComponent,
+        TreeComponent,
+        TreeItemComponent
       ],
       imports: [
         ContextMenuModule,
@@ -249,7 +255,13 @@ describe('HomeComponent', () => {
     expect(component.rightPanelVisible).toBeFalsy();
   });
 
-  it('test the function onFocus', () => {
+  it('test the function onFocus with valid parameter', () => {
+    const RepoName = 'RepoName';
+    component.repoName = RepoName;
     expect(component.onFocus()).toBeTruthy();
+  });
+
+  it('test the function onFocus with invalid parameter', () => {
+    expect(component.onFocus()).toBeFalsy();
   });
 });

@@ -150,7 +150,7 @@ export class GitService {
   async setNewBranch(newBranchName, referenceBranchName) {
     return new Promise<any>((resolve, reject) => {
       if (this.repoName) {
-        gitPromise(this.path).branch([])
+        this.gitP.branch([])
           .then((result) => {
             if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
               this.gitP.raw(['checkout', '-b', newBranchName, referenceBranchName])
@@ -463,10 +463,10 @@ export class GitService {
     });
   }
 
-  updateFilesDiff() {
+  async updateFilesDiff() {
     var ListUnstagedFiles = [];
     var ListStagedFiles = [];
-    this.gitP.status().then((statusSummary) => {
+    return await this.gitP.status().then((statusSummary) => {
       const ListFile = statusSummary.files;
       ListFile.forEach(file => {
         if (file.working_dir == 'M' || file.working_dir == 'D') {
@@ -487,8 +487,8 @@ export class GitService {
           });
         }
       });
+      this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
     });
-    this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
   }
 
   addFile(path: any) {
@@ -502,8 +502,6 @@ export class GitService {
       this.updateFilesDiff();
     });
   }
-
-  
 
   async pushSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
       console.log('Ssh non pris en charge pour le moment');

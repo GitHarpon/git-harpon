@@ -138,8 +138,9 @@ export class HomeComponent implements OnDestroy {
       this.gitService.updateFilesDiff();
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
+      return true;
     }
-    return true;
+    return false;
   }
 
   async pullrebaseHttps() {

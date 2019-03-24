@@ -1,29 +1,59 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FileDiffCommitComponent } from './file-diff-commit.component';
+import { TreeComponent } from './tree.component';
 import { ButtonComponent } from '../button/button.component';
+import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { MockGitService } from '../../models/MockGitService';
 import { GitService } from '../../providers/git.service';
-import { MockThemePreferencesService } from '../../models/MockThemePreferencesService';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
-import { TranslateService } from '@ngx-translate/core';
-import { MockTranslateService } from '../../models/MockTranslateService';
-import { RightPanelService } from '../../providers/right-panel.service';
-import { LeftPanelService } from '../../providers/left-panel.service';
 import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
+import { MockTranslateService } from '../../models/MockTranslateService';
+import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { RightPanelService } from '../../providers/right-panel.service';
+import { TreeItemComponent } from '../tree-item/tree-item.component';
+import { MockTranslateLoader } from '../../models/MockTranslateLoader';
+import { GraphService } from '../../providers/graph.service';
+import { MockGraphService } from '../../models/MockGraphService';
+import { TerminalManagerService } from '../../providers/terminal-manager.service';
+import { MockTerminalManagerService } from '../../models/MockTerminalManagerService';
+import { ContextMenuModule } from 'ngx-contextmenu';
+import { FormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ResizableModule } from 'angular-resizable-element';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
-describe('FileDiffCommitComponent', () => {
+describe('TreeComponent', () => {
   /* tslint:disable */
-  let component: FileDiffCommitComponent;
-  let fixture: ComponentFixture<FileDiffCommitComponent>;
+  let component: TreeComponent;
+  let fixture: ComponentFixture<TreeComponent>;
   /* tslint:enable */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        FileDiffCommitComponent,
+        TreeComponent,
+        TreeItemComponent,
         ButtonComponent
+      ],
+      imports: [
+        ContextMenuModule,
+        FormsModule,
+        ContextMenuModule,
+        TranslateModule.forRoot({
+          loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
+        }),
+        MatTabsModule,
+        ResizableModule,
+        NgbModule,
+        RouterTestingModule,
+        BrowserAnimationsModule,
+        ContextMenuModule,
+        ToastrModule.forRoot()
       ],
       providers: [
         {
@@ -35,36 +65,42 @@ describe('FileDiffCommitComponent', () => {
           useClass: MockGitService
         },
         {
+          provide: TranslateService,
+          useClass: MockTranslateService
+        },
+        {
           provide: RightPanelService,
           useClass: MockRightPanelService
+        },
+        {
+            provide: LeftPanelService,
+            useClass: MockLeftPanelService
+        },
+        {
+          provide: GraphService,
+          useClass: MockGraphService
+        },
+        {
+          provide: TerminalManagerService,
+          useClass: MockTerminalManagerService
         },
         {
           provide: LeftPanelService,
           useClass: MockLeftPanelService
         },
-        {
-          provide: TranslateService,
-          useClass: MockTranslateService
-        }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FileDiffCommitComponent);
+    fixture = TestBed.createComponent(TreeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('tests the getFileNameFromPath function', () => {
-    const Path = 'C:/Src/Projet/git-harpon';
-    const FileName = 'git-harpon';
-    expect(component.getFileNameFromPath(Path)).toBe(FileName);
   });
 
   it('tests the addFile function with valid parameter', () => {
@@ -97,6 +133,18 @@ describe('FileDiffCommitComponent', () => {
     component.componentType = ComponentType;
     const Return = component.removeFile(Path);
     expect(Return).toBeFalsy();
+  });
+
+  it('tests the isFolder function', () => {
+    const Folder = {
+        children: [
+          {
+            repo: 'file1'
+          }
+        ]
+      };
+    const Return = component.isFolder(Folder);
+    expect(Return).toBeTruthy();
   });
 
   it('tests the ngOnDestroy function with valid themePrefSubscription', () => {
