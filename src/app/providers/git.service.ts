@@ -473,6 +473,9 @@ export class GitService {
             } else if (err.toString().includes('denied to')) {
               ErrMsg = 'PUSH.INVALID_CRED';
               AccessDenied = true;
+            } else if (err.toString().includes('You are not allowed to push code')) {
+              ErrMsg = 'PUSH.INVALID_CRED';
+              AccessDenied = true;
             }
             reject(new ServiceResult(false, this.translate.instant('ERROR'),
             this.translate.instant(ErrMsg), AccessDenied));
