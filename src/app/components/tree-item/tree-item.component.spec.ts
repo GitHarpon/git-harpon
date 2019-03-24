@@ -140,6 +140,15 @@ describe('TreeItemComponent', () => {
     expect(component.isOpen).toBeTruthy();
   });
 
+  it('tests the toggle function and not a folder', () => {
+    const Folder = {
+      repo: 'file1'
+    };
+    component.item = Folder;
+    component.toggle();
+    expect(component.isOpen).toBeFalsy();
+  });
+
   it('tests the addFile function with valid parameter', () => {
     const Path = 'C:/Src/Projet/git-harpon';
     const ComponentType = 'unstage';
@@ -225,5 +234,16 @@ describe('TreeItemComponent', () => {
     component.depth = Depth;
     const Result = component.getFolderDepth();
     expect(Result).toEqual(ExpectedReturn);
+  });
+
+  it('tests the ngOnDestroy function with valid themePrefSubscription', () => {
+    component.ngOnDestroy();
+    expect(component.themePrefSubscription.closed).toBeTruthy();
+  });
+
+  it('tests the ngOnDestroy function with valid themePrefSubscription', () => {
+    component.themePrefSubscription = undefined;
+    component.ngOnDestroy();
+    expect(component.themePrefSubscription).toBeUndefined();
   });
 });

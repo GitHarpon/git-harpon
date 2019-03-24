@@ -146,4 +146,15 @@ describe('TreeComponent', () => {
     const Return = component.isFolder(Folder);
     expect(Return).toBeTruthy();
   });
+
+  it('tests the ngOnDestroy function with valid themePrefSubscription', () => {
+    component.ngOnDestroy();
+    expect(component.themePrefSubscription.closed).toBeTruthy();
+  });
+
+  it('tests the ngOnDestroy function with valid themePrefSubscription', () => {
+    component.themePrefSubscription = undefined;
+    component.ngOnDestroy();
+    expect(component.themePrefSubscription).toBeUndefined();
+  });
 });

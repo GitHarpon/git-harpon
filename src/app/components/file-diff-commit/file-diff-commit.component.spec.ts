@@ -98,4 +98,15 @@ describe('FileDiffCommitComponent', () => {
     const Return = component.removeFile(Path);
     expect(Return).toBeFalsy();
   });
+
+  it('tests the ngOnDestroy function with valid themePrefSubscription', () => {
+    component.ngOnDestroy();
+    expect(component.themePrefSubscription.closed).toBeTruthy();
+  });
+
+  it('tests the ngOnDestroy function with valid themePrefSubscription', () => {
+    component.themePrefSubscription = undefined;
+    component.ngOnDestroy();
+    expect(component.themePrefSubscription).toBeUndefined();
+  });
 });
