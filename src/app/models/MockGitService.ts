@@ -160,6 +160,27 @@ export class MockGitService {
         });
     }
 
+    async getUrl(remote: String) {
+        return new Promise<any>((resolve, reject) => {
+            if (remote == 'origin') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('SUCCESS'), 'https://github.com/toto/myrepository'));
+            } else if (remote == 'originssh') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('SUCCESS'), 'ssh://github.com/toto/myrepository'));
+            } else if (remote == 'origininvalidproto') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('SUCCESS'), 'toto://github.com/toto/myrepository'));
+            } else if (remote == 'originnonewdata') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('SUCCESS')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('ERROR')));
+            }
+        });
+    }
+
     async setNewBranch(newBranchName: string, referenceBranchName: string) {
         return new Promise<any>((resolve, reject) => {
             if (newBranchName === 'newBranch' && !referenceBranchName.includes('wrong')) {
