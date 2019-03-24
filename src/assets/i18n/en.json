@@ -29,6 +29,7 @@
         "DESACTIVATE": "Desactivate the loader",
         "INFO": "Loading..."
     },
+    "SSH": "ssh connection not available",
     "CLONE": {
         "WHERE": "Where to clone",
         "URL": "URL",
@@ -125,6 +126,18 @@
         "NEW_BRANCH": "New branch",
         "BRANCH_RENAME_SUCCESS" : "Branch renamed successfuly",
         "BRANCH_RENAME_FAILURE" : "An error occured during the renaming of the branch",  
+        "DELETE": "Delete",
+        "DELETED": "Branch deleted",
+        "NOT_DELETED": "Branch not deleted",
+        "REMOTE_DELETED": "Remote branch deleted",
+        "REMOTE_NOT_DELETED": "Remote branch not deleted",
+        "HTTP_ACCESS_DENIED": "HTTP basic: Access denied",
+        "DELETE_MESSAGE": "This is a destructive operation, are you sure you want to delete ",
+        "INVALID_CRED":"Invalid username or password",
+        "ACCESS_DENIED": "Could not resolve host",
+        "REPO_NOT_FOUND": "Repository not found",
+        "CURRENT": "Cannot delete current branch",
+        "ERROR_DELETION": "Problem during the deletion branch",
         "ERROR": "Error during the checkout branch"
     },
     "PULL": {
@@ -143,7 +156,6 @@
     },
     "EXIT_PREFERENCES": "Exit preferences",
     "GENERAL": "General",
-    "EDITOR": "Editor",
     "UI": "User Interface",
     "REPOSITORY_MANAGEMENT": "Repository management",
     "LOCAL": "LOCAL",
@@ -191,6 +203,8 @@
     "INDEPENDENT_THEME": "Independent of the theme",
     "WRONG_CRED": "Wrong informations",
     "SUMMARY": "Summary",
+    "PATH": "Path",
+    "TREE": "Tree",
     "COMMIT": {
         "DESCRIPTION": "Commit description"
     },

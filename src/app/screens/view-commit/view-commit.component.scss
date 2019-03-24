@@ -7,26 +7,40 @@
     &.dark {
         background: $light-grey;
         color: $white;
-        border-top: 1px solid $dark;
+        border-bottom: 1px solid $dark;
+        
+        & .view-commit__hash {
+            text-align: center; 
+            background: $textarea-bg;
+            padding: $gap-md 0 $gap-md 0;
+    
+            &__label {
+                color: $muted-white;
+            }
+    
+            &__hash {
+                color: $white;
+            }
+        }
     }
 
     &.light {
         background: $dark-grey-light;
         color: $dark;
-        border-top: 1px solid $border-dark-grey-light;
-    }
+        border-bottom: 1px solid $border-dark-grey-light;
 
-    &__hash {
-        text-align: center; 
-        background: $textarea-bg;
-        padding: $gap-md 0 $gap-md 0;
-
-        &__label {
-            color: $muted-white;
-        }
-
-        &__hash {
-            color: $white;
+        & .view-commit__hash {
+            text-align: center; 
+            background: $grey-variant-light;
+            padding: $gap-md 0 $gap-md 0;
+    
+            &__label {
+                color: $muted-dark;
+            }
+    
+            &__hash {
+                color: $dark;
+            }
         }
     }
     
@@ -35,11 +49,11 @@
     }
 
     &__top {
-        height: 220px;
+        height: 245px;
     }
 
     &__bottom {
-        height: calc(100% - 220px - 33px);
+        height: calc(100% - 245px - 33px);
     }
 
     &__file-status {

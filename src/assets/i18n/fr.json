@@ -29,6 +29,7 @@
         "DESACTIVATE": "Désactiver le loader",
         "INFO": "Chargement..."
     },
+    "SSH": "ssh connection not available",
     "CLONE": {
         "WHERE": "Où cloner",
         "URL": "URL",
@@ -38,7 +39,7 @@
         "ERROR": "Problème lors du clone",
         "UNABLE_TO_UPDATE": "Impossible de mettre à jour la base de l'URL à partir d'une redirection",
         "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
-        "NOT_WORK_TREE": "Impossible de créer le repertoire de travail : permission refusé",
+        "NOT_WORK_TREE": "Impossible de créer le repertoire de travail : permission refusée",
         "REPO_NOT_FOUND": "Répertoire non trouvé",
         "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",
         "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide"
@@ -52,6 +53,7 @@
         "ERROR": "Problème lors du poussage",
         "UNABLE_TO_UPDATE": "Impossible de mettre à jour la base de l'URL à partir d'une redirection",
         "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
+        "NOT_WORK_TREE": "Impossible de créer le répertoire de travail : permission refusée",        
         "REPO_NOT_FOUND": "Répertoire non trouvé",
         "ALREADY_EXISTS": "Ce répertoire existe déjà et n'est pas un dossier vide",
         "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide"
@@ -124,6 +126,18 @@
         "NEW_BRANCH": "Nouvelle branche",
         "BRANCH_RENAME_SUCCESS" : "Branch renommée avec succès",
         "BRANCH_RENAME_FAILURE" : "Une erreur s'est produite pendant le renommage",
+        "DELETE": "Supprimer",
+        "DELETED": "Branche supprimée",
+        "NOT_DELETED": "Branche non supprimée",
+        "REMOTE_DELETED": "Branche remote supprimée",
+        "REMOTE_NOT_DELETED": "Branche remote non supprimée",
+        "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
+        "DELETE_MESSAGE": "Ceci est une opération destructive, êtes vous sûr de vouloir supprimer ",
+        "INVALID_CRED": "Nom d'utilisateur ou mot de passe invalide",
+        "ACCESS_DENIED": "Impossible de résoudre l'hôte",
+        "REPO_NOT_FOUND": "Dépôt non trouvé",
+        "CURRENT": "Vous ne pouvez pas effacer la branche courante",
+        "ERROR_DELETION": "Erreur durant la suppression de branche",
         "ERROR": "Erreur durant le changement de branche"
     },
     "PULL": {
@@ -141,7 +155,6 @@
     },
     "EXIT_PREFERENCES": "Sortir des préferences",
     "GENERAL": "Général",
-    "EDITOR": "Editeur",
     "UI": "Interface Utilisateur",
     "REPOSITORY_MANAGEMENT": "Gestion du répertoire",
     "LOCAL": "LOCAL",
@@ -189,6 +202,8 @@
     "INDEPENDENT_THEME": "Indépendant du thème",
     "WRONG_CRED": "Informations erronées",
     "SUMMARY": "Résumé",
+    "PATH": "Chemin",
+    "TREE": "Arbre",
     "COMMIT": {
         "DESCRIPTION": "Description d'un commit"
     },

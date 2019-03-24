@@ -160,6 +160,27 @@ export class MockGitService {
         });
     }
 
+    async getUrl(remote: String) {
+        return new Promise<any>((resolve, reject) => {
+            if (remote == 'origin') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('SUCCESS'), 'https://github.com/toto/myrepository'));
+            } else if (remote == 'originssh') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('SUCCESS'), 'ssh://github.com/toto/myrepository'));
+            } else if (remote == 'origininvalidproto') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('SUCCESS'), 'toto://github.com/toto/myrepository'));
+            } else if (remote == 'originnonewdata') {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                this.translate.instant('SUCCESS')));
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('ERROR')));
+            }
+        });
+    }
+
     async setNewBranch(newBranchName: string, referenceBranchName: string) {
         return new Promise<any>((resolve, reject) => {
             if (newBranchName === 'newBranch' && !referenceBranchName.includes('wrong')) {
@@ -181,6 +202,28 @@ export class MockGitService {
             } else {
                 reject(new ServiceResult(false, this.translate.instant('ERROR'),
                 this.translate.instant('BRANCH.NOT_CREATED')));
+            }
+        });
+    }
+
+    async applyDeletionBranch(deleteBranchName: string, httpsUser: HttpsUser) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (deleteBranchName !== 'currentBranch') {
+                if (deleteBranchName.includes('remote/')) {
+                    if (httpsUser.username === 'username' && httpsUser.password === 'password') {
+                        resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                            this.translate.instant('BRANCH.REMOTE_DELETED')));
+                    } else {
+                        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('BRANCH.REMOTE_NOT_DELETED')));
+                    }
+                } else if (deleteBranchName === 'deleteBranch') {
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                            this.translate.instant('BRANCH.DELETED')));
+                }
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.CURRENT')));
             }
         });
     }
@@ -266,40 +309,31 @@ export class MockGitService {
     async commitDescription(hash: String) {
         return new Promise<CommitDescription>((resolve, reject) => {
             resolve({
-                oid: '72267b6ad64858f2db2d597f67004b59e543928b',
-                message: 'feat(test): commit',
-                tree: '2a6ad7904cd02e149c19418e2b776aabde1f2637',
-                parent: ['aae2f2e434c64c83a2092dad969878f553cb9acb'],
+                oid: 'd9159aa643063b627939dd434b4134371b1dcf0b',
+                message: 'Hello world',
+                tree: '0f154817e0dd2cc13bb8312082565ee9296fc293',
+                parent: [
+                    'e35d4be0cb6bbe7e852d6e9160b3a023f1b537d3'
+                ],
                 author: {
-                    name: 'M. Toto',
-                    email: 'toto@mail.com',
-                    timestamp: 1551914175,
-                    timezoneOffset: -60,
+                  name: 'toto',
+                  email: 'toto@mail.com',
+                  timestamp: 1552840891,
+                  timezoneOffset: -60
                 },
                 committer: {
-                    name: 'M. toto',
-                    email: 'toto@mail.com',
-                    timestamp: 1551914175,
-                    timezoneOffset: -60,
+                  name: 'toto',
+                  email: 'toto@mail.com',
+                  timestamp: 1552840891,
+                  timezoneOffset: -60
                 },
                 gpgsig: null,
                 files: [
-                    {
-                        file: 'src/app/screens/right-panel/right-panel.component.spec.ts',
-                        changes: 4,
-                        insertions: 3,
-                        deletions: 1,
-                        binary: false
-                    },
-                    {
-                        file: 'src/app/screens/view-commit/view-commit.component.spec.ts',
-                        changes: 16,
-                        insertions: 15,
-                        deletions: 1,
-                        binary: false
-                    }
+                    {status: 'M', path: 'src/app/modified.txt'},
+                    {status: 'A', path: 'src/app/added'},
+                    {status: 'D', path: 'src/deleted.txt'}
                 ]
-            });
+              });
         });
     }
 

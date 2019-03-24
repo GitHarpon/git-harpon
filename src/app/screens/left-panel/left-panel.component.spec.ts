@@ -23,6 +23,10 @@ import { MockLanguagePreferencesService } from '../../models/MockLanguagePrefere
 import { LanguagePreferencesService } from '../../providers/language-preferences.service';
 import { MockTranslateService } from '../../models/MockTranslateService';
 import { NewBranchCouple } from '../../models/NewBranchCouple';
+import { TreeComponent } from '../../components/tree/tree.component';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
+import { ButtonComponent } from '../../components/button/button.component';
 
 describe('LeftPanelComponent', () => {
   /* tslint:disable */
@@ -36,7 +40,10 @@ describe('LeftPanelComponent', () => {
       declarations: [
           LeftPanelComponent,
           AccordionComponent,
-          LoaderComponent
+          LoaderComponent,
+          TreeItemComponent,
+          TreeComponent,
+          ButtonComponent
       ],
       imports: [
         ContextMenuModule,
@@ -213,6 +220,22 @@ describe('LeftPanelComponent', () => {
     component.newBranchCouple.oldBranch = 'titi';
     component.renameBranch(OldBranch);
     expect(component.newBranchCouple.oldBranch).toEqual(OldBranch);
+  });
+
+  it ('test the openDeleteBranchInfoBar function with a local branch', () => {
+    const LocalBranch = 'localBranch';
+    spyOn(component.deleteBranchInfoBar, 'emit');
+    component.openDeleteBranchInfoBar(LocalBranch);
+    fixture.detectChanges();
+    expect(component.deleteBranchInfoBar.emit).toHaveBeenCalledWith(LocalBranch);
+  });
+
+  it ('test the openDeleteBranchInfoBar function with a remote branch', () => {
+    const RemoteBranch = 'origin/newData';
+    spyOn(component.deleteBranchInfoBar, 'emit');
+    component.openDeleteBranchInfoBar(RemoteBranch);
+    fixture.detectChanges();
+    expect(component.deleteBranchInfoBar.emit).toHaveBeenCalledWith(RemoteBranch);
   });
 
   it ('test the ngOnDestroy function with defined subscriptions', () => {

@@ -44,6 +44,9 @@ import { MockRightPanelService } from '../../models/MockRightPanelService';
 import { ContextMenuModule, ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
 import { GraphService } from '../../providers/graph.service';
 import { MockGraphService } from '../../models/MockGraphService';
+import { TreeComponent } from '../../components/tree/tree.component';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -72,6 +75,9 @@ describe('HomeComponent', () => {
         TextAreaComponent,
         CommitTextAreaComponent,
         FileDiffCommitComponent,
+        TreeItemComponent,
+        TreeComponent,
+        TabsComponent
       ],
       imports: [
         ContextMenuModule,

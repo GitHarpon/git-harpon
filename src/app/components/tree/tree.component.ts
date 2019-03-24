@@ -1,31 +1,27 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { GitService } from '../../providers/git.service';
-import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-file-diff-commit',
-  templateUrl: './file-diff-commit.component.html',
-  styleUrls: ['./file-diff-commit.component.scss']
+  selector: 'app-tree',
+  templateUrl: './tree.component.html',
+  styleUrls: ['./tree.component.scss']
 })
-export class FileDiffCommitComponent implements OnDestroy {
-  @Input() listFiles: any[];
-  @Input() componentType: any = 'stage';
-  themePrefSubscription: Subscription;
-  currentTheme: string;
+export class TreeComponent implements OnDestroy {
 
-  constructor(private gitService: GitService, private themePrefService: ThemePreferencesService) {
+  @Input() tree: any;
+  @Input() componentType: any = 'stage';
+  currentTheme: string;
+  themePrefSubscription: Subscription;
+
+  constructor(private themePrefService: ThemePreferencesService, private gitService: GitService) {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
         this.currentTheme = newTheme;
       }
     );
     this.themePrefService.emitThemePreferencesSubject();
-  }
-
-  getFileNameFromPath(path: string): string {
-    const TabString = path.split('/');
-    return  TabString[TabString.length - 1];
   }
 
   addFile(path: any) {
@@ -44,9 +40,14 @@ export class FileDiffCommitComponent implements OnDestroy {
     return false;
   }
 
+  isFolder(item) {
+    return item.children && item.children.length;
+  }
+
   ngOnDestroy() {
     if (this.themePrefSubscription) {
       this.themePrefSubscription.unsubscribe();
     }
   }
+
 }

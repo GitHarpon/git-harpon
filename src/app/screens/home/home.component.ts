@@ -22,6 +22,7 @@ import { GraphService } from '../../providers/graph.service';
 export class HomeComponent implements OnDestroy {
   projectModalTabSelectedIndex: any;
   projectModalVisible: Boolean;
+  currentUrl: String;
   cloneUrl: String;
   cloneFolder: string;
   searchInputValue: String;
@@ -46,17 +47,20 @@ export class HomeComponent implements OnDestroy {
   referenceBranchName: string;
   newBranchCouple: NewBranchCouple;
   newBranchNameForRenaming: string;
+  deleteBranchInfoBarVisible: boolean;
+  deleteRemoteBranchCredInfoBarVisible: boolean;
+  deleteBranchName: string;
+  deleteRemoteBranchAuthErrored: boolean;
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
   checkoutInfoBarVisible: boolean;
   newClonedRepoPath: string;
   cloneHttpsUser: HttpsUser;
-
+  remoteAlias: String;
   pullrebaseInfoBarVisible: boolean;
   pullrebaseAuthErrored: boolean;
   pullrebaseCredInfoBarVisible: boolean;
   pullrebaseHttpsUser: HttpsUser;
-
   homeLoading: boolean;
   openFolder: string;
   themePrefSubscription: Subscription;
@@ -134,10 +138,13 @@ export class HomeComponent implements OnDestroy {
 
   @HostListener('window:focus', ['$event'])
   onFocus() {
-    this.gitService.updateFilesDiff();
-    this.leftPanelService.setLocalBranches();
-    this.leftPanelService.setRemoteBranches();
-    return true;
+    if (this.repoName) {
+      this.gitService.updateFilesDiff();
+      this.leftPanelService.setLocalBranches();
+      this.leftPanelService.setRemoteBranches();
+      return true;
+    }
+    return false;
   }
 
   async pullrebaseHttps() {
@@ -162,14 +169,31 @@ export class HomeComponent implements OnDestroy {
       });
   }
 
-  pushButtonClicked() {
-    this.pushCredInfoBarVisible = true;
+  pullButtonClicked() {
+    this.remoteAlias = 'origin';
+    this.pullrebaseSubmit();
     return true;
   }
 
-  pullButtonClicked() {
-    this.pullrebaseCredInfoBarVisible = true;
-    return true;
+  pullrebaseSubmit() {
+    return this.gitService.getUrl(this.remoteAlias).then((data) => {
+      if (data.newData) {
+        this.currentUrl = data.newData;
+        var Url = GitUrlParse(this.currentUrl);
+        if (Url.protocol === 'ssh') {
+          this.toastr.error('Pas de ssh pour le moment', 'Erreur');
+        } else if (Url.protocol === 'https') {
+          this.homeLoading = true;
+          this.pullrebaseHttps();
+        }
+      } else {
+        this.toastr.error(this.translateService.instant('ERROR'),
+        this.translateService.instant('ERROR'));
+      }
+    }).catch((err) => {
+      this.toastr.error(this.translateService.instant('ERROR'),
+      this.translateService.instant('ERROR'));
+    });
   }
 
   branchButtonClicked() {
@@ -180,6 +204,16 @@ export class HomeComponent implements OnDestroy {
   openCreateBranchInfoBar(refBranchName) {
     this.referenceBranchName = refBranchName;
     this.newBranchInfoBarVisible = true;
+  }
+
+  openDeleteBranchInfoBar(deleteBranch) {
+    this.deleteBranchName = deleteBranch;
+    if (this.deleteBranchName.includes('/')) {
+      this.deleteBranchInfoBarVisible = false;
+      this.deleteRemoteBranchCredInfoBarVisible = true;
+    } else {
+      this.deleteBranchInfoBarVisible = true;
+    }
   }
 
   async openTerminal() {
@@ -237,6 +271,34 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
+
+  pushButtonClicked() {
+    this.remoteAlias = 'origin';
+    this.pushSubmit();
+    return true;
+  }
+
+  pushSubmit() {
+    return this.gitService.getUrl(this.remoteAlias).then((data) => {
+      if (data.newData) {
+        this.currentUrl = data.newData;
+        var Url = GitUrlParse(this.currentUrl);
+        if (Url.protocol === 'ssh') {
+          this.toastr.error('Pas de ssh pour le moment', 'Erreur');
+        } else if (Url.protocol === 'https') {
+          this.homeLoading = true;
+          this.pushHttps();
+        }
+      } else {
+        this.toastr.error(this.translateService.instant('ERROR'),
+        this.translateService.instant('ERROR'));
+      }
+    }).catch((err) => {
+      this.toastr.error(this.translateService.instant('ERROR'),
+      this.translateService.instant('ERROR'));
+    });
+  }
+
   async cloneHttps() {
     return this.gitService.cloneHttps(GitUrlParse(this.cloneUrl), this.cloneFolder, this.cloneHttpsUser)
       .then((data) => {
@@ -269,11 +331,10 @@ export class HomeComponent implements OnDestroy {
 
 
   async pushHttps() {
-    this.homeLoading = true;
     return this.gitService.pushHttps(this.fullPath, this.currentHttpsUser, this.branchName)
       .then((data) => {
         this.homeLoading = false;
-        this.pushCredInfoBarVisible = false;
+        this.resetPushInputs();
         this.toastr.info(data.message, data.title);
       })
       .catch((data) => {
@@ -281,7 +342,6 @@ export class HomeComponent implements OnDestroy {
           this.pushAuthErrored = this.pushCredInfoBarVisible;
           this.currentHttpsUser.password = '';
           this.pushCredInfoBarVisible = true;
-          this.homeLoading = false;
         } else {
           this.homeLoading = false;
           this.resetPushInputs();
@@ -423,6 +483,7 @@ export class HomeComponent implements OnDestroy {
       username: '',
       password: ''
     };
+    this.pushAuthErrored = false;
     this.pushCredInfoBarVisible = false;
     this.homeLoading = false;
   }
@@ -540,6 +601,52 @@ export class HomeComponent implements OnDestroy {
     this.referenceBranchName = '';
     this.newBranchName = '';
     this.newBranchInfoBarVisible = false;
+  }
+
+  async deleteBranch() {
+    this.homeLoading = true;
+    this.deleteBranchInfoBarVisible = false;
+    return this.gitService.applyDeletionBranch(this.deleteBranchName, this.currentHttpsUser)
+      .then((data) => {
+        this.leftPanelService.setLocalBranches();
+        this.leftPanelService.setRemoteBranches();
+        this.deleteRemoteBranchCredInfoBarVisible = false;
+        this.deleteBranchInfoBarVisible = false;
+        this.homeLoading = false;
+        this.currentHttpsUser = {
+          username: '',
+          password: ''
+        };
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+          this.deleteBranchName = '';
+          this.deleteBranchInfoBarVisible = false;
+          this.homeLoading = false;
+          this.resetDeleteRemoteBranchInputs();
+          this.toastr.error(data.message, data.title);
+      });
+  }
+
+  closeDeleteBranchInfoBar() {
+    this.deleteBranchName = '';
+    this.deleteBranchInfoBarVisible = false;
+    this.homeLoading = false;
+  }
+
+  closeDeleteRemoteBranchCredInfoBar() {
+    this.deleteRemoteBranchCredInfoBarVisible = false;
+    this.resetDeleteRemoteBranchInputs();
+  }
+
+  resetDeleteRemoteBranchInputs() {
+    this.currentHttpsUser = {
+      username: '',
+      password: ''
+    };
+    this.deleteRemoteBranchAuthErrored = false;
+    this.deleteRemoteBranchCredInfoBarVisible = false;
+    this.homeLoading = false;
   }
 
   ngOnDestroy() {

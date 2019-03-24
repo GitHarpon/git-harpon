@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
+import { MockPath } from './MockPath';
 
 @Injectable()
 export class MockElectronService {
+  path: MockPath;
 
-  constructor() { }
+  constructor() {
+    this.path = new MockPath();
+  }
 
   browse() {
     const Path = '/new';

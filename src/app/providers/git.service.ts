@@ -150,28 +150,25 @@ export class GitService {
   async setNewBranch(newBranchName, referenceBranchName) {
     return new Promise<any>((resolve, reject) => {
       if (this.repoName) {
-        gitPromise(this.path).branch([])
+        this.gitP.branch([])
           .then((result) => {
             if (result.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
-              gitPromise(this.path).branchLocal()
-                .then((result) => {
-                  gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
-                  .then(() => {
-                    this.branchName = newBranchName;
-                    this.emitBranchNameSubject();
-                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-                    this.translate.instant('BRANCH.CREATED')));
-                  })
-                  .catch(() => {
-                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                    this.translate.instant('BRANCH.NOT_CREATED')));
-                  });
+              this.gitP.raw(['checkout', '-b', newBranchName, referenceBranchName])
+                .then(() => {
+                  this.branchName = newBranchName;
+                  this.emitBranchNameSubject();
+                  resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                  this.translate.instant('BRANCH.CREATED')));
+                })
+                .catch(() => {
+                  reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                  this.translate.instant('BRANCH.NOT_CREATED')));
                 });
             } else {
               gitPromise(this.path).branch(['-r'])
                 .then((resultbis) => {
                   if (resultbis.all.includes(referenceBranchName) && !result.all.includes(newBranchName)) {
-                    gitPromise(this.path).checkoutBranch(newBranchName, referenceBranchName)
+                    this.gitP.raw(['checkout', '-b', newBranchName, referenceBranchName])
                     .then(() => {
                       this.branchName = newBranchName;
                       this.emitBranchNameSubject();
@@ -184,7 +181,7 @@ export class GitService {
                     });
                   } else {
                     reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                    this.translate.instant('BRANCH.NOT_CREATED')));
+                    this.translate.instant('BRANCH.ALREADY_EXISTS')));
                   }
                 })
                 .catch(() => {
@@ -201,6 +198,77 @@ export class GitService {
     });
   }
 
+  async applyDeletionBranch(deleteBranchName: string, httpsUser: HttpsUser) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      if (deleteBranchName !== this.branchName) {
+        this.gitP.branch(['-r'])
+          .then((result) => {
+            if (result.all.includes(deleteBranchName)) {
+              this.gitP.raw(['ls-remote', '--get-url'])
+                .then((data) => {
+                  const Url = GitUrlParse(data);
+                  if (Url.protocol === 'https') {
+                    const Remote = `${Url.protocol}://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
+                    this.gitP.raw(['push', Remote, '--delete', deleteBranchName.split('/')[1]])
+                      .then(() => {
+                        this.gitP.raw(['branch', '-d', '-r', deleteBranchName])
+                          .then(() => {
+                            resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                            this.translate.instant('BRANCH.REMOTE_DELETED'), 'newData'));
+                          })
+                          .catch((err) => {
+                            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                            this.translate.instant('BRANCH.REMOTE_NOT_DELETED')));
+                          });
+                      })
+                      .catch((err) => {
+                        var ErrMsg = 'BRANCH.ERROR_DELETION';
+                        var AccessDenied = false;
+                        if (err.toString().includes('HTTP Basic: Access denied')) {
+                          ErrMsg = 'BRANCH.HTTP_ACCESS_DENIED';
+                          AccessDenied = true;
+                        } else if (err.toString().includes('not valid: is this a git repository ?')) {
+                          ErrMsg = 'BRANCH.REPO_NOT_FOUND';
+                        } else  if (err.toString().includes('Invalid username or password')) {
+                          ErrMsg = 'BRANCH.INVALID_CRED';
+                        } else if (err.toString().includes('Could not resolve host:')) {
+                          ErrMsg = 'BRANCH.ACCESS_DENIED';
+                        }
+                        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                          this.translate.instant(ErrMsg), AccessDenied));
+                      });
+                  } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('SSH')));
+                  }
+                })
+                .catch((err) => {
+                  console.error(err);
+                });
+            } else {
+              this.gitP.raw(['branch', '-D', deleteBranchName])
+                .then(() => {
+                  resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                  this.translate.instant('BRANCH.DELETED')));
+                })
+                .catch(() => {
+                  reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                  this.translate.instant('BRANCH.NOT_DELETED')));
+                });
+            }
+          })
+          .catch(() => {
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant('BRANCH.NOT_DELETED')));
+          });
+      } else {
+        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+        this.translate.instant('BRANCH.CURRENT')));
+      }
+    });
+  }
+
+
   getCurrentBranch() {
     gitPromise(this.path).branch([])
       .then((result) => {
@@ -216,7 +284,7 @@ export class GitService {
   async getLocalBranches() {
     return new Promise<any>((resolve, reject) => {
       if (this.repoName) {
-        gitPromise(this.path).branchLocal()
+        gitPromise(this.path).branch([])
           .then((result) => {
             resolve(result.all);
         });
@@ -276,7 +344,8 @@ export class GitService {
           this.getCurrentBranch();
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
-        }).catch((result) => {
+        }).catch((err) => {
+          console.log(err);
           reject(new ServiceResult(false, this.translate.instant('ERROR'),
             this.translate.instant('BRANCH.ERROR')));
         });
@@ -296,6 +365,7 @@ export class GitService {
                       resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                         this.translate.instant('BRANCH.CHECKED_OUT')));
                     }).catch((err) => {
+                      console.log(err);
                       reject(new ServiceResult(false, this.translate.instant('ERROR'),
                         this.translate.instant('ERROR'), remoteBranch));
                     });
@@ -316,11 +386,13 @@ export class GitService {
 
   createBranchHere(newBranch, remoteBranch) {
     return new Promise<ServiceResult>((resolve, reject) => {
-      gitPromise(this.path).checkoutBranch(newBranch, remoteBranch).then((result) => {
+      this.gitP.raw(['checkout', '-b', newBranch, remoteBranch])
+      .then((result) => {
         this.getCurrentBranch();
         resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
-      }).catch((result) => {
+      }).catch((err) => {
+        console.log(err);
         reject(new ServiceResult(false, this.translate.instant('ERROR'),
           this.translate.instant('BRANCH.ERROR')));
       });
@@ -427,15 +499,30 @@ export class GitService {
     });
   }
 
+  async getUrl(remote: String) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      this.gitP.raw(['remote', 'get-url', remote])
+      .then((data) => {
+        resolve(new ServiceResult(true, this.translate.instant('SUCCESS'), this.translate.instant('SUCCESS'), data));
+      }).catch((err) => {
+        console.log(err);
+        reject(new ServiceResult(false, this.translate.instant('ERROR'), this.translate.instant('ERROR')));
+      });
+    });
+  }
+
   async pushHttps(folder: string, httpsUser: HttpsUser, branch: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
       this.gitP.raw(['remote', 'get-url', 'origin']).then((data) => {
         const Url = GitUrlParse(data);
-        const Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
-
+        var Remote;
+        if (httpsUser.username) {
+          Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
+        } else {
+          Remote = `https://${Url.resource}${Url.pathname}`;
+        }
         this.gitP.raw(['push', '-u', Remote, branch])
         .then((result) => {
-            console.log(result);
             resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('PUSH.DONE')));
           }).catch((err) => {
@@ -446,12 +533,20 @@ export class GitService {
               ErrMsg = 'PUSH.UNABLE_TO_UPDATE';
             } else if (err.toString().includes('HTTP Basic: Access denied')) {
               ErrMsg = 'PUSH.HTTP_ACCESS_DENIED';
+              AccessDenied = true;
             } else if (err.toString().includes('could not create work tree')) {
               ErrMsg = 'PUSH.NOT_WORK_TREE';
             } else if (err.toString().includes('Repository not found')) {
               ErrMsg = 'PUSH.REPO_NOT_FOUND';
             } else if (err.toString().includes('Invalid username or password')) {
               ErrMsg = 'PUSH.INVALID_CRED';
+              AccessDenied = true;
+            } else if (err.toString().includes('denied to')) {
+              ErrMsg = 'PUSH.INVALID_CRED';
+              AccessDenied = true;
+            } else if (err.toString().includes('You are not allowed to push code')) {
+              ErrMsg = 'PUSH.INVALID_CRED';
+              AccessDenied = true;
             }
             reject(new ServiceResult(false, this.translate.instant('ERROR'),
             this.translate.instant(ErrMsg), AccessDenied));
@@ -463,10 +558,10 @@ export class GitService {
     });
   }
 
-  updateFilesDiff() {
+  async updateFilesDiff() {
     var ListUnstagedFiles = [];
     var ListStagedFiles = [];
-    this.gitP.status().then((statusSummary) => {
+    return await this.gitP.status().then((statusSummary) => {
       const ListFile = statusSummary.files;
       ListFile.forEach(file => {
         if (file.working_dir == 'M' || file.working_dir == 'D') {
@@ -487,8 +582,8 @@ export class GitService {
           });
         }
       });
+      this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
     });
-    this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
   }
 
   addFile(path: any) {
@@ -503,15 +598,9 @@ export class GitService {
     });
   }
 
-  
-
   async pushSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
       console.log('Ssh non pris en charge pour le moment');
       return new Promise<ServiceResult>(() => {});
-  }
-
-  async pullrebaseSsh(url: GitUrlParse, folder: string, username: string, password: string, branch: string) {
-      // SSH non pris en charge pour le moment
   }
 
   async pullrebaseHttps(httpsUser: HttpsUser, branch: string) {
@@ -519,21 +608,27 @@ export class GitService {
     this.gitP.raw(['remote', 'get-url', 'origin'])
       .then((data) => {
         const Url = GitUrlParse(data);
-        let Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
-          this.gitP.pull(Remote, branch, {'--rebase': 'true'})
-            .then((data) => {
-              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-              this.translate.instant('PULL.DONE'), 'newData'));
-            })
-            .catch((err) => {
-              var ErrMsg = 'PULL.ERROR';
-              var AccessDenied = false;
-              if (err.toString().includes('Authentication failed')) {
-                ErrMsg = 'PULL.UNABLE_TO_CONNECT';
-              }
-              reject(new ServiceResult(false, this.translate.instant('ERROR'),
-              this.translate.instant(ErrMsg), AccessDenied));
-            });
+        var Remote;
+        if (httpsUser.username) {
+          Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
+        } else {
+          Remote = `https://${Url.resource}${Url.pathname}`;
+        }
+        this.gitP.pull(Remote, branch, {'--rebase': 'true'})
+          .then((data) => {
+            resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('PULL.DONE'), 'newData'));
+          })
+          .catch((err) => {
+            var ErrMsg = 'PULL.ERROR';
+            var AccessDenied = false;
+            if (err.toString().includes('Authentication failed')) {
+              ErrMsg = 'PULL.UNABLE_TO_CONNECT';
+              AccessDenied = true;
+            }
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant(ErrMsg), AccessDenied));
+          });
         })
         .catch((err) => {
           console.error(err);
