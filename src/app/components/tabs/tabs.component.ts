@@ -1,24 +1,17 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss']
+  selector: 'app-tabs',
+  templateUrl: './tabs.component.html',
+  styleUrls: ['./tabs.component.scss']
 })
-export class InputComponent implements OnInit, OnDestroy {
-
-  @Input() name: String;
-  @Input() placeholder: String;
-  @Input() readonly: Boolean;
-  @Input() disabled: Boolean;
-  @Input() type: String = 'text';
+export class TabsComponent implements OnInit, OnDestroy {
   currentValue: String;
   themePrefSubscription: Subscription;
   currentTheme: string;
-
+  @Input() data: Array<any>;
   @Output()
   valueChange = new EventEmitter<String>();
 
@@ -32,7 +25,12 @@ export class InputComponent implements OnInit, OnDestroy {
     this.valueChange.emit(this.currentValue);
   }
 
-  constructor(private translateService: TranslateService, private themePrefService: ThemePreferencesService) {
+  setValue(newVal) {
+    this.currentValue = newVal;
+    this.valueChange.emit(this.currentValue);
+  }
+
+  constructor(private themePrefService: ThemePreferencesService) {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
         this.currentTheme = newTheme;
@@ -44,11 +42,8 @@ export class InputComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-  getPlaceholderTranslation() {
-    return this.translateService.instant(this.placeholder.toUpperCase().toString());
-  }
-
   ngOnDestroy() {
-
+    this.themePrefSubscription.unsubscribe();
   }
+
 }

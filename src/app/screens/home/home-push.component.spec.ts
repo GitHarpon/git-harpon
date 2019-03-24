@@ -46,6 +46,9 @@ import { CommitTextAreaComponent } from '../../components/commit-text-area/commi
 import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-diff-commit.component';
 import { TextAreaComponent } from '../../components/text-area/text-area.component';
 import { MockLeftPanelService } from '../../models/MockLeftPanelService';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TreeComponent } from '../../components/tree/tree.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
@@ -75,6 +78,9 @@ describe('HomeComponent', () => {
           ViewCommitComponent,
           FileDiffCommitComponent,
           TextAreaComponent,
+          TreeItemComponent,
+          TreeComponent,
+          TabsComponent
         ],
         imports: [
           FormsModule,

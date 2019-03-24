@@ -1,0 +1,31 @@
+@import '../../../variables.scss';
+
+.tab {
+    display: inline;
+    font-size: $fs-small;
+
+    &.dark {
+        color: $muted-white;
+        border: 1px solid $dark-grey;
+        &:hover {
+            color: $white;
+        }
+
+        &.active {
+            background-color: $dark-blue;
+        }
+    }
+
+    &.light {
+        color: $dark;
+        border: 1px solid $border-dark-grey-light;
+
+        &.active {
+            background-color: $light-blue-light;
+        }
+
+        &:hover {
+            color: black;
+        }
+    }
+}

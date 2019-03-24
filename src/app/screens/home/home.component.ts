@@ -57,7 +57,6 @@ export class HomeComponent implements OnDestroy {
   pullrebaseAuthErrored: boolean;
   pullrebaseCredInfoBarVisible: boolean;
   pullrebaseHttpsUser: HttpsUser;
-
   homeLoading: boolean;
   openFolder: string;
   themePrefSubscription: Subscription;
@@ -139,8 +138,9 @@ export class HomeComponent implements OnDestroy {
       this.gitService.updateFilesDiff();
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
+      return true;
     }
-    return true;
+    return false;
   }
 
   async pullrebaseHttps() {
@@ -166,8 +166,30 @@ export class HomeComponent implements OnDestroy {
   }
 
   pullButtonClicked() {
-    this.pullrebaseCredInfoBarVisible = true;
+    this.remoteAlias = 'origin';
+    this.pullrebaseSubmit();
     return true;
+  }
+
+  pullrebaseSubmit() {
+    return this.gitService.getUrl(this.remoteAlias).then((data) => {
+      if (data.newData) {
+        this.currentUrl = data.newData;
+        var Url = GitUrlParse(this.currentUrl);
+        if (Url.protocol === 'ssh') {
+          this.toastr.error('Pas de ssh pour le moment', 'Erreur');
+        } else if (Url.protocol === 'https') {
+          this.homeLoading = true;
+          this.pullrebaseHttps();
+        }
+      } else {
+        this.toastr.error(this.translateService.instant('ERROR'),
+        this.translateService.instant('ERROR'));
+      }
+    }).catch((err) => {
+      this.toastr.error(this.translateService.instant('ERROR'),
+      this.translateService.instant('ERROR'));
+    });
   }
 
   branchButtonClicked() {

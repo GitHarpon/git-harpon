@@ -1,0 +1,45 @@
+@import '../../../variables.scss';
+
+.item {
+    cursor: pointer;
+}
+.bold {
+    font-weight: bold;
+}
+
+.color-m {
+    color: #de9b49;
+}
+
+.color-a {
+    color: $dark-green-light;
+}
+
+.color-d {
+    color: $dark-red-light;
+}
+
+.light-blue {
+    color: $light-blue; 
+}
+
+.gh-tree-item div:first-child{
+    &.dark:hover {
+        @include bg-color($dark-blue);
+        & .tree_file_item_button {
+            display: inline;
+        }
+    }
+
+    &.light:hover {
+        @include bg-color($light-green-light);
+        & .tree_file_item_button {
+            display: inline;
+        }
+    }
+
+    & .tree_file_item_button {
+        display: none;
+        font-size: $fs-small;
+    }
+}

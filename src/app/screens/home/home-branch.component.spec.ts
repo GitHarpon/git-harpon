@@ -46,6 +46,9 @@ import { TextAreaComponent } from '../../components/text-area/text-area.componen
 import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
 import { GraphService } from '../../providers/graph.service';
 import { MockGraphService } from '../../models/MockGraphService';
+import { TreeComponent } from '../../components/tree/tree.component';
+import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { TabsComponent } from '../../components/tabs/tabs.component';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -74,7 +77,10 @@ describe('HomeComponent', () => {
         ViewCommitComponent,
         TextAreaComponent,
         CommitTextAreaComponent,
-        FileDiffCommitComponent
+        FileDiffCommitComponent,
+        TreeItemComponent,
+        TreeComponent,
+        TabsComponent
       ],
       imports: [
         ContextMenuModule,
