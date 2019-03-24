@@ -53,12 +53,10 @@ export class HomeComponent implements OnDestroy {
   newClonedRepoPath: string;
   cloneHttpsUser: HttpsUser;
   remoteAlias: String;
-
   pullrebaseInfoBarVisible: boolean;
   pullrebaseAuthErrored: boolean;
   pullrebaseCredInfoBarVisible: boolean;
   pullrebaseHttpsUser: HttpsUser;
-
   homeLoading: boolean;
   openFolder: string;
   themePrefSubscription: Subscription;
