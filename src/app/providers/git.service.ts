@@ -246,7 +246,7 @@ export class GitService {
                   console.error(err);
                 });
             } else {
-              this.gitP.raw(['branch', '-d', deleteBranchName])
+              this.gitP.raw(['branch', '-D', deleteBranchName])
                 .then(() => {
                   resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                   this.translate.instant('BRANCH.DELETED')));
