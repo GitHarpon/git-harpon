@@ -195,6 +195,7 @@
     },
     "SEND_COMMIT": "Commit",
     "VIEW_COMMIT": "View commit",
+    "VIEW_CHANGES": "View changes",
     "LIGHT": "Light",
     "DARK": "Dark",
     "THEME": "Theme",

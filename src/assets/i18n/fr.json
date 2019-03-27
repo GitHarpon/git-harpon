@@ -187,6 +187,7 @@
     },
     "SEND_COMMIT": "Commit",
     "VIEW_COMMIT": "Visualiser le commit",
+    "VIEW_CHANGES": "Voir les modifications",
     "LOG_IN": "S'identifier",
     "CANCEL": "Annuler",
     "OPEN_NOW": "Ouvrir",

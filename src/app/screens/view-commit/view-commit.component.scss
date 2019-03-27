@@ -59,6 +59,14 @@
     &__file-status {
         font-size: $fs-small;
     }
+
+    &__send-commit {
+        justify-content: center;
+
+        &__button {
+            margin: $gap-md;
+        }
+    }
 }
 
 .copied {
