@@ -43,7 +43,7 @@
             <div class="col-4 gh-button-bar-more">
                 <div>
                     <div class="searchInput mr-3">
-                        <app-input [(value)]="commitHash" (keyup)="toto($event)" [disabled]="!repoName"></app-input>
+                        <app-input [(value)]="commitHash" (keyup)="onKeyUp($event)" [disabled]="!repoName"></app-input>
                     </div>
                     <a class="cursor-pointer mr-3" placement="left" ngbTooltip="{{ 'SEARCH_COMMIT' | translate }}" 
                         (click)="setCommitHash()">

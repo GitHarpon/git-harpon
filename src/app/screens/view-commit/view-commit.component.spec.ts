@@ -24,7 +24,7 @@ import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 import { TabsComponent } from '../../components/tabs/tabs.component';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService, ToastrModule } from 'ngx-toastr';
 
 describe('ViewCommitComponent', () => {
   /* tslint:disable */
@@ -52,6 +52,7 @@ describe('ViewCommitComponent', () => {
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
         }),
+        ToastrModule.forRoot()
       ],
       providers: [
         {
@@ -74,8 +75,8 @@ describe('ViewCommitComponent', () => {
           provide: TranslateService,
           useClass: MockTranslateService
         },
-        ClipboardService,
-        ToastrService
+        ToastrService,
+        ClipboardService
       ]
     })
       .compileComponents();
@@ -145,6 +146,17 @@ describe('ViewCommitComponent', () => {
       expect(component.loading).toBeFalsy();
       expect(component.commitDate).toBeDefined();
       expect(component.tree).toBeDefined();
+
+      done();
+    });
+  });
+
+  it ('tests the setDescription function without commitHash', (done) => {
+    const Hash = 'toto';
+    component.commitHash = Hash;
+
+    component.setDescription().then(() => {
+      expect(component.loading).toBeFalsy();
 
       done();
     });

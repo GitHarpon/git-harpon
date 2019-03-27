@@ -147,7 +147,7 @@ export class HomeComponent implements OnDestroy {
     return false;
   }
 
-  toto(evt) {
+  onKeyUp(evt) {
     if (evt.key === 'Enter') {
       this.setCommitHash();
     }

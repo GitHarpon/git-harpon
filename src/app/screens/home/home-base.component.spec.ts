@@ -255,4 +255,24 @@ describe('HomeComponent', () => {
   it('test the function onFocus with invalid parameter', () => {
     expect(component.onFocus()).toBeFalsy();
   });
+
+  it('test the function setCommitHash with valid event', () => {
+    component.setCommitHash();
+
+    expect(component.commitHash).toBeDefined();
+  });
+
+  it('test the function onKeyUp with valid event', () => {
+    const Event = { key: 'Enter' };
+
+    component.onKeyUp(Event);
+
+    expect(component.commitHash).toBeDefined();
+  });
+
+  it('test the function onKeyUp with invalid event', () => {
+    const Event = { key: 'Something else' };
+
+    component.onKeyUp(Event);
+  });
 });
