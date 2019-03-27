@@ -24,6 +24,7 @@ import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 import { TabsComponent } from '../../components/tabs/tabs.component';
+import { ToastrService } from 'ngx-toastr';
 
 describe('ViewCommitComponent', () => {
   /* tslint:disable */
@@ -73,7 +74,8 @@ describe('ViewCommitComponent', () => {
           provide: TranslateService,
           useClass: MockTranslateService
         },
-        ClipboardService
+        ClipboardService,
+        ToastrService
       ]
     })
       .compileComponents();

@@ -672,8 +672,9 @@ export class GitService {
                 }
               }
               resolve({...commitInfo[0], files: Final});
-          });
-        });
+          })
+          .catch(() => reject());
+        }).catch(() => reject());
     });
   }
 }

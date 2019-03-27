@@ -14,7 +14,6 @@ export class GraphComponent implements OnInit, OnDestroy {
   graph: string;
   graphSubscription: Subscription;
   currentTheme: string;
-  commitHash: string;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
     private graphService: GraphService) { }
@@ -35,11 +34,6 @@ export class GraphComponent implements OnInit, OnDestroy {
     this.graphService.setGraph();
   }
 
-  openViewCommit() {
-    this.rightPanelService.setCommitHash(this.commitHash);
-    this.rightPanelService.setView(true);
-    return true;
-  }
 
   openSendCommit() {
     this.rightPanelService.setView(false);
