@@ -25,7 +25,6 @@ export class HomeComponent implements OnDestroy {
   currentUrl: String;
   cloneUrl: String;
   cloneFolder: string;
-  searchInputValue: String;
   dimensions: number;
   style: Object;
   initName: string;
@@ -76,6 +75,7 @@ export class HomeComponent implements OnDestroy {
   localBranch: string;
   remoteBranch: string;
   newCheckedoutBranchName: string;
+  commitHash: string;
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
@@ -145,6 +145,18 @@ export class HomeComponent implements OnDestroy {
       return true;
     }
     return false;
+  }
+
+  onKeyUp(evt) {
+    if (evt.key === 'Enter') {
+      this.setCommitHash();
+    }
+  }
+
+  setCommitHash() {
+    this.rightPanelService.setCommitHash(this.commitHash);
+    this.rightPanelService.setView(true);
+    this.commitHash = '';
   }
 
   async pullrebaseHttps() {
@@ -236,13 +248,6 @@ export class HomeComponent implements OnDestroy {
   openProjectModal(tabSelected: any) {
     this.projectModalTabSelectedIndex = tabSelected;
     this.projectModalVisible = true;
-  }
-
-  displaySearchInputValue() {
-    if (this.repoName) {
-      return true;
-    }
-    return false;
   }
 
   cloneBrowse() {
