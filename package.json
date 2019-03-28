@@ -49,6 +49,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "git-url-parse": "^11.1.2",
+    "gitgraph.js": "^1.15.1",
     "isomorphic-git": "^0.51.12",
     "jquery": "^3.3.1",
     "karma-htmlfile-reporter": "^0.3.8",

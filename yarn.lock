@@ -3865,6 +3865,11 @@ git-url-parse@^11.1.2:
   dependencies:
     git-up "^4.0.0"
 
+gitgraph.js@^1.15.1:
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/gitgraph.js/-/gitgraph.js-1.15.1.tgz#bc1f1f45559d10d229a765346ed78fd937cd3149"
+  integrity sha512-1akson4LaHb87m6TCuzKXPklDHBY+DBywj0xZyYvX7GNzP5WggmnBl0tZF0O1dSmKRqlbmv8c6cS1cDq1X1xKw==
+
 glob-base@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/glob-base/-/glob-base-0.3.0.tgz#dbb164f6221b1c0b1ccf82aea328b497df0ea3c4"
