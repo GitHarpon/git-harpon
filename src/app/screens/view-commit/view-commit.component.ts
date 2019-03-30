@@ -174,6 +174,11 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     }
   }
 
+  viewChanges() {
+    this.rightPanelService.setView(false);
+    return true;
+  }
+
   ngOnDestroy() {
     if (this.themePrefSubscription) {
       this.themePrefSubscription.unsubscribe();

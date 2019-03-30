@@ -212,6 +212,8 @@
     "OPEN_PREFERENCES": "Ouvrir les préférences",
     "OPEN_TERMINAL": "Ouvrir un terminal",
     "SEARCH_COMMIT": "Rechercher un commit",
+    "COMMIT_MESSAGE": "Message commit",
+    "COMMIT_CHANGES": "Ajouter les modifications au commit",
     "MODIFIED": "modifiés",
     "ADDED": "ajoutés",
     "DELETED": "supprimés",

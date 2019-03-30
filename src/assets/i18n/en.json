@@ -213,6 +213,8 @@
     "OPEN_PREFERENCES": "Open the preferences",
     "OPEN_TERMINAL": "Open a terminal",
     "SEARCH_COMMIT": "Search a commit",
+    "COMMIT_MESSAGE": "Commit message",
+    "COMMIT_CHANGES": "Stage files/changes to commit",
     "MODIFIED": "modified",
     "ADDED": "added",
     "DELETED": "deleted",
