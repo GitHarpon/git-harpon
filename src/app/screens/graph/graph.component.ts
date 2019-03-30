@@ -62,6 +62,9 @@ export class GraphComponent implements OnInit, OnDestroy {
           displayHash: true,
           font: 'normal 12pt Arial'
         },
+        tooltipHTMLFormatter: function(commit) {
+          return "<b>" + commit.sha1 + "</b>" + ": " + commit.message;
+        },
         shouldDisplayTooltipsInCompactMode: false
       }
     };
