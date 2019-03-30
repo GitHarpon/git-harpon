@@ -1,10 +1,5 @@
 <div class="gh-graph" [ngClass]="[currentTheme]">
   <div class="container offset-md-2 col-md-8 mt-5">
-    <div class="col-md-12 row">
-        <div class="col-md-12 text-right">
-          <app-button value="SEND_COMMIT" type="primary" (buttonClicked)="openSendCommit()"></app-button>
-        </div>
-    </div>
     <div [innerHTML]="graph" class="col-md-12 row mt-3"></div>
   </div>
 </div>

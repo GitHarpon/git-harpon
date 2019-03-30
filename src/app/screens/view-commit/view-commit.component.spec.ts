@@ -504,6 +504,11 @@ describe('ViewCommitComponent', () => {
 
   });
 
+  it ('test the viewChanges function', () => {
+    const Result = component.viewChanges();
+    expect(Result).toBeTruthy();
+  });
+
   it ('tests the ngOnDestroy function with defined themePrefSubscription', () => {
     component.ngOnInit();
     component.ngOnDestroy();
