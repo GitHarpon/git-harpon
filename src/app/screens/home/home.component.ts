@@ -50,6 +50,7 @@ export class HomeComponent implements OnDestroy {
   deleteRemoteBranchCredInfoBarVisible: boolean;
   deleteBranchName: string;
   deleteRemoteBranchAuthErrored: boolean;
+  mergeBranchName: string;
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
   checkoutInfoBarVisible: boolean;
@@ -652,6 +653,21 @@ export class HomeComponent implements OnDestroy {
     this.deleteRemoteBranchAuthErrored = false;
     this.deleteRemoteBranchCredInfoBarVisible = false;
     this.homeLoading = false;
+  }
+
+  async mergeBranch(mergeBranchName) {
+    this.homeLoading = true;
+    this.mergeBranchName = mergeBranchName;
+    return this.gitService.mergeBranches(this.mergeBranchName, this.fullPath)
+      .then((data) => {
+        this.homeLoading = false;
+        this.mergeBranchName = '';
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.homeLoading = false;
+        this.toastr.error(data.message, data.title);
+      });
   }
 
   ngOnDestroy() {

@@ -38,5 +38,8 @@
     <ng-template contextMenuItem let-item (execute)="renameBranch($event.item)">
       {{ 'BRANCH.RENAME' | translate }} {{ item }}
     </ng-template>
+        <ng-template contextMenuItem let-item (execute)="mergeBranchInto($event.item)">
+      {{ 'BRANCH.MERGE' | translate }} {{ item }} into {{ currentBranch }}
+    </ng-template>
   </context-menu>
 </div>

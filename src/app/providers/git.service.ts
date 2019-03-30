@@ -677,4 +677,34 @@ export class GitService {
         }).catch(() => reject());
     });
   }
+
+  /* Fonction merge branche */
+  mergeBranches(mergeBranchName: string, fullPath: string) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      if (this.branchName !== mergeBranchName) {
+        gitPromise(fullPath).raw(['merge', mergeBranchName])
+        // this.gitP.mergeFromTo(mergeBranchName, this.branchName)
+          .then(() => {
+            this.gitP.commit('Merge branch \'' + mergeBranchName + '\' into ' + this.branchName)
+              .then(() => {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                  this.translate.instant('BRANCH.MERGE')));
+              });
+          })
+          .catch((err) => {
+            var ErrMsg = 'BRANCH.ERROR_MERGE';
+            console.log(err);
+            var AccessDenied = false;
+            if (err.toString().includes('conflicted')) {
+              ErrMsg = 'BRANCH.CONFLICTED';
+            }
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant(ErrMsg), AccessDenied));
+          });
+      } else {
+        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant('BRANCH.CURRENT')));
+      }
+    });
+  }
 }
