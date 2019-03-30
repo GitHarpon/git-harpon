@@ -6,6 +6,8 @@ import { GitService } from '../../providers/git.service';
 import { CommitDescription } from '../../models/CommitInformations';
 import { ClipboardService } from 'ngx-clipboard';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-view-commit',
@@ -30,7 +32,8 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   listStagedFilesSubscription: Subscription;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
-    private gitService: GitService, private clipboardService: ClipboardService) {
+    private gitService: GitService, private clipboardService: ClipboardService, private toastr: ToastrService,
+    private translateService: TranslateService) {
   }
 
   ngOnInit() {
@@ -71,6 +74,10 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
         this.currentDescription = data;
         this.setTree();
         this.setCommitDate();
+        this.loading = false;
+      }).catch(() => {
+        this.toastr.error(this.translateService.instant('ERROR'),
+          this.translateService.instant('NO_COMMIT_FOUND'));
         this.loading = false;
       });
     }

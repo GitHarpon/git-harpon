@@ -308,32 +308,36 @@ export class MockGitService {
 
     async commitDescription(hash: String) {
         return new Promise<CommitDescription>((resolve, reject) => {
-            resolve({
-                oid: 'd9159aa643063b627939dd434b4134371b1dcf0b',
-                message: 'Hello world',
-                tree: '0f154817e0dd2cc13bb8312082565ee9296fc293',
-                parent: [
-                    'e35d4be0cb6bbe7e852d6e9160b3a023f1b537d3'
-                ],
-                author: {
-                  name: 'toto',
-                  email: 'toto@mail.com',
-                  timestamp: 1552840891,
-                  timezoneOffset: -60
-                },
-                committer: {
-                  name: 'toto',
-                  email: 'toto@mail.com',
-                  timestamp: 1552840891,
-                  timezoneOffset: -60
-                },
-                gpgsig: null,
-                files: [
-                    {status: 'M', path: 'src/app/modified.txt'},
-                    {status: 'A', path: 'src/app/added'},
-                    {status: 'D', path: 'src/deleted.txt'}
-                ]
-              });
+            if (hash === '72267b6ad64858f2db2d597f67004b59e543928b') {
+                resolve({
+                    oid: 'd9159aa643063b627939dd434b4134371b1dcf0b',
+                    message: 'Hello world',
+                    tree: '0f154817e0dd2cc13bb8312082565ee9296fc293',
+                    parent: [
+                        'e35d4be0cb6bbe7e852d6e9160b3a023f1b537d3'
+                    ],
+                    author: {
+                    name: 'toto',
+                    email: 'toto@mail.com',
+                    timestamp: 1552840891,
+                    timezoneOffset: -60
+                    },
+                    committer: {
+                    name: 'toto',
+                    email: 'toto@mail.com',
+                    timestamp: 1552840891,
+                    timezoneOffset: -60
+                    },
+                    gpgsig: null,
+                    files: [
+                        {status: 'M', path: 'src/app/modified.txt'},
+                        {status: 'A', path: 'src/app/added'},
+                        {status: 'D', path: 'src/deleted.txt'}
+                    ]
+                });
+            } else {
+                reject();
+            }
         });
     }
 

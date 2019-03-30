@@ -204,15 +204,6 @@ describe('HomeComponent', () => {
     expect(component.projectModalVisible).toBeTruthy();
   });
 
-  it('tests the displaySearchInputValue function with valid repo name', () => {
-    const RepoName = '/repo';
-    component.repoName = RepoName;
-    expect(component.displaySearchInputValue()).toBeTruthy();
-  });
-
-  it('tests the displaySearchInputValue function with invalid repo name', () => {
-    expect(component.displaySearchInputValue()).toBeFalsy();
-  });
 
   it('tests the openHomeView function with valid repoName', () => {
     const RepoName = '/path';
@@ -263,5 +254,25 @@ describe('HomeComponent', () => {
 
   it('test the function onFocus with invalid parameter', () => {
     expect(component.onFocus()).toBeFalsy();
+  });
+
+  it('test the function setCommitHash with valid event', () => {
+    component.setCommitHash();
+
+    expect(component.commitHash).toBeDefined();
+  });
+
+  it('test the function onKeyUp with valid event', () => {
+    const Event = { key: 'Enter' };
+
+    component.onKeyUp(Event);
+
+    expect(component.commitHash).toBeDefined();
+  });
+
+  it('test the function onKeyUp with invalid event', () => {
+    const Event = { key: 'Something else' };
+
+    component.onKeyUp(Event);
   });
 });

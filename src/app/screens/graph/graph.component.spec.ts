@@ -85,11 +85,6 @@ describe('GraphComponent', () => {
     expect(component.graphSubscription.closed).toBeTruthy();
   });
 
-  it ('test the openViewCommit function', () => {
-    const Result = component.openViewCommit();
-    expect(Result).toBeTruthy();
-  });
-
   it ('test the openSendCommit function', () => {
     const Result = component.openSendCommit();
     expect(Result).toBeTruthy();

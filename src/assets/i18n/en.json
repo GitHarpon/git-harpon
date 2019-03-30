@@ -209,6 +209,10 @@
     "COMMIT": {
         "DESCRIPTION": "Commit description"
     },
+    "NO_COMMIT_FOUND": "This commit wasn't found",
+    "OPEN_PREFERENCES": "Open the preferences",
+    "OPEN_TERMINAL": "Open a terminal",
+    "SEARCH_COMMIT": "Search a commit",
     "MODIFIED": "modified",
     "ADDED": "added",
     "DELETED": "deleted",
