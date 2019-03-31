@@ -47,7 +47,7 @@ export class FileDiffCommitComponent implements OnDestroy {
   }
 
   openDiffView() {
-    // this.rightPanelService.setDiffViewVisible(true);
+    this.rightPanelService.setDiffViewVisible(true);
   }
 
   ngOnDestroy() {

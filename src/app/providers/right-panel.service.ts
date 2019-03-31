@@ -21,9 +21,9 @@ export class RightPanelService {
     this.emitIsViewSubject();
     this.listUnstagedFilesSubject = new Subject<any[]>();
     this.listStagedFilesSubject = new Subject<any[]>();
-    /*this.diffViewVisible = false;
     this.diffViewVisibleSubject = new Subject<Boolean>();
-    this.emitDiffViewVisibleSubject();*/
+    this.diffViewVisible = false;
+    this.emitDiffViewVisibleSubject();
   }
 
   emitIsViewSubject() {
@@ -38,19 +38,19 @@ export class RightPanelService {
     this.listStagedFilesSubject.next(this.listStagedFiles);
   }
 
-  /*emitDiffViewVisibleSubject() {
+  emitDiffViewVisibleSubject() {
     this.diffViewVisibleSubject.next(this.diffViewVisible);
-  }*/
+  }
 
   setView(view: boolean) {
     this.isView = view;
     this.emitIsViewSubject();
   }
 
-  /*setDiffViewVisible(diffViewVisible: boolean) {
+  setDiffViewVisible(diffViewVisible: boolean) {
     this.diffViewVisible = diffViewVisible;
     this.emitDiffViewVisibleSubject();
-  }*/
+  }
 
   setListFileCommit(listUnstagedFiles: any[], listStagedFiles: any[]) {
     this.listUnstagedFiles = listUnstagedFiles;
