@@ -308,7 +308,6 @@ export class GitService {
       if (this.repoName) {
         gitPromise(this.path).raw(['branch', '-m', oldName, newName])
           .then((result) => {
-            console.log(result);
             resolve(new ServiceResult(true, this.translate.instant('BRANCH.BRANCH_RENAME'),
               this.translate.instant('BRANCH.BRANCH_RENAME_SUCCESS')));
           }).catch((err) => {

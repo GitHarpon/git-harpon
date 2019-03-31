@@ -142,6 +142,11 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
+    jasmine.clock().install();
+  });
+
+  afterEach(function() {
+    jasmine.clock().uninstall();
   });
 
   it('tests the renameBranch function that success with valid arguments', (done) => {
@@ -197,6 +202,7 @@ describe('HomeComponent', () => {
     component.newBranchCouple.newBranch = Titi;
     component.newBranchNameForRenaming = Tata;
     component.updateRenaming();
+    jasmine.clock().tick(1);
     expect(component.newBranchNameForRenaming).toEqual(Toto);
   });
 
