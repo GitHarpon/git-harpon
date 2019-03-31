@@ -55,7 +55,6 @@ describe('HomeComponent', () => {
     /* tslint:disable */
     let component: HomeComponent;
     let fixture: ComponentFixture<HomeComponent>;
-    const Empty = '';
     /* tslint:enable */
 
   beforeEach(async(() => {
