@@ -59,6 +59,30 @@
     &__file-status {
         font-size: $fs-small;
     }
+
+    &__send-commit {
+        justify-content: center;
+        margin-left: 0px;
+
+        &__header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: $fs-small;
+        }
+
+        &__button {
+            margin: $gap-md;
+        }
+
+        &.dark {
+            background-color: $light-blue;
+        }
+
+        &.light {
+            background-color: $background-blue-light;
+        }
+    }
 }
 
 .copied {

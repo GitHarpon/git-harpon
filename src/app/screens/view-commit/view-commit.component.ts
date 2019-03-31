@@ -26,6 +26,10 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   loading: Boolean;
   currentTab: string;
   tree: Array<any>;
+  listUnstagedFiles: any[];
+  listUnstagedFilesSubscription: Subscription;
+  listStagedFiles: any[];
+  listStagedFilesSubscription: Subscription;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
     private gitService: GitService, private clipboardService: ClipboardService, private toastr: ToastrService,
@@ -47,6 +51,18 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
       }
     );
     this.rightPanelService.emitCommitHashSubject();
+
+    this.listUnstagedFilesSubscription = this.rightPanelService.listUnstagedFilesSubject.subscribe(
+      (listUnstagedFiles: any) => {
+        this.listUnstagedFiles = listUnstagedFiles;
+      });
+    this.rightPanelService.emitListUnstagedFilesSubject();
+
+    this.listStagedFilesSubscription = this.rightPanelService.listStagedFilesSubject.subscribe(
+      (listStagedFiles: any) => {
+        this.listStagedFiles = listStagedFiles;
+      });
+    this.rightPanelService.emitListStagedFilesSubject();
 
     this.currentTab = 'PATH';
   }
@@ -158,12 +174,23 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
     }
   }
 
+  viewChanges() {
+    this.rightPanelService.setView(false);
+    return true;
+  }
+
   ngOnDestroy() {
     if (this.themePrefSubscription) {
       this.themePrefSubscription.unsubscribe();
     }
     if (this.commitHashSubscription) {
       this.commitHashSubscription.unsubscribe();
+    }
+    if (this.listUnstagedFilesSubscription) {
+      this.listUnstagedFilesSubscription.unsubscribe();
+    }
+    if (this.listStagedFilesSubscription) {
+      this.listStagedFilesSubscription.unsubscribe();
     }
   }
 }

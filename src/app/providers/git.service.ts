@@ -677,4 +677,10 @@ export class GitService {
         }).catch(() => reject());
     });
   }
+
+  commitChanges(summary: string, description: any) {
+    this.gitP.commit(summary + '\n\n' + description).then(() => {
+      this.updateFilesDiff();
+    });
+  }
 }

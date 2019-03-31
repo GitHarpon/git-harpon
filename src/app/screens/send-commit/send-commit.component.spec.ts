@@ -17,6 +17,10 @@ import { MockTranslateLoader } from '../../models/MockTranslateLoader';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 import { TabsComponent } from '../../components/tabs/tabs.component';
+import { CommitTextAreaComponent } from '../../components/commit-text-area/commit-text-area.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+import { ClipboardModule } from 'ngx-clipboard';
 
 describe('SendCommitComponent', () => {
   /* tslint:disable */
@@ -32,9 +36,13 @@ describe('SendCommitComponent', () => {
         FileDiffCommitComponent,
         TreeItemComponent,
         TreeComponent,
-        TabsComponent
+        TabsComponent,
+        CommitTextAreaComponent
       ],
       imports: [
+        NgbModule,
+        FormsModule,
+        ClipboardModule,
         TranslateModule.forRoot({
           loader: {provide: TranslateLoader, useClass: MockTranslateLoader}
         }),
@@ -99,6 +107,14 @@ describe('SendCommitComponent', () => {
     component.listStagedFiles = [];
     component.addAllFile();
     expect(component.listStagedFiles[0].path).toBe(Path);
+  });
+
+  it ('test the commitChanges function', () => {
+    component.ngOnInit();
+    component.listStagedFiles = [];
+    component.addAllFile();
+    component.commitChanges();
+    expect(component.listStagedFiles[0]).toBeUndefined();
   });
 
   it ('test the removeAllFile function', () => {

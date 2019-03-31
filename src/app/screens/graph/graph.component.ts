@@ -34,12 +34,6 @@ export class GraphComponent implements OnInit, OnDestroy {
     this.graphService.setGraph();
   }
 
-
-  openSendCommit() {
-    this.rightPanelService.setView(false);
-    return true;
-  }
-
   ngOnDestroy() {
     if (this.themePrefSubscription) {
       this.themePrefSubscription.unsubscribe();
