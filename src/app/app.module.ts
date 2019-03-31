@@ -65,6 +65,7 @@ import { GraphService } from './providers/graph.service';
 import { TreeComponent } from './components/tree/tree.component';
 import { TreeItemComponent } from './components/tree-item/tree-item.component';
 import { TabsComponent } from './components/tabs/tabs.component';
+import { DiffViewComponent } from './screens/diff-view/diff-view.component';
 
 
 // AoT requires an exported function for factories
@@ -103,7 +104,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FileDiffCommitComponent,
     TreeComponent,
     TreeItemComponent,
-    TabsComponent
+    TabsComponent,
+    DiffViewComponent
   ],
   imports: [
     ReactiveFormsModule,

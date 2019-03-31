@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GitService } from '../../providers/git.service';
@@ -25,7 +25,6 @@ export class HomeComponent implements OnDestroy {
   currentUrl: String;
   cloneUrl: String;
   cloneFolder: string;
-  dimensions: number;
   style: Object;
   initName: string;
   initLocation: string;
@@ -65,6 +64,8 @@ export class HomeComponent implements OnDestroy {
   themePrefSubscription: Subscription;
   currentTheme: string;
   mainPanelVisible: boolean;
+  diffViewVisible: boolean;
+  diffViewVisibleSubscription: Subscription;
   leftPanelVisible: boolean;
   graphVisible: boolean;
   rightPanelVisible: boolean;
@@ -81,7 +82,8 @@ export class HomeComponent implements OnDestroy {
     private electronService: ElectronService, private gitService: GitService,
     private translateService: TranslateService, private terminalService: TerminalManagerService,
     private themePrefService: ThemePreferencesService, private leftPanelService: LeftPanelService,
-    private rightPanelService: RightPanelService, private graphService: GraphService) {
+    private rightPanelService: RightPanelService, private graphService: GraphService,
+    private cdRef: ChangeDetectorRef) {
 
     this.newBranchCouple = new NewBranchCouple();
     this.pathSubscription = this.gitService.pathSubject.subscribe(
@@ -123,7 +125,14 @@ export class HomeComponent implements OnDestroy {
     );
     this.gitService.emitHttpsUserSubject();
 
-    this.dimensions = 20;
+    /*this.diffViewVisibleSubscription = this.rightPanelService.diffViewVisibleSubject.subscribe(
+      (diffViewVisible: boolean) => {
+        this.diffViewVisible = diffViewVisible;
+        this.cdRef.detectChanges();
+      }
+    );*/
+    // this.rightPanelService.emitDiffViewVisibleSubject();
+
 
     this.cloneHttpsUser = {
       username: '',
@@ -665,5 +674,6 @@ export class HomeComponent implements OnDestroy {
     this.recentProjectSubscription.unsubscribe();
     this.branchNameSubscription.unsubscribe();
     this.currentHttpsUserSubscription.unsubscribe();
+    this.diffViewVisibleSubscription.unsubscribe();
   }
 }

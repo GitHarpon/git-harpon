@@ -78,9 +78,10 @@
                 </div>
             </div>
         </div>
-
-    <app-left-panel *ngIf="leftPanelVisible" (deleteBranchInfoBar)="openDeleteBranchInfoBar($event)" (createBranchInfoBar)="openCreateBranchInfoBar($event)" (checkoutInfoBarChange)="openCheckoutInfoBar($event)" [(newBranchCouple)]="newBranchCouple" (newBranchCoupleChange)="updateRenaming()"></app-left-panel>
-    <app-graph *ngIf="graphVisible"></app-graph>
+    
+    <app-diff-view *ngIf="diffViewVisible"></app-diff-view>
+    <app-left-panel *ngIf="leftPanelVisible && !diffViewVisible" (deleteBranchInfoBar)="openDeleteBranchInfoBar($event)" (createBranchInfoBar)="openCreateBranchInfoBar($event)" (checkoutInfoBarChange)="openCheckoutInfoBar($event)" [(newBranchCouple)]="newBranchCouple" (newBranchCoupleChange)="updateRenaming()"></app-left-panel>
+    <app-graph *ngIf="graphVisible && !diffViewVisible"></app-graph>
     <app-right-panel *ngIf="rightPanelVisible"></app-right-panel>
     
     </app-loader>

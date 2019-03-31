@@ -1,0 +1,10 @@
+@import '../../../variables.scss';
+
+.gh-diff-view {
+    display:inline-block;
+    height: calc(100% - 50px);
+    width: calc(100% - 350px);
+    padding: $gap-sm;
+    vertical-align: top;
+    overflow: auto;
+}
