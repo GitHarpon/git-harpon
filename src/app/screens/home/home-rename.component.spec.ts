@@ -55,7 +55,6 @@ describe('HomeComponent', () => {
     /* tslint:disable */
     let component: HomeComponent;
     let fixture: ComponentFixture<HomeComponent>;
-    const Empty = '';
     /* tslint:enable */
 
   beforeEach(async(() => {
@@ -188,5 +187,17 @@ describe('HomeComponent', () => {
     });
   });
 
+
+  it('tests the updateRenaming function', () => {
+    component.newBranchCouple = new NewBranchCouple();
+    const Toto = 'toto';
+    const Titi = 'titi';
+    const Tata = 'tata';
+    component.newBranchCouple.oldBranch = Toto;
+    component.newBranchCouple.newBranch = Titi;
+    component.newBranchNameForRenaming = Tata;
+    component.updateRenaming();
+    expect(component.newBranchNameForRenaming).toEqual(Toto);
+  });
 
 });
