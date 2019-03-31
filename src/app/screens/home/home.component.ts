@@ -436,7 +436,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   updateRenaming() {
-    this.newBranchNameForRenaming = this.newBranchCouple.oldBranch;
+    setTimeout(() => { this.newBranchNameForRenaming = this.newBranchCouple.oldBranch; }, 0);
   }
   async renameBranch() {
     var TmpNewBr = new NewBranchCouple();
