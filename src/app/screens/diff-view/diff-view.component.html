@@ -6,7 +6,7 @@
   <div class="col-md-12 mt-2">
     <app-tabs [data]="[{ title: 'INLINE_VIEW', icon: 'fa-list'}, { title: 'SPLIT_VIEW', icon: 'fa-columns' }]" [(value)]="currentView"></app-tabs>
   </div>
-  <div class="gh-diff-view-content" [ngClass]="[currentTheme]">
+  <div class="gh-diff-view-content mt-2" [ngClass]="[currentTheme]">
       <app-loader [loading]="loading">
         <div [innerHtml]="diffViewModel"></div>
       </app-loader>
