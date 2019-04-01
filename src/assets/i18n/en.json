@@ -226,5 +226,7 @@
     "STAGE_ALL_FILE": "Stage all changes",
     "UNSTAGE_ALL_FILE": "Unstage all changes",
     "STAGE_FILE": "Stage file",
-    "UNSTAGE_FILE": "Unstage file"
+    "UNSTAGE_FILE": "Unstage file",
+    "INLINE_VIEW": "Line by line",
+    "SPLIT_VIEW": "Side by side"
 }

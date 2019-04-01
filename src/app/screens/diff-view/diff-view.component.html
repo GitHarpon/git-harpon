@@ -3,7 +3,12 @@
     <div class="gh-diff-view-title-bar-name">DiffView</div>
     <div class="gh-diff-view-title-bar-close" [ngClass]="[currentTheme]" (click)="closeDiffView()"><i class="fa fa-times"></i></div>
   </div>
+  <div class="col-md-12 mt-2">
+    <app-tabs [data]="[{ title: 'INLINE_VIEW', icon: 'fa-list'}, { title: 'SPLIT_VIEW', icon: 'fa-columns' }]" [(value)]="currentView"></app-tabs>
+  </div>
   <div class="gh-diff-view-content" [ngClass]="[currentTheme]">
-    Content
+      <app-loader [loading]="loading">
+        <div [innerHtml]="diffViewModel"></div>
+      </app-loader>
   </div>
 </div>

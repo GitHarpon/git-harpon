@@ -3,6 +3,7 @@ import { GitService } from '../../providers/git.service';
 import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { RightPanelService } from '../../providers/right-panel.service';
+import { DiffFileInformation } from '../../models/DiffFileInformation';
 
 @Component({
   selector: 'app-file-diff-commit',
@@ -12,6 +13,8 @@ import { RightPanelService } from '../../providers/right-panel.service';
 export class FileDiffCommitComponent implements OnDestroy {
   @Input() listFiles: any[];
   @Input() componentType: any = 'stage';
+  @Input() diffFileInformation: DiffFileInformation;
+
   themePrefSubscription: Subscription;
   currentTheme: string;
 
@@ -46,8 +49,10 @@ export class FileDiffCommitComponent implements OnDestroy {
     return false;
   }
 
-  openDiffView() {
+  openDiffView(path) {
+    this.diffFileInformation.file = path;
     this.rightPanelService.setDiffViewVisible(true);
+    this.rightPanelService.setDiffFileInformationSubject(this.diffFileInformation);
   }
 
   ngOnDestroy() {
