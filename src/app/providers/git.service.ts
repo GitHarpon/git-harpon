@@ -692,24 +692,28 @@ export class GitService {
   mergeBranches(mergeBranchName: string, fullPath: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
       if (this.branchName !== mergeBranchName) {
-        gitPromise(fullPath).raw(['merge', mergeBranchName])
-        // this.gitP.mergeFromTo(mergeBranchName, this.branchName)
+        var CommitMessage = '"' + 'Merge Branch ' + mergeBranchName + ' into ' + this.branchName + '"';
+        gitPromise(fullPath).raw(['merge', mergeBranchName, '-m', CommitMessage])
           .then(() => {
             this.gitP.commit('Merge branch \'' + mergeBranchName + '\' into ' + this.branchName)
               .then(() => {
                 resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                   this.translate.instant('BRANCH.MERGE')));
+              })
+              .catch((err) => {
+                var ErrMsg = 'BRANCH.ERROR_MERGE';
+                console.log(err);
+                var AccessDenied = false;
+                if (err.toString().includes('Committing is not possible because you have unmerged files')) {
+                  ErrMsg = 'BRANCH.CONFLICTED';
+                }
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant(ErrMsg), AccessDenied));
               });
           })
           .catch((err) => {
-            var ErrMsg = 'BRANCH.ERROR_MERGE';
-            console.log(err);
-            var AccessDenied = false;
-            if (err.toString().includes('conflicted')) {
-              ErrMsg = 'BRANCH.CONFLICTED';
-            }
             reject(new ServiceResult(false, this.translate.instant('ERROR'),
-            this.translate.instant(ErrMsg), AccessDenied));
+            this.translate.instant('BRANCH.UNMERGE')));
           });
       } else {
         reject(new ServiceResult(false, this.translate.instant('ERROR'),
