@@ -41,5 +41,15 @@
     & .tree_file_item_button {
         display: none;
         font-size: $fs-small;
+        margin-left: auto;
     }
+}
+
+.file-item {
+    display: flex;
+}
+
+.tree_file_item_name {
+    white-space: nowrap;
+    overflow: hidden;
 }

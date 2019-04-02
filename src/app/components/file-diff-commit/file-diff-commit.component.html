@@ -2,11 +2,11 @@
   <div *ngFor="let file of listFiles" class="file-diff-commit_file" [ngClass]="[currentTheme]" data-toggle="tooltip" title="{{ file.path }}">
     <i class="fa mr-1" [ngClass]="[(file.status == 'M' ? 'fa-file-signature color-m' : ''), 
       (file.status == 'A' ? 'fa-file-medical color-a' : ''), (file.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>
-    <div class="file-diff-commit_file__name">{{ file.path }}</div>
-    <div *ngIf="componentType == 'unstage'" class="file-diff-commit_file_button float-right">
+    <div class="file-diff-commit_file__name">{{ limitFileName(file.path) }}</div>
+    <div *ngIf="componentType == 'unstage'" class="file-diff-commit_file_button">
       <app-button value="STAGE_FILE" smallButton="true" type="success" (buttonClicked)="addFile(file.path)"></app-button>
     </div>
-    <div *ngIf="componentType == 'stage'" class="file-diff-commit_file_button float-right">
+    <div *ngIf="componentType == 'stage'" class="file-diff-commit_file_button">
       <app-button value="UNSTAGE_FILE" smallButton="true" type="danger" (buttonClicked)="removeFile(file.path)"></app-button>
     </div>
   </div>
