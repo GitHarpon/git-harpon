@@ -66,6 +66,7 @@
 
     &_file {
         padding: $gap-sm;
+        display: flex;
 
         &.dark:hover {
             @include bg-color($dark-blue);
@@ -79,6 +80,11 @@
             & .file-diff-commit_file_button {
                 display: inline;
             }
+        }
+
+        &__name {
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         &_button {
