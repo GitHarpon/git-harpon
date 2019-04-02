@@ -26,5 +26,18 @@
         <app-file-diff-commit *ngIf="currentTab === 'PATH'" [listFiles]="listStagedFiles" componentType="stage"></app-file-diff-commit>
         <app-tree *ngIf="currentTab === 'TREE'" componentType="stage" [tree]="stageTree"></app-tree>
     </div>
+    
+    <div class="send-commit__commit mt-5">
+      <div class=" text-left send-commit_text">
+        {{ 'COMMIT_MESSAGE' | translate }}
+      </div>
+      <app-commit-text-area rows="3" descPlaceholder="DESCRIPTION" summaryPlaceholder="SUMMARY"
+        [(descValue)]="commitTextAreaValue.desc" [(summaryValue)]="commitTextAreaValue.summary"></app-commit-text-area>
+    </div>
+    <!-- button -->
+    <div class="send-commit__commit__button mt-2">
+      <app-button value="COMMIT_CHANGES" type="success" large="true" [disabled]="listStagedFiles.length < 1 || (!commitTextAreaValue.summary && !commitTextAreaValue.desc)" 
+        (buttonClicked)="commitChanges()"></app-button>
+    </div>
   </div>
 </div>

@@ -19,6 +19,8 @@ export class SendCommitComponent implements OnInit, OnDestroy {
   currentTab: string;
   unstageTree: Array<any>;
   stageTree: Array<any>;
+  commitTextAreaValue: any;
+  canCommit: Boolean = false;
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
     private rightPanelService: RightPanelService) { }
@@ -46,6 +48,10 @@ export class SendCommitComponent implements OnInit, OnDestroy {
     this.rightPanelService.emitListStagedFilesSubject();
 
     this.currentTab = 'PATH';
+    this.commitTextAreaValue = {
+      summary: '',
+      desc: ''
+    };
   }
 
   addAllFile() {
@@ -98,6 +104,14 @@ export class SendCommitComponent implements OnInit, OnDestroy {
 
       this.stageTree = Tree;
     }
+  }
+
+  commitChanges() {
+    this.gitService.commitChanges(this.commitTextAreaValue.summary, this.commitTextAreaValue.desc);
+    this.commitTextAreaValue = {
+      summary: '',
+      desc: ''
+    };
   }
 
   ngOnDestroy() {

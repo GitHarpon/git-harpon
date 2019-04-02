@@ -54,6 +54,12 @@
             float: right;
         }
     }
+
+    &__commit {
+        &__button {
+            height: 40px;
+        }
+    }
 }
 
 .visible {

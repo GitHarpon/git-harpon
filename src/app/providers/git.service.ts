@@ -308,11 +308,15 @@ export class GitService {
       if (this.repoName) {
         gitPromise(this.path).raw(['branch', '-m', oldName, newName])
           .then((result) => {
-            reject(new ServiceResult(true, this.translate.instant('BRANCH_RENAME_SUCESS'),
-              this.translate.instant('BRANCH_RENAME_ERROR')));
+            resolve(new ServiceResult(true, this.translate.instant('BRANCH.BRANCH_RENAME'),
+              this.translate.instant('BRANCH.BRANCH_RENAME_SUCCESS')));
+          }).catch((err) => {
+            reject(new ServiceResult(false, this.translate.instant('BRANCH.BRANCH_RENAME'),
+            this.translate.instant('BRANCH.BRANCH_RENAME_FAILURE')));
           });
       } else {
-        reject(null);
+        reject(new ServiceResult(false, this.translate.instant('BRANCH.BRANCH_RENAME'),
+        this.translate.instant('BRANCH.BRANCH_RENAME_FAILURE')));
       }
     });
   }
@@ -675,6 +679,12 @@ export class GitService {
           })
           .catch(() => reject());
         }).catch(() => reject());
+    });
+  }
+
+  commitChanges(summary: string, description: any) {
+    this.gitP.commit(summary + '\n\n' + description).then(() => {
+      this.updateFilesDiff();
     });
   }
 

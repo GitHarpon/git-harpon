@@ -187,6 +187,7 @@ export class ToolboxComponent implements OnInit {
     this.lightColorList = [
       'dark-blue-light',
       'light-blue-light',
+      'background-blue-light',
       'disabled-blue-light',
       'dark-green-light',
       'light-green-light',

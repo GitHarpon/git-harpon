@@ -137,8 +137,55 @@
             }
         }
     }
+
+    &.changes-dark {
+        @include bg-color($light-blue);
+        border-color: $muted-white;
+        cursor: pointer;
+        color: $muted-white;
+
+        &:hover {
+            color: $white;
+            border-color: $white;
+        }
+
+        &.disabled {
+            @include bg-color($light-blue);
+            border-color: $muted-white;
+            color: $muted-white;
+            
+            &:hover {
+                cursor: not-allowed;
+                color: $muted-white;
+                border-color: $muted-white;
+            }
+        }
+    }
+
+    &.changes-light {
+        @include bg-color($background-blue-light);
+        border-color: $dark;
+        cursor: pointer;
+        color: $dark;
+
+        &:hover {
+            color: $white;
+        }
+
+        &.disabled {
+
+            &:hover {
+                cursor: not-allowed;
+            }
+        }
+    }
 }
 
 .large {
     @include w100-h100();
+}
+
+.smallButton {
+    font-size: $fs-small;
+    border-width: 1px;
 }

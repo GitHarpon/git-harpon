@@ -232,7 +232,7 @@
 <app-info-bar [visible]="(newBranchCouple.oldBranch == '') ? false : true">
     <span>{{ 'BRANCH.NEW_BRANCH_NAME_PROMPT' | translate }}</span>
     <app-input [(value)]="newBranchNameForRenaming" [placeholder]="'BRANCH.NEW_BRANCH'" class="ml-3"></app-input>
-    <app-button class="ml-3" value="BRANCH.RENAME" type="success" [disabled]="!newBranchNameForRenaming" (buttonClicked)="renameBranch()"></app-button>
+    <app-button class="ml-3" value="BRANCH.RENAME" type="success" [disabled]="newBranchNameForRenaming == newBranchCouple.oldBranch || !newBranchNameForRenaming" (buttonClicked)="renameBranch()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeRenameBar()"></app-button>
 </app-info-bar>
 

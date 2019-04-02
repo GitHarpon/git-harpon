@@ -428,6 +428,10 @@ export class HomeComponent implements OnDestroy {
     this.cloneCredInfoBarVisible = false;
     this.resetCloneInputs();
   }
+
+  updateRenaming() {
+    setTimeout(() => { this.newBranchNameForRenaming = this.newBranchCouple.oldBranch; }, 0);
+  }
   async renameBranch() {
     var TmpNewBr = new NewBranchCouple();
     TmpNewBr.oldBranch = this.newBranchCouple.oldBranch;
@@ -441,6 +445,7 @@ export class HomeComponent implements OnDestroy {
       })
       .catch((data) => {
         this.closeRenameBar();
+        this.toastr.error(data.message, data.title);
       });
     }
   }

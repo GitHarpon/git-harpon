@@ -387,4 +387,10 @@ export class MockGitService {
             }
         });
     }
+
+    commitChanges(summary: string, description: any) {
+        var ListUnstagedFiles = [];
+        var ListStagedFiles = [];
+        this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
+    }
 }
