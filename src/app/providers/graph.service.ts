@@ -13,7 +13,8 @@ export class GraphService {
 
     setGraph() {
         this.gitService.getGraph().then((graph) => {
-            this.graph = graph.replace(/\n/g, '<br />');
+            this.graph = graph;
+            //this.graph = graph.replace(/\n/g, '<br />');
             this.graphSubject.next(this.graph);
         });
     }

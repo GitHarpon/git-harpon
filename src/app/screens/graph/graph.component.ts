@@ -12,7 +12,7 @@ import 'gitgraph.js';
 })
 export class GraphComponent implements OnInit, OnDestroy {
   themePrefSubscription: Subscription;
-  graph: string;
+  graph: any;
   graphSubscription: Subscription;
   currentTheme: string;
 
@@ -30,12 +30,13 @@ export class GraphComponent implements OnInit, OnDestroy {
     this.graphSubscription = this.graphService.graphSubject.subscribe(
       (graph) => {
         this.graph = graph;
+        this.setCommitGraph();
       }
     );
-    this.graphService.setGraph();
+    // this.graphService.setGraph();
 
 
-    this.setCommitGraph();
+    //this.setCommitGraph();
   }
 
 
@@ -45,6 +46,48 @@ export class GraphComponent implements OnInit, OnDestroy {
   }
 
   setCommitGraph() {
+    let MyTemplateConfig = {
+      //colors: [ '#F00', '#0F0', '#00F' ], // branches colors, 1 per column
+      branch: {
+        lineWidth: 8,
+        spacingX: 20
+      },
+      commit: {
+        spacingY: -40,
+        dot: {
+          size: 10
+        },
+        message: {
+          displayAuthor: false,
+          displayBranch: false,
+          displayHash: true,
+          font: 'normal 12pt Arial'
+        },
+        tooltipHTMLFormatter: function(commit) {
+          return "<b>" + commit.sha1 + "</b>" + ": " + commit.message;
+        },
+        shouldDisplayTooltipsInCompactMode: false
+      }
+    };
+    let MyTemplate = new GitGraph.Template( MyTemplateConfig);
+    let CommitGraph = new GitGraph({ template: MyTemplate, orientation: 'vertical-reverse' });
+
+    CommitGraph.branch('master');
+
+    console.log(this.graph);
+
+    for (let Ind = 0; Ind < this.graph.length; Ind++) {
+      CommitGraph.commit(
+        {
+          message: this.graph[Ind].message,
+          sha1: this.graph[Ind].hash.substr(0, 6),
+          author: this.graph[Ind].author_name
+        }
+      );
+    }
+  }
+
+  /*setCommitGraph() {
     let MyTemplateConfig = {
       //colors: [ '#F00', '#0F0', '#00F' ], // branches colors, 1 per column
       branch: {
@@ -100,7 +143,7 @@ export class GraphComponent implements OnInit, OnDestroy {
 
 
     // pour fermer le loader à la fin du rendu graph:render puis loader false
-  }
+  }*/
 
   ngOnDestroy() {
     if (this.themePrefSubscription) {
