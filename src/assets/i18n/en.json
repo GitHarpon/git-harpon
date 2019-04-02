@@ -137,6 +137,10 @@
         "ACCESS_DENIED": "Could not resolve host",
         "REPO_NOT_FOUND": "Repository not found",
         "CURRENT": "Cannot delete current branch",
+        "MERGE": "Merge",
+        "MERGE_CURRENT": "Cannot merge current branch itself",
+        "CONFLICTED": "Exists conflicts, you need to solve it manually",
+        "ERROR_MERGE": "Problem during the merge",
         "ERROR_DELETION": "Problem during the deletion branch",
         "ERROR": "Error during the checkout branch"
     },

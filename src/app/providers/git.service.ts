@@ -713,11 +713,11 @@ export class GitService {
           })
           .catch((err) => {
             reject(new ServiceResult(false, this.translate.instant('ERROR'),
-            this.translate.instant('BRANCH.UNMERGE')));
+            this.translate.instant('BRANCH.ERROR_MERGE')));
           });
       } else {
         reject(new ServiceResult(false, this.translate.instant('ERROR'),
-            this.translate.instant('BRANCH.CURRENT')));
+            this.translate.instant('BRANCH.MERGE_CURRENT')));
       }
     });
   }
