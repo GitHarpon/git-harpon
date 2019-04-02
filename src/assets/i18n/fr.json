@@ -167,6 +167,7 @@
         "OPENED_REPO": "Le dépôt a été ouvert avec succès",
         "NOT_GIT_REPO": "Ce répertoire n'est pas un répertoire git",
         "REPO_NOT_EXIST": "Ce répertoire n'existe plus",
+        "NO_COMMIT" : "Ce répertoire n'a pas de commit initial",
         "WHERE": "Où ouvrir",
         "ALREADY": "Déjà ouvert"
     },
