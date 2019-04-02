@@ -114,22 +114,26 @@ export class GitService {
         gitPromise(newPath).checkIsRepo()
           .then(isRepo => {
             if (isRepo) {
-              this.path = newPath;
-              this.repoName = this.electronService.path.basename(this.path);
-              this.emitRepoNameSubject();
-              this.electronService.process.chdir(this.path);
-              this.git.cwd(this.path);
-              this.gitP.cwd(this.path);
-              this.emitPathSubject();
-              this.registerProject(this.repoName, this.path);
-              this.updateFilesDiff();
-              this.getCurrentBranch();
-              this.revParseHEAD().then((data) => {
-                this.rightPanelService.setCommitHash(data.replace('\n', ''));
+              gitPromise(newPath).log().then(() => {
+                this.path = newPath;
+                this.repoName = this.electronService.path.basename(this.path);
+                this.emitRepoNameSubject();
+                this.electronService.process.chdir(this.path);
+                this.git.cwd(this.path);
+                this.gitP.cwd(this.path);
+                this.emitPathSubject();
+                this.registerProject(this.repoName, this.path);
+                this.updateFilesDiff();
+                this.getCurrentBranch();
+                this.revParseHEAD().then((data) => {
+                  this.rightPanelService.setCommitHash(data.replace('\n', ''));
+                });
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                  this.translate.instant('OPEN.OPENED_REPO')));
+              }).catch(() => {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                  this.translate.instant('OPEN.NO_COMMIT')));
               });
-              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-                this.translate.instant('OPEN.OPENED_REPO')));
-
             } else {
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
                 this.translate.instant('OPEN.NOT_GIT_REPO')));
