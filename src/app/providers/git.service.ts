@@ -421,6 +421,25 @@ export class GitService {
     });
   }
 
+  async rebaseBranches(currentBranch, rebaseBranchName) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      this.gitP.raw(['rebase', '--onto', currentBranch, rebaseBranchName])
+        .then(() => {
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.REBASED')));
+        })
+        .catch((err) => {
+          var ErrMsg = 'BRANCH.ERROR_REBASE';
+          var AccessDenied = false;
+          if (err.toString().includes('???')) {
+            ErrMsg = 'BRANCH.???';
+          }
+          reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant(ErrMsg), AccessDenied));
+        });
+    });
+  }
+
   getGraph() {
     return new Promise<any>((resolve, reject) => {
       gitPromise(this.path).raw(['log', '--graph', '--oneline', '--all', '--date-order']).then((result) => {
