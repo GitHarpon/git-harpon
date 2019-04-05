@@ -47,6 +47,7 @@ import { MockGraphService } from '../../models/MockGraphService';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 import { TabsComponent } from '../../components/tabs/tabs.component';
+import { DiffViewComponent } from '../diff-view/diff-view.component';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -77,7 +78,8 @@ describe('HomeComponent', () => {
         FileDiffCommitComponent,
         TreeItemComponent,
         TreeComponent,
-        TabsComponent
+        TabsComponent,
+        DiffViewComponent
       ],
       imports: [
         ContextMenuModule,

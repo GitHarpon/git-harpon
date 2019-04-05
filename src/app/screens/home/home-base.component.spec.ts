@@ -79,7 +79,8 @@ describe('HomeComponent', () => {
         FileDiffCommitComponent,
         TabsComponent,
         TreeComponent,
-        TreeItemComponent
+        TreeItemComponent,
+        DiffViewComponent
       ],
       imports: [
         ContextMenuModule,

@@ -100,8 +100,7 @@
             "karmaConfig": "src/karma.conf.js",
             "codeCoverageExclude": [
               "src/app/providers/*",
-              "src/app/models/**",
-              "src/app/components/monaco-wrapper/**"
+              "src/app/models/**"
             ],
             "scripts": [],
             "styles": [

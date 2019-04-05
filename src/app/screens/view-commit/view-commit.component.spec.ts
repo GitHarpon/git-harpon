@@ -25,6 +25,7 @@ import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 import { TabsComponent } from '../../components/tabs/tabs.component';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
+import { DiffViewComponent } from '../diff-view/diff-view.component';
 
 describe('ViewCommitComponent', () => {
   /* tslint:disable */
@@ -43,7 +44,8 @@ describe('ViewCommitComponent', () => {
         FileDiffCommitComponent,
         TreeItemComponent,
         TreeComponent,
-        TabsComponent
+        TabsComponent,
+        DiffViewComponent
       ],
       imports: [
         NgbModule,
