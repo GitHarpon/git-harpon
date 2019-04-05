@@ -524,10 +524,11 @@ export class GitService {
       this.gitP.raw(['remote', 'get-url', 'origin']).then((data) => {
         const Url = GitUrlParse(data);
         var Remote;
-        if (httpsUser.username) {
-          Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
+        if (httpsUser.password == '' || httpsUser.username == '') {
+          reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant('PUSH.INVALID_CRED')));
         } else {
-          Remote = `https://${Url.resource}${Url.pathname}`;
+          Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
         }
         this.gitP.raw(['push', '-u', Remote, branch])
         .then((result) => {
