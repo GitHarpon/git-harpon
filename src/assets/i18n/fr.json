@@ -137,6 +137,7 @@
         "ACCESS_DENIED": "Impossible de résoudre l'hôte",
         "REPO_NOT_FOUND": "Dépôt non trouvé",
         "CURRENT": "Vous ne pouvez pas effacer la branche courante",
+        "CONFLICT": "Il y a des conflits qui ont besoins d'être résolu",
         "ERROR_DELETION": "Erreur durant la suppression de branche",
         "ERROR": "Erreur durant le changement de branche"
     },

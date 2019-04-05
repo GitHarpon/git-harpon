@@ -432,7 +432,7 @@ export class GitService {
           var ErrMsg = 'BRANCH.ERROR_REBASE';
           var AccessDenied = false;
           if (err.toString().includes('???')) {
-            ErrMsg = 'BRANCH.???';
+            ErrMsg = 'BRANCH.CONFLICT';
           }
           reject(new ServiceResult(false, this.translate.instant('ERROR'),
             this.translate.instant(ErrMsg), AccessDenied));
