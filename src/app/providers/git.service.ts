@@ -698,7 +698,7 @@ export class GitService {
             this.gitP.commit('Merge branch \'' + mergeBranchName + '\' into ' + this.branchName)
               .then(() => {
                 resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-                  this.translate.instant('BRANCH.MERGE')));
+                  this.translate.instant('BRANCH.DONE')));
               })
               .catch((err) => {
                 var ErrMsg = 'BRANCH.ERROR_MERGE';

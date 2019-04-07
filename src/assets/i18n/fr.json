@@ -138,6 +138,7 @@
         "REPO_NOT_FOUND": "Dépôt non trouvé",
         "CURRENT": "Vous ne pouvez pas effacer la branche courante",
         "MERGE": "Fusionner",
+        "DONE": "Les deux branches ont été fusionné",
         "MERGE_CURRENT": "Vous ne pouvez pas fusionner une branche avec elle-même",
         "CONFLICTED": "Il existe des conflits, vous devez les régler manuellement",
         "ERROR_MERGE": "Erreur durant la fusion de branche",
