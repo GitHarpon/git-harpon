@@ -44,48 +44,9 @@ export class GraphComponent implements OnInit, OnDestroy {
 
   setCommitGraph() {
     if (this.graph) {
-      let MyTemplateConfig = {
-        //colors: [ '#F00', '#0F0', '#00F' ], // branches colors, 1 per column
-        branch: {
-          lineWidth: 8,
-          spacingX: 20
-        },
-        commit: {
-          spacingY: -40,
-          dot: {
-            size: 10
-          },
-          message: {
-            displayAuthor: false,
-            displayBranch: false,
-            displayHash: true,
-            font: 'normal 12pt Arial'
-          },
-          shouldDisplayTooltipsInCompactMode: false
-        }
-      };
-      let MyTemplate = new GitGraph.Template( MyTemplateConfig);
-      let CommitGraph = new GitGraph({ template: MyTemplate, orientation: 'vertical-reverse' });
+        this.graphService.drawGraph();
 
-      CommitGraph.branch('master');
-
-      console.log(this.graph);
-      console.log(this.graph[0].hash);
-      console.log(this.graph[0].hash.substr(0, 6));
-      console.log(this.graph[1].hash);
-      console.log(this.graph[1].hash.substr(0, 6));
-
-      /*for (let Ind = 0; Ind < this.graph.length; Ind++) {
-        CommitGraph.commit(
-          {
-            message: this.graph[Ind].message,
-            sha1: this.graph[Ind].hash.substr(0, 6),
-            author: this.graph[Ind].author_name
-          }
-        );
-      }*/
-
-      return true;
+        return true;
     }
 
     return false;

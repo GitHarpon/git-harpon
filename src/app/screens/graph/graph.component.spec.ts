@@ -75,10 +75,10 @@ describe('GraphComponent', () => {
     expect(component.graphSubscription).toBeDefined();
   });
 
-  /*it ('test the openSendCommit function', () => {
+  it ('test the openSendCommit function', () => {
     const Result = component.openSendCommit();
     expect(Result).toBeTruthy();
-  });*/
+  });
 
   it('test the setCommitGraph function with valid graph', () => {
     const Graph = [
@@ -102,9 +102,16 @@ describe('GraphComponent', () => {
     expect(Result).toBeTruthy();
   });
 
+  it('test the setCommitGraph function with invalid graph', () => {
+    const Undefined = undefined;
+    component.graph = Undefined;
+    const Result = component.setCommitGraph();
+    expect(Result).toBeFalsy();
+  });
 
 
-  /*it ('test the ngOnDestroy function with defined subscriptions', () => {
+
+  it ('test the ngOnDestroy function with defined subscriptions', () => {
     component.ngOnDestroy();
 
     expect(component.themePrefSubscription.closed).toBeTruthy();
@@ -120,5 +127,5 @@ describe('GraphComponent', () => {
 
     expect(component.themePrefSubscription).toBeUndefined();
     expect(component.graphSubscription).toBeUndefined();
-  });*/
+  });
 });
