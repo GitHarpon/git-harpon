@@ -226,5 +226,8 @@
     "STAGE_ALL_FILE": "Ajouter tout",
     "UNSTAGE_ALL_FILE": "Retirer tout",
     "STAGE_FILE": "Ajouter fichier",
-    "UNSTAGE_FILE": "Retirer fichier"
+    "UNSTAGE_FILE": "Retirer fichier",
+    "INLINE_VIEW": "Ligne par ligne",
+    "SPLIT_VIEW": "Côte à côte",
+    "UNSTAGED_ADDED_FILE": "Ce fichier est nouveau et unstage. Veuillez le stage pour visualiser les changements"
 }

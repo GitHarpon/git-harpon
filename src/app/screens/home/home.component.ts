@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GitService } from '../../providers/git.service';
@@ -25,7 +25,6 @@ export class HomeComponent implements OnDestroy {
   currentUrl: String;
   cloneUrl: String;
   cloneFolder: string;
-  dimensions: number;
   style: Object;
   initName: string;
   initLocation: string;
@@ -65,6 +64,8 @@ export class HomeComponent implements OnDestroy {
   themePrefSubscription: Subscription;
   currentTheme: string;
   mainPanelVisible: boolean;
+  diffViewVisible: boolean;
+  diffViewVisibleSubscription: Subscription;
   leftPanelVisible: boolean;
   graphVisible: boolean;
   rightPanelVisible: boolean;
@@ -123,7 +124,13 @@ export class HomeComponent implements OnDestroy {
     );
     this.gitService.emitHttpsUserSubject();
 
-    this.dimensions = 20;
+    this.diffViewVisibleSubscription = this.rightPanelService.diffViewVisibleSubject.subscribe(
+      (diffViewVisible: boolean) => {
+        this.diffViewVisible = diffViewVisible;
+      }
+    );
+    this.rightPanelService.emitDiffViewVisibleSubject();
+
 
     this.cloneHttpsUser = {
       username: '',
@@ -534,6 +541,7 @@ export class HomeComponent implements OnDestroy {
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
       this.rightPanelService.setView(true);
+      this.rightPanelService.setDiffViewVisible(false);
       this.graphService.setGraph();
     } else {
       this.mainPanelVisible = true;
@@ -546,6 +554,7 @@ export class HomeComponent implements OnDestroy {
     this.graphVisible = false;
     this.rightPanelVisible = false;
     this.rightPanelService.setCommitHash('');
+    this.rightPanelService.setDiffViewVisible(false);
   }
 
   openCheckoutInfoBar(remoteBranch) {
@@ -665,5 +674,6 @@ export class HomeComponent implements OnDestroy {
     this.recentProjectSubscription.unsubscribe();
     this.branchNameSubscription.unsubscribe();
     this.currentHttpsUserSubscription.unsubscribe();
+    this.diffViewVisibleSubscription.unsubscribe();
   }
 }

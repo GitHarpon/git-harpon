@@ -14,8 +14,8 @@
         {{ 'UNSTAGED_FILES' | translate }} ({{ listUnstagedFiles.length }})
         <app-button class="send-commit_text_button" value="STAGE_ALL_FILE" type="success" (buttonClicked)="addAllFile()"></app-button>
       </div>
-      <app-file-diff-commit *ngIf="currentTab === 'PATH'" [listFiles]="listUnstagedFiles" componentType="unstage"></app-file-diff-commit>
-      <app-tree *ngIf="currentTab === 'TREE'" componentType="unstage" [tree]="unstageTree"></app-tree>
+      <app-file-diff-commit [diffFileInformation]="diffFileInformation" *ngIf="currentTab === 'PATH'" [listFiles]="listUnstagedFiles" componentType="unstage"></app-file-diff-commit>
+      <app-tree *ngIf="currentTab === 'TREE'" componentType="unstage" [tree]="unstageTree" [diffFileInformation]="diffFileInformation"></app-tree>
     </div>
 
     <div class="text-left send-commit_unstage">
@@ -23,8 +23,8 @@
           {{ 'STAGED_FILES' | translate }} ({{ listStagedFiles.length }})
           <app-button class="send-commit_text_button" value="UNSTAGE_ALL_FILE" type="danger" (buttonClicked)="removeAllFile()"></app-button>
         </div>
-        <app-file-diff-commit *ngIf="currentTab === 'PATH'" [listFiles]="listStagedFiles" componentType="stage"></app-file-diff-commit>
-        <app-tree *ngIf="currentTab === 'TREE'" componentType="stage" [tree]="stageTree"></app-tree>
+        <app-file-diff-commit [diffFileInformation]="diffFileInformation" *ngIf="currentTab === 'PATH'" [listFiles]="listStagedFiles" componentType="stage"></app-file-diff-commit>
+        <app-tree *ngIf="currentTab === 'TREE'" componentType="stage" [tree]="stageTree" [diffFileInformation]="diffFileInformation"></app-tree>
     </div>
     
     <div class="send-commit__commit mt-5">

@@ -106,10 +106,26 @@ describe('FileDiffCommitComponent', () => {
     expect(Return).toBeFalsy();
   });
 
+  it('tests the openDiffView function', () => {
+    const Path = 'path/to/file';
+    component.diffFileInformation = {
+      children: '',
+      file: '',
+      isCurrentCommit: true,
+      parent: ''
+    };
+
+    component.openDiffView(Path);
+
+    expect(component.diffFileInformation.file).toBe(Path);
+  });
+
   it('tests the ngOnDestroy function with valid themePrefSubscription', () => {
     component.ngOnDestroy();
     expect(component.themePrefSubscription.closed).toBeTruthy();
   });
+
+
 
   it('tests the ngOnDestroy function with valid themePrefSubscription', () => {
     component.themePrefSubscription = undefined;

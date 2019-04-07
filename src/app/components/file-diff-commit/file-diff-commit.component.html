@@ -1,5 +1,5 @@
 <div class="file-diff-commit" [ngClass]="[componentType, currentTheme]">
-  <div *ngFor="let file of listFiles" class="file-diff-commit_file" [ngClass]="[currentTheme]" data-toggle="tooltip" title="{{ file.path }}">
+  <div *ngFor="let file of listFiles" class="file-diff-commit_file" [ngClass]="[currentTheme]" (click)="openDiffView(file.path)" data-toggle="tooltip" title="{{ file.path }}">
     <i class="fa mr-1" [ngClass]="[(file.status == 'M' ? 'fa-file-signature color-m' : ''), 
       (file.status == 'A' ? 'fa-file-medical color-a' : ''), (file.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>
     <div class="file-diff-commit_file__name">{{ limitFileName(file.path) }}</div>

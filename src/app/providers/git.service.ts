@@ -11,6 +11,7 @@ import { HttpsUser } from '../models/HttpsUser';
 import * as isomorphic from 'isomorphic-git';
 import { CommitDescription } from '../models/CommitInformations';
 import { RightPanelService } from './right-panel.service';
+import { DiffFileInformation } from '../models/DiffFileInformation';
 
 @Injectable()
 export class GitService {
@@ -71,6 +72,18 @@ export class GitService {
   setHttpsUser(newUser: HttpsUser) {
     this.httpsUser = newUser;
     this.emitHttpsUserSubject();
+  }
+
+  async getDiffFile(diffInformation: DiffFileInformation) {
+    if (diffInformation.isCurrentCommit) {
+      return this.gitP.raw(['diff', 'HEAD', '--', diffInformation.file]);
+    } else {
+      if (diffInformation.parent) {
+        return this.gitP.raw(['diff', diffInformation.parent, diffInformation.children, '--', diffInformation.file]);
+      } else {
+        return gitPromise().show([diffInformation.children, '--', diffInformation.file]);
+      }
+    }
   }
 
   init(initLocation: string, initName: string) {

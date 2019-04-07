@@ -1,8 +1,8 @@
 <div class="gh-tree" [ngClass]="[currentTheme]">
   <div>
     <ng-container *ngFor="let item of tree;">
-      <app-tree-item *ngIf="isFolder(item)" [item]="item" [depth]="0" [componentType]="componentType"></app-tree-item>
-      <div [ngClass]="[currentTheme]" *ngIf="!isFolder(item)" class="file-item" data-toggle="tooltip" [title]="item.file">
+      <app-tree-item *ngIf="isFolder(item)" [item]="item" [depth]="0" [componentType]="componentType" [diffFileInformation]="diffFileInformation"></app-tree-item>
+      <div [ngClass]="[currentTheme]" *ngIf="!isFolder(item)" class="file-item" data-toggle="tooltip" [title]="item.file" (click)="openDiffView(item.file)">
           <i class="mr-1 fa" [ngClass]="[(item.status == 'M' ? 'fa-file-signature color-m' : ''),
             (item.status == 'A' ? 'fa-file-medical color-a' : ''), (item.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>
           <div class="tree_file_name">{{ item.file }}</div>
