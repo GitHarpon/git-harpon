@@ -14,6 +14,7 @@ export class ButtonComponent {
   @Input() value: String;
   @Input() submit: Boolean = false;
   @Input() large: Boolean = false;
+  @Input() smallButton: Boolean = false;
   @Input() type: String = 'primary';
   @Output() buttonClicked: EventEmitter<any> = new EventEmitter<any>();
   themePrefSubscription: Subscription;

@@ -168,7 +168,8 @@
         "OPENED_REPO": "The repository was successfully opened",
         "NOT_GIT_REPO": "This is not a git repository",
         "REPO_NOT_EXIST": "The repository no longer exist",
-        "WHERE": "Where to clone",
+        "NO_COMMIT" : "The repository don't have an initial commit",
+        "WHERE": "Where to open",
         "ALREADY": "Already opened"
     },
     "INIT": {
@@ -195,6 +196,7 @@
     },
     "SEND_COMMIT": "Commit",
     "VIEW_COMMIT": "View commit",
+    "VIEW_CHANGES": "View changes",
     "LIGHT": "Light",
     "DARK": "Dark",
     "THEME": "Theme",
@@ -212,6 +214,8 @@
     "OPEN_PREFERENCES": "Open the preferences",
     "OPEN_TERMINAL": "Open a terminal",
     "SEARCH_COMMIT": "Search a commit",
+    "COMMIT_MESSAGE": "Commit message",
+    "COMMIT_CHANGES": "Stage files/changes to commit",
     "MODIFIED": "modified",
     "ADDED": "added",
     "DELETED": "deleted",

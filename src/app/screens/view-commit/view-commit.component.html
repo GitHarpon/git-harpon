@@ -1,5 +1,14 @@
 <app-loader [loading]="loading">
   <div class="view-commit" [ngClass]="currentTheme" *ngIf="!loading">
+    <div class="view-commit__send-commit col-md-12 text-center row" [ngClass]="[currentTheme]" *ngIf="listUnstagedFiles && listStagedFiles &&  listUnstagedFiles.length + listStagedFiles.length >= 1">
+      <div class="view-commit__send-commit__header" *ngIf="listUnstagedFiles.length + listStagedFiles.length <= 1">
+        {{ listUnstagedFiles.length + listStagedFiles.length }} {{ 'NB_FILE_COMMIT' | translate }}
+      </div>
+      <div class="view-commit__send-commit__header" *ngIf="listUnstagedFiles.length + listStagedFiles.length > 1">
+        {{ listUnstagedFiles.length + listStagedFiles.length }} {{ 'NB_FILES_COMMIT' | translate }}
+      </div>
+      <app-button class="view-commit__send-commit__button" value="VIEW_CHANGES" type="changes" smallButton="true" (buttonClicked)="viewChanges()"></app-button>
+    </div>
     <div class="view-commit__top">
       <div class="col-md-12 view-commit__hash">
         <span class="view-commit__hash__label">
