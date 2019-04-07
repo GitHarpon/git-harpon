@@ -7,63 +7,6 @@
     vertical-align: top;
     overflow: auto;
 
-    &-content .gh-diff-view-content-diff.light {
-
-        &::-webkit-scrollbar-track-piece  {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-        &::-webkit-scrollbar-thumb:vertical {
-            background-color: #C6C6C6;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        &::-webkit-scrollbar {
-            width: 5px;
-            height: 10px;
-        }
-        &::-webkit-scrollbar-button:start:decrement,
-        &::-webkit-scrollbar-button:end:increment  {
-            height: 10px;
-            background-color: transparent;
-        }
-        &::-webkit-scrollbar-track-piece  {
-            -webkit-border-radius: 16px;
-        }
-        &::-webkit-scrollbar-thumb:vertical {
-            height: 10px;
-            -webkit-border-radius: 16px;
-        }
-    }
-
-    &-content .gh-diff-view-content-diff.dark {
-        &::-webkit-scrollbar-track-piece  {
-            background-color: rgba(55, 56, 65, 0.3);
-        }
-        &::-webkit-scrollbar-thumb:vertical {
-            background-color: #373841;
-            border: 1px solid rgba(55, 56, 65, 0.3);
-        }
-
-        &::-webkit-scrollbar {
-            width: 5px;
-            height: 10px;
-        }
-        &::-webkit-scrollbar-button:start:decrement,
-        &::-webkit-scrollbar-button:end:increment  {
-            height: 10px;
-            background-color: transparent;
-        }
-        &::-webkit-scrollbar-track-piece  {
-            -webkit-border-radius: 16px;
-        }
-        &::-webkit-scrollbar-thumb:vertical {
-            height: 10px;
-            -webkit-border-radius: 16px;
-        }
-    }
-
-    
-
     &.dark {
         background: $dark;
         color: $white;
@@ -91,6 +34,31 @@
         &::-webkit-scrollbar-thumb:vertical {
             background-color: #C6C6C6;
             border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    &-content-diff {
+
+        
+        
+        & .d2h-file-diff {
+
+            &::-webkit-scrollbar {
+                width: 5px;
+                height: 10px;
+            }
+            &::-webkit-scrollbar-button:start:decrement,
+            &::-webkit-scrollbar-button:end:increment  {
+                height: 10px;
+                background-color: transparent;
+            }
+            &::-webkit-scrollbar-track-piece  {
+                -webkit-border-radius: 16px;
+            }
+            &::-webkit-scrollbar-thumb:vertical {
+                height: 10px;
+                -webkit-border-radius: 16px;
+            }
         }
     }
     
