@@ -5,12 +5,12 @@
       <div [ngClass]="[currentTheme]" *ngIf="!isFolder(item)" class="file-item" data-toggle="tooltip" [title]="item.file">
           <i class="mr-1 fa" [ngClass]="[(item.status == 'M' ? 'fa-file-signature color-m' : ''),
             (item.status == 'A' ? 'fa-file-medical color-a' : ''), (item.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>
-          {{ item.file }}
+          <div class="tree_file_name">{{ item.file }}</div>
           <div *ngIf="componentType == 'unstage'" class="tree_file_button float-right">
-            <app-button value="STAGE_FILE" type="success" (buttonClicked)="addFile(item.file)"></app-button>
+            <app-button value="STAGE_FILE" smallButton="true" type="success" (buttonClicked)="addFile(item.file)"></app-button>
           </div>
           <div *ngIf="componentType == 'stage'" class="tree_file_button float-right">
-            <app-button value="UNSTAGE_FILE" type="danger" (buttonClicked)="removeFile(item.file)"></app-button>
+            <app-button value="UNSTAGE_FILE" smallButton="true" type="danger" (buttonClicked)="removeFile(item.file)"></app-button>
           </div>
       </div>
     </ng-container>

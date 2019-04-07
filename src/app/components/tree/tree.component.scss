@@ -83,6 +83,7 @@
         & .tree_file_button {
             display: none;
             font-size: $fs-small;
+            margin-left: auto;
         }
     }
 
@@ -104,4 +105,13 @@
     .color-d {
         color: $dark-red-light;
     }
+}
+
+.file-item {
+    display: flex;
+}
+
+.tree_file_name {
+    white-space: nowrap;
+    overflow: hidden;
 }

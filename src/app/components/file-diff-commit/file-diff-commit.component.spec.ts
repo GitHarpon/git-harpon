@@ -61,10 +61,17 @@ describe('FileDiffCommitComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('tests the getFileNameFromPath function', () => {
+  it('tests the limitFileName function with valid path', () => {
     const Path = 'C:/Src/Projet/git-harpon';
-    const FileName = 'git-harpon';
-    expect(component.getFileNameFromPath(Path)).toBe(FileName);
+    const Return = component.limitFileName(Path);
+    expect(Return).toBe(Path);
+  });
+
+  it('tests the limitFileName function with too long path', () => {
+    const Path = 'C:/Src/Projet/git-harpon/tooMuchPathNeedToBeShortened';
+    const ShortenedPath = 'C:/Src/Projet/git...NeedToBeShortened';
+    const Return = component.limitFileName(Path);
+    expect(Return).toBe(ShortenedPath);
   });
 
   it('tests the addFile function with valid parameter', () => {

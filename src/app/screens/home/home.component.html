@@ -237,9 +237,9 @@
 <app-info-bar [visible]="pullrebaseCredInfoBarVisible">
     <span *ngIf="!pullrebaseAuthErrored">{{ 'LOG_TO_CONTINUE' | translate }}</span>
     <span *ngIf="pullrebaseAuthErrored" class="color-red">{{ 'WRONG_CRED' | translate }}</span>
-    <app-input [(value)]="currentHttpsUser.username" [placeholder]="'USERNAME'" class="ml-3"></app-input>
-    <app-input [(value)]="currentHttpsUser.password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
-    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!currentHttpsUser.username || !currentHttpsUser.password" (buttonClicked)="pullrebaseHttps()"></app-button>
+    <app-input [(value)]="pullrebaseHttpsUser.username" [placeholder]="'USERNAME'" class="ml-3"></app-input>
+    <app-input [(value)]="pullrebaseHttpsUser.password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
+    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!pullrebaseHttpsUser.username || !pullrebaseHttpsUser.password" (buttonClicked)="pullrebaseHttps()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closePullrebaseCredInfoBar()"></app-button>
 </app-info-bar>
 

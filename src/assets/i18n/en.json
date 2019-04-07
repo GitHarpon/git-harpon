@@ -168,7 +168,8 @@
         "OPENED_REPO": "The repository was successfully opened",
         "NOT_GIT_REPO": "This is not a git repository",
         "REPO_NOT_EXIST": "The repository no longer exist",
-        "WHERE": "Where to clone",
+        "NO_COMMIT" : "The repository don't have an initial commit",
+        "WHERE": "Where to open",
         "ALREADY": "Already opened"
     },
     "INIT": {

@@ -28,9 +28,16 @@ export class FileDiffCommitComponent implements OnDestroy {
     this.themePrefService.emitThemePreferencesSubject();
   }
 
-  getFileNameFromPath(path: string): string {
-    const TabString = path.split('/');
-    return  TabString[TabString.length - 1];
+  limitFileName(path: string): string {
+    const FileNameLimit = 34;
+    if (path.length > FileNameLimit) {
+      let ShortenedPath = '';
+      ShortenedPath += path.substr(0, FileNameLimit / 2);
+      ShortenedPath += '...';
+      ShortenedPath += path.substr(path.length - FileNameLimit / 2, FileNameLimit / 2);
+      return ShortenedPath;
+    }
+    return path;
   }
 
   addFile(path: any) {
