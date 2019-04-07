@@ -690,5 +690,9 @@ export class GitService {
     this.gitP.commit(summary + '\n\n' + description).then(() => {
       this.updateFilesDiff();
     });
+    this.revParseHEAD().then((data) => {
+      this.rightPanelService.setCommitHash(data.replace('\n', ''));
+    });
+    this.rightPanelService.setView(true);
   }
 }
