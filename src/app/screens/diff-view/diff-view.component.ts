@@ -64,7 +64,7 @@ export class DiffViewComponent implements OnInit, OnDestroy {
         this.diffViewModel = OutputHtml;
         this.loading = false;
       })
-      .catch(() =>  {
+      .catch((err) =>  {
         this.loading = false;
         this.isUnstagedAndAdded = true;
       });

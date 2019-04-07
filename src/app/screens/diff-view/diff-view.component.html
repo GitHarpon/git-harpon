@@ -9,7 +9,7 @@
   <div class="gh-diff-view-content mt-2" [ngClass]="[currentTheme]">
       <app-loader [loading]="loading">
         <div *ngIf="!isUnstagedAndAdded" class="gh-diff-view-content-diff" [ngClass]="[currentTheme]"  [innerHtml]="diffViewModel"></div>
-        <div *ngIf="isUnstagedAndAdded">
+        <div *ngIf="isUnstagedAndAdded" class="text-center mt-3">
             {{ 'UNSTAGED_ADDED_FILE' | translate }}
         </div>
       </app-loader>

@@ -236,6 +236,23 @@ describe('TreeItemComponent', () => {
     expect(Result).toEqual(ExpectedReturn);
   });
 
+  it('tests the openDiffView function', () => {
+    const Folder = {
+      file: 'file1'
+    };
+    component.item = Folder;
+    component.diffFileInformation = {
+      children: '',
+      file: '',
+      isCurrentCommit: true,
+      parent: ''
+    };
+
+    component.openDiffView();
+
+    expect(component.diffFileInformation.file).toBeDefined();
+  });
+
   it('tests the ngOnDestroy function with valid themePrefSubscription', () => {
     component.ngOnDestroy();
     expect(component.themePrefSubscription.closed).toBeTruthy();

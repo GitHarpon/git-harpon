@@ -64,7 +64,7 @@
     </div>
     <div class="container view-commit__bottom">
       <app-file-diff-commit [diffFileInformation]="diffFileInformation" *ngIf="currentTab === 'PATH'" [listFiles]="currentDescription?.files" componentType="view"></app-file-diff-commit>
-      <app-tree *ngIf="currentTab === 'TREE'" componentType="view" [tree]="tree"></app-tree>
+      <app-tree *ngIf="currentTab === 'TREE'" componentType="view" [tree]="tree" [diffFileInformation]="diffFileInformation"></app-tree>
     </div>
   </div>
 </app-loader>

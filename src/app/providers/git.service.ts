@@ -78,8 +78,11 @@ export class GitService {
     if (diffInformation.isCurrentCommit) {
       return this.gitP.raw(['diff', 'HEAD', '--', diffInformation.file]);
     } else {
-      return this.gitP.raw(['diff', diffInformation.parent, diffInformation.children, '--', diffInformation.file]);
-
+      if (diffInformation.parent) {
+        return this.gitP.raw(['diff', diffInformation.parent, diffInformation.children, '--', diffInformation.file]);
+      } else {
+        return gitPromise().show([diffInformation.children, '--', diffInformation.file]);
+      }
     }
   }
 
