@@ -8,7 +8,10 @@
   </div>
   <div class="gh-diff-view-content mt-2" [ngClass]="[currentTheme]">
       <app-loader [loading]="loading">
-        <div [innerHtml]="diffViewModel"></div>
+        <div *ngIf="isUnstagedAndAdded" [innerHtml]="diffViewModel"></div>
+        <div *ngIf="isUnstagedAndAdded">
+            TOTO
+        </div>
       </app-loader>
   </div>
 </div>

@@ -19,6 +19,7 @@ export class DiffViewComponent implements OnInit, OnDestroy {
   diffViewModel: any;
   loading = true;
   _currentView: string;
+  isUnstagedAndAdded: boolean;
 
   get currentView(): string {
     return this._currentView;
@@ -52,6 +53,7 @@ export class DiffViewComponent implements OnInit, OnDestroy {
 
   async setDiffViewModel() {
     this.loading = true;
+    this.isUnstagedAndAdded = false;
     return this.gitService.getDiffFile(this.diffFileInformation)
       .then((data) => {
         const OutputHtml = Diff2Html.getPrettyHtml(data, {
@@ -62,7 +64,10 @@ export class DiffViewComponent implements OnInit, OnDestroy {
         this.diffViewModel = OutputHtml;
         this.loading = false;
       })
-      .catch((err) =>  this.loading = false);
+      .catch(() =>  {
+        this.loading = false;
+        this.isUnstagedAndAdded = true;
+      });
   }
 
   closeDiffView() {

@@ -28,7 +28,6 @@ import { ThemePreferencesService } from './providers/theme-preferences.service';
 import { WebviewDirective } from './directives/webview.directive';
 
 import { AppComponent } from './app.component';
-import { MonacoEditorWrapperComponent } from './components/apper/monaco-editor-wrapper.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WebStorageModule } from 'ngx-store';
@@ -77,7 +76,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     WebviewDirective,
-    MonacoEditorWrapperComponent,
     FooterComponent,
     HomeComponent,
     ToolboxComponent,
