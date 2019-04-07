@@ -708,12 +708,12 @@ export class GitService {
                   ErrMsg = 'BRANCH.CONFLICTED';
                 }
                 reject(new ServiceResult(false, this.translate.instant('ERROR'),
-                this.translate.instant(ErrMsg), AccessDenied));
+                    this.translate.instant(ErrMsg), AccessDenied));
               });
           })
           .catch((err) => {
             reject(new ServiceResult(false, this.translate.instant('ERROR'),
-            this.translate.instant('BRANCH.ERROR_MERGE')));
+                this.translate.instant('BRANCH.ERROR_MERGE')));
           });
       } else {
         reject(new ServiceResult(false, this.translate.instant('ERROR'),

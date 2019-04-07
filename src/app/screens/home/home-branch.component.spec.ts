@@ -415,4 +415,64 @@ describe('HomeComponent', () => {
     expect(component.homeLoading).toBeFalsy();
   });
 
+  it('tests the mergeBranch function case branchName != mergeBranchName and fullPath == "goodPath"', (done) => {
+    const BranchName = 'branchName';
+    const MergeBranchName = 'mergeBranchName';
+    const HomeLoading = true;
+    const FullPath = 'goodPath';
+    component.branchName = BranchName;
+    component.homeLoading = HomeLoading;
+    component.fullPath = FullPath;
+
+    component.mergeBranch(MergeBranchName).then(() => {
+      expect(component.homeLoading).toBeFalsy();
+      expect(component.mergeBranchName).toBe('');
+      done();
+    });
+  });
+
+  it('tests the mergeBranch function case branchName != mergeBranchName and fullPath == "conflictPath"', (done) => {
+    const BranchName = 'branchName';
+    const MergeBranchName = 'mergeBranchName';
+    const HomeLoading = true;
+    const FullPath = 'conflictPath';
+    component.branchName = BranchName;
+    component.homeLoading = HomeLoading;
+    component.fullPath = FullPath;
+
+    component.mergeBranch(MergeBranchName).then(() => {
+      expect(component.homeLoading).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the mergeBranch function case branchName != mergeBranchName and fullPath == "otherPath"', (done) => {
+    const BranchName = 'branchName';
+    const MergeBranchName = 'mergeBranchName';
+    const HomeLoading = true;
+    const FullPath = 'otherPath';
+    component.branchName = BranchName;
+    component.homeLoading = HomeLoading;
+    component.fullPath = FullPath;
+
+    component.mergeBranch(MergeBranchName).then(() => {
+      expect(component.homeLoading).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the mergeBranch function case branchName == mergeBranchName', (done) => {
+    const BranchName = 'branchName';
+    const MergeBranchName = 'branchName';
+    const HomeLoading = true;
+    const FullPath = 'goodPath';
+    component.branchName = BranchName;
+    component.homeLoading = HomeLoading;
+    component.fullPath = FullPath;
+
+    component.mergeBranch(MergeBranchName).then(() => {
+      expect(component.homeLoading).toBeFalsy();
+      done();
+    });
+  });
 });

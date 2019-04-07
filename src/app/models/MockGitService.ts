@@ -393,4 +393,27 @@ export class MockGitService {
         var ListStagedFiles = [];
         this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
     }
+
+    async mergeBranches(mergeBranchName: string, fullPath: string) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (this.branchName !== mergeBranchName) {
+                var ErrMsg = 'BRANCH.ERROR_MERGE';
+                var AccessDenied = false;
+                if (fullPath == 'goodPath') {
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                        this.translate.instant('BRANCH.MERGE')));
+                } else if (fullPath == 'conflictPath') {
+                    ErrMsg = 'BRANCH.CONFLICTED';
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant(ErrMsg), AccessDenied));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('BRANCH.ERROR_MERGE')));
+                }
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.MERGE_CURRENT')));
+            }
+        });
+    }
 }
