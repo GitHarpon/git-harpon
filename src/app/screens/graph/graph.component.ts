@@ -33,10 +33,7 @@ export class GraphComponent implements OnInit, OnDestroy {
         this.setCommitGraph();
       }
     );
-    // this.graphService.setGraph();
-
-
-    //this.setCommitGraph();
+    this.graphService.setGraph();
   }
 
 
@@ -46,104 +43,53 @@ export class GraphComponent implements OnInit, OnDestroy {
   }
 
   setCommitGraph() {
-    let MyTemplateConfig = {
-      //colors: [ '#F00', '#0F0', '#00F' ], // branches colors, 1 per column
-      branch: {
-        lineWidth: 8,
-        spacingX: 20
-      },
-      commit: {
-        spacingY: -40,
-        dot: {
-          size: 10
+    if (this.graph) {
+      let MyTemplateConfig = {
+        //colors: [ '#F00', '#0F0', '#00F' ], // branches colors, 1 per column
+        branch: {
+          lineWidth: 8,
+          spacingX: 20
         },
-        message: {
-          displayAuthor: false,
-          displayBranch: false,
-          displayHash: true,
-          font: 'normal 12pt Arial'
-        },
-        tooltipHTMLFormatter: function(commit) {
-          return "<b>" + commit.sha1 + "</b>" + ": " + commit.message;
-        },
-        shouldDisplayTooltipsInCompactMode: false
-      }
-    };
-    let MyTemplate = new GitGraph.Template( MyTemplateConfig);
-    let CommitGraph = new GitGraph({ template: MyTemplate, orientation: 'vertical-reverse' });
-
-    CommitGraph.branch('master');
-
-    console.log(this.graph);
-
-    for (let Ind = 0; Ind < this.graph.length; Ind++) {
-      CommitGraph.commit(
-        {
-          message: this.graph[Ind].message,
-          sha1: this.graph[Ind].hash.substr(0, 6),
-          author: this.graph[Ind].author_name
+        commit: {
+          spacingY: -40,
+          dot: {
+            size: 10
+          },
+          message: {
+            displayAuthor: false,
+            displayBranch: false,
+            displayHash: true,
+            font: 'normal 12pt Arial'
+          },
+          shouldDisplayTooltipsInCompactMode: false
         }
-      );
+      };
+      let MyTemplate = new GitGraph.Template( MyTemplateConfig);
+      let CommitGraph = new GitGraph({ template: MyTemplate, orientation: 'vertical-reverse' });
+
+      CommitGraph.branch('master');
+
+      console.log(this.graph);
+      console.log(this.graph[0].hash);
+      console.log(this.graph[0].hash.substr(0, 6));
+      console.log(this.graph[1].hash);
+      console.log(this.graph[1].hash.substr(0, 6));
+
+      /*for (let Ind = 0; Ind < this.graph.length; Ind++) {
+        CommitGraph.commit(
+          {
+            message: this.graph[Ind].message,
+            sha1: this.graph[Ind].hash.substr(0, 6),
+            author: this.graph[Ind].author_name
+          }
+        );
+      }*/
+
+      return true;
     }
+
+    return false;
   }
-
-  /*setCommitGraph() {
-    let MyTemplateConfig = {
-      //colors: [ '#F00', '#0F0', '#00F' ], // branches colors, 1 per column
-      branch: {
-        lineWidth: 8,
-        spacingX: 20
-      },
-      commit: {
-        spacingY: -40,
-        dot: {
-          size: 10
-        },
-        message: {
-          displayAuthor: false,
-          displayBranch: false,
-          displayHash: true,
-          font: 'normal 12pt Arial'
-        },
-        tooltipHTMLFormatter: function(commit) {
-          return "<b>" + commit.sha1 + "</b>" + ": " + commit.message;
-        },
-        shouldDisplayTooltipsInCompactMode: false
-      }
-    };
-    let MyTemplate = new GitGraph.Template( MyTemplateConfig);
-    let CommitGraph = new GitGraph({ template: MyTemplate });
-
-
-    let Master = CommitGraph.branch('master');
-    let Megabranch = CommitGraph.branch('megabranch');
-    let Topicbranch = Megabranch.branch('topicbranch');
-    let Anothertopic = Megabranch.branch('anothertopic');
-    CommitGraph.commit({message: 'Commit on master', sha1: 'shaaa1'});
-    Megabranch.commit('Create a megabranch');
-    Megabranch.commit('Commit on megabranch');
-    Master.commit({message: 'A commit to master', author: 'Cyrielle Angoula Meka'});
-    Topicbranch.commit({message: 'A commit to topicbranch', author: 'Martin Blondel'});
-    Master.merge(Megabranch);
-    Topicbranch.commit({message: 'one more', author: 'Julien Besnier'});
-    Anothertopic.commit({message: 'over and over', author: 'Clément Drouin'});
-    Master.merge(Megabranch);
-    Anothertopic.commit({message: 'encore un peu ça fait plaisir', author: 'Antoine Guillory'});
-    Anothertopic.merge(Megabranch, {author: 'Julien Lamy'});
-    Megabranch.commit('Et toc');
-    Megabranch.merge(Anothertopic);
-    Megabranch.commit('Last one');
-    Anothertopic.merge(Megabranch, {author: 'Julien Lamy'});
-    Master.commit({message: 'Vrai dernier'});
-    Megabranch.merge(Master);
-
-    // Faire test avec isomorphic
-    // créer directement branche depuis le graphe pour ensuite associer au parentCommit ?? TODO
-
-
-
-    // pour fermer le loader à la fin du rendu graph:render puis loader false
-  }*/
 
   ngOnDestroy() {
     if (this.themePrefSubscription) {
