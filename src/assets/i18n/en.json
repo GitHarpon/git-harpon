@@ -229,5 +229,6 @@
     "STAGE_FILE": "Stage file",
     "UNSTAGE_FILE": "Unstage file",
     "INLINE_VIEW": "Line by line",
-    "SPLIT_VIEW": "Side by side"
+    "SPLIT_VIEW": "Side by side",
+    "UNSTAGED_ADDED_FILE": "This file is new and unstage. Please, stage it to see changes"
 }

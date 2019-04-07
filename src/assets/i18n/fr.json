@@ -228,5 +228,6 @@
     "STAGE_FILE": "Ajouter fichier",
     "UNSTAGE_FILE": "Retirer fichier",
     "INLINE_VIEW": "Ligne par ligne",
-    "SPLIT_VIEW": "Côte à côte"
+    "SPLIT_VIEW": "Côte à côte",
+    "UNSTAGED_ADDED_FILE": "Ce fichier est nouveau et unstage. Veuillez le stage pour visualiser les changements"
 }

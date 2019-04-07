@@ -541,6 +541,7 @@ export class HomeComponent implements OnDestroy {
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
       this.rightPanelService.setView(true);
+      this.rightPanelService.setDiffViewVisible(false);
       this.graphService.setGraph();
     } else {
       this.mainPanelVisible = true;
