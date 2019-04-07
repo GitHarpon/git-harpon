@@ -22,6 +22,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
 import { DiffViewComponent } from '../diff-view/diff-view.component';
+import { LoaderComponent } from '../../components/loader/loader.component';
 
 describe('SendCommitComponent', () => {
   /* tslint:disable */
@@ -39,7 +40,8 @@ describe('SendCommitComponent', () => {
         TreeComponent,
         TabsComponent,
         CommitTextAreaComponent,
-        DiffViewComponent
+        DiffViewComponent,
+        LoaderComponent
       ],
       imports: [
         NgbModule,

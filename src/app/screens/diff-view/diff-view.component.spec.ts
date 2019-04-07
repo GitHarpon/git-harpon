@@ -22,6 +22,9 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ClipboardModule } from 'ngx-clipboard';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
+import { LeftPanelComponent } from '../left-panel/left-panel.component';
+import { LeftPanelService } from '../../providers/left-panel.service';
 
 describe('DiffViewComponent', () => {
   /* tslint:disable */
@@ -63,6 +66,10 @@ describe('DiffViewComponent', () => {
           useClass: MockRightPanelService
         },
         {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
+        },
+        {
           provide: GitService,
           useClass: MockGitService
         }
@@ -79,5 +86,55 @@ describe('DiffViewComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('tests the setDiffViewModel with valid result and INLINE_VIEW', (done) => {
+    component.currentView = 'INLINE_VIEW';
+    component.diffFileInformation = {
+      children: '',
+      file: '',
+      isCurrentCommit: true,
+      parent: ''
+    };
+
+    component.setDiffViewModel().then(() => {
+      expect(component.diffViewModel).toBeDefined();
+      expect(component.loading).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the setDiffViewModel with valid result and DIFF_VIEW', (done) => {
+    component.currentView = 'DIFF_VIEW';
+    component.diffFileInformation = {
+      children: '',
+      file: '',
+      isCurrentCommit: true,
+      parent: ''
+    };
+
+    component.setDiffViewModel().then(() => {
+      expect(component.diffViewModel).toBeDefined();
+      expect(component.loading).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the setDiffViewModel with invalid result', (done) => {
+    component.diffFileInformation = {
+      children: '',
+      file: '',
+      isCurrentCommit: false,
+      parent: ''
+    };
+
+    component.setDiffViewModel().then(() => {
+      expect(component.loading).toBeFalsy();
+      done();
+    });
+  });
+
+  it('tests the closeDiffView', () => {
+    component.closeDiffView();
   });
 });

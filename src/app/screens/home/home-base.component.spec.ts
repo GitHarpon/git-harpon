@@ -48,6 +48,7 @@ import { MockGraphService } from '../../models/MockGraphService';
 import { TabsComponent } from '../../components/tabs/tabs.component';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
+import { DiffViewComponent } from '../diff-view/diff-view.component';
 
 describe('HomeComponent', () => {
   /* tslint:disable */

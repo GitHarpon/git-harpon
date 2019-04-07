@@ -62,7 +62,7 @@ export class DiffViewComponent implements OnInit, OnDestroy {
         this.diffViewModel = OutputHtml;
         this.loading = false;
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>  this.loading = false);
   }
 
   closeDiffView() {
@@ -70,9 +70,7 @@ export class DiffViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.themePrefSubscription) {
-      this.themePrefSubscription.unsubscribe();
-    }
+    this.themePrefSubscription.unsubscribe();
   }
 
 }
