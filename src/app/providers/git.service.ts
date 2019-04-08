@@ -711,7 +711,7 @@ export class GitService {
   mergeBranches(mergeBranchName: string, fullPath: string) {
     return new Promise<ServiceResult>((resolve, reject) => {
       if (this.branchName !== mergeBranchName) {
-        var CommitMessage = '"' + 'Merge Branch ' + mergeBranchName + ' into ' + this.branchName + '"';
+        var CommitMessage = 'Merge Branch ' + mergeBranchName + ' into ' + this.branchName;
         gitPromise(fullPath).raw(['merge', mergeBranchName, '-m', CommitMessage])
           .then(() => {
             this.gitP.commit('Merge branch \'' + mergeBranchName + '\' into ' + this.branchName)
