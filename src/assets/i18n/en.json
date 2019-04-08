@@ -138,7 +138,7 @@
         "REPO_NOT_FOUND": "Repository not found",
         "CURRENT": "Cannot delete current branch",
         "MERGE": "Merge",
-        "DONE": "The two branches were cloned",
+        "DONE": "Both branches were cloned",
         "MERGE_CURRENT": "Cannot merge current branch itself",
         "CONFLICTED": "Exists conflicts, you need to solve it manually",
         "ERROR_MERGE": "Problem during the merge",
