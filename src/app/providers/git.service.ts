@@ -539,10 +539,10 @@ export class GitService {
       this.gitP.raw(['remote', 'get-url', 'origin']).then((data) => {
         const Url = GitUrlParse(data);
         var Remote;
-        if (httpsUser.username) {
-          Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
+        if (httpsUser.password == '' || httpsUser.username == '') {
+          Remote = `https://null:null@${Url.resource}${Url.pathname}`;
         } else {
-          Remote = `https://${Url.resource}${Url.pathname}`;
+          Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
         }
         this.gitP.raw(['push', '-u', Remote, branch])
         .then((result) => {
