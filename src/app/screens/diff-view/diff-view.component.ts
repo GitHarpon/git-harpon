@@ -58,7 +58,6 @@ export class DiffViewComponent implements OnInit, OnDestroy {
       .then((data) => {
         const OutputHtml = Diff2Html.getPrettyHtml(data, {
           inputFormat: 'diff',
-          matching: 'lines',
           outputFormat: this.currentView === 'INLINE_VIEW' ? '' : 'side-by-side'
         });
         this.diffViewModel = OutputHtml;
