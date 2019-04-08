@@ -5,7 +5,6 @@
     height: calc(100% - 50px);
     width: calc(100% - 350px);
     vertical-align: top;
-    overflow: auto;
 
     &.dark {
         background: $dark;
@@ -36,6 +35,19 @@
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
     }
+
+    /*&-fixed-top {
+        position: fixed;
+        width: calc(100% - 352px);
+    }
+
+    
+
+    &-content {
+        margin-top: 75px;
+        overflow: auto;
+        height: calc(100% - 75px);
+    }*/
 
     &-content-diff {
 
