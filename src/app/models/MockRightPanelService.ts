@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { DiffFileInformation } from './DiffFileInformation';
 
 @Injectable()
 export class MockRightPanelService {
@@ -11,6 +12,10 @@ export class MockRightPanelService {
     listUnstagedFilesSubject: Subject<any[]>;
     listStagedFiles: any[];
     listStagedFilesSubject: Subject<any[]>;
+    diffViewVisible: Boolean;
+    diffViewVisibleSubject: Subject<Boolean>;
+    diffFileInformation: DiffFileInformation;
+    diffFileInformationSubject: Subject<DiffFileInformation>;
 
     constructor() {
         this.isViewSubject = new Subject<Boolean>();
@@ -19,6 +24,10 @@ export class MockRightPanelService {
         this.emitIsViewSubject();
         this.listUnstagedFilesSubject = new Subject<any[]>();
         this.listStagedFilesSubject = new Subject<any[]>();
+        this.diffViewVisibleSubject = new Subject<Boolean>();
+        this.diffFileInformationSubject = new Subject<DiffFileInformation>();
+        this.diffViewVisible = false;
+        this.emitDiffViewVisibleSubject();
     }
 
     emitIsViewSubject() {
@@ -47,10 +56,28 @@ export class MockRightPanelService {
         this.listStagedFilesSubject.next(this.listStagedFiles);
     }
 
+    emitDiffViewVisibleSubject() {
+        this.diffViewVisibleSubject.next(this.diffViewVisible);
+    }
+
+    emitDiffFileInformationSubject() {
+        this.diffFileInformationSubject.next(this.diffFileInformation);
+    }
+
     setListFileCommit(listUnstagedFiles: any[], listStagedFiles: any[]) {
         this.listUnstagedFiles = listUnstagedFiles;
         this.listStagedFiles = listStagedFiles;
         this.emitListUnstagedFilesSubject();
         this.emitListStagedFilesSubject();
+    }
+
+    setDiffViewVisible(diffViewVisible: boolean) {
+        this.diffViewVisible = diffViewVisible;
+        this.emitDiffViewVisibleSubject();
+    }
+
+    setDiffFileInformationSubject(diffFileInformation: DiffFileInformation) {
+        this.diffFileInformation = diffFileInformation;
+        this.emitDiffFileInformationSubject();
     }
 }

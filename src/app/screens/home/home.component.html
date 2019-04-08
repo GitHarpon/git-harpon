@@ -43,12 +43,20 @@
             <div class="col-4 gh-button-bar-more">
                 <div>
                     <div class="searchInput mr-3">
-                        <app-input [(value)]="searchInputValue" [disabled]="!repoName"></app-input>
+                        <app-input [(value)]="commitHash" (keyup)="onKeyUp($event)" [disabled]="!repoName"></app-input>
                     </div>
-                    <a class="cursor-pointer mr-3" (click)="displaySearchInputValue()">
-                        <i [ngClass]="[(!repoName ? 'disabled-search' : '')]" class="fa fa-search"></i></a>
-                    <a class="cursor-pointer mr-3" id="terminal-opener" (click)="openTerminal()"><i class="fas fa-terminal"></i></a>
-                    <a class="cursor-pointer" (click)="openPreferences()"><i class="fas fa-cog"></i></a>
+                    <a class="cursor-pointer mr-3" placement="left" ngbTooltip="{{ 'SEARCH_COMMIT' | translate }}" 
+                        (click)="setCommitHash()">
+                        <i [ngClass]="[(!repoName ? 'disabled-search' : '')]" class="fa fa-search"></i>
+                    </a>
+                    <a class="cursor-pointer mr-3" id="terminal-opener" (click)="openTerminal()" placement="left" 
+                    ngbTooltip="{{ 'OPEN_TERMINAL' | translate }}">
+                        <i class="fas fa-terminal"></i>
+                    </a>
+                    <a class="cursor-pointer" (click)="openPreferences()" placement="left" 
+                        ngbTooltip="{{ 'OPEN_PREFERENCES' | translate }}">
+                        <i class="fas fa-cog"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -70,9 +78,14 @@
                 </div>
             </div>
         </div>
-
-    <app-left-panel *ngIf="leftPanelVisible" (deleteBranchInfoBar)="openDeleteBranchInfoBar($event)" (createBranchInfoBar)="openCreateBranchInfoBar($event)" (checkoutInfoBarChange)="openCheckoutInfoBar($event)" [(newBranchCouple)]="newBranchCouple"></app-left-panel>
-    <app-graph *ngIf="graphVisible"></app-graph>
+      
+    <app-diff-view *ngIf="diffViewVisible"></app-diff-view>
+    <app-left-panel *ngIf="leftPanelVisible && !diffViewVisible" (deleteBranchInfoBar)="openDeleteBranchInfoBar($event)" 
+        (createBranchInfoBar)="openCreateBranchInfoBar($event)" 
+        (checkoutInfoBarChange)="openCheckoutInfoBar($event)" 
+        [(newBranchCouple)]="newBranchCouple"
+        (mergeBranch)="mergeBranch($event)"></app-left-panel>
+    <app-graph *ngIf="graphVisible && !diffViewVisible"></app-graph>
     <app-right-panel *ngIf="rightPanelVisible"></app-right-panel>
     
     </app-loader>
@@ -220,7 +233,7 @@
 <app-info-bar [visible]="(newBranchCouple.oldBranch == '') ? false : true">
     <span>{{ 'BRANCH.NEW_BRANCH_NAME_PROMPT' | translate }}</span>
     <app-input [(value)]="newBranchNameForRenaming" [placeholder]="'BRANCH.NEW_BRANCH'" class="ml-3"></app-input>
-    <app-button class="ml-3" value="BRANCH.RENAME" type="success" [disabled]="!newBranchNameForRenaming" (buttonClicked)="renameBranch()"></app-button>
+    <app-button class="ml-3" value="BRANCH.RENAME" type="success" [disabled]="newBranchNameForRenaming == newBranchCouple.oldBranch || !newBranchNameForRenaming" (buttonClicked)="renameBranch()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closeRenameBar()"></app-button>
 </app-info-bar>
 
@@ -228,9 +241,9 @@
 <app-info-bar [visible]="pullrebaseCredInfoBarVisible">
     <span *ngIf="!pullrebaseAuthErrored">{{ 'LOG_TO_CONTINUE' | translate }}</span>
     <span *ngIf="pullrebaseAuthErrored" class="color-red">{{ 'WRONG_CRED' | translate }}</span>
-    <app-input [(value)]="currentHttpsUser.username" [placeholder]="'USERNAME'" class="ml-3"></app-input>
-    <app-input [(value)]="currentHttpsUser.password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
-    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!currentHttpsUser.username || !currentHttpsUser.password" (buttonClicked)="pullrebaseHttps()"></app-button>
+    <app-input [(value)]="pullrebaseHttpsUser.username" [placeholder]="'USERNAME'" class="ml-3"></app-input>
+    <app-input [(value)]="pullrebaseHttpsUser.password" [placeholder]="'PASSWORD'" type="password" class="ml-3"></app-input>
+    <app-button class="ml-3" value="LOG_IN" type="success" [disabled]="!pullrebaseHttpsUser.username || !pullrebaseHttpsUser.password" (buttonClicked)="pullrebaseHttps()"></app-button>
     <app-button class="ml-3" value="CANCEL" type="primary" (buttonClicked)="closePullrebaseCredInfoBar()"></app-button>
 </app-info-bar>
 

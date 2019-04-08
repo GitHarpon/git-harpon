@@ -71,23 +71,8 @@ describe('GraphComponent', () => {
   });
 
   it('tests the ngOnInit function', () => {
-    component.ngOnInit();
-
     expect(component.themePrefSubscription).toBeDefined();
     expect(component.graphSubscription).toBeDefined();
-  });
-
-  it ('test the ngOnDestroy function with defined subscriptions', () => {
-    component.ngOnInit();
-    component.ngOnDestroy();
-
-    expect(component.themePrefSubscription.closed).toBeTruthy();
-    expect(component.graphSubscription.closed).toBeTruthy();
-  });
-
-  it ('test the openViewCommit function', () => {
-    const Result = component.openViewCommit();
-    expect(Result).toBeTruthy();
   });
 
   it ('test the openSendCommit function', () => {
@@ -95,6 +80,43 @@ describe('GraphComponent', () => {
     expect(Result).toBeTruthy();
   });
 
+  it('test the setCommitGraph function with valid graph', () => {
+    const Graph = [
+      {
+        hash: '9cdc1af73a6800632a32c31ba299bd9f4a2d71b9',
+        date: '2019-04-07 13:52:32 +0200',
+        message: 'first commit',
+        author_name: 'toto',
+        author_email: 'toto@gmail.com'
+      },
+      {
+        hash: 'aaf6c3dc90ec8bc02ebb7d23e85331b2118d5850',
+        date: '2019-04-07 15:52:32 +0200',
+        message: 'second commit',
+        author_name: 'tata',
+        author_email: 'tata@gmail.com'
+      }
+    ];
+    component.graph = Graph;
+    const Result = component.setCommitGraph();
+    expect(Result).toBeTruthy();
+  });
+
+  it('test the setCommitGraph function with invalid graph', () => {
+    const Undefined = undefined;
+    component.graph = Undefined;
+    const Result = component.setCommitGraph();
+    expect(Result).toBeFalsy();
+  });
+
+
+
+  it ('test the ngOnDestroy function with defined subscriptions', () => {
+    component.ngOnDestroy();
+
+    expect(component.themePrefSubscription.closed).toBeTruthy();
+    expect(component.graphSubscription.closed).toBeTruthy();
+  });
 
   it ('test the ngOnDestroy function with undefined subscriptions', () => {
     const Undefined = undefined;

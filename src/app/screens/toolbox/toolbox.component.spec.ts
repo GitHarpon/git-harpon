@@ -8,7 +8,6 @@ import { InputComponent } from '../../components/input/input.component';
 import { InputNumberComponent } from '../../components/input-number/input-number.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { ButtonComponent } from '../../components/button/button.component';
-import { MonacoEditorWrapperComponent } from '../../components/monaco-wrapper/monaco-editor-wrapper.component';
 import { CopyButtonComponent } from '../../components/copy-button/copy-button.component';
 import { IconButtonComponent } from '../../components/icon-button/icon-button.component';
 import { DropdownComponent } from '../../components/dropdown/dropdown.component';
@@ -64,7 +63,6 @@ describe('ToolboxComponent', () => {
         CheckboxComponent,
         DropdownComponent,
         IconButtonComponent,
-        MonacoEditorWrapperComponent,
         TextAreaComponent,
         CommitTextAreaComponent,
         TreeItemComponent,

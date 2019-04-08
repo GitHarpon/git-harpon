@@ -10,6 +10,7 @@ import { HttpsUser } from './HttpsUser';
 import { CommitDescription } from './CommitInformations';
 import { RightPanelService } from '../providers/right-panel.service';
 import { LeftPanelService } from '../providers/left-panel.service';
+import { DiffFileInformation } from './DiffFileInformation';
 
 @Injectable()
 export class MockGitService {
@@ -228,6 +229,16 @@ export class MockGitService {
         });
     }
 
+    async getDiffFile(diffInformation: DiffFileInformation) {
+        return new Promise<String>((resolve, reject) => {
+            if (diffInformation.isCurrentCommit) {
+                resolve('toto');
+            } else {
+                reject('toto');
+            }
+        });
+      }
+
     init(initLocation: string, initName: string) {
         if (initLocation && initName) {
             return new Promise<ServiceResult>((resolve, reject) => {
@@ -308,32 +319,36 @@ export class MockGitService {
 
     async commitDescription(hash: String) {
         return new Promise<CommitDescription>((resolve, reject) => {
-            resolve({
-                oid: 'd9159aa643063b627939dd434b4134371b1dcf0b',
-                message: 'Hello world',
-                tree: '0f154817e0dd2cc13bb8312082565ee9296fc293',
-                parent: [
-                    'e35d4be0cb6bbe7e852d6e9160b3a023f1b537d3'
-                ],
-                author: {
-                  name: 'toto',
-                  email: 'toto@mail.com',
-                  timestamp: 1552840891,
-                  timezoneOffset: -60
-                },
-                committer: {
-                  name: 'toto',
-                  email: 'toto@mail.com',
-                  timestamp: 1552840891,
-                  timezoneOffset: -60
-                },
-                gpgsig: null,
-                files: [
-                    {status: 'M', path: 'src/app/modified.txt'},
-                    {status: 'A', path: 'src/app/added'},
-                    {status: 'D', path: 'src/deleted.txt'}
-                ]
-              });
+            if (hash === '72267b6ad64858f2db2d597f67004b59e543928b') {
+                resolve({
+                    oid: 'd9159aa643063b627939dd434b4134371b1dcf0b',
+                    message: 'Hello world',
+                    tree: '0f154817e0dd2cc13bb8312082565ee9296fc293',
+                    parent: [
+                        'e35d4be0cb6bbe7e852d6e9160b3a023f1b537d3'
+                    ],
+                    author: {
+                    name: 'toto',
+                    email: 'toto@mail.com',
+                    timestamp: 1552840891,
+                    timezoneOffset: -60
+                    },
+                    committer: {
+                    name: 'toto',
+                    email: 'toto@mail.com',
+                    timestamp: 1552840891,
+                    timezoneOffset: -60
+                    },
+                    gpgsig: null,
+                    files: [
+                        {status: 'M', path: 'src/app/modified.txt'},
+                        {status: 'A', path: 'src/app/added'},
+                        {status: 'D', path: 'src/deleted.txt'}
+                    ]
+                });
+            } else {
+                reject();
+            }
         });
     }
 
@@ -380,6 +395,35 @@ export class MockGitService {
             } else {
                 reject(new ServiceResult(false, this.translate.instant('ERROR'),
                 this.translate.instant('PULL.ERROR')));
+            }
+        });
+    }
+
+    commitChanges(summary: string, description: any) {
+        var ListUnstagedFiles = [];
+        var ListStagedFiles = [];
+        this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
+    }
+
+    async mergeBranches(mergeBranchName: string, fullPath: string) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (this.branchName !== mergeBranchName) {
+                var ErrMsg = 'BRANCH.ERROR_MERGE';
+                var AccessDenied = false;
+                if (fullPath == 'goodPath') {
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                        this.translate.instant('BRANCH.MERGE')));
+                } else if (fullPath == 'conflictPath') {
+                    ErrMsg = 'BRANCH.CONFLICTED';
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant(ErrMsg), AccessDenied));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('BRANCH.ERROR_MERGE')));
+                }
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.MERGE_CURRENT')));
             }
         });
     }

@@ -1,5 +1,14 @@
 <app-loader [loading]="loading">
   <div class="view-commit" [ngClass]="currentTheme" *ngIf="!loading">
+    <div class="view-commit__send-commit col-md-12 text-center row" [ngClass]="[currentTheme]" *ngIf="listUnstagedFiles && listStagedFiles &&  listUnstagedFiles.length + listStagedFiles.length >= 1">
+      <div class="view-commit__send-commit__header" *ngIf="listUnstagedFiles.length + listStagedFiles.length <= 1">
+        {{ listUnstagedFiles.length + listStagedFiles.length }} {{ 'NB_FILE_COMMIT' | translate }}
+      </div>
+      <div class="view-commit__send-commit__header" *ngIf="listUnstagedFiles.length + listStagedFiles.length > 1">
+        {{ listUnstagedFiles.length + listStagedFiles.length }} {{ 'NB_FILES_COMMIT' | translate }}
+      </div>
+      <app-button class="view-commit__send-commit__button" value="VIEW_CHANGES" type="changes" smallButton="true" (buttonClicked)="viewChanges()"></app-button>
+    </div>
     <div class="view-commit__top">
       <div class="col-md-12 view-commit__hash">
         <span class="view-commit__hash__label">
@@ -12,7 +21,7 @@
         </span>
       </div>
       <div class="col-md-12 mt-2" *ngIf="currentDescription?.message">
-        <app-commit-text-area rows="3" [descValue]="getCommitDescription()" [summaryValue]="getCommitSummary()"
+        <app-commit-text-area descRows="2" rows="2" [descValue]="getCommitDescription()" [summaryValue]="getCommitSummary()"
           [readonly]="true" [descView]="true"></app-commit-text-area>
       </div>
       <div class="col-md-12 row mt-2">
@@ -54,8 +63,8 @@
       </div>
     </div>
     <div class="container view-commit__bottom">
-      <app-file-diff-commit *ngIf="currentTab === 'PATH'" [listFiles]="currentDescription?.files" componentType="view"></app-file-diff-commit>
-      <app-tree *ngIf="currentTab === 'TREE'" componentType="view" [tree]="tree"></app-tree>
+      <app-file-diff-commit [diffFileInformation]="diffFileInformation" *ngIf="currentTab === 'PATH'" [listFiles]="currentDescription?.files" componentType="view"></app-file-diff-commit>
+      <app-tree *ngIf="currentTab === 'TREE'" componentType="view" [tree]="tree" [diffFileInformation]="diffFileInformation"></app-tree>
     </div>
   </div>
 </app-loader>

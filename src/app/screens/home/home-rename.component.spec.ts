@@ -50,12 +50,12 @@ import { GraphService } from '../../providers/graph.service';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 import { TabsComponent } from '../../components/tabs/tabs.component';
+import { DiffViewComponent } from '../diff-view/diff-view.component';
 
 describe('HomeComponent', () => {
     /* tslint:disable */
     let component: HomeComponent;
     let fixture: ComponentFixture<HomeComponent>;
-    const Empty = '';
     /* tslint:enable */
 
   beforeEach(async(() => {
@@ -81,7 +81,8 @@ describe('HomeComponent', () => {
         TextAreaComponent,
         TreeItemComponent,
         TreeComponent,
-        TabsComponent
+        TabsComponent,
+        DiffViewComponent
       ],
       imports: [
         FormsModule,
@@ -143,6 +144,11 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
+    jasmine.clock().install();
+  });
+
+  afterEach(function() {
+    jasmine.clock().uninstall();
   });
 
   it('tests the renameBranch function that success with valid arguments', (done) => {
@@ -188,5 +194,18 @@ describe('HomeComponent', () => {
     });
   });
 
+
+  it('tests the updateRenaming function', () => {
+    component.newBranchCouple = new NewBranchCouple();
+    const Toto = 'toto';
+    const Titi = 'titi';
+    const Tata = 'tata';
+    component.newBranchCouple.oldBranch = Toto;
+    component.newBranchCouple.newBranch = Titi;
+    component.newBranchNameForRenaming = Tata;
+    component.updateRenaming();
+    jasmine.clock().tick(1);
+    expect(component.newBranchNameForRenaming).toEqual(Toto);
+  });
 
 });

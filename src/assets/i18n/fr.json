@@ -50,7 +50,7 @@
         "TITLE": "Pousser",
         "TAB_TITLE": "Pousser vers un repository",
         "DONE": "Le contenu a été poussé",
-        "ERROR": "Problème lors du poussage",
+        "ERROR": "Impossible de pousser",
         "UNABLE_TO_UPDATE": "Impossible de mettre à jour la base de l'URL à partir d'une redirection",
         "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
         "NOT_WORK_TREE": "Impossible de créer le répertoire de travail : permission refusée",        
@@ -137,6 +137,11 @@
         "ACCESS_DENIED": "Impossible de résoudre l'hôte",
         "REPO_NOT_FOUND": "Dépôt non trouvé",
         "CURRENT": "Vous ne pouvez pas effacer la branche courante",
+        "MERGE": "Fusionner",
+        "DONE": "Les deux branches ont été fusionnées",
+        "MERGE_CURRENT": "Vous ne pouvez pas fusionner une branche avec elle-même",
+        "CONFLICTED": "Il existe des conflits, vous devez les régler manuellement",
+        "ERROR_MERGE": "Erreur durant la fusion de branche",
         "ERROR_DELETION": "Erreur durant la suppression de branche",
         "ERROR": "Erreur durant le changement de branche"
     },
@@ -146,7 +151,7 @@
         "TITLE": "Tirer",
         "TAB_TITLE": "Tirer vers un repository",
         "DONE": "Le contenu a été tiré",
-        "ERROR": "Problème lors du poussage",
+        "ERROR": "Impossible de tirer",
         "UNABLE_TO_CONNECT": "Impossible de se connecter au dépot avec ces données de connexion",
         "HTTP_ACCESS_DENIED": "HTTP basic: Accès refusé",
         "REPO_NOT_FOUND": "Répertoire non trouvé",
@@ -167,6 +172,7 @@
         "OPENED_REPO": "Le dépôt a été ouvert avec succès",
         "NOT_GIT_REPO": "Ce répertoire n'est pas un répertoire git",
         "REPO_NOT_EXIST": "Ce répertoire n'existe plus",
+        "NO_COMMIT" : "Ce répertoire n'a pas de commit initial",
         "WHERE": "Où ouvrir",
         "ALREADY": "Déjà ouvert"
     },
@@ -187,6 +193,7 @@
     },
     "SEND_COMMIT": "Commit",
     "VIEW_COMMIT": "Visualiser le commit",
+    "VIEW_CHANGES": "Voir les modifications",
     "LOG_IN": "S'identifier",
     "CANCEL": "Annuler",
     "OPEN_NOW": "Ouvrir",
@@ -207,6 +214,12 @@
     "COMMIT": {
         "DESCRIPTION": "Description d'un commit"
     },
+    "NO_COMMIT_FOUND": "Ce commit n'existe pas",
+    "OPEN_PREFERENCES": "Ouvrir les préférences",
+    "OPEN_TERMINAL": "Ouvrir un terminal",
+    "SEARCH_COMMIT": "Rechercher un commit",
+    "COMMIT_MESSAGE": "Message commit",
+    "COMMIT_CHANGES": "Ajouter les modifications au commit",
     "MODIFIED": "modifiés",
     "ADDED": "ajoutés",
     "DELETED": "supprimés",
@@ -218,5 +231,8 @@
     "STAGE_ALL_FILE": "Ajouter tout",
     "UNSTAGE_ALL_FILE": "Retirer tout",
     "STAGE_FILE": "Ajouter fichier",
-    "UNSTAGE_FILE": "Retirer fichier"
+    "UNSTAGE_FILE": "Retirer fichier",
+    "INLINE_VIEW": "Ligne par ligne",
+    "SPLIT_VIEW": "Côte à côte",
+    "UNSTAGED_ADDED_FILE": "Ce fichier est nouveau et unstage. Veuillez le stage pour visualiser les changements"
 }

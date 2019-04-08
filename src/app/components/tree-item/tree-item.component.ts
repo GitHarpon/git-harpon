@@ -3,6 +3,8 @@ import { Subscription } from 'rxjs';
 import { GitService } from '../../providers/git.service';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { ElectronService } from '../../providers/electron.service';
+import { DiffFileInformation } from '../../models/DiffFileInformation';
+import { RightPanelService } from '../../providers/right-panel.service';
 
 @Component({
   selector: 'app-tree-item',
@@ -14,13 +16,14 @@ export class TreeItemComponent implements OnDestroy {
   @Input() depth: number;
   @Input() currentPath: String = '';
   @Input() componentType: any = 'stage';
+  @Input() diffFileInformation: DiffFileInformation;
   isOpen: boolean;
   currentTheme: string;
   themePrefSubscription: Subscription;
 
 
   constructor(private themePrefService: ThemePreferencesService, private electronService: ElectronService,
-    private gitService: GitService) {
+    private gitService: GitService, private rightPanelService: RightPanelService) {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
         this.currentTheme = newTheme;
@@ -69,6 +72,12 @@ export class TreeItemComponent implements OnDestroy {
   getFolderDepth() {
     const Depth = this.depth === 0 ? 0 : this.depth + 0.5;
     return { 'padding-left': Depth + 'em'};
+  }
+
+  openDiffView() {
+    this.diffFileInformation.file = this.computeCurrentPath();
+    this.rightPanelService.setDiffViewVisible(true);
+    this.rightPanelService.setDiffFileInformationSubject(this.diffFileInformation);
   }
 
   ngOnDestroy() {

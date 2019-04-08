@@ -28,7 +28,6 @@ import { ThemePreferencesService } from './providers/theme-preferences.service';
 import { WebviewDirective } from './directives/webview.directive';
 
 import { AppComponent } from './app.component';
-import { MonacoEditorWrapperComponent } from './components/monaco-wrapper/monaco-editor-wrapper.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WebStorageModule } from 'ngx-store';
@@ -65,6 +64,7 @@ import { GraphService } from './providers/graph.service';
 import { TreeComponent } from './components/tree/tree.component';
 import { TreeItemComponent } from './components/tree-item/tree-item.component';
 import { TabsComponent } from './components/tabs/tabs.component';
+import { DiffViewComponent } from './screens/diff-view/diff-view.component';
 
 
 // AoT requires an exported function for factories
@@ -76,7 +76,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     WebviewDirective,
-    MonacoEditorWrapperComponent,
     FooterComponent,
     HomeComponent,
     ToolboxComponent,
@@ -103,7 +102,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FileDiffCommitComponent,
     TreeComponent,
     TreeItemComponent,
-    TabsComponent
+    TabsComponent,
+    DiffViewComponent
   ],
   imports: [
     ReactiveFormsModule,
