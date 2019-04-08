@@ -118,6 +118,8 @@
         "UNCOMMIT": "Commits manquant sur branche de référence",
         "CREATED": "Branche créée",
         "NOT_CREATED": "Branche non créée",
+        "REBASE": "Rebaser",
+        "REBASED": "Le rebasement est un succès",
         "A_LOCAL": "Une locale",
         "ALREADY_EXISTS": "existe déjà",
         "RENAME": "Renommer",
@@ -139,6 +141,7 @@
         "CURRENT": "Vous ne pouvez pas effacer la branche courante",
         "CONFLICT": "Il y a des conflits qui ont besoins d'être résolu",
         "ERROR_DELETION": "Erreur durant la suppression de branche",
+        "ERROR_REBASE": "Le rebasement a échoué",        
         "ERROR": "Erreur durant le changement de branche"
     },
     "PULL": {

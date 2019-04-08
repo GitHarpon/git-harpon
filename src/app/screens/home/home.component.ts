@@ -661,7 +661,7 @@ export class HomeComponent implements OnDestroy {
 
   rebaseBranch(rebaseBranchName) {
     this.homeLoading = true;
-    return this.gitService.rebaseBranches(this.branchName, rebaseBranchName)
+    return this.gitService.rebaseBranches(rebaseBranchName)
       .then((data) => {
         this.homeLoading = false;
         this.toastr.info(data.message, data.title);
