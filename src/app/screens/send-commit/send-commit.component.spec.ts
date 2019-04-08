@@ -21,6 +21,8 @@ import { CommitTextAreaComponent } from '../../components/commit-text-area/commi
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
+import { DiffViewComponent } from '../diff-view/diff-view.component';
+import { LoaderComponent } from '../../components/loader/loader.component';
 
 describe('SendCommitComponent', () => {
   /* tslint:disable */
@@ -37,7 +39,9 @@ describe('SendCommitComponent', () => {
         TreeItemComponent,
         TreeComponent,
         TabsComponent,
-        CommitTextAreaComponent
+        CommitTextAreaComponent,
+        DiffViewComponent,
+        LoaderComponent
       ],
       imports: [
         NgbModule,

@@ -11,6 +11,7 @@ import { HttpsUser } from '../models/HttpsUser';
 import * as isomorphic from 'isomorphic-git';
 import { CommitDescription } from '../models/CommitInformations';
 import { RightPanelService } from './right-panel.service';
+import { DiffFileInformation } from '../models/DiffFileInformation';
 
 @Injectable()
 export class GitService {
@@ -73,6 +74,18 @@ export class GitService {
     this.emitHttpsUserSubject();
   }
 
+  async getDiffFile(diffInformation: DiffFileInformation) {
+    if (diffInformation.isCurrentCommit) {
+      return this.gitP.raw(['diff', 'HEAD', '--', diffInformation.file]);
+    } else {
+      if (diffInformation.parent) {
+        return this.gitP.raw(['diff', diffInformation.parent, diffInformation.children, '--', diffInformation.file]);
+      } else {
+        return gitPromise().show([diffInformation.children, '--', diffInformation.file]);
+      }
+    }
+  }
+
   init(initLocation: string, initName: string) {
     if (initLocation && initName) {
       const PathToRepo = this.electronService.path.join(initLocation, initName);
@@ -114,22 +127,26 @@ export class GitService {
         gitPromise(newPath).checkIsRepo()
           .then(isRepo => {
             if (isRepo) {
-              this.path = newPath;
-              this.repoName = this.electronService.path.basename(this.path);
-              this.emitRepoNameSubject();
-              this.electronService.process.chdir(this.path);
-              this.git.cwd(this.path);
-              this.gitP.cwd(this.path);
-              this.emitPathSubject();
-              this.registerProject(this.repoName, this.path);
-              this.updateFilesDiff();
-              this.getCurrentBranch();
-              this.revParseHEAD().then((data) => {
-                this.rightPanelService.setCommitHash(data.replace('\n', ''));
+              gitPromise(newPath).log().then(() => {
+                this.path = newPath;
+                this.repoName = this.electronService.path.basename(this.path);
+                this.emitRepoNameSubject();
+                this.electronService.process.chdir(this.path);
+                this.git.cwd(this.path);
+                this.gitP.cwd(this.path);
+                this.emitPathSubject();
+                this.registerProject(this.repoName, this.path);
+                this.updateFilesDiff();
+                this.getCurrentBranch();
+                this.revParseHEAD().then((data) => {
+                  this.rightPanelService.setCommitHash(data.replace('\n', ''));
+                });
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                  this.translate.instant('OPEN.OPENED_REPO')));
+              }).catch(() => {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                  this.translate.instant('OPEN.NO_COMMIT')));
               });
-              resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
-                this.translate.instant('OPEN.OPENED_REPO')));
-
             } else {
               reject(new ServiceResult(false, this.translate.instant('ERROR'),
                 this.translate.instant('OPEN.NOT_GIT_REPO')));
@@ -419,8 +436,10 @@ export class GitService {
 
   getGraph() {
     return new Promise<any>((resolve, reject) => {
-      gitPromise(this.path).raw(['log', '--graph', '--oneline', '--all', '--date-order']).then((result) => {
-        resolve(result);
+      gitPromise(this.path).log(['--all', '--reverse']).then((result) => {
+        resolve(result.all);
+      }).catch((err) => {
+        console.log(err);
       });
     });
   }
@@ -613,10 +632,10 @@ export class GitService {
       .then((data) => {
         const Url = GitUrlParse(data);
         var Remote;
-        if (httpsUser.username) {
-          Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
+        if (httpsUser.password == '' || httpsUser.username == '') {
+          Remote = `https://null:null@${Url.resource}${Url.pathname}`;
         } else {
-          Remote = `https://${Url.resource}${Url.pathname}`;
+          Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
         }
         this.gitP.pull(Remote, branch, {'--rebase': 'true'})
           .then((data) => {

@@ -10,6 +10,7 @@ import { HttpsUser } from './HttpsUser';
 import { CommitDescription } from './CommitInformations';
 import { RightPanelService } from '../providers/right-panel.service';
 import { LeftPanelService } from '../providers/left-panel.service';
+import { DiffFileInformation } from './DiffFileInformation';
 
 @Injectable()
 export class MockGitService {
@@ -227,6 +228,16 @@ export class MockGitService {
             }
         });
     }
+
+    async getDiffFile(diffInformation: DiffFileInformation) {
+        return new Promise<String>((resolve, reject) => {
+            if (diffInformation.isCurrentCommit) {
+                resolve('toto');
+            } else {
+                reject('toto');
+            }
+        });
+      }
 
     init(initLocation: string, initName: string) {
         if (initLocation && initName) {

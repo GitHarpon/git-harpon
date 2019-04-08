@@ -1,0 +1,17 @@
+<div class="gh-diff-view" [ngClass]="[currentTheme]">
+  <div class="gh-diff-view-title-bar" [ngClass]="[currentTheme]">
+    <div class="gh-diff-view-title-bar-name">DiffView</div>
+    <div class="gh-diff-view-title-bar-close" [ngClass]="[currentTheme]" (click)="closeDiffView()"><i class="fa fa-times"></i></div>
+  </div>
+  <div class="col-md-12 mt-2">
+    <app-tabs [data]="[{ title: 'INLINE_VIEW', icon: 'fa-list'}, { title: 'SPLIT_VIEW', icon: 'fa-columns' }]" [(value)]="currentView"></app-tabs>
+  </div>
+  <div class="gh-diff-view-content mt-2" [ngClass]="[currentTheme]">
+      <app-loader [loading]="loading">
+        <div *ngIf="!isUnstagedAndAdded" class="gh-diff-view-content-diff" [ngClass]="[currentTheme]"  [innerHtml]="diffViewModel"></div>
+        <div *ngIf="isUnstagedAndAdded" class="text-center mt-3">
+            {{ 'UNSTAGED_ADDED_FILE' | translate }}
+        </div>
+      </app-loader>
+  </div>
+</div>

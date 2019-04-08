@@ -8,6 +8,7 @@ import { ClipboardService } from 'ngx-clipboard';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { DiffFileInformation } from '../../models/DiffFileInformation';
 
 @Component({
   selector: 'app-view-commit',
@@ -30,6 +31,7 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
   listUnstagedFilesSubscription: Subscription;
   listStagedFiles: any[];
   listStagedFilesSubscription: Subscription;
+  diffFileInformation: DiffFileInformation;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
     private gitService: GitService, private clipboardService: ClipboardService, private toastr: ToastrService,
@@ -75,6 +77,12 @@ export class ViewCommitComponent implements OnInit, OnDestroy {
         this.setTree();
         this.setCommitDate();
         this.loading = false;
+        this.diffFileInformation = {
+           children: this.currentDescription.oid,
+           parent: this.currentDescription.parent[0],
+           isCurrentCommit: false,
+           file: ''
+        };
       }).catch(() => {
         this.toastr.error(this.translateService.instant('ERROR'),
           this.translateService.instant('NO_COMMIT_FOUND'));

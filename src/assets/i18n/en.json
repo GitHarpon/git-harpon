@@ -173,7 +173,8 @@
         "OPENED_REPO": "The repository was successfully opened",
         "NOT_GIT_REPO": "This is not a git repository",
         "REPO_NOT_EXIST": "The repository no longer exist",
-        "WHERE": "Where to clone",
+        "NO_COMMIT" : "The repository don't have an initial commit",
+        "WHERE": "Where to open",
         "ALREADY": "Already opened"
     },
     "INIT": {
@@ -231,5 +232,8 @@
     "STAGE_ALL_FILE": "Stage all changes",
     "UNSTAGE_ALL_FILE": "Unstage all changes",
     "STAGE_FILE": "Stage file",
-    "UNSTAGE_FILE": "Unstage file"
+    "UNSTAGE_FILE": "Unstage file",
+    "INLINE_VIEW": "Line by line",
+    "SPLIT_VIEW": "Side by side",
+    "UNSTAGED_ADDED_FILE": "This file is new and unstage. Please, stage it to see changes"
 }

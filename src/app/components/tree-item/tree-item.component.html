@@ -8,15 +8,16 @@
     <i class="light-blue fa mr-1" [ngClass]="isOpen ? 'fa-folder-open' : 'fa-folder'"></i>
     {{ item.folder }}
   </div>
-  <div [ngClass]="[currentTheme]" [ngStyle]="getDepth()" *ngIf="!isFolder()" class="file-item" data-toggle="tooltip" [title]="item.file">
+  <div [ngClass]="[currentTheme]" [ngStyle]="getDepth()" *ngIf="!isFolder()" class="file-item" data-toggle="tooltip" [title]="item.file"
+      (click)="openDiffView()">
       <i class="mr-1 fa" [ngClass]="[(item.status == 'M' ? 'fa-file-signature color-m' : ''),
         (item.status == 'A' ? 'fa-file-medical color-a' : ''), (item.status == 'D' ? 'fa-file-excel color-d' : '')]"></i>
-      {{ item.file }}
+      <div class="tree_file_item_name">{{ item.file }}</div>
       <div *ngIf="componentType == 'unstage'" class="tree_file_item_button float-right">
-        <app-button value="STAGE_FILE" type="success" (buttonClicked)="addFile(computeCurrentPath())"></app-button>
+        <app-button value="STAGE_FILE" smallButton="true" type="success" (buttonClicked)="addFile(computeCurrentPath())"></app-button>
       </div>
       <div *ngIf="componentType == 'stage'" class="tree_file_item_button float-right">
-        <app-button value="UNSTAGE_FILE" type="danger" (buttonClicked)="removeFile(computeCurrentPath())"></app-button>
+        <app-button value="UNSTAGE_FILE" smallButton="true" type="danger" (buttonClicked)="removeFile(computeCurrentPath())"></app-button>
       </div>
   </div>
   <div [hidden]="!isOpen" *ngIf="isFolder()">
@@ -27,6 +28,7 @@
       [currentPath]="computeCurrentPath()"
       *ngFor="let child of item.children"
       [item]="child"
+      [diffFileInformation]="diffFileInformation"
     ></app-tree-item>
   </div>
 </div>
