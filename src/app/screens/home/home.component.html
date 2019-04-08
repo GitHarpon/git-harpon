@@ -81,6 +81,7 @@
       
     <app-diff-view *ngIf="diffViewVisible"></app-diff-view>
     <app-left-panel *ngIf="leftPanelVisible && !diffViewVisible" (deleteBranchInfoBar)="openDeleteBranchInfoBar($event)" 
+        (newBranchCoupleChange)="updateRenaming()"
         (createBranchInfoBar)="openCreateBranchInfoBar($event)" 
         (checkoutInfoBarChange)="openCheckoutInfoBar($event)" 
         [(newBranchCouple)]="newBranchCouple"
