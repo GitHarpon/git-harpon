@@ -706,4 +706,38 @@ export class GitService {
       this.updateFilesDiff();
     });
   }
+
+  /* Fonction merge branche */
+  mergeBranches(mergeBranchName: string, fullPath: string) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      if (this.branchName !== mergeBranchName) {
+        var CommitMessage = 'Merge Branch ' + mergeBranchName + ' into ' + this.branchName;
+        gitPromise(fullPath).raw(['merge', mergeBranchName, '-m', CommitMessage])
+          .then(() => {
+            this.gitP.commit('Merge branch \'' + mergeBranchName + '\' into ' + this.branchName)
+              .then(() => {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                  this.translate.instant('BRANCH.DONE')));
+              })
+              .catch((err) => {
+                var ErrMsg = 'BRANCH.ERROR_MERGE';
+                console.log(err);
+                var AccessDenied = false;
+                if (err.toString().includes('Committing is not possible because you have unmerged files')) {
+                  ErrMsg = 'BRANCH.CONFLICTED';
+                }
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant(ErrMsg), AccessDenied));
+              });
+          })
+          .catch((err) => {
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('BRANCH.ERROR_MERGE')));
+          });
+      } else {
+        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant('BRANCH.MERGE_CURRENT')));
+      }
+    });
+  }
 }
