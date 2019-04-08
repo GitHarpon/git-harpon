@@ -423,7 +423,7 @@ export class GitService {
 
   async rebaseBranches(currentBranch, rebaseBranchName) {
     return new Promise<ServiceResult>((resolve, reject) => {
-      this.gitP.raw(['rebase', '--onto', currentBranch, rebaseBranchName])
+      this.gitP.raw(['rebase', rebaseBranchName])
         .then(() => {
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.REBASED')));
@@ -431,7 +431,7 @@ export class GitService {
         .catch((err) => {
           var ErrMsg = 'BRANCH.ERROR_REBASE';
           var AccessDenied = false;
-          if (err.toString().includes('???')) {
+          if (err.toString().includes('Échec')) {
             ErrMsg = 'BRANCH.CONFLICT';
           }
           reject(new ServiceResult(false, this.translate.instant('ERROR'),
