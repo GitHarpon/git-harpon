@@ -434,8 +434,17 @@ export class GitService {
           if (err.toString().includes('Échec')) {
             ErrMsg = 'BRANCH.CONFLICT';
           }
-          reject(new ServiceResult(false, this.translate.instant('ERROR'),
-            this.translate.instant(ErrMsg), AccessDenied));
+          this.gitP.raw(['rebase', '--abort'])
+            .then(() => {
+              reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('BRANCH.ABORT_REBASE')));
+            })
+            .catch((err) => {
+              reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('BRANCH.NO_ABORT_REBASE')));
+            });
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+              this.translate.instant(ErrMsg), AccessDenied));
         });
     });
   }
