@@ -525,8 +525,7 @@ export class GitService {
         const Url = GitUrlParse(data);
         var Remote;
         if (httpsUser.password == '' || httpsUser.username == '') {
-          reject(new ServiceResult(false, this.translate.instant('ERROR'),
-            this.translate.instant('PUSH.INVALID_CRED')));
+          Remote = `https://null:null@${Url.resource}${Url.pathname}`;
         } else {
           Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
         }
