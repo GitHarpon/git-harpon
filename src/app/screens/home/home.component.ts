@@ -387,7 +387,6 @@ export class HomeComponent implements OnDestroy {
         this.initName = '';
         this.initLocation = '';
         this.fullPath = '';
-        this.openHomeView();
       })
       .catch((result) => {
         this.toastr.error(result.message, result.title, {
@@ -413,7 +412,6 @@ export class HomeComponent implements OnDestroy {
             this.projectModalLoading = false;
             this.projectModalVisible = false;
             this.openFolder = '';
-            this.openHomeView();
             this.toastr.info(data.message, data.title);
             this.gitService.setHttpsUser({ username: null, password: null });
           })
@@ -473,7 +471,6 @@ export class HomeComponent implements OnDestroy {
     this.gitService.setHttpsUser(this.cloneHttpsUser);
     this.gitService.setPath(this.newClonedRepoPath);
     this.closeClonedInfoBar();
-    this.openHomeView();
   }
 
   closeClonedInfoBar() {

@@ -436,8 +436,10 @@ export class GitService {
 
   getGraph() {
     return new Promise<any>((resolve, reject) => {
-      gitPromise(this.path).raw(['log', '--graph', '--oneline', '--all', '--date-order']).then((result) => {
-        resolve(result);
+      gitPromise(this.path).log(['--all', '--reverse']).then((result) => {
+        resolve(result.all);
+      }).catch((err) => {
+        console.log(err);
       });
     });
   }

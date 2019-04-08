@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { GraphService } from '../../providers/graph.service';
+import 'gitgraph.js';
 
 @Component({
   selector: 'app-graph',
@@ -11,7 +12,7 @@ import { GraphService } from '../../providers/graph.service';
 })
 export class GraphComponent implements OnInit, OnDestroy {
   themePrefSubscription: Subscription;
-  graph: string;
+  graph: any;
   graphSubscription: Subscription;
   currentTheme: string;
 
@@ -29,9 +30,25 @@ export class GraphComponent implements OnInit, OnDestroy {
     this.graphSubscription = this.graphService.graphSubject.subscribe(
       (graph) => {
         this.graph = graph;
+        this.setCommitGraph();
       }
     );
     this.graphService.setGraph();
+  }
+
+  openSendCommit() {
+    this.rightPanelService.setView(false);
+    return true;
+  }
+
+  setCommitGraph() {
+    if (this.graph) {
+        this.graphService.drawGraph();
+
+        return true;
+    }
+
+    return false;
   }
 
   ngOnDestroy() {
