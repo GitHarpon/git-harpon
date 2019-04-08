@@ -48,7 +48,6 @@ import { MockGraphService } from '../../models/MockGraphService';
 import { TabsComponent } from '../../components/tabs/tabs.component';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
-import { MockHomeGitService } from '../../models/MockHomeGitService';
 
 describe('HomeComponent', () => {
   /* tslint:disable */
@@ -250,16 +249,6 @@ describe('HomeComponent', () => {
   it('test the function onFocus with valid parameter', (done) => {
     const RepoName = 'RepoName';
     component.repoName = RepoName;
-    component.onFocus().then((result) => {
-      expect(result).toBeTruthy();
-      done();
-    });
-  });
-
-  it('test the function onFocus with valid parameter and empty list stage file', (done) => {
-    const RepoName = 'RepoName';
-    component.repoName = RepoName;
-    TestBed.overrideProvider(GitService, {useValue: MockHomeGitService});
     component.onFocus().then((result) => {
       expect(result).toBeTruthy();
       done();

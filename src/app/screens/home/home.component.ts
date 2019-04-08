@@ -142,13 +142,7 @@ export class HomeComponent implements OnDestroy {
       await this.gitService.updateFilesDiff();
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
-      if (this.rightPanelService.listUnstagedFiles.length + this.rightPanelService.listStagedFiles.length
-        < 1) {
-          this.gitService.revParseHEAD().then((data) => {
-            this.rightPanelService.setCommitHash(data.replace('\n', ''));
-          });
-          this.rightPanelService.setView(true);
-      }
+      this.gitService.checkChanges();
       return true;
     }
     return false;
