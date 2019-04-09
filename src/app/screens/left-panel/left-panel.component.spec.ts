@@ -246,6 +246,14 @@ describe('LeftPanelComponent', () => {
     expect(component.mergeBranch.emit).toHaveBeenCalledWith(LocalBranch);
   });
 
+  it ('test the rebaseBranch function', () => {
+    const LocalBranch = 'localBranch';
+    spyOn(component.rebaseBranches, 'emit');
+    component.rebaseBranch(LocalBranch);
+    fixture.detectChanges();
+    expect(component.rebaseBranches.emit).toHaveBeenCalledWith(LocalBranch);
+  });
+
   it ('test the ngOnDestroy function with defined subscriptions', () => {
     component.ngOnInit();
     component.ngOnDestroy();
