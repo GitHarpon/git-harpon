@@ -681,6 +681,20 @@ export class HomeComponent implements OnDestroy {
       });
   }
 
+  rebaseBranch(rebaseBranchName) {
+    this.homeLoading = true;
+    return this.gitService.rebaseBranches(rebaseBranchName)
+      .then((data) => {
+        this.homeLoading = false;
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        // TODO
+        this.homeLoading = false;
+        this.toastr.error(data.message, data.title);
+      });
+  }
+
   ngOnDestroy() {
     this.pathSubscription.unsubscribe();
     this.repoNameSubscription.unsubscribe();

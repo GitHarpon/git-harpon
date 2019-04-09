@@ -86,6 +86,7 @@
         (checkoutInfoBarChange)="openCheckoutInfoBar($event)" 
         [(newBranchCouple)]="newBranchCouple"
         (mergeBranch)="mergeBranch($event)"></app-left-panel>
+        (rebaseBranches)="rebaseBranch($event)"></app-left-panel>
     <app-graph *ngIf="graphVisible && !diffViewVisible"></app-graph>
     <app-right-panel *ngIf="rightPanelVisible"></app-right-panel>
     

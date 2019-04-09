@@ -118,6 +118,8 @@
         "UNCOMMIT": "Missing commits on reference branch",
         "CREATED": "Branch created",
         "NOT_CREATED": "Branch not created",
+        "REBASE": "Rebase",
+        "REBASED": "Rebase successfull",
         "A_LOCAL": "A local",
         "ALREADY_EXISTS": "already exists",
         "RENAME": "Rename",
@@ -141,8 +143,10 @@
         "DONE": "Both branches were cloned",
         "MERGE_CURRENT": "Cannot merge current branch itself",
         "CONFLICTED": "Exists conflicts, you need to solve it manually",
+        "CONFLICT": "There are merge conflict that need to be resolved",
         "ERROR_MERGE": "Problem during the merge",
         "ERROR_DELETION": "Problem during the deletion branch",
+        "ERROR_REBASE": "Rebase failed",
         "ERROR": "Error during the checkout branch"
     },
     "PULL": {

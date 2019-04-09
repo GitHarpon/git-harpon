@@ -21,6 +21,9 @@
               <ng-template contextMenuItem (execute)="openDeleteBranchInfoBar(remote + '/' + remoteBranch)">
                 {{ 'BRANCH.DELETE' | translate }} {{ remote }}/{{ remoteBranch }}
               </ng-template>
+              <ng-template contextMenuItem let-item (execute)="rebaseBranch($event.item)">
+                {{ 'BRANCH.REBASE' | translate }} {{ currentBranch }} onto {{ remote }}/{{ remoteBranch }}
+              </ng-template>
               <ng-template contextMenuItem let-item (execute)="mergeBranchInto(remote + '/' + remoteBranch)">
                 {{ 'BRANCH.MERGE' | translate }} {{ remote }}/{{ remoteBranch }} into {{ currentBranch }}
               </ng-template>
@@ -40,6 +43,9 @@
     </ng-template>
     <ng-template contextMenuItem let-item (execute)="renameBranch($event.item)">
       {{ 'BRANCH.RENAME' | translate }} {{ item }}
+    </ng-template>
+    <ng-template contextMenuItem let-item (execute)="rebaseBranch($event.item)">
+      {{ 'BRANCH.REBASE' | translate }} {{ currentBranch }} onto {{ item }}
     </ng-template>
         <ng-template contextMenuItem let-item (execute)="mergeBranchInto($event.item)">
       {{ 'BRANCH.MERGE' | translate }} {{ item }} into {{ currentBranch }}
