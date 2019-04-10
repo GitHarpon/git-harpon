@@ -272,4 +272,21 @@ describe('LeftPanelComponent', () => {
     expect(component.localBranchesSubscription).toBeUndefined();
     expect(component.loadingVisibleSubscription).toBeUndefined();
   });
+
+  it('test the isOptionEnabled function when opt is disabled', () => {
+    const CurrentBr = 'toto';
+    component.currentBranch = CurrentBr;
+    const Res = component.isOptionEnabled(CurrentBr);
+    expect(Res).toBeFalsy();
+  });
+
+  it('test the isOptionEnabled function when opt is enabled', () => {
+    const CurrentBr = 'toto';
+    const ItemBr = 'titi';
+    component.currentBranch = CurrentBr;
+    const Res = component.isOptionEnabled(ItemBr);
+    expect(Res).toBeTruthy();
+  });
+
+
 });

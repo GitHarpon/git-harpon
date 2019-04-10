@@ -162,6 +162,10 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     });
   }
 
+  public isOptionEnabled = (item: any): boolean => {
+    return item !== this.currentBranch;
+  }
+
   ngOnDestroy() {
     if (this.themePrefSubscription) {
       this.themePrefSubscription.unsubscribe();
