@@ -128,6 +128,7 @@ export class GitService {
           .then(isRepo => {
             if (isRepo) {
               gitPromise(newPath).log().then(() => {
+                this.rightPanelService.setCommitHash(null);
                 this.path = newPath;
                 this.repoName = this.electronService.path.basename(this.path);
                 this.emitRepoNameSubject();
