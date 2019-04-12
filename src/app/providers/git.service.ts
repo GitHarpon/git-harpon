@@ -710,6 +710,7 @@ export class GitService {
       this.rightPanelService.setCommitHash(data.replace('\n', ''));
     });
     this.rightPanelService.setView(true);
+    this.rightPanelService.setDiffViewVisible(false);
   }
 
   checkChanges() {
