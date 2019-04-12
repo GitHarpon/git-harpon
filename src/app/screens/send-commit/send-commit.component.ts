@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { GitService } from '../../providers/git.service';
 import { RightPanelService } from '../../providers/right-panel.service';
+import { DiffFileInformation } from '../../models/DiffFileInformation';
 
 @Component({
   selector: 'app-send-commit',
@@ -21,11 +22,19 @@ export class SendCommitComponent implements OnInit, OnDestroy {
   stageTree: Array<any>;
   commitTextAreaValue: any;
   canCommit: Boolean = false;
+  diffFileInformation: DiffFileInformation;
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
     private rightPanelService: RightPanelService) { }
 
   ngOnInit() {
+    this.diffFileInformation = {
+       children: '',
+       parent: '',
+       isCurrentCommit: true,
+       file: ''
+    };
+
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
         this.currentTheme = newTheme;

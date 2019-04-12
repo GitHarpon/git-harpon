@@ -260,3 +260,105 @@ body {
         }
     }
 }
+
+.gh-diff-view-content-diff {
+
+  & .d2h-file-diff, & .d2h-file-side-diff {
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 10px;
+    }
+    &::-webkit-scrollbar-button:start:decrement,
+    &::-webkit-scrollbar-button:end:increment  {
+        height: 10px;
+        background-color: transparent;
+    }
+    &::-webkit-scrollbar-track-piece  {
+        -webkit-border-radius: 16px;
+    }
+    &::-webkit-scrollbar-thumb:vertical {
+        height: 10px;
+        -webkit-border-radius: 16px;
+    }
+  }
+
+  &.light .d2h-file-diff, &.light .d2h-file-side-diff {
+    &::-webkit-scrollbar-track-piece  {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    &::-webkit-scrollbar-thumb:vertical {
+        background-color: #C6C6C6;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &.dark {
+
+    & .d2h-tag {
+      background-color: $dark;
+    }
+
+    & .d2h-file-header {
+      background-color: #272A31;
+      color: $muted-white;
+      border-bottom: 1px solid $muted-white;
+    }
+
+    & .d2h-file-wrapper {
+      border: 1px solid $light-grey;
+    }
+
+    & .d2h-info {
+      background-color: $dark;
+      color: $muted-white;
+    }
+
+    & .d2h-emptyplaceholder, & .d2h-code-side-linenumber.d2h-code-side-emptyplaceholder,
+    & .d2h-code-side-linenumber.d2h-info,
+    & .d2h-code-linenumber.d2h-info, & .d2h-info {
+      background-color: #272A31;
+    }
+
+    & .d2h-code-linenumber, & .d2h-code-side-linenumber {
+      background-color: $dark;
+      color: $muted-white;
+      border: solid $muted-dark;
+      border-width: 0 1px 0 1px;
+    }
+
+    & .d2h-del {
+      background-color: #422428;
+      border-color: #866666;
+    }
+
+    & .d2h-ins {
+      background-color: #283D32;
+      border-color: #324536;
+    }
+
+    & .d2h-change {
+      background-color: yellow;
+      border-color: greenyellow;
+    }
+
+    & .d2h-code-line ins, & .d2h-code-side-line ins {
+      background-color: #32563E;
+    }
+
+    &  .d2h-code-line del, & .d2h-code-side-line del {
+      background-color: #61292C;
+    }
+  }
+
+  &.dark .d2h-file-diff, &.dark .d2h-file-side-diff {
+    &::-webkit-scrollbar-track-piece  {
+      background-color: rgba(55, 56, 65, 0.3);
+    }
+    &::-webkit-scrollbar-thumb:vertical {
+        background-color: #373841;
+        border: 1px solid rgba(55, 56, 65, 0.3);
+    }
+  }
+}

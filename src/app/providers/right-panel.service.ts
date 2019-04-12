@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { DiffFileInformation } from '../models/DiffFileInformation';
 
 @Injectable()
 export class RightPanelService {
@@ -11,6 +12,10 @@ export class RightPanelService {
   listStagedFilesSubject: Subject<any[]>;
   commitHash: String;
   commitHashSubject: Subject<String>;
+  diffViewVisible: Boolean;
+  diffViewVisibleSubject: Subject<Boolean>;
+  diffFileInformation: DiffFileInformation;
+  diffFileInformationSubject: Subject<DiffFileInformation>;
 
   constructor() {
     this.commitHashSubject = new Subject<String>();
@@ -19,6 +24,10 @@ export class RightPanelService {
     this.emitIsViewSubject();
     this.listUnstagedFilesSubject = new Subject<any[]>();
     this.listStagedFilesSubject = new Subject<any[]>();
+    this.diffViewVisibleSubject = new Subject<Boolean>();
+    this.diffFileInformationSubject = new Subject<DiffFileInformation>();
+    this.diffViewVisible = false;
+    this.emitDiffViewVisibleSubject();
   }
 
   emitIsViewSubject() {
@@ -33,9 +42,27 @@ export class RightPanelService {
     this.listStagedFilesSubject.next(this.listStagedFiles);
   }
 
+  emitDiffViewVisibleSubject() {
+    this.diffViewVisibleSubject.next(this.diffViewVisible);
+  }
+
+  emitDiffFileInformationSubject() {
+    this.diffFileInformationSubject.next(this.diffFileInformation);
+  }
+
   setView(view: boolean) {
     this.isView = view;
     this.emitIsViewSubject();
+  }
+
+  setDiffViewVisible(diffViewVisible: boolean) {
+    this.diffViewVisible = diffViewVisible;
+    this.emitDiffViewVisibleSubject();
+  }
+
+  setDiffFileInformationSubject(diffFileInformation: DiffFileInformation) {
+    this.diffFileInformation = diffFileInformation;
+    this.emitDiffFileInformationSubject();
   }
 
   setListFileCommit(listUnstagedFiles: any[], listStagedFiles: any[]) {

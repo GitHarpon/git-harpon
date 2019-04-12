@@ -51,6 +51,7 @@ import { FileDiffCommitComponent } from '../../components/file-diff-commit/file-
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 import { TabsComponent } from '../../components/tabs/tabs.component';
+import { DiffViewComponent } from '../diff-view/diff-view.component';
 
 describe('PreferencesComponent', () => {
   /* tslint:disable */
@@ -89,7 +90,8 @@ describe('PreferencesComponent', () => {
         FileDiffCommitComponent,
         TreeItemComponent,
         TreeComponent,
-        TabsComponent
+        TabsComponent,
+        DiffViewComponent
       ],
       imports: [
         FormsModule,

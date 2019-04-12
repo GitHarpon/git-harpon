@@ -137,6 +137,11 @@
         "ACCESS_DENIED": "Could not resolve host",
         "REPO_NOT_FOUND": "Repository not found",
         "CURRENT": "Cannot delete current branch",
+        "MERGE": "Merge",
+        "DONE": "Both branches were cloned",
+        "MERGE_CURRENT": "Cannot merge current branch itself",
+        "CONFLICTED": "Exists conflicts, you need to solve it manually",
+        "ERROR_MERGE": "Problem during the merge",
         "ERROR_DELETION": "Problem during the deletion branch",
         "ERROR": "Error during the checkout branch"
     },
@@ -227,5 +232,8 @@
     "STAGE_ALL_FILE": "Stage all changes",
     "UNSTAGE_ALL_FILE": "Unstage all changes",
     "STAGE_FILE": "Stage file",
-    "UNSTAGE_FILE": "Unstage file"
+    "UNSTAGE_FILE": "Unstage file",
+    "INLINE_VIEW": "Line by line",
+    "SPLIT_VIEW": "Side by side",
+    "UNSTAGED_ADDED_FILE": "This file is new and unstage. Please, stage it to see changes"
 }

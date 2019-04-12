@@ -35,6 +35,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   @Output() checkoutInfoBarChange = new EventEmitter<any>();
   @Output() createBranchInfoBar = new EventEmitter<any>();
   @Output() deleteBranchInfoBar = new EventEmitter<any>();
+  @Output() mergeBranch = new EventEmitter<any>();
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
     private leftPanelService: LeftPanelService, private translate: TranslateService,
@@ -144,6 +145,10 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     var TmpNewBr = new NewBranchCouple();
     TmpNewBr.oldBranch = branch;
     this.newBranchCouple = TmpNewBr;
+  }
+
+  mergeBranchInto(branch) {
+    this.mergeBranch.emit(branch);
   }
 
   async updateCommitDescription() {

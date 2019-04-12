@@ -11,6 +11,7 @@ import { HttpsUser } from '../models/HttpsUser';
 import * as isomorphic from 'isomorphic-git';
 import { CommitDescription } from '../models/CommitInformations';
 import { RightPanelService } from './right-panel.service';
+import { DiffFileInformation } from '../models/DiffFileInformation';
 
 @Injectable()
 export class GitService {
@@ -71,6 +72,18 @@ export class GitService {
   setHttpsUser(newUser: HttpsUser) {
     this.httpsUser = newUser;
     this.emitHttpsUserSubject();
+  }
+
+  async getDiffFile(diffInformation: DiffFileInformation) {
+    if (diffInformation.isCurrentCommit) {
+      return this.gitP.raw(['diff', 'HEAD', '--', diffInformation.file]);
+    } else {
+      if (diffInformation.parent) {
+        return this.gitP.raw(['diff', diffInformation.parent, diffInformation.children, '--', diffInformation.file]);
+      } else {
+        return gitPromise().show([diffInformation.children, '--', diffInformation.file]);
+      }
+    }
   }
 
   init(initLocation: string, initName: string) {
@@ -423,8 +436,10 @@ export class GitService {
 
   getGraph() {
     return new Promise<any>((resolve, reject) => {
-      gitPromise(this.path).raw(['log', '--graph', '--oneline', '--all', '--date-order']).then((result) => {
-        resolve(result);
+      gitPromise(this.path).log(['--all', '--reverse']).then((result) => {
+        resolve(result.all);
+      }).catch((err) => {
+        console.log(err);
       });
     });
   }
@@ -524,10 +539,10 @@ export class GitService {
       this.gitP.raw(['remote', 'get-url', 'origin']).then((data) => {
         const Url = GitUrlParse(data);
         var Remote;
-        if (httpsUser.username) {
-          Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
+        if (httpsUser.password == '' || httpsUser.username == '') {
+          Remote = `https://null:null@${Url.resource}${Url.pathname}`;
         } else {
-          Remote = `https://${Url.resource}${Url.pathname}`;
+          Remote = `https://${httpsUser.username}:${httpsUser.password}@${Url.resource}${Url.pathname}`;
         }
         this.gitP.raw(['push', '-u', Remote, branch])
         .then((result) => {
@@ -704,5 +719,39 @@ export class GitService {
       });
       this.rightPanelService.setView(true);
     }
+  }
+
+  /* Fonction merge branche */
+  mergeBranches(mergeBranchName: string, fullPath: string) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      if (this.branchName !== mergeBranchName) {
+        var CommitMessage = 'Merge Branch ' + mergeBranchName + ' into ' + this.branchName;
+        gitPromise(fullPath).raw(['merge', mergeBranchName, '-m', CommitMessage])
+          .then(() => {
+            this.gitP.commit('Merge branch \'' + mergeBranchName + '\' into ' + this.branchName)
+              .then(() => {
+                resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                  this.translate.instant('BRANCH.DONE')));
+              })
+              .catch((err) => {
+                var ErrMsg = 'BRANCH.ERROR_MERGE';
+                console.log(err);
+                var AccessDenied = false;
+                if (err.toString().includes('Committing is not possible because you have unmerged files')) {
+                  ErrMsg = 'BRANCH.CONFLICTED';
+                }
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant(ErrMsg), AccessDenied));
+              });
+          })
+          .catch((err) => {
+            reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                this.translate.instant('BRANCH.ERROR_MERGE')));
+          });
+      } else {
+        reject(new ServiceResult(false, this.translate.instant('ERROR'),
+            this.translate.instant('BRANCH.MERGE_CURRENT')));
+      }
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GitService } from '../../providers/git.service';
@@ -25,7 +25,6 @@ export class HomeComponent implements OnDestroy {
   currentUrl: String;
   cloneUrl: String;
   cloneFolder: string;
-  dimensions: number;
   style: Object;
   initName: string;
   initLocation: string;
@@ -50,6 +49,7 @@ export class HomeComponent implements OnDestroy {
   deleteRemoteBranchCredInfoBarVisible: boolean;
   deleteBranchName: string;
   deleteRemoteBranchAuthErrored: boolean;
+  mergeBranchName: string;
   credInfoBarVisible: boolean;
   openClonedInfoBarVisible: boolean;
   checkoutInfoBarVisible: boolean;
@@ -65,6 +65,8 @@ export class HomeComponent implements OnDestroy {
   themePrefSubscription: Subscription;
   currentTheme: string;
   mainPanelVisible: boolean;
+  diffViewVisible: boolean;
+  diffViewVisibleSubscription: Subscription;
   leftPanelVisible: boolean;
   graphVisible: boolean;
   rightPanelVisible: boolean;
@@ -123,7 +125,13 @@ export class HomeComponent implements OnDestroy {
     );
     this.gitService.emitHttpsUserSubject();
 
-    this.dimensions = 20;
+    this.diffViewVisibleSubscription = this.rightPanelService.diffViewVisibleSubject.subscribe(
+      (diffViewVisible: boolean) => {
+        this.diffViewVisible = diffViewVisible;
+      }
+    );
+    this.rightPanelService.emitDiffViewVisibleSubject();
+
 
     this.cloneHttpsUser = {
       username: '',
@@ -381,7 +389,6 @@ export class HomeComponent implements OnDestroy {
         this.initName = '';
         this.initLocation = '';
         this.fullPath = '';
-        this.openHomeView();
       })
       .catch((result) => {
         this.toastr.error(result.message, result.title, {
@@ -407,7 +414,6 @@ export class HomeComponent implements OnDestroy {
             this.projectModalLoading = false;
             this.projectModalVisible = false;
             this.openFolder = '';
-            this.openHomeView();
             this.toastr.info(data.message, data.title);
             this.gitService.setHttpsUser({ username: null, password: null });
           })
@@ -467,7 +473,6 @@ export class HomeComponent implements OnDestroy {
     this.gitService.setHttpsUser(this.cloneHttpsUser);
     this.gitService.setPath(this.newClonedRepoPath);
     this.closeClonedInfoBar();
-    this.openHomeView();
   }
 
   closeClonedInfoBar() {
@@ -535,6 +540,7 @@ export class HomeComponent implements OnDestroy {
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
       this.rightPanelService.setView(true);
+      this.rightPanelService.setDiffViewVisible(false);
       this.graphService.setGraph();
     } else {
       this.mainPanelVisible = true;
@@ -547,6 +553,7 @@ export class HomeComponent implements OnDestroy {
     this.graphVisible = false;
     this.rightPanelVisible = false;
     this.rightPanelService.setCommitHash('');
+    this.rightPanelService.setDiffViewVisible(false);
   }
 
   openCheckoutInfoBar(remoteBranch) {
@@ -660,11 +667,27 @@ export class HomeComponent implements OnDestroy {
     this.homeLoading = false;
   }
 
+  async mergeBranch(mergeBranchName) {
+    this.homeLoading = true;
+    this.mergeBranchName = mergeBranchName;
+    return this.gitService.mergeBranches(this.mergeBranchName, this.fullPath)
+      .then((data) => {
+        this.homeLoading = false;
+        this.mergeBranchName = '';
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.homeLoading = false;
+        this.toastr.error(data.message, data.title);
+      });
+  }
+
   ngOnDestroy() {
     this.pathSubscription.unsubscribe();
     this.repoNameSubscription.unsubscribe();
     this.recentProjectSubscription.unsubscribe();
     this.branchNameSubscription.unsubscribe();
     this.currentHttpsUserSubscription.unsubscribe();
+    this.diffViewVisibleSubscription.unsubscribe();
   }
 }

@@ -10,6 +10,7 @@ import { HttpsUser } from './HttpsUser';
 import { CommitDescription } from './CommitInformations';
 import { RightPanelService } from '../providers/right-panel.service';
 import { LeftPanelService } from '../providers/left-panel.service';
+import { DiffFileInformation } from './DiffFileInformation';
 
 @Injectable()
 export class MockGitService {
@@ -228,6 +229,16 @@ export class MockGitService {
         });
     }
 
+    async getDiffFile(diffInformation: DiffFileInformation) {
+        return new Promise<String>((resolve, reject) => {
+            if (diffInformation.isCurrentCommit) {
+                resolve('toto');
+            } else {
+                reject('toto');
+            }
+        });
+      }
+
     init(initLocation: string, initName: string) {
         if (initLocation && initName) {
             return new Promise<ServiceResult>((resolve, reject) => {
@@ -392,6 +403,29 @@ export class MockGitService {
         var ListUnstagedFiles = [];
         var ListStagedFiles = [];
         this.rightPanelService.setListFileCommit(ListUnstagedFiles, ListStagedFiles);
+    }
+
+    async mergeBranches(mergeBranchName: string, fullPath: string) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+            if (this.branchName !== mergeBranchName) {
+                var ErrMsg = 'BRANCH.ERROR_MERGE';
+                var AccessDenied = false;
+                if (fullPath == 'goodPath') {
+                    resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+                        this.translate.instant('BRANCH.MERGE')));
+                } else if (fullPath == 'conflictPath') {
+                    ErrMsg = 'BRANCH.CONFLICTED';
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant(ErrMsg), AccessDenied));
+                } else {
+                    reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                        this.translate.instant('BRANCH.ERROR_MERGE')));
+                }
+            } else {
+                reject(new ServiceResult(false, this.translate.instant('ERROR'),
+                    this.translate.instant('BRANCH.MERGE_CURRENT')));
+            }
+        });
     }
 
     checkChanges() {
