@@ -689,7 +689,6 @@ export class HomeComponent implements OnDestroy {
         this.toastr.info(data.message, data.title);
       })
       .catch((data) => {
-        // TODO
         this.homeLoading = false;
         this.toastr.error(data.message, data.title);
       });

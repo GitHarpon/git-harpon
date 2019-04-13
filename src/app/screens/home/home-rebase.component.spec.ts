@@ -157,7 +157,7 @@ describe('HomeComponent', () => {
   });
 
   it('tests the rebaseBranches function with valid branch', (done) => {
-    const Branch = 'toto';
+    const Branch = 'valid';
 
     component.homeLoading = false;
     component.rebaseBranch(Branch).then(() => {

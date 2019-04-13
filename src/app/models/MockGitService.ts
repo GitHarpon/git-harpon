@@ -386,7 +386,7 @@ export class MockGitService {
 
     async rebaseBranches(rebaseBranchName) {
         return new Promise<ServiceResult>((resolve, reject) => {
-          if (rebaseBranchName == 'invalid') {
+          if (rebaseBranchName === 'invalid') {
             reject(new ServiceResult(false, this.translate.instant('BRANCH.ERROR_REBASE'),
             this.translate.instant('BRANCH.ERROR_REBASE')));
           } else {

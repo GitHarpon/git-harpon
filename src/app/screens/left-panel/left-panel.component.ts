@@ -162,7 +162,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     });
   }
 
-  public isOptionEnabled = (item: any): boolean => {
+  isOptionEnabled = (item: any): boolean => {
     return item !== this.currentBranch;
   }
 
