@@ -36,6 +36,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   @Output() createBranchInfoBar = new EventEmitter<any>();
   @Output() deleteBranchInfoBar = new EventEmitter<any>();
   @Output() mergeBranch = new EventEmitter<any>();
+  @Output() rebaseBranches = new EventEmitter<any>();
 
   constructor(private themePrefService: ThemePreferencesService, private gitService: GitService,
     private leftPanelService: LeftPanelService, private translate: TranslateService,
@@ -141,6 +142,10 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     this.deleteBranchInfoBar.emit(deleteBranch);
   }
 
+  rebaseBranch(branch) {
+    this.rebaseBranches.emit(branch);
+  }
+
   renameBranch(branch: string) {
     var TmpNewBr = new NewBranchCouple();
     TmpNewBr.oldBranch = branch;
@@ -155,6 +160,10 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     return this.gitService.revParseHEAD().then((data) => {
       this.rightPanelService.setCommitHash(data.replace('\n', ''));
     });
+  }
+
+  isOptionEnabled = (item: any): boolean => {
+    return item !== this.currentBranch;
   }
 
   ngOnDestroy() {

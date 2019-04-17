@@ -384,6 +384,18 @@ export class MockGitService {
         this.updateFilesDiff();
     }
 
+    async rebaseBranches(rebaseBranchName) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+          if (rebaseBranchName === 'invalid') {
+            reject(new ServiceResult(false, this.translate.instant('BRANCH.ERROR_REBASE'),
+            this.translate.instant('BRANCH.ERROR_REBASE')));
+          } else {
+            resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.REBASED')));
+          }
+        });
+      }
+
     async pullrebaseHttps(httpsUser: HttpsUser, branch: string) {
         return new Promise<ServiceResult>((resolve, reject) => {
             if (httpsUser.username === 'username' && httpsUser.password === 'password') {
