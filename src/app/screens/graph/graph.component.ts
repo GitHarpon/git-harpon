@@ -4,6 +4,11 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { RightPanelService } from '../../providers/right-panel.service';
 import { GraphService } from '../../providers/graph.service';
 import 'gitgraph.js';
+import { GitService } from '../../providers/git.service';
+
+/* tslint:disable */
+declare var gitGraph: any;
+/* tslint:enable */
 
 @Component({
   selector: 'app-graph',
@@ -17,7 +22,7 @@ export class GraphComponent implements OnInit, OnDestroy {
   currentTheme: string;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
-    private graphService: GraphService) { }
+    private graphService: GraphService, private gitService: GitService) { }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -49,6 +54,35 @@ export class GraphComponent implements OnInit, OnDestroy {
     }
 
     return false;
+  }
+
+  async getWellFormatedGraph() {
+    return this.gitService.getWellFormatedTextGraph()
+      .then((data) => {
+        if (data.newData) {
+          var TxtGraph = data.newData as string;
+          var Regex = /^(.+?)(\s(B\[(.*?)\])? C\[(.+?)\] D\[(.+?)\] A\[(.+?)\] E\[(.+?)\] H\[(.+?)\] S\[(.+?)\])?$/g;
+          var GraphArray = TxtGraph.split('\n');
+          var GraphArrayFormatted: Array<String>;
+          GraphArray.forEach(element => {
+            var Tmp = element.match(Regex);
+            if (Tmp) {
+               // TODO
+            }
+          });
+        }
+      })
+      .catch((data) => {
+        if (data.newData) {
+          console.log(data);
+        } else {
+
+        }
+      });
+  }
+
+  graphs() {
+
   }
 
   ngOnDestroy() {
