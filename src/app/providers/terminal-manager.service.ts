@@ -62,8 +62,8 @@ export class TerminalManagerService {
       case 'Windows_NT':
         return [
           { key: 'start cmd.exe /k cd ', value: 'cmd' },
-          { key: 'start PowerShell.exe /k cd ', value: 'PowerShell' },
-          { key: 'start "" "%ProgramFiles%\\Git\\git-bash.exe" /k cd ', value: 'git-bash' }
+          { key: 'start PowerShell.exe -NoExit cd ', value: 'PowerShell' },
+          { key: 'start "" "%ProgramFiles%\\Git\\git-bash.exe" --cd=', value: 'git-bash' }
         ];
       default:
         return [];
