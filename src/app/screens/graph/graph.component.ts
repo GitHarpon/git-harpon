@@ -3,12 +3,8 @@ import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { GraphService } from '../../providers/graph.service';
-import 'gitgraph.js';
 import { GitService } from '../../providers/git.service';
 
-/* tslint:disable */
-declare var gitGraph: any;
-/* tslint:enable */
 
 @Component({
   selector: 'app-graph',
@@ -59,16 +55,15 @@ export class GraphComponent implements OnInit, OnDestroy {
   async getWellFormatedGraph() {
     return this.gitService.getWellFormatedTextGraph()
       .then((data) => {
+        console.log(data);
         if (data.newData) {
-          var TxtGraph = data.newData as string;
-          var Regex = /^(.+?)(\s(B\[(.*?)\])? C\[(.+?)\] D\[(.+?)\] A\[(.+?)\] E\[(.+?)\] H\[(.+?)\] S\[(.+?)\])?$/g;
-          var GraphArray = TxtGraph.split('\n');
-          var GraphArrayFormatted: Array<String>;
+          /* tslint:disable */
+          var Regex = /^(.+?)(\s(B\[(?<B>.*?)\])? C\[(?<hash>.+?)\] D\[(?<date>.+?)\] A\[(?<dispname>.+?)\] E\[(?<mail>.+?)\] H\[(?<littlehash>.+?)\] S\[(?<commitmsg>.+?)\])?$/g;
+          /* tslint:enable */
+          var GraphArray = data.newData.split('\n');
           GraphArray.forEach(element => {
-            var Tmp = element.match(Regex);
-            if (Tmp) {
-               // TODO
-            }
+            let Tmp = Regex.exec(element);
+            console.log(Tmp);
           });
         }
       })
