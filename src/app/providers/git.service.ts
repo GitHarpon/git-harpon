@@ -361,7 +361,7 @@ export class GitService {
     return new Promise<ServiceResult>((resolve, reject) => {
       gitPromise(this.path).raw(['log', '--graph', '--date-order',
       '--all', '-C', '-M', '--date=iso',
-      '--pretty=format:"B[%d] C[%H] D[%ad] A[%an] E[%ae] H[%h] S[%s]"']).then((data) => {
+      '--pretty=format:B[%d] C[%H] D[%ad] A[%an] E[%ae] H[%h] S[%s]']).then((data) => {
         resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
         this.translate.instant('SUCCESS'), data));
       }).catch((data) => {

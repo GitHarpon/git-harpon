@@ -58,12 +58,21 @@ export class GraphComponent implements OnInit, OnDestroy {
         console.log(data);
         if (data.newData) {
           /* tslint:disable */
-          var Regex = /^(.+?)(\s(B\[(?<B>.*?)\])? C\[(?<hash>.+?)\] D\[(?<date>.+?)\] A\[(?<dispname>.+?)\] E\[(?<mail>.+?)\] H\[(?<littlehash>.+?)\] S\[(?<commitmsg>.+?)\])?$/g;
+          const Regex = /^(.+?)(\s(B\[(.*?)\])? C\[(.+?)\] D\[(.+?)\] A\[(.+?)\] E\[(.+?)\] H\[(.+?)\] S\[(.+?)\])?$/mg;
           /* tslint:enable */
           var GraphArray = data.newData.split('\n');
+          let Tmp;
           GraphArray.forEach(element => {
-            let Tmp = Regex.exec(element);
+            console.log(element);
             console.log(Tmp);
+            while ((Tmp = Regex.exec(element)) !== null) {
+                if (Tmp.index === Regex.lastIndex) {
+                    Regex.lastIndex++;
+                }
+                Tmp.forEach((match, groupIndex) => {
+                    console.log(`Match, group ${groupIndex}: ${match}`);
+                });
+            }
           });
         }
       })
