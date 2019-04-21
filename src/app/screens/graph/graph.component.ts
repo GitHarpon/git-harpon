@@ -4,7 +4,8 @@ import { ThemePreferencesService } from '../../providers/theme-preferences.servi
 import { RightPanelService } from '../../providers/right-panel.service';
 import { GraphService } from '../../providers/graph.service';
 import { GitService } from '../../providers/git.service';
-
+import { MetaCommit } from '../../models/MetaCommit';
+import { AnimationMetadataType } from '@angular/animations';
 
 @Component({
   selector: 'app-graph',
@@ -16,6 +17,7 @@ export class GraphComponent implements OnInit, OnDestroy {
   graph: any;
   graphSubscription: Subscription;
   currentTheme: string;
+  metaCommitCollection: Array<MetaCommit>;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
     private graphService: GraphService, private gitService: GitService) { }
@@ -55,25 +57,44 @@ export class GraphComponent implements OnInit, OnDestroy {
   async getWellFormatedGraph() {
     return this.gitService.getWellFormatedTextGraph()
       .then((data) => {
-        console.log(data);
         if (data.newData) {
           /* tslint:disable */
           const Regex = /^(.+?)(\s(B\[(.*?)\])? C\[(.+?)\] D\[(.+?)\] A\[(.+?)\] E\[(.+?)\] H\[(.+?)\] S\[(.+?)\])?$/mg;
           /* tslint:enable */
-          var GraphArray = data.newData.split('\n');
+          let GraphArray = data.newData.split('\n');
           let Tmp;
+          this.metaCommitCollection = new Array<MetaCommit>();
           GraphArray.forEach(element => {
-            console.log(element);
-            console.log(Tmp);
+            let Meta: MetaCommit;
             while ((Tmp = Regex.exec(element)) !== null) {
                 if (Tmp.index === Regex.lastIndex) {
                     Regex.lastIndex++;
                 }
                 Tmp.forEach((match, groupIndex) => {
-                    console.log(`Match, group ${groupIndex}: ${match}`);
+                    console.log(match);
+                    if (groupIndex === 1) {
+                      Meta.typeCommit = match;
+                    } else if (groupIndex === 4) {
+                        // TODO
+                    } else if (groupIndex === 5) {
+                      Meta.hash = match;
+                    } else if (groupIndex === 6) {
+                      Meta.date = match;
+                    } else if (groupIndex === 7) {
+                      Meta.dispName = match;
+                    } else if (groupIndex === 8) {
+                      Meta.mail = match;
+                    } else if (groupIndex === 9) {
+                      Meta.littlehash = match;
+                    } else if (groupIndex === 10) {
+                      Meta.commitMsg = match;
+                    }
                 });
+                console.log(Meta);
+                this.metaCommitCollection.push(Meta);
             }
           });
+          console.log(this.metaCommitCollection);
         }
       })
       .catch((data) => {
