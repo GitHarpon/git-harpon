@@ -104,6 +104,46 @@ export class GraphComponent implements OnInit, OnDestroy {
 
         }
       });
+
+    /*
+    return this.gitService.getWellFormatedTextGraph()
+      .then((data) => {
+        let GraphArray = data.newData.split('\n');
+        const Regex = /^(.+?)(\s(B\[(.*?)\])? C\[(.+?)\] D\[(.+?)\] A\[(.+?)\] E\[(.+?)\] H\[(.+?)\] S\[(.+?)\])?$/mg;
+        let Tmp;
+        let Line = [];
+        GraphArray.forEach(element => {
+          while ((Tmp = Regex.exec(element)) !== null) {
+            if (Tmp.index === Regex.lastIndex) {
+              Regex.lastIndex++;
+            }
+
+            let TmpLine = [];
+            Tmp.forEach((match, groupIndex) => {
+              if (groupIndex === 1) {
+                TmpLine['relation'] = match;
+              } else if (groupIndex === 4) {
+                TmpLine['branch'] = match;
+              } else if (groupIndex === 5) {
+                TmpLine['rev'] = match;
+              } else if (groupIndex === 6) {
+                TmpLine['date'] = match;
+              } else if (groupIndex === 7) {
+                TmpLine['author'] = match;
+              } else if (groupIndex === 8) {
+                TmpLine['author_email'] = match;
+              } else if (groupIndex === 9) {
+                TmpLine['short_rev'] = match;
+              } else if (groupIndex === 10) {
+                TmpLine['subject'] = match;
+              }
+            });
+
+            Line.push(TmpLine);
+          }
+        });
+      });
+      */
   }
 
   graphs() {
