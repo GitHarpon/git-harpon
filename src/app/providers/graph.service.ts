@@ -20,8 +20,8 @@ export class GraphService {
     }
 
     async drawGraph() {
-        let MyTemplateConfig = {
-            //colors: [ '#F00', '#0F0', '#00F' ], // branches colors, 1 per column
+        /*let MyTemplateConfig = {
+            // colors: [ '#F00', '#0F0', '#00F' ], // branches colors, 1 per column
             branch: {
                 lineWidth: 8,
                 spacingX: 20
@@ -54,6 +54,6 @@ export class GraphService {
                 author: this.graph[Ind].author_name
                 }
             );
-        }
+        }*/
     }
 }

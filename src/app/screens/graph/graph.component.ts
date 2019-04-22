@@ -18,6 +18,7 @@ export class GraphComponent implements OnInit, OnDestroy {
   graphSubscription: Subscription;
   currentTheme: string;
   metaCommitCollection: Array<MetaCommit>;
+  graphLines: Array<any>;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
     private graphService: GraphService, private gitService: GitService) { }
@@ -55,12 +56,10 @@ export class GraphComponent implements OnInit, OnDestroy {
   }
 
   async getWellFormatedGraph() {
-    return this.gitService.getWellFormatedTextGraph()
+    /*return this.gitService.getWellFormatedTextGraph()
       .then((data) => {
         if (data.newData) {
-          /* tslint:disable */
           const Regex = /^(.+?)(\s(B\[(.*?)\])? C\[(.+?)\] D\[(.+?)\] A\[(.+?)\] E\[(.+?)\] H\[(.+?)\] S\[(.+?)\])?$/mg;
-          /* tslint:enable */
           let GraphArray = data.newData.split('\n');
           let Tmp;
           this.metaCommitCollection = new Array<MetaCommit>();
@@ -103,15 +102,15 @@ export class GraphComponent implements OnInit, OnDestroy {
         } else {
 
         }
-      });
+      });*/
 
-    /*
+    
     return this.gitService.getWellFormatedTextGraph()
       .then((data) => {
         let GraphArray = data.newData.split('\n');
         const Regex = /^(.+?)(\s(B\[(.*?)\])? C\[(.+?)\] D\[(.+?)\] A\[(.+?)\] E\[(.+?)\] H\[(.+?)\] S\[(.+?)\])?$/mg;
         let Tmp;
-        let Line = [];
+        let Lines = [];
         GraphArray.forEach(element => {
           while ((Tmp = Regex.exec(element)) !== null) {
             if (Tmp.index === Regex.lastIndex) {
@@ -139,11 +138,12 @@ export class GraphComponent implements OnInit, OnDestroy {
               }
             });
 
-            Line.push(TmpLine);
+            Lines.push(TmpLine);
           }
         });
+        this.graphLines = Lines;
       });
-      */
+
   }
 
   graphs() {

@@ -1,26 +1,26 @@
 <div class="gh-graph" [ngClass]="[currentTheme]">
   <div class="container offset-md-2 col-md-8 mt-5">
-    <canvas id="gitGraph"></canvas>
+    <!--<canvas id="gitGraph"></canvas>-->
   </div>
   <app-button class="ml-3" value="test" type="primary" (buttonClicked)="getWellFormatedGraph()"></app-button>
-</div>
-<!--<div id="git-graph-container">
-  <div id="rel-container">
-    <canvas id="graph-canvas" width="100px">
-      <ul id="graph-raw-list" *ngFor="let graph of graphs()">
-            <li><span class="node-relation">{{ graph.relation }}</span></li>
+  <div id="git-graph-container">
+    <div id="rel-container">
+      <canvas id="graph-canvas" width="100px">
+        <ul id="graph-raw-list" *ngFor="let graph of graphLines">
+              <li><span class="node-relation">{{ graph.relation }}</span></li>
+        </ul>
+      </canvas>
+    </div>
+    <div style="float:left;" id="rev-container">
+      <ul id="rev-list" *ngFor="let graph of graphLines">
+          <li>
+              <div *ngIf="graph.rev; else elseBlock">
+                <code id="{{graph.short_rev}}">{{ graph.short_rev }}</code>
+                  <strong>{{graph.branch}}</strong><em>{{graph.subject}}</em> by <span class="author">{{ graph.author }} &lt; {{ graph.author_email }} &gt;</span><span class="time">{{ graph.date }}</span>            
+              </div>
+              <ng-template #elseBlock><span></span></ng-template>
+          </li>
       </ul>
-    </canvas>
+    </div>
   </div>
-  <div style="float:left;" id="rev-container">
-    <ul id="rev-list" *ngFor="let graph of graphs()">
-        <li>
-            <div *ngIf="graph.rev; else elseBlock">
-              <code id="{{graph.short_rev}}">{{ graph.short_rev }}</code>
-                <strong>{{graph.branch}}</strong><em>{{graph.subject}}</em> by <span class="author">{{ graph.author }} &lt; . {{ graph.author_email }} &gt;</span><span class="time">{{ graph.date }}</span>            
-            </div>
-            <ng-template #elseBlock><span></span></ng-template>
-        </li>
-    </ul>
-  </div>
-</div>-->
+</div>
