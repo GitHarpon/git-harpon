@@ -128,6 +128,7 @@ export class GitService {
           .then(isRepo => {
             if (isRepo) {
               gitPromise(newPath).log().then(() => {
+                this.rightPanelService.setCommitHash(null);
                 this.path = newPath;
                 this.repoName = this.electronService.path.basename(this.path);
                 this.emitRepoNameSubject();
@@ -728,6 +729,21 @@ export class GitService {
     this.gitP.commit(summary + '\n\n' + description).then(() => {
       this.updateFilesDiff();
     });
+    this.revParseHEAD().then((data) => {
+      this.rightPanelService.setCommitHash(data.replace('\n', ''));
+    });
+    this.rightPanelService.setView(true);
+    this.rightPanelService.setDiffViewVisible(false);
+  }
+
+  checkChanges() {
+    if (this.rightPanelService.listUnstagedFiles.length + this.rightPanelService.listStagedFiles.length
+        < 1) {
+      this.revParseHEAD().then((data) => {
+        this.rightPanelService.setCommitHash(data.replace('\n', ''));
+      });
+      this.rightPanelService.setView(true);
+    }
   }
 
   /* Fonction merge branche */

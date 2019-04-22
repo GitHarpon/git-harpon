@@ -439,4 +439,14 @@ export class MockGitService {
             }
         });
     }
+
+    checkChanges() {
+        if (this.rightPanelService.listUnstagedFiles.length + this.rightPanelService.listStagedFiles.length
+            < 1) {
+          this.revParseHEAD().then((data) => {
+            this.rightPanelService.setCommitHash(data.replace('\n', ''));
+          });
+          this.rightPanelService.setView(true);
+        }
+    }
 }
