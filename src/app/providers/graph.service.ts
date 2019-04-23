@@ -7,53 +7,72 @@ import 'gitgraph.js';
 export class GraphService {
     graph: any;
     graphSubject: Subject<any>;
+    drawingGraph: boolean;
+    drawingGraphSubject: Subject<boolean>;
 
     constructor(private gitService: GitService) {
         this.graphSubject = new Subject<any>();
+        this.drawingGraphSubject = new Subject<any>();
     }
 
-    setGraph() {
+    /*setGraph() {
         this.gitService.getGraph().then((graph) => {
             this.graph = graph;
             this.graphSubject.next(this.graph);
         });
-    }
+    }*/
 
     async drawGraph() {
-        /*let MyTemplateConfig = {
-            // colors: [ '#F00', '#0F0', '#00F' ], // branches colors, 1 per column
-            branch: {
-                lineWidth: 8,
-                spacingX: 20
-            },
-            commit: {
-                spacingY: -40,
-                dot: {
-                size: 10
-                },
-                message: {
-                displayAuthor: false,
-                displayBranch: false,
-                displayHash: true,
-                font: 'normal 12pt Arial'
-                },
-                shouldDisplayTooltipsInCompactMode: false
-            }
-        };
 
-        let MyTemplate = new GitGraph.Template(MyTemplateConfig);
-        let CommitGraph = new GitGraph({ template: MyTemplate, orientation: 'vertical-reverse' });
-
-        CommitGraph.branch('master');
-
-        for (let Ind = 0; Ind < this.graph.length; Ind++) {
-            CommitGraph.commit(
-                {
-                message: this.graph[Ind].message,
-                sha1: this.graph[Ind].hash.substr(0, 6),
-                author: this.graph[Ind].author_name
-                }
-            );
-        }*/
     }
+
+    async setGraph(doNothing?: boolean) {
+        if (!doNothing) {
+            return this.gitService.getWellFormatedTextGraph()
+              .then((data) => {
+                this.graph = [];
+                this.graphSubject.next(this.graph);
+                let GraphArray = data.newData.split('\n');
+                const Regex = /^(.+?)(\s(B\[(.*?)\])? C\[(.+?)\] D\[(.+?)\] A\[(.+?)\] E\[(.+?)\] H\[(.+?)\] S\[(.+?)\])?$/mg;
+                let Tmp;
+                let Lines = [];
+                GraphArray.forEach(element => {
+                  while ((Tmp = Regex.exec(element)) !== null) {
+                    if (Tmp.index === Regex.lastIndex) {
+                      Regex.lastIndex++;
+                    }
+
+                    let TmpLine = [];
+                    Tmp.forEach((match, groupIndex) => {
+                      if (groupIndex === 1) {
+                        TmpLine['relation'] = match;
+                      } else if (groupIndex === 4) {
+                        TmpLine['branch'] = match;
+                      } else if (groupIndex === 5) {
+                        TmpLine['rev'] = match;
+                      } else if (groupIndex === 6) {
+                        TmpLine['date'] = match;
+                      } else if (groupIndex === 7) {
+                        TmpLine['author'] = match;
+                      } else if (groupIndex === 8) {
+                        TmpLine['author_email'] = match;
+                      } else if (groupIndex === 9) {
+                        TmpLine['short_rev'] = match;
+                      } else if (groupIndex === 10) {
+                        TmpLine['subject'] = match;
+                      }
+                    });
+
+                    Lines.push(TmpLine);
+                  }
+                });
+                this.graph = Lines;
+                this.drawingGraph = true;
+                this.graphSubject.next(this.graph);
+                this.drawingGraphSubject.next(this.drawingGraph);
+              });
+        } else {
+            return null;
+        }
+      }
 }

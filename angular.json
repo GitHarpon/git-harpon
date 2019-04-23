@@ -31,7 +31,9 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/electron-load.js"
+              "src/electron-load.js",
+              "src/assets/js/gitgraph.js",
+              "src/assets/js/draw.js"
             ]
           },
           "configurations": {
