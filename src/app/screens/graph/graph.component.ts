@@ -65,8 +65,13 @@ export class GraphComponent implements OnInit, OnDestroy {
   drawingit() {
     if (this.drawingGraph) {
       this.drawingGraph = false;
-      testdrawing();
-      setTimeout(() => {this.loadingVisible = false; }, 0);
+      setTimeout(() => {
+        let GraphCanvas: any = document.getElementById('graph-canvas');
+        let Context = GraphCanvas.getContext('2d');
+        Context.clearRect(0, 0, GraphCanvas.width, GraphCanvas.height);
+        testdrawing();
+        this.loadingVisible = false;
+      }, 0);
     }
   }
 
