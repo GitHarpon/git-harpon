@@ -5,9 +5,12 @@ import { Subject } from 'rxjs';
 export class MockGraphService {
     graph: any;
     graphSubject: Subject<any>;
+    drawingGraph: boolean;
+    drawingGraphSubject: Subject<boolean>;
 
     constructor() {
         this.graphSubject = new Subject<any>();
+        this.drawingGraphSubject = new Subject<any>();
     }
 
     setGraph() {
@@ -28,9 +31,5 @@ export class MockGraphService {
             }
           ];
         this.graphSubject.next(CommitGraph);
-    }
-
-    drawGraph() {
-        return true;
     }
 }

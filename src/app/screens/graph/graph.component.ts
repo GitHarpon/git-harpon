@@ -25,7 +25,7 @@ export class GraphComponent implements OnInit, OnDestroy {
   drawingGraphSubscription: Subscription;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
-    private graphService: GraphService, private gitService: GitService) { }
+    private graphService: GraphService) { }
 
   ngOnInit() {
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
@@ -57,11 +57,8 @@ export class GraphComponent implements OnInit, OnDestroy {
 
   setCommitGraph() {
     if (this.graph) {
-        this.graphService.drawGraph();
-
         return true;
     }
-
     return false;
   }
 

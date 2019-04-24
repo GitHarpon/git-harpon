@@ -15,17 +15,6 @@ export class GraphService {
         this.drawingGraphSubject = new Subject<any>();
     }
 
-    /*setGraph() {
-        this.gitService.getGraph().then((graph) => {
-            this.graph = graph;
-            this.graphSubject.next(this.graph);
-        });
-    }*/
-
-    async drawGraph() {
-
-    }
-
     async setGraph(doNothing?: boolean) {
         if (!doNothing) {
             return this.gitService.getWellFormatedTextGraph()
