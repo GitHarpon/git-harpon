@@ -1,6 +1,5 @@
 function testdrawing() {
     let graphList = [];
-
     if(!document.getElementById('graph-canvas')) {
         return;
     }

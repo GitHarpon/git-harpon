@@ -21,6 +21,7 @@ export class GraphComponent implements OnInit, OnDestroy {
   metaCommitCollection: Array<MetaCommit>;
   graphLines: Array<any>;
   drawingGraph: boolean;
+  loadingVisible = true;
   drawingGraphSubscription: Subscription;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
@@ -68,6 +69,7 @@ export class GraphComponent implements OnInit, OnDestroy {
     if (this.drawingGraph) {
       this.drawingGraph = false;
       testdrawing();
+      setTimeout(() => {this.loadingVisible = false; }, 0);
     }
   }
 

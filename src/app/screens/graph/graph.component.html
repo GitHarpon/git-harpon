@@ -1,26 +1,28 @@
 <div class="gh-graph" [ngClass]="[currentTheme]">
-  <div class="container offset-md-2 col-md-8 mt-5">
-    <!--<canvas id="gitGraph"></canvas>-->
+    <app-loader [loading]="loadingVisible">
+      <div class="container offset-md-2 col-md-8 mt-5">
+        <!--<canvas id="gitGraph"></canvas>-->
+      </div>
+      <div id="git-graph-container">
+        <div id="rel-container">
+          <canvas id="graph-canvas" width="100px">
+            <ul id="graph-raw-list" *ngFor="let line of graph">
+                  <li><span class="node-relation">{{ line.relation }}</span></li>
+            </ul> 
+          </canvas>
+        </div>
+        <div id="rev-container">
+          <ul id="rev-list" *ngFor="let line of graph; let l = last;">
+              <li>
+                  <div *ngIf="line.rev; else elseBlock">
+                    <code id="{{line.short_rev}}">{{ line.short_rev }}</code>
+                      <strong>{{line.branch}}</strong><em>{{line.subject}}</em> by <span class="author">{{ line.author }} &lt; {{ line.author_email }} &gt;</span><span class="time">{{ line.date }}</span>            
+                  </div>
+                  <ng-template #elseBlock><span></span></ng-template>
+              </li>
+              {{ l ? drawingit() : null }}
+          </ul>
+        </div>
+      </div>
+    </app-loader>
   </div>
-  <div id="git-graph-container">
-    <div id="rel-container">
-      <canvas id="graph-canvas" width="100px">
-        <ul id="graph-raw-list" *ngFor="let line of graph">
-              <li><span class="node-relation">{{ line.relation }}</span></li>
-        </ul>
-      </canvas>
-    </div>
-    <div id="rev-container">
-      <ul id="rev-list" *ngFor="let line of graph; let l = last;">
-          <li>
-              <div *ngIf="line.rev; else elseBlock">
-                <code id="{{line.short_rev}}">{{ line.short_rev }}</code>
-                  <strong>{{line.branch}}</strong><em>{{line.subject}}</em> by <span class="author">{{ line.author }} &lt; {{ line.author_email }} &gt;</span><span class="time">{{ line.date }}</span>            
-              </div>
-              <ng-template #elseBlock><span></span></ng-template>
-          </li>
-          {{ l ? drawingit() : null }}
-      </ul>
-    </div>
-  </div>
-</div>
