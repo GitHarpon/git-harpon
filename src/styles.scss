@@ -366,6 +366,7 @@ body {
 
 /*** GRAPH ***/
 #git-graph-container, #rel-container {float:left;}
+#git-graph-container #rev-container { margin-right: 10px; }
 #git-graph-container li {list-style-type:none;height:20px;line-height:20px;overflow:hidden;}	
 #git-graph-container li .node-relation {font-family:'Bitstream Vera Sans Mono', 'Courier', monospace;}
 #git-graph-container li .author {color:#666666;}

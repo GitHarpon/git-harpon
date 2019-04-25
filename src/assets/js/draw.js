@@ -12,6 +12,7 @@ function testdrawing() {
     gitGraph(document.getElementById('graph-canvas'), graphList);
 
     if(document.getElementById('rev-container')) {
-        document.getElementById('rev-container').style.width = document.body.clientWidth - document.getElementById('graph-canvas').width;
+        document.getElementById('rev-container').style.width =
+            'calc(100% + ' + document.getElementById('graph-canvas').style.width + ')';
     }
 }
