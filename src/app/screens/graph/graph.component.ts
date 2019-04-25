@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { RightPanelService } from '../../providers/right-panel.service';
@@ -42,24 +42,17 @@ export class GraphComponent implements OnInit, OnDestroy {
     );
 
     this.graphSubscription = this.graphService.graphSubject.subscribe(
-      (graph) => {
+      (graph: any) => {
         this.graph = graph;
-        this.setCommitGraph();
       }
     );
-    this.graphService.setGraph(true);
+
+    this.graphService.setGraph();
   }
 
   openSendCommit() {
     this.rightPanelService.setView(false);
     return true;
-  }
-
-  setCommitGraph() {
-    if (this.graph) {
-        return true;
-    }
-    return false;
   }
 
   drawingit() {
@@ -81,6 +74,9 @@ export class GraphComponent implements OnInit, OnDestroy {
     }
     if (this.graphSubscription) {
       this.graphSubscription.unsubscribe();
+    }
+    if (this.drawingGraphSubscription) {
+      this.drawingGraphSubscription.unsubscribe();
     }
   }
 }
