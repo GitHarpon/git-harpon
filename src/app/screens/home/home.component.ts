@@ -159,6 +159,7 @@ export class HomeComponent implements OnDestroy {
       this.gitService.updateFilesDiff();
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
+      this.gitService.emitNeedToDrawGraph(true);
       return true;
     }
     return false;

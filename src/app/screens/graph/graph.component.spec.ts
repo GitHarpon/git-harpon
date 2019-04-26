@@ -17,6 +17,10 @@ import { TreeItemComponent } from '../../components/tree-item/tree-item.componen
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TabsComponent } from '../../components/tabs/tabs.component';
 import { LoaderComponent } from '../../components/loader/loader.component';
+import { GitService } from '../../providers/git.service';
+import { MockGitService } from '../../models/MockGitService';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 
 describe('GraphComponent', () => {
   /* tslint:disable */
@@ -55,6 +59,14 @@ describe('GraphComponent', () => {
         {
           provide: GraphService,
           useClass: MockGraphService
+        },
+        {
+          provide: GitService,
+          useClass: MockGitService
+        },
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
         }
       ]
     })
