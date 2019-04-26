@@ -43,7 +43,6 @@ export class GraphService {
   }
 
   async setGraph() {
-    console.log('drawing');
     this.setGraphLoading(true);
     return this.gitService.getWellFormatedTextGraph()
       .then((data) => {
