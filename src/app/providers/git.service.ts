@@ -137,6 +137,7 @@ export class GitService {
           .then(isRepo => {
             if (isRepo) {
               gitPromise(newPath).log().then(() => {
+                this.rightPanelService.setCommitHash(null);
                 this.path = newPath;
                 this.repoName = this.electronService.path.basename(this.path);
                 this.emitRepoNameSubject();
@@ -443,6 +444,7 @@ export class GitService {
       this.gitP.raw(['checkout', '-b', newBranch, remoteBranch])
       .then((result) => {
         this.getCurrentBranch();
+        this.emitNeedToDrawGraph(true);
         resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
       }).catch((err) => {
@@ -459,11 +461,46 @@ export class GitService {
       const LocalBranch = remoteBranch.split('/')[1];
       gitPromise(this.path).checkout(LocalBranch).then((result) => {
         this.getCurrentBranch();
+        this.emitNeedToDrawGraph(true);
         gitPromise(this.path).raw(['reset', '--hard', remoteBranch]).then((reset) => {
           this.emitNeedToDrawGraph(true);
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
         });
+      });
+    });
+  }
+
+  async rebaseBranches(rebaseBranchName) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      this.gitP.raw(['rebase', rebaseBranchName])
+        .then(() => {
+          this.emitNeedToDrawGraph(true);
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.REBASED')));
+        })
+        .catch((err) => {
+          var ErrMsg = 'BRANCH.ERROR_REBASE';
+          var AccessDenied = false;
+          if (err.toString().includes('Échec')) {
+            ErrMsg = 'BRANCH.CONFLICT';
+          }
+          this.gitP.raw(['rebase', '--abort'])
+            .then((result) => {
+              resolve(result);
+            });
+            reject(new ServiceResult(false, this.translate.instant('BRANCH.ERROR_REBASE'),
+              this.translate.instant(ErrMsg), AccessDenied));
+        });
+    });
+  }
+
+  getGraph() {
+    return new Promise<any>((resolve, reject) => {
+      gitPromise(this.path).log(['--all', '--reverse']).then((result) => {
+        resolve(result.all);
+      }).catch((err) => {
+        console.log(err);
       });
     });
   }
@@ -733,6 +770,21 @@ export class GitService {
       this.updateFilesDiff();
       this.emitNeedToDrawGraph(true);
     });
+    this.revParseHEAD().then((data) => {
+      this.rightPanelService.setCommitHash(data.replace('\n', ''));
+    });
+    this.rightPanelService.setView(true);
+    this.rightPanelService.setDiffViewVisible(false);
+  }
+
+  checkChanges() {
+    if (this.rightPanelService.listUnstagedFiles.length + this.rightPanelService.listStagedFiles.length
+        < 1) {
+      this.revParseHEAD().then((data) => {
+        this.rightPanelService.setCommitHash(data.replace('\n', ''));
+      });
+      this.rightPanelService.setView(true);
+    }
   }
 
   /* Fonction merge branche */

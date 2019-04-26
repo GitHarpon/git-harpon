@@ -391,6 +391,18 @@ export class MockGitService {
         this.updateFilesDiff();
     }
 
+    async rebaseBranches(rebaseBranchName) {
+        return new Promise<ServiceResult>((resolve, reject) => {
+          if (rebaseBranchName === 'invalid') {
+            reject(new ServiceResult(false, this.translate.instant('BRANCH.ERROR_REBASE'),
+            this.translate.instant('BRANCH.ERROR_REBASE')));
+          } else {
+            resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.REBASED')));
+          }
+        });
+      }
+
     async pullrebaseHttps(httpsUser: HttpsUser, branch: string) {
         return new Promise<ServiceResult>((resolve, reject) => {
             if (httpsUser.username === 'username' && httpsUser.password === 'password') {
@@ -433,5 +445,15 @@ export class MockGitService {
                     this.translate.instant('BRANCH.MERGE_CURRENT')));
             }
         });
+    }
+
+    checkChanges() {
+        if (this.rightPanelService.listUnstagedFiles.length + this.rightPanelService.listStagedFiles.length
+            < 1) {
+          this.revParseHEAD().then((data) => {
+            this.rightPanelService.setCommitHash(data.replace('\n', ''));
+          });
+          this.rightPanelService.setView(true);
+        }
     }
 }

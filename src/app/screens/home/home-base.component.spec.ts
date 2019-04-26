@@ -274,14 +274,20 @@ describe('HomeComponent', () => {
     expect(component.rightPanelVisible).toBeFalsy();
   });
 
-  it('test the function onFocus with valid parameter', () => {
+  it('test the function onFocus with valid parameter', (done) => {
     const RepoName = 'RepoName';
     component.repoName = RepoName;
-    expect(component.onFocus()).toBeTruthy();
+    component.onFocus().then((result) => {
+      expect(result).toBeTruthy();
+      done();
+    });
   });
 
-  it('test the function onFocus with invalid parameter', () => {
-    expect(component.onFocus()).toBeFalsy();
+  it('test the function onFocus with invalid parameter', (done) => {
+    component.onFocus().then((result) => {
+      expect(result).toBeFalsy();
+      done();
+    });
   });
 
   it('test the function setCommitHash with valid event', () => {
