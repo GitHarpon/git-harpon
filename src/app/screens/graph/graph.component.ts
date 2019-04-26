@@ -79,6 +79,9 @@ export class GraphComponent implements OnInit, OnDestroy {
     if (this.themePrefSubscription) {
       this.themePrefSubscription.unsubscribe();
     }
+    if (this.graphLoadingSubscription) {
+      this.graphLoadingSubscription.unsubscribe();
+    }
     if (this.graphSubscription) {
       this.graphSubscription.unsubscribe();
     }

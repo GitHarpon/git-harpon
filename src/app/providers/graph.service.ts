@@ -21,6 +21,10 @@ export class GraphService {
     this.graphLoadingSubject.next(graphLoading);
   }
 
+  emitGraph(graph) {
+    this.graphSubject.next(graph);
+  }
+
   async setGraph() {
     this.setGraphLoading(true);
     return this.gitService.getWellFormatedTextGraph()
