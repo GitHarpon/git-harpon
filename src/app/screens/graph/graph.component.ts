@@ -21,8 +21,9 @@ export class GraphComponent implements OnInit, OnDestroy {
   metaCommitCollection: Array<MetaCommit>;
   graphLines: Array<any>;
   drawingGraph: boolean;
-  loadingVisible = true;
+  graphLoading = true;
   drawingGraphSubscription: Subscription;
+  graphLoadingSubscription: Subscription;
 
   constructor(private themePrefService: ThemePreferencesService, private rightPanelService: RightPanelService,
     private graphService: GraphService) { }
@@ -35,6 +36,13 @@ export class GraphComponent implements OnInit, OnDestroy {
     );
     this.themePrefService.emitThemePreferencesSubject();
 
+    this.graphLoadingSubscription = this.graphService.graphLoadingSubject.subscribe(
+      (graphLoading: boolean) => {
+        this.graphLoading = graphLoading;
+      }
+    );
+    this.graphService.setGraphLoading(this.graphLoading);
+
     this.drawingGraphSubscription = this.graphService.drawingGraphSubject.subscribe(
       (drawingGraph: boolean) => {
         this.drawingGraph = drawingGraph;
@@ -46,7 +54,6 @@ export class GraphComponent implements OnInit, OnDestroy {
         this.graph = graph;
       }
     );
-
     this.graphService.setGraph();
   }
 
@@ -63,7 +70,7 @@ export class GraphComponent implements OnInit, OnDestroy {
         let Context = GraphCanvas.getContext('2d');
         Context.clearRect(0, 0, GraphCanvas.width, GraphCanvas.height);
         testdrawing();
-        this.loadingVisible = false;
+        this.graphLoading = false;
       }, 0);
     }
   }

@@ -9,13 +9,20 @@ export class GraphService {
   graphSubject: Subject<any>;
   drawingGraph: boolean;
   drawingGraphSubject: Subject<boolean>;
+  graphLoadingSubject: Subject<any>;
 
   constructor(private gitService: GitService) {
       this.graphSubject = new Subject<any>();
       this.drawingGraphSubject = new Subject<any>();
+      this.graphLoadingSubject = new Subject<any>();
   }
 
-  async setGraph(doNothing?: boolean) {
+  setGraphLoading(graphLoading) {
+    this.graphLoadingSubject.next(graphLoading);
+  }
+
+  async setGraph() {
+    this.setGraphLoading(true);
     return this.gitService.getWellFormatedTextGraph()
       .then((data) => {
         this.graph = [];
