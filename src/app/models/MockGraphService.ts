@@ -23,7 +23,19 @@ export class MockGraphService {
     this.graphSubject.next(graph);
   }
 
+  emitDrawingGraph(drawingGraph) {
+    this.drawingGraphSubject.next(drawingGraph);
+  }
+
   setGraph() {
     return true;
+  }
+
+  drawTheGraph(drawingGraph) {
+    if (drawingGraph) {
+      return true;
+    }
+
+    return false;
   }
 }

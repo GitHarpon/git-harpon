@@ -1,4 +1,4 @@
-function testdrawing() {
+function drawGitCommitGraph() {
     let graphList = [];
     if(!document.getElementById('graph-canvas')) {
         return;

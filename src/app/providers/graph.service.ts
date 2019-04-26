@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { GitService } from './git.service';
-import 'gitgraph.js';
+
+declare function drawGitCommitGraph(): any;
 
 @Injectable()
 export class GraphService {
@@ -25,12 +26,16 @@ export class GraphService {
     this.graphSubject.next(graph);
   }
 
+  emitDrawingGraph(drawingGraph) {
+    this.drawingGraphSubject.next(drawingGraph);
+  }
+
   async setGraph() {
     this.setGraphLoading(true);
     return this.gitService.getWellFormatedTextGraph()
       .then((data) => {
         this.graph = [];
-        this.graphSubject.next(this.graph);
+        this.emitGraph(this.graph);
         let GraphArray = data.newData.split('\n');
         const Regex = /^(.+?)(\s(B\[(.*?)\])? C\[(.+?)\] D\[(.+?)\] A\[(.+?)\] E\[(.+?)\] H\[(.+?)\] S\[(.+?)\])?$/mg;
         let Tmp;
@@ -66,9 +71,23 @@ export class GraphService {
           }
         });
         this.graph = Lines;
+        console.log(this.graph);
         this.drawingGraph = true;
-        this.graphSubject.next(this.graph);
-        this.drawingGraphSubject.next(this.drawingGraph);
+        this.emitGraph(this.graph);
+        this.emitDrawingGraph(this.drawingGraph);
       });
+  }
+
+  drawTheGraph(drawingGraph) {
+    if (drawingGraph) {
+      this.emitDrawingGraph(false);
+        setTimeout(() => {
+          let GraphCanvas: any = document.getElementById('graph-canvas');
+          let Context = GraphCanvas.getContext('2d');
+          Context.clearRect(0, 0, GraphCanvas.width, GraphCanvas.height);
+          drawGitCommitGraph();
+          this.setGraphLoading(false);
+        }, 0);
+    }
   }
 }

@@ -3,10 +3,6 @@ import { Subscription } from 'rxjs';
 import { ThemePreferencesService } from '../../providers/theme-preferences.service';
 import { RightPanelService } from '../../providers/right-panel.service';
 import { GraphService } from '../../providers/graph.service';
-import { GitService } from '../../providers/git.service';
-import { MetaCommit } from '../../models/MetaCommit';
-
-declare function testdrawing(): any;
 
 @Component({
   selector: 'app-graph',
@@ -18,10 +14,9 @@ export class GraphComponent implements OnInit, OnDestroy {
   graph: any;
   graphSubscription: Subscription;
   currentTheme: string;
-  metaCommitCollection: Array<MetaCommit>;
   graphLines: Array<any>;
   drawingGraph: boolean;
-  graphLoading = true;
+  graphLoading: boolean;
   drawingGraphSubscription: Subscription;
   graphLoadingSubscription: Subscription;
 
@@ -29,6 +24,8 @@ export class GraphComponent implements OnInit, OnDestroy {
     private graphService: GraphService) { }
 
   ngOnInit() {
+    this.graphLoading = true;
+
     this.themePrefSubscription = this.themePrefService.themePreferenceSubject.subscribe(
       (newTheme: string) => {
         this.currentTheme = newTheme;
@@ -48,12 +45,15 @@ export class GraphComponent implements OnInit, OnDestroy {
         this.drawingGraph = drawingGraph;
       }
     );
+    this.graphService.emitDrawingGraph(this.drawingGraph);
 
     this.graphSubscription = this.graphService.graphSubject.subscribe(
       (graph: any) => {
         this.graph = graph;
       }
     );
+    this.graphService.emitGraph(this.graph);
+
     this.graphService.setGraph();
   }
 
@@ -62,17 +62,11 @@ export class GraphComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  drawingit() {
-    if (this.drawingGraph) {
-      this.drawingGraph = false;
-      setTimeout(() => {
-        let GraphCanvas: any = document.getElementById('graph-canvas');
-        let Context = GraphCanvas.getContext('2d');
-        Context.clearRect(0, 0, GraphCanvas.width, GraphCanvas.height);
-        testdrawing();
-        this.graphLoading = false;
-      }, 0);
-    }
+  drawTheGraph() {
+    this.graphService.drawTheGraph(this.drawingGraph);
+
+    const Empty = '';
+    return Empty;
   }
 
   ngOnDestroy() {

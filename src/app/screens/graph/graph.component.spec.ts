@@ -74,29 +74,48 @@ describe('GraphComponent', () => {
 
   it('tests the ngOnInit function', () => {
     expect(component.themePrefSubscription).toBeDefined();
+    expect(component.graphLoadingSubscription).toBeDefined();
     expect(component.graphSubscription).toBeDefined();
+    expect(component.drawingGraphSubscription).toBeDefined();
   });
 
-  it ('test the openSendCommit function', () => {
+  it ('tests the openSendCommit function', () => {
     const Result = component.openSendCommit();
     expect(Result).toBeTruthy();
   });
 
-  it ('test the ngOnDestroy function with defined subscriptions', () => {
+  it('tests the drawTheGraph function with drawingGraph', () => {
+    const DrawingGraph = true;
+    component.drawingGraph = DrawingGraph;
+    const Empty = '';
+
+    const Result = component.drawTheGraph();
+
+    expect(Result).toBe(Empty);
+
+  });
+
+  it ('tests the ngOnDestroy function with defined subscriptions', () => {
     component.ngOnDestroy();
 
     expect(component.themePrefSubscription.closed).toBeTruthy();
+    expect(component.graphLoadingSubscription.closed).toBeTruthy();
     expect(component.graphSubscription.closed).toBeTruthy();
+    expect(component.drawingGraphSubscription.closed).toBeTruthy();
   });
 
-  it ('test the ngOnDestroy function with undefined subscriptions', () => {
+  it ('tests the ngOnDestroy function with undefined subscriptions', () => {
     const Undefined = undefined;
     component.themePrefSubscription = Undefined;
+    component.graphLoadingSubscription = Undefined;
     component.graphSubscription = Undefined;
+    component.drawingGraphSubscription = Undefined;
 
     component.ngOnDestroy();
 
     expect(component.themePrefSubscription).toBeUndefined();
+    expect(component.graphLoadingSubscription).toBeUndefined();
     expect(component.graphSubscription).toBeUndefined();
+    expect(component.drawingGraphSubscription).toBeUndefined();
   });
 });
