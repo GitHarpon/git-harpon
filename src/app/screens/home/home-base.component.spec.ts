@@ -207,7 +207,33 @@ describe('HomeComponent', () => {
   });
 
 
-  it('tests the openHomeView function with valid repoName', () => {
+  it('tests the openHomeView function with valid repoName and graph', () => {
+    const RepoName = '/path';
+    const HomeViewVisible = false;
+    const Graph = [{
+      relation: '*',
+      branch: '(HEAD -> master)',
+      rev: '33de52923be04d8a7b3aa9049ecb3249255f6a13',
+      date: '2019-04-26 16:51:59 +0200',
+      author: 'Git Harpon',
+      author_email: 'githarpon@gmail.com',
+      short_rev: '33de529',
+      subject: 'Initial commit'
+    }];
+    component.repoName = RepoName;
+    component.mainPanelVisible = !HomeViewVisible;
+    component.leftPanelVisible = HomeViewVisible;
+    component.graphVisible = HomeViewVisible;
+    component.rightPanelVisible = HomeViewVisible;
+    component.graph = Graph;
+    component.openHomeView();
+    expect(component.mainPanelVisible).toBeFalsy();
+    expect(component.leftPanelVisible).toBeTruthy();
+    expect(component.graphVisible).toBeTruthy();
+    expect(component.rightPanelVisible).toBeTruthy();
+  });
+
+  it('tests the openHomeView function with valid repoName and without graph', () => {
     const RepoName = '/path';
     const HomeViewVisible = false;
     component.repoName = RepoName;

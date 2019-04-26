@@ -19,6 +19,8 @@ export class MockGitService {
     recentProjectSubject: Subject<any>;
     branchNameSubject: Subject<any>;
     httpsUserSubject: Subject<HttpsUser>;
+    needToDrawGraph: boolean;
+    needToDrawGraphSubject: Subject<boolean>;
     httpsUser: HttpsUser;
     listUnstagedFilesSubject: Subject<any[]>;
     listStagedFilesSubject: Subject<any[]>;
@@ -33,6 +35,7 @@ export class MockGitService {
         this.httpsUserSubject = new Subject<HttpsUser>();
         this.listUnstagedFilesSubject = new Subject<any[]>();
         this.listStagedFilesSubject = new Subject<any[]>();
+        this.needToDrawGraphSubject = new Subject<boolean>();
         this.setHttpsUser({ username: null, password: null});
     }
 
@@ -67,6 +70,10 @@ export class MockGitService {
     setHttpsUser(newUser: HttpsUser) {
         this.httpsUser = newUser;
         this.emitHttpsUserSubject();
+    }
+
+    emitNeedToDrawGraph(needToDrawGraph) {
+        this.needToDrawGraphSubject.next(needToDrawGraph);
     }
 
     getCurrentBranch() {
