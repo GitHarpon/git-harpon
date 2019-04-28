@@ -12,6 +12,7 @@ import * as isomorphic from 'isomorphic-git';
 import { CommitDescription } from '../models/CommitInformations';
 import { RightPanelService } from './right-panel.service';
 import { DiffFileInformation } from '../models/DiffFileInformation';
+import { GraphService } from './graph.service';
 
 @Injectable()
 export class GitService {
@@ -25,6 +26,8 @@ export class GitService {
   repoNameSubject: Subject<any>;
   branchName: any;
   branchNameSubject: Subject<any>;
+  needToDrawGraph: boolean;
+  needToDrawGraphSubject: Subject<boolean>;
   gitP: any;
   git: any;
 
@@ -37,6 +40,7 @@ export class GitService {
     this.recentProjectSubject = new Subject<any[]>();
     this.branchNameSubject = new Subject<any>();
     this.httpsUserSubject = new Subject<HttpsUser>();
+    this.needToDrawGraphSubject = new Subject<boolean>();
     this.setHttpsUser({ username: null, password: null });
     if (this.recentProject[0]) {
       if (this.recentProject[0].path) {
@@ -74,6 +78,10 @@ export class GitService {
     this.emitHttpsUserSubject();
   }
 
+  emitNeedToDrawGraph(needToDrawGraph) {
+    this.needToDrawGraphSubject.next(needToDrawGraph);
+  }
+
   async getDiffFile(diffInformation: DiffFileInformation) {
     if (diffInformation.isCurrentCommit) {
       return this.gitP.raw(['diff', 'HEAD', '--', diffInformation.file]);
@@ -96,7 +104,6 @@ export class GitService {
           }
           gitPromise(PathToRepo).init()
             .then(() => {
-              this.setPath(PathToRepo);
 
               if (!this.electronService.fs.existsSync(this.electronService.path.join(PathToRepo, 'README.md'))) {
                 this.electronService.fs.writeFileSync(this.electronService.path.join(PathToRepo, 'README.md'), initName + '\r\n');
@@ -104,6 +111,8 @@ export class GitService {
 
               gitPromise(PathToRepo).add(this.electronService.path.join(PathToRepo, 'README.md')).then(() => {
                 gitPromise(PathToRepo).commit('Initial commit').then(() => {
+                  this.setPath(PathToRepo);
+
                   resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                     this.translate.instant('INIT.SUCCESS')));
                 });
@@ -128,6 +137,7 @@ export class GitService {
           .then(isRepo => {
             if (isRepo) {
               gitPromise(newPath).log().then(() => {
+                this.rightPanelService.setCommitHash(null);
                 this.path = newPath;
                 this.repoName = this.electronService.path.basename(this.path);
                 this.emitRepoNameSubject();
@@ -174,6 +184,7 @@ export class GitService {
                 .then(() => {
                   this.branchName = newBranchName;
                   this.emitBranchNameSubject();
+                  this.emitNeedToDrawGraph(true);
                   resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                   this.translate.instant('BRANCH.CREATED')));
                 })
@@ -189,6 +200,7 @@ export class GitService {
                     .then(() => {
                       this.branchName = newBranchName;
                       this.emitBranchNameSubject();
+                      this.emitNeedToDrawGraph(true);
                       resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                       this.translate.instant('BRANCH.CREATED')));
                     })
@@ -230,6 +242,7 @@ export class GitService {
                       .then(() => {
                         this.gitP.raw(['branch', '-d', '-r', deleteBranchName])
                           .then(() => {
+                            this.emitNeedToDrawGraph(true);
                             resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                             this.translate.instant('BRANCH.REMOTE_DELETED'), 'newData'));
                           })
@@ -265,6 +278,7 @@ export class GitService {
             } else {
               this.gitP.raw(['branch', '-D', deleteBranchName])
                 .then(() => {
+                  this.emitNeedToDrawGraph(true);
                   resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                   this.translate.instant('BRANCH.DELETED')));
                 })
@@ -325,6 +339,7 @@ export class GitService {
       if (this.repoName) {
         gitPromise(this.path).raw(['branch', '-m', oldName, newName])
           .then((result) => {
+            this.emitNeedToDrawGraph(true);
             resolve(new ServiceResult(true, this.translate.instant('BRANCH.BRANCH_RENAME'),
               this.translate.instant('BRANCH.BRANCH_RENAME_SUCCESS')));
           }).catch((err) => {
@@ -343,6 +358,7 @@ export class GitService {
       return new Promise<ServiceResult>((resolve, reject) => {
         gitPromise(this.path).checkout(newBranch).then(() => {
           this.getCurrentBranch();
+          this.emitNeedToDrawGraph(true);
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
         }).catch((err) => {
@@ -357,12 +373,29 @@ export class GitService {
     }
   }
 
+  async getWellFormatedTextGraph() {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      gitPromise(this.path).raw(['log', '--graph', '--date-order',
+      '--all', '-C', '-M', '--date=iso',
+      '--pretty=format:B[%d] C[%H] D[%ad] A[%an] E[%ae] H[%h] S[%s]']).then((data) => {
+        resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+        this.translate.instant('SUCCESS'), data));
+      }).catch((data) => {
+        console.log(data);
+        reject(new ServiceResult(true, this.translate.instant('ERROR'),
+        this.translate.instant('ERROR'), data));
+      });
+    });
+  }
+
+
   checkoutRemoteBranch(remoteBranch, currentBranch, isInLocal) {
     return new Promise<ServiceResult>((resolve, reject) => {
       if (!isInLocal) {
         gitPromise(this.path)
           .raw(['checkout', '-t', remoteBranch]).then((result) => {
           this.getCurrentBranch();
+          this.emitNeedToDrawGraph(true);
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
         }).catch((err) => {
@@ -383,6 +416,7 @@ export class GitService {
                   if (!isDifferent) {
                     gitPromise(this.path).checkout(LocalBranch).then((result) => {
                       this.getCurrentBranch();
+                      this.emitNeedToDrawGraph(true);
                       resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                         this.translate.instant('BRANCH.CHECKED_OUT')));
                     }).catch((err) => {
@@ -410,6 +444,7 @@ export class GitService {
       this.gitP.raw(['checkout', '-b', newBranch, remoteBranch])
       .then((result) => {
         this.getCurrentBranch();
+        this.emitNeedToDrawGraph(true);
         resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
       }).catch((err) => {
@@ -426,11 +461,37 @@ export class GitService {
       const LocalBranch = remoteBranch.split('/')[1];
       gitPromise(this.path).checkout(LocalBranch).then((result) => {
         this.getCurrentBranch();
+        this.emitNeedToDrawGraph(true);
         gitPromise(this.path).raw(['reset', '--hard', remoteBranch]).then((reset) => {
+          this.emitNeedToDrawGraph(true);
           resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('BRANCH.CHECKED_OUT')));
         });
       });
+    });
+  }
+
+  async rebaseBranches(rebaseBranchName) {
+    return new Promise<ServiceResult>((resolve, reject) => {
+      this.gitP.raw(['rebase', rebaseBranchName])
+        .then(() => {
+          this.emitNeedToDrawGraph(true);
+          resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
+            this.translate.instant('BRANCH.REBASED')));
+        })
+        .catch((err) => {
+          var ErrMsg = 'BRANCH.ERROR_REBASE';
+          var AccessDenied = false;
+          if (err.toString().includes('Échec')) {
+            ErrMsg = 'BRANCH.CONFLICT';
+          }
+          this.gitP.raw(['rebase', '--abort'])
+            .then((result) => {
+              resolve(result);
+            });
+            reject(new ServiceResult(false, this.translate.instant('BRANCH.ERROR_REBASE'),
+              this.translate.instant(ErrMsg), AccessDenied));
+        });
     });
   }
 
@@ -546,6 +607,8 @@ export class GitService {
         }
         this.gitP.raw(['push', '-u', Remote, branch])
         .then((result) => {
+            this.emitNeedToDrawGraph(true);
+
             resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('PUSH.DONE')));
           }).catch((err) => {
@@ -639,6 +702,7 @@ export class GitService {
         }
         this.gitP.pull(Remote, branch, {'--rebase': 'true'})
           .then((data) => {
+            this.emitNeedToDrawGraph(true);
             resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
             this.translate.instant('PULL.DONE'), 'newData'));
           })
@@ -704,7 +768,23 @@ export class GitService {
   commitChanges(summary: string, description: any) {
     this.gitP.commit(summary + '\n\n' + description).then(() => {
       this.updateFilesDiff();
+      this.emitNeedToDrawGraph(true);
     });
+    this.revParseHEAD().then((data) => {
+      this.rightPanelService.setCommitHash(data.replace('\n', ''));
+    });
+    this.rightPanelService.setView(true);
+    this.rightPanelService.setDiffViewVisible(false);
+  }
+
+  checkChanges() {
+    if (this.rightPanelService.listUnstagedFiles.length + this.rightPanelService.listStagedFiles.length
+        < 1) {
+      this.revParseHEAD().then((data) => {
+        this.rightPanelService.setCommitHash(data.replace('\n', ''));
+      });
+      this.rightPanelService.setView(true);
+    }
   }
 
   /* Fonction merge branche */
@@ -716,6 +796,7 @@ export class GitService {
           .then(() => {
             this.gitP.commit('Merge branch \'' + mergeBranchName + '\' into ' + this.branchName)
               .then(() => {
+                this.emitNeedToDrawGraph(true);
                 resolve(new ServiceResult(true, this.translate.instant('SUCCESS'),
                   this.translate.instant('BRANCH.DONE')));
               })

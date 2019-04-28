@@ -78,6 +78,8 @@ export class HomeComponent implements OnDestroy {
   remoteBranch: string;
   newCheckedoutBranchName: string;
   commitHash: string;
+  graph: any;
+  graphSubcription: Subscription;
 
   constructor(public router: Router, private toastr: ToastrService,
     private electronService: ElectronService, private gitService: GitService,
@@ -91,6 +93,13 @@ export class HomeComponent implements OnDestroy {
         this.path = path;
       });
     this.gitService.emitPathSubject();
+
+    this.graphSubcription = this.graphService.graphSubject.subscribe(
+      (graph: boolean) => {
+        this.graph = graph;
+      }
+    );
+    this.graphService.emitGraph(this.graph);
 
     this.repoNameSubscription = this.gitService.repoNameSubject.subscribe(
       (repoName: any) => {
@@ -145,11 +154,13 @@ export class HomeComponent implements OnDestroy {
   }
 
   @HostListener('window:focus', ['$event'])
-  onFocus() {
+  async onFocus() {
     if (this.repoName) {
-      this.gitService.updateFilesDiff();
+      await this.gitService.updateFilesDiff();
       this.leftPanelService.setLocalBranches();
       this.leftPanelService.setRemoteBranches();
+      this.gitService.emitNeedToDrawGraph(true);
+      this.gitService.checkChanges();
       return true;
     }
     return false;
@@ -527,6 +538,8 @@ export class HomeComponent implements OnDestroy {
     this.path = undefined;
     this.repoName = undefined;
     this.branchName = undefined;
+    this.graph = undefined;
+    this.graphService.emitGraph(this.graph);
     this.closeHomeView();
   }
 
@@ -540,7 +553,9 @@ export class HomeComponent implements OnDestroy {
       this.leftPanelService.setRemoteBranches();
       this.rightPanelService.setView(true);
       this.rightPanelService.setDiffViewVisible(false);
-      this.graphService.setGraph();
+      if (this.graph) {
+        this.graphService.setGraph();
+      }
     } else {
       this.mainPanelVisible = true;
     }
@@ -681,8 +696,22 @@ export class HomeComponent implements OnDestroy {
       });
   }
 
+  rebaseBranch(rebaseBranchName) {
+    this.homeLoading = true;
+    return this.gitService.rebaseBranches(rebaseBranchName)
+      .then((data) => {
+        this.homeLoading = false;
+        this.toastr.info(data.message, data.title);
+      })
+      .catch((data) => {
+        this.homeLoading = false;
+        this.toastr.error(data.message, data.title);
+      });
+  }
+
   ngOnDestroy() {
     this.pathSubscription.unsubscribe();
+    this.graphSubcription.unsubscribe();
     this.repoNameSubscription.unsubscribe();
     this.recentProjectSubscription.unsubscribe();
     this.branchNameSubscription.unsubscribe();

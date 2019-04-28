@@ -294,6 +294,64 @@ body {
     }
   }
 
+  &.dark {
+
+    & .d2h-tag {
+      background-color: $dark;
+    }
+
+    & .d2h-file-header {
+      background-color: #272A31;
+      color: $muted-white;
+      border-bottom: 1px solid $muted-white;
+    }
+
+    & .d2h-file-wrapper {
+      border: 1px solid $light-grey;
+    }
+
+    & .d2h-info {
+      background-color: $dark;
+      color: $muted-white;
+    }
+
+    & .d2h-emptyplaceholder, & .d2h-code-side-linenumber.d2h-code-side-emptyplaceholder,
+    & .d2h-code-side-linenumber.d2h-info,
+    & .d2h-code-linenumber.d2h-info, & .d2h-info {
+      background-color: #272A31;
+    }
+
+    & .d2h-code-linenumber, & .d2h-code-side-linenumber {
+      background-color: $dark;
+      color: $muted-white;
+      border: solid $muted-dark;
+      border-width: 0 1px 0 1px;
+    }
+
+    & .d2h-del {
+      background-color: #422428;
+      border-color: #866666;
+    }
+
+    & .d2h-ins {
+      background-color: #283D32;
+      border-color: #324536;
+    }
+
+    & .d2h-change {
+      background-color: yellow;
+      border-color: greenyellow;
+    }
+
+    & .d2h-code-line ins, & .d2h-code-side-line ins {
+      background-color: #32563E;
+    }
+
+    &  .d2h-code-line del, & .d2h-code-side-line del {
+      background-color: #61292C;
+    }
+  }
+
   &.dark .d2h-file-diff, &.dark .d2h-file-side-diff {
     &::-webkit-scrollbar-track-piece  {
       background-color: rgba(55, 56, 65, 0.3);
@@ -304,3 +362,18 @@ body {
     }
   }
 }
+
+
+/*** GRAPH ***/
+#git-graph-container, #rel-container {float:left;}
+#git-graph-container #rev-container { margin-right: 10px; }
+#git-graph-container #rev-container code { color: $gh-green; }
+#git-graph-container li {list-style-type:none;height:20px;line-height:20px;overflow:hidden;}	
+#git-graph-container li .node-relation {font-family:'Bitstream Vera Sans Mono', 'Courier', monospace;}
+#git-graph-container li .author {color:#666666;}
+#git-graph-container li .time {color:#999999;font-size:80%}
+#git-graph-container li a {color:#000000;}
+#git-graph-container li a em {color:#BB0000;border-bottom:1px dotted #BBBBBB;text-decoration:none;font-style:normal;}
+
+#rev-list {margin:0;padding:0 5px 0 0;}
+#graph-raw-list {margin:0px;}

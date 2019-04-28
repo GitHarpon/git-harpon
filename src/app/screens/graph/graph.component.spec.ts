@@ -16,6 +16,11 @@ import { MockGraphService } from '../../models/MockGraphService';
 import { TreeItemComponent } from '../../components/tree-item/tree-item.component';
 import { TreeComponent } from '../../components/tree/tree.component';
 import { TabsComponent } from '../../components/tabs/tabs.component';
+import { LoaderComponent } from '../../components/loader/loader.component';
+import { GitService } from '../../providers/git.service';
+import { MockGitService } from '../../models/MockGitService';
+import { LeftPanelService } from '../../providers/left-panel.service';
+import { MockLeftPanelService } from '../../models/MockLeftPanelService';
 
 describe('GraphComponent', () => {
   /* tslint:disable */
@@ -32,7 +37,8 @@ describe('GraphComponent', () => {
         ButtonComponent,
         TreeItemComponent,
         TreeComponent,
-        TabsComponent
+        TabsComponent,
+        LoaderComponent
       ],
       imports: [
         FormsModule,
@@ -53,6 +59,14 @@ describe('GraphComponent', () => {
         {
           provide: GraphService,
           useClass: MockGraphService
+        },
+        {
+          provide: GitService,
+          useClass: MockGitService
+        },
+        {
+          provide: LeftPanelService,
+          useClass: MockLeftPanelService
         }
       ]
     })
@@ -72,60 +86,48 @@ describe('GraphComponent', () => {
 
   it('tests the ngOnInit function', () => {
     expect(component.themePrefSubscription).toBeDefined();
+    expect(component.graphLoadingSubscription).toBeDefined();
     expect(component.graphSubscription).toBeDefined();
+    expect(component.drawingGraphSubscription).toBeDefined();
   });
 
-  it ('test the openSendCommit function', () => {
+  it ('tests the openSendCommit function', () => {
     const Result = component.openSendCommit();
     expect(Result).toBeTruthy();
   });
 
-  it('test the setCommitGraph function with valid graph', () => {
-    const Graph = [
-      {
-        hash: '9cdc1af73a6800632a32c31ba299bd9f4a2d71b9',
-        date: '2019-04-07 13:52:32 +0200',
-        message: 'first commit',
-        author_name: 'toto',
-        author_email: 'toto@gmail.com'
-      },
-      {
-        hash: 'aaf6c3dc90ec8bc02ebb7d23e85331b2118d5850',
-        date: '2019-04-07 15:52:32 +0200',
-        message: 'second commit',
-        author_name: 'tata',
-        author_email: 'tata@gmail.com'
-      }
-    ];
-    component.graph = Graph;
-    const Result = component.setCommitGraph();
-    expect(Result).toBeTruthy();
+  it('tests the drawTheGraph function with drawingGraph', () => {
+    const DrawingGraph = true;
+    component.drawingGraph = DrawingGraph;
+    const Empty = '';
+
+    const Result = component.drawTheGraph();
+
+    expect(Result).toBe(Empty);
+
   });
 
-  it('test the setCommitGraph function with invalid graph', () => {
-    const Undefined = undefined;
-    component.graph = Undefined;
-    const Result = component.setCommitGraph();
-    expect(Result).toBeFalsy();
-  });
-
-
-
-  it ('test the ngOnDestroy function with defined subscriptions', () => {
+  it ('tests the ngOnDestroy function with defined subscriptions', () => {
     component.ngOnDestroy();
 
     expect(component.themePrefSubscription.closed).toBeTruthy();
+    expect(component.graphLoadingSubscription.closed).toBeTruthy();
     expect(component.graphSubscription.closed).toBeTruthy();
+    expect(component.drawingGraphSubscription.closed).toBeTruthy();
   });
 
-  it ('test the ngOnDestroy function with undefined subscriptions', () => {
+  it ('tests the ngOnDestroy function with undefined subscriptions', () => {
     const Undefined = undefined;
     component.themePrefSubscription = Undefined;
+    component.graphLoadingSubscription = Undefined;
     component.graphSubscription = Undefined;
+    component.drawingGraphSubscription = Undefined;
 
     component.ngOnDestroy();
 
     expect(component.themePrefSubscription).toBeUndefined();
+    expect(component.graphLoadingSubscription).toBeUndefined();
     expect(component.graphSubscription).toBeUndefined();
+    expect(component.drawingGraphSubscription).toBeUndefined();
   });
 });
